@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 function SwipingCards(props) {
-  const [cards] = useState(["Card 1", "Card 2", "Card 3", "Card 4", "Card 5"]);
-
+  const [cards] = useState([
+    "Leg day",
+    "Chest day",
+    "Cardio day",
+    "Back day",
+    "Arm day",
+  ]);
   const [selectedCard, setSelectedCard] = useState(2);
 
   function Card(props) {
@@ -40,14 +45,38 @@ function SwipingCards(props) {
     );
   }
 
+  const pressButton = (direction) => {
+    let temp = selectedCard + 1 * direction;
+    if ((temp >= cards.length)) {
+      temp = 0;
+    }
+    if ((temp < 0)) {
+      temp = cards.length - 1;
+    }
+    setSelectedCard(temp);
+  };
+
   return (
     <View>
       <DisplayCards />
-      <TouchableOpacity style={{ backgroundColor: "red", height: 100 }} onPress={() => {setSelectedCard(selectedCard + 1)}}>
+
+      <TouchableOpacity
+        style={{ backgroundColor: "red", height: 50 }}
+        onPress={() => {pressButton(1)}}
+      >
         <Text style={{ textAlign: "center", fontSize: 50 }}>
-          {selectedCard}
+          Right
         </Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={{ backgroundColor: "red", height: 50 }}
+        onPress={() => {pressButton(-1)}}
+      >
+        <Text style={{ textAlign: "center", fontSize: 50 }}>
+          Left
+        </Text>
+      </TouchableOpacity>
+
     </View>
   );
 }
