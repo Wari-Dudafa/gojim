@@ -1,11 +1,13 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { View } from "react-native";
+
+import SwipingCards from "./SwipingCards";
 
 export default function App() {
   return (
     <View>
       <StatusBar style="auto" />
-      <Text>FiTone</Text>
+      <SwipingCards />
     </View>
   );
 }
