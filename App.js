@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import * as SQLite from "expo-sqlite";
 
 import DaysPage from "./app/pages/DaysPage";
 import SettingsPage from "./app/pages/SettingsPage";
@@ -9,6 +11,19 @@ import FoodPage from "./app/pages/FoodPage";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
+  const db = SQLite.openDatabase("fitone.db");
+
+  useEffect(() => {
+    db.transaction((tx) => {
+      tx.executeSql(
+        "CREATE TABLE IF NOT EXISTS user (name TEXT)",
+        null,
+        null,
+        (txObj, error) => console.log(error)
+      );
+    });
+  }, []);
+
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
