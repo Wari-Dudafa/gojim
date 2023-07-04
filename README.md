@@ -23,6 +23,7 @@ FiTone is a comprehensive fitness app designed to help you track your workouts a
 ## Technologies Used
 
 - React Native: A JavaScript library for building user interfaces.
+- Expo: React native framework for testing ad distrubition
 - SQLite: Storing data
 
 ## Contributing
