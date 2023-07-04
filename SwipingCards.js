@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, LayoutAnimation } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 
 function SwipingCards(props) {
   const [cards] = useState([
@@ -47,18 +47,14 @@ function SwipingCards(props) {
 
   const PressButton = (direction) => {
     let temp = selectedCard + 1 * direction;
-    if ((temp >= cards.length)) {
+    if (temp >= cards.length) {
       temp = 0;
     }
-    if ((temp < 0)) {
+    if (temp < 0) {
       temp = cards.length - 1;
     }
     setSelectedCard(temp);
   };
-
-  const Animate = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-  }
 
   return (
     <View>
@@ -66,21 +62,20 @@ function SwipingCards(props) {
 
       <TouchableOpacity
         style={{ backgroundColor: "red", height: 50 }}
-        onPress={() => {PressButton(1)}}
+        onPress={() => {
+          PressButton(1);
+        }}
       >
-        <Text style={{ textAlign: "center", fontSize: 50 }}>
-          Right
-        </Text>
+        <Text style={{ textAlign: "center", fontSize: 50 }}>Right</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={{ backgroundColor: "red", height: 50 }}
-        onPress={() => {PressButton(-1)}}
+        onPress={() => {
+          PressButton(-1);
+        }}
       >
-        <Text style={{ textAlign: "center", fontSize: 50 }}>
-          Left
-        </Text>
+        <Text style={{ textAlign: "center", fontSize: 50 }}>Left</Text>
       </TouchableOpacity>
-
     </View>
   );
 }
