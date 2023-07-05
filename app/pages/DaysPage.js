@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
 import * as SQLite from "expo-sqlite";
 
+import SwipingCards from "../../SwipingCards";
+
 function DaysPage(props) {
   const db = SQLite.openDatabase("fitone.db");
   const [name, setName] = useState("");
@@ -34,7 +36,9 @@ function DaysPage(props) {
   };
 
   return (
-    <View>
+    <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
+      <SwipingCards />
+      {/* 
       <Text>Days page</Text>
       <TextInput placeholder="Name" value={name} onChangeText={setName} />
       <Button
@@ -43,6 +47,7 @@ function DaysPage(props) {
           AddName(name);
         }}
       />
+      */}
     </View>
   );
 }

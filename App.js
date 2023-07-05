@@ -37,15 +37,15 @@ export default function App() {
             ),
             tabBarShowLabel: false,
             tabBarStyle: {
-              borderTopWidth: 0,
-              paddingHorizontal: 10,
-              height: 80,
-              paddingTop: 30,
-              backgroundColor: "green",
+              borderTopWidth: 3,
+              borderTopColor: "#2e476b",
+              height: 89,
+              paddingTop: 25,
+              backgroundColor: "#1f3047",
               justifyContent: "space-around",
               alignItems: "center",
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
+              borderTopLeftRadius: 0,
+              borderTopRightRadius: 0,
             },
           })}
         >
@@ -61,14 +61,13 @@ export default function App() {
 const styles = StyleSheet.create({
   header: {
     height: 85,
-    backgroundColor: "green",
+    backgroundColor: "#1f3047",
     justifyContent: "center",
     alignItems: "center",
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
   },
   headerTitle: {
     fontSize: 18,
+    color: "#e6e6e6",
     fontWeight: "bold",
   },
   screenContainer: {

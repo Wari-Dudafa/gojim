@@ -1,9 +1,10 @@
 import React from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, Alert } from "react-native";
 
 function SettingsPage(props) {
   const Deletedata = () => {
     console.log("Data Deleted!");
+    Alert.alert("Data Deleted");
     // Add functionality later
   };
 

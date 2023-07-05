@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 function SwipingCards(props) {
   const [cards] = useState([
@@ -12,17 +13,43 @@ function SwipingCards(props) {
   const [selectedCard, setSelectedCard] = useState(2);
 
   function Card(props) {
+    var random = Math.random();
+    var scaleX = random < 0.5 ? 1 : -1;
+    random = Math.random();
+    var scaleY = random < 0.5 ? 1 : -1;
     return (
       <View style={props.style}>
-        <Text
+        <Image
           style={{
-            textAlign: "center",
-            fontSize: 50,
-            fontWeight: 900,
+            position: "absolute",
+            width: 280,
+            height: 450,
+            resizeMode: "stretch",
+            opacity: 0.05,
+            transform: [{ scaleX: scaleX }, { scaleY: scaleY }],
+            zIndex: -1,
+          }}
+          source={require("./assets/shading.png")}
+        />
+        <View
+          style={{
+            flex: 1,
+            borderRadius: 10,
+            borderColor: "#e6e6e6",
+            borderWidth: 5,
           }}
         >
-          {props.text}
-        </Text>
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 40,
+              fontWeight: 900,
+              color: "#e6e6e6",
+            }}
+          >
+            {props.text}
+          </Text>
+        </View>
       </View>
     );
   }
@@ -61,20 +88,37 @@ function SwipingCards(props) {
       <DisplayCards />
 
       <TouchableOpacity
-        style={{ backgroundColor: "red", height: 50 }}
+        style={{
+          backgroundColor: "#2e476b",
+          height: 60,
+          width: 60,
+          position: "absolute",
+          borderRadius: 100,
+          right: "15%",
+          top: 600,
+        }}
         onPress={() => {
           PressButton(1);
         }}
       >
-        <Text style={{ textAlign: "center", fontSize: 50 }}>Right</Text>
+        <Text style={{ textAlign: "center", fontSize: 50 }}> </Text>
       </TouchableOpacity>
+
       <TouchableOpacity
-        style={{ backgroundColor: "red", height: 50 }}
+        style={{
+          backgroundColor: "#2e476b",
+          height: 60,
+          width: 60,
+          position: "absolute",
+          borderRadius: 100,
+          left: "15%",
+          top: 600,
+        }}
         onPress={() => {
           PressButton(-1);
         }}
       >
-        <Text style={{ textAlign: "center", fontSize: 50 }}>Left</Text>
+        <Text style={{ textAlign: "center", fontSize: 50 }}> </Text>
       </TouchableOpacity>
     </View>
   );
@@ -98,6 +142,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 100,
     backgroundColor: "#93c244",
+    borderColor: "#2e476b",
+    borderWidth: 2,
     margin: 10,
     padding: 20,
     height: 450,
@@ -107,8 +153,9 @@ const styles = StyleSheet.create({
   },
   leftCard: {
     position: "absolute",
+    opacity: 0.8,
     top: 100,
-    backgroundColor: "#7da739",
+    backgroundColor: "#93c244",
     margin: 10,
     padding: 20,
     height: 450,
@@ -118,8 +165,9 @@ const styles = StyleSheet.create({
   },
   rightCard: {
     position: "absolute",
+    opacity: 0.8,
     top: 100,
-    backgroundColor: "#7da739",
+    backgroundColor: "#93c244",
     margin: 10,
     padding: 20,
     height: 450,
