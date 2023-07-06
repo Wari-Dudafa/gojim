@@ -4,7 +4,7 @@ import * as SQLite from "expo-sqlite";
 
 import SwipingCards from "../../SwipingCards";
 
-function DaysPage(props) {
+function DaysPage({ navigation, props }) {
   const db = SQLite.openDatabase("fitone.db");
   const [name, setName] = useState("");
   const [results, setCurrentName] = useState([]);
@@ -38,7 +38,6 @@ function DaysPage(props) {
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
       <SwipingCards />
-      {/* 
       <Text>Days page</Text>
       <TextInput placeholder="Name" value={name} onChangeText={setName} />
       <Button
@@ -47,7 +46,7 @@ function DaysPage(props) {
           AddName(name);
         }}
       />
-      */}
+      <Button title="Add new day" onPress={() => {navigation.navigate("AddDaysPage")}}></Button>
     </View>
   );
 }
