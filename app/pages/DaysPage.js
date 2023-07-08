@@ -18,7 +18,6 @@ function DaysPage({ navigation, props }) {
         (txObj, error) => console.log(error)
       );
     });
-    console.log("query results: ", results);
   }, []);
 
   const AddName = (name) => {
@@ -38,7 +37,6 @@ function DaysPage({ navigation, props }) {
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
       <SwipingCards />
-      <Text>Days page</Text>
       <TextInput placeholder="Name" value={name} onChangeText={setName} />
       <Button
         title="submit name"
@@ -46,7 +44,12 @@ function DaysPage({ navigation, props }) {
           AddName(name);
         }}
       />
-      <Button title="Add new day" onPress={() => {navigation.navigate("AddDaysPage")}}></Button>
+      <Button
+        title="Add new day"
+        onPress={() => {
+          navigation.navigate("AddDaysPage");
+        }}
+      ></Button>
     </View>
   );
 }

@@ -8,7 +8,6 @@ import * as SQLite from "expo-sqlite";
 import DaysStackPage from "./app/pages/DaysStackPage";
 import SettingsPage from "./app/pages/SettingsPage";
 import FoodPage from "./app/pages/FoodPage";
-import AddDaysPage from "./app/pages/AddDaysPage";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
@@ -53,11 +52,6 @@ export default function App() {
           <Tab.Screen name="DaysStackPage" component={DaysStackPage} />
           <Tab.Screen name="FoodPage" component={FoodPage} />
           <Tab.Screen name="SettingsPage" component={SettingsPage} />
-          <Tab.Screen
-            screenOptions={{ presentation: "modal" }}
-            name="AddDaysPage"
-            component={AddDaysPage}
-          />
         </Tab.Navigator>
       </View>
     </NavigationContainer>
