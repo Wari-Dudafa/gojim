@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+
+import Card from "./app/components/Card.js";
 
 function SwipingCards(props) {
+  let defaultCardIndex = 2;
   const [cards] = useState([
     "Leg day",
     "Chest day",
@@ -10,49 +12,7 @@ function SwipingCards(props) {
     "Back day",
     "Arm day",
   ]);
-  const [selectedCard, setSelectedCard] = useState(2);
-
-  function Card(props) {
-    var random = Math.random();
-    var scaleX = random < 0.5 ? 1 : -1;
-    random = Math.random();
-    var scaleY = random < 0.5 ? 1 : -1;
-    return (
-      <View style={props.style}>
-        <Image
-          style={{
-            position: "absolute",
-            width: 280,
-            height: 450,
-            resizeMode: "stretch",
-            opacity: 0.05,
-            transform: [{ scaleX: scaleX }, { scaleY: scaleY }],
-            zIndex: -1,
-          }}
-          source={require("./assets/shading.png")}
-        />
-        <View
-          style={{
-            flex: 1,
-            borderRadius: 10,
-            borderColor: "#e6e6e6",
-            borderWidth: 5,
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 40,
-              fontWeight: 900,
-              color: "#e6e6e6",
-            }}
-          >
-            {props.text}
-          </Text>
-        </View>
-      </View>
-    );
-  }
+  const [selectedCard, setSelectedCard] = useState(defaultCardIndex);
 
   function DisplayCards(props) {
     return (

@@ -3,9 +3,16 @@ import { View, Text, Button, Alert } from "react-native";
 
 function SettingsPage(props) {
   const Deletedata = () => {
-    console.log("Data Deleted!");
+    db.transaction((tx) => {
+      tx.executeSql(
+        "", // Delete all the tables in the database
+        null,
+        null,
+        (txObj, error) => console.log(error)
+      );
+    });
+
     Alert.alert("Data Deleted");
-    // Add functionality later
   };
 
   return (

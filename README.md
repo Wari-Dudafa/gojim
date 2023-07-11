@@ -32,7 +32,7 @@ Contributions to FiTone are always welcome! If you have any ideas, improvements,
 
 ## Contact
 
-For any questions or inquiries, please reach out to the project owner:
+For any questions or inquiries, please reach out:
 
 Waripamo-owei Dudafa
 Email: waripamooweidudafa@gmail.com

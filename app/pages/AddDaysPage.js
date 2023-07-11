@@ -1,31 +1,43 @@
 import React, { useState } from "react";
-import { View, TextInput, TouchableOpacity, Text } from "react-native";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  ScrollView,
+} from "react-native";
 
 import Exercise from "../classes/ExerciseClass";
 
 function AddDaysPage({ navigation, props }) {
+  // Default exercise in a day
+  let defaultExercise = new Exercise({});
+
   const [dayName, setDayName] = useState("");
-  const [currentExercises, setCurrentExercise] = useState([]);
+  const [currentExercises, setCurrentExercise] = useState([defaultExercise]);
 
   function DisplayExercises() {
+    // For each exercise in the array, an exercise selector component is rendered with the exercise passed into the render component as a prop
     return (
       <View>
-        <Text>
-          This will display all the exercises using a map over an array of all
-          the exercise objects
-        </Text>
+        <Text>This will display the exercise selectors</Text>
       </View>
     );
   }
 
   const AddExercise = () => {
     console.log("New exercise added");
-    // Add functionality later
+    // Duplicate state array
+    // Append new exercise
+    // Set temporary array to state array
   };
 
   const SaveDay = () => {
     console.log("New day added");
-    // Add functionality later
+    // Adds exercise data from the array to the database
+    // Adds day name to the database
+    // User feedback
+    // Close modal
   };
 
   return (
@@ -47,7 +59,9 @@ function AddDaysPage({ navigation, props }) {
         onChangeText={setDayName}
       />
 
-      <DisplayExercises />
+      <ScrollView>
+        <DisplayExercises />
+      </ScrollView>
     </View>
   );
 }

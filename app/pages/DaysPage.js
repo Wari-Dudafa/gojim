@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Button, Alert } from "react-native";
+import { View, TextInput, Button, Alert } from "react-native";
 import * as SQLite from "expo-sqlite";
 
 import SwipingCards from "../../SwipingCards";
@@ -17,6 +17,7 @@ function DaysPage({ navigation, props }) {
         (txObj, resultSet) => setCurrentName(resultSet.rows._array),
         (txObj, error) => console.log(error)
       );
+      console.log(results);
     });
   }, []);
 
@@ -28,10 +29,9 @@ function DaysPage({ navigation, props }) {
         null,
         (txObj, error) => console.log(error)
       );
-      Alert.alert("Name saved");
       setName("");
+      Alert.alert("Name saved");
     });
-    console.log(name);
   };
 
   return (
