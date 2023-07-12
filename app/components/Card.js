@@ -1,10 +1,12 @@
-import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
 function Card(props) {
   return (
     <View style={props.style}>
-      <Image style={styles.image} source={require("./assets/shading.png")} />
+      <Image
+        style={styles.image}
+        source={require("../../assets/shading.png")}
+      />
       <View style={styles.border}>
         <Text style={styles.text}>{props.text}</Text>
       </View>
@@ -21,24 +23,7 @@ const styles = StyleSheet.create({
     height: 450,
     resizeMode: "stretch",
     opacity: 0.05,
-    transform: [
-      {
-        scaleX: () => {
-          // Either 1 or -1
-          var random = Math.random();
-          var scaleX = random < 0.5 ? 1 : -1;
-          return scaleX;
-        },
-      },
-      {
-        scaleY: () => {
-          // Either 1 or -1
-          var random = Math.random();
-          var scaleY = random < 0.5 ? 1 : -1;
-          return scaleY;
-        },
-      },
-    ],
+    transform: [{ scaleX: 1 }, { scaleY: 1 }],
     zIndex: -1,
   },
   border: {
@@ -54,3 +39,12 @@ const styles = StyleSheet.create({
     color: "#e6e6e6",
   },
 });
+
+// scaleY and scaleX don't take an anonymous function for whatever reason but if you ever need it- here is the code
+
+() => {
+  // Either 1 or -1
+  var randomNumber = Math.random();
+  var result = randomNumber < 0.5 ? 1 : -1;
+  return result;
+};
