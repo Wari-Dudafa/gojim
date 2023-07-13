@@ -18,6 +18,8 @@ function NewExerciseSelector(props) {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView style={styles.scroll}>
         {props.exercises.map((item, index) => {
+          if (item == null) return;
+
           RenderRightActions = (progress) => {
             RenderRightAction = (text, color, x, progress, onPress) => {
               const trans = progress.interpolate({
@@ -51,24 +53,24 @@ function NewExerciseSelector(props) {
             );
           };
 
-          const Edit = () => {
-            // Edit excercise object
-            Alert.alert("Edited");
-          };
-
-          const Delete = () => {
-            // Delete excercise object from array
-            // Set updated array ad main array
-            Alert.alert("Deleted");
-            Close();
-          };
-
-          UpdateRef = (ref) => {
+          const UpdateRef = (ref) => {
             swipeableRow = ref;
           };
 
-          Close = () => {
+          const Close = () => {
             swipeableRow.close();
+          };
+
+          const Edit = () => {
+            Alert.alert("Functionality to come soon");
+          };
+
+          const Delete = () => {
+            Close();
+            const updatedExercises = [...props.exercises];
+            updatedExercises[index] = null;
+            props.setExercises(updatedExercises);
+            Alert.alert("Exercise deleted");
           };
 
           return (
@@ -77,8 +79,9 @@ function NewExerciseSelector(props) {
               friction={2}
               rightThreshold={50}
               renderRightActions={RenderRightActions}
+              key={index}
             >
-              <View style={styles.container} key={index}>
+              <View style={styles.container}>
                 <View key={index} style={styles.exerciseContainer}>
                   <Text style={styles.name}>{item.name}</Text>
                   <Text style={styles.reps}>{item.reps} reps</Text>
@@ -92,6 +95,7 @@ function NewExerciseSelector(props) {
             </Swipeable>
           );
         })}
+        <View style={{ height: 100 }} />
       </ScrollView>
     </GestureHandlerRootView>
   );
