@@ -5,6 +5,7 @@ import Card from "./app/components/Card.js";
 
 function SwipingCards(props) {
   let defaultCardIndex = 2;
+
   const [cards] = useState([
     "Leg day",
     "Chest day",
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
   },
   mainCard: {
     position: "absolute",
-    top: 100,
+    top: 70,
     backgroundColor: "#93c244",
     borderColor: "#2e476b",
     borderWidth: 2,
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
   leftCard: {
     position: "absolute",
     opacity: 0.8,
-    top: 100,
+    top: 120,
     backgroundColor: "#93c244",
     margin: 10,
     padding: 20,
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
   rightCard: {
     position: "absolute",
     opacity: 0.8,
-    top: 100,
+    top: 120,
     backgroundColor: "#93c244",
     margin: 10,
     padding: 20,
