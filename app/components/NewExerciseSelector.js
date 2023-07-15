@@ -47,8 +47,8 @@ function NewExerciseSelector(props) {
 
             return (
               <View style={{ width: 192, flexDirection: "row-reverse" }}>
-                {RenderRightAction("Delete", "red", 128, progress, Delete)}
-                {RenderRightAction("Edit", "blue", 192, progress, Edit)}
+                {RenderRightAction("Delete", "#c24451", 128, progress, Delete)}
+                {RenderRightAction("Edit", "#4490c2", 192, progress, Edit)}
               </View>
             );
           };

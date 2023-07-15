@@ -7,10 +7,10 @@ import {
   StyleSheet,
   Alert,
 } from "react-native";
+import { Feather } from "@expo/vector-icons";
 
 import Exercise from "../classes/ExerciseClass";
 import NewExerciseSelector from "../components/NewExerciseSelector";
-import PlusButton from "../components/PlusButton";
 
 function AddDaysPage({ navigation, props }) {
   // Default exercise in a day
@@ -34,18 +34,22 @@ function AddDaysPage({ navigation, props }) {
     // Adds exercise data from the array to the database
     // Adds day name to the database
     // User feedback
-    Alert.alert('New day added')
+    Alert.alert("New day added");
     // Close modal
-    navigation.pop()
+    navigation.pop();
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.done} onPress={SaveDay}>
-        <Text style={styles.done.text}>Done</Text>
-      </TouchableOpacity>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <TouchableOpacity style={styles.plus} onPress={AddExercise}>
+          <Feather name="plus" size={50} color="#e6e6e6" />
+        </TouchableOpacity>
 
-      <PlusButton onPress={AddExercise} />
+        <TouchableOpacity style={styles.check} onPress={SaveDay}>
+          <Feather name="check" size={50} color="#e6e6e6" />
+        </TouchableOpacity>
+      </View>
 
       <TextInput
         style={styles.dayName}
@@ -62,17 +66,20 @@ function AddDaysPage({ navigation, props }) {
 export default AddDaysPage;
 
 const styles = StyleSheet.create({
-  done: {
-    text:{
-      color: "#e6e6e6",
-      fontSize: 20,
-    },
-    backgroundColor: "red",
+  check: {
+    marginTop: 10,
+    marginRight: 10,
+  },
+  plus: {
+    marginTop: 10,
+    marginLeft: 10,
   },
   dayName: {
     fontSize: 55,
     color: "#e6e6e6",
     marginLeft: 10,
+    textAlign: "center",
+    marginBottom: 20,
   },
   container: {
     flex: 1,
