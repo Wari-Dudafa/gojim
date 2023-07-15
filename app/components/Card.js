@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 
 function Card(props) {
   return (
@@ -7,9 +7,12 @@ function Card(props) {
         style={styles.image}
         source={require("../../assets/shading.png")}
       />
+
       <View style={styles.border}>
         <Text style={styles.text}>{props.text}</Text>
+        <View style={styles.underline} />
       </View>
+
     </View>
   );
 }
@@ -31,12 +34,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderColor: "#e6e6e6",
     borderWidth: 5,
+    alignContent: "center",
   },
   text: {
     textAlign: "center",
     fontSize: 40,
     fontWeight: 900,
     color: "#e6e6e6",
+  },
+  underline: {
+    width: "90%",
+    height: 5,
+    borderRadius: 10,
+    alignSelf: "center",
+    marginTop: 5,
+    backgroundColor: "#e6e6e6",
   },
 });
 

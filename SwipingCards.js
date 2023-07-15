@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   leftCard: {
     position: "absolute",
-    opacity: 0.8,
+    opacity: 0.6,
     top: 120,
     backgroundColor: "#93c244",
     margin: 10,
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   rightCard: {
     position: "absolute",
-    opacity: 0.8,
+    opacity: 0.6,
     top: 120,
     backgroundColor: "#93c244",
     margin: 10,

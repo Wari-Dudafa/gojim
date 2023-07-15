@@ -10,7 +10,7 @@ function DaysPage({ navigation, props }) {
         onPress={() => {
           navigation.navigate("AddDaysPage");
         }}
-        style={{ backgroundColor: "red", position: "absolute" }}
+        style={{ backgroundColor: "red" }}
       >
         <Text style={{ color: "#e6e6e6", fontSize: 20 }}>Add a new day</Text>
       </TouchableOpacity>
