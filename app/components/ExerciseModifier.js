@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,6 +11,8 @@ import {
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 function ExerciseModifier(props) {
+  const [swipeableRow, setSwipeableRow] = useState(null);
+
   RenderRightActions = (progress) => {
     RenderRightAction = (text, color, x, progress, onPress) => {
       const trans = progress.interpolate({
@@ -44,11 +47,13 @@ function ExerciseModifier(props) {
   };
 
   const UpdateRef = (ref) => {
-    swipeableRow = ref;
+    setSwipeableRow(ref);
   };
 
   const Close = () => {
-    // Close the swipable row
+    if (swipeableRow) {
+      swipeableRow.close();
+    }
   };
 
   const Edit = () => {
