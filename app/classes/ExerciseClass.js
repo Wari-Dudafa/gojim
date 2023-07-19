@@ -4,4 +4,16 @@ export default class Exercise {
     this.reps = config.reps;
     this.sets = config.sets;
   }
+
+  UpdateExercise(config) {
+    if (config.name) {
+      this.name = config.name;
+    }
+    if (config.reps) {
+      this.reps = config.reps;
+    }
+    if (config.sets) {
+      this.sets = config.sets;
+    }
+  }
 }

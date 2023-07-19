@@ -1,99 +1,16 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-  Animated,
-  Alert,
-} from "react-native";
-import Swipeable from "react-native-gesture-handler/Swipeable";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+
+import ExerciseModifier from "./ExerciseModifier";
 
 function NewExerciseSelector(props) {
   // For each exercise in the array, an exercise selector component is rendered
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ScrollView style={styles.scroll}>
+      <ScrollView style={styles.container}>
         {props.exercises.map((item, index) => {
-          if (item == null) return;
-
-          RenderRightActions = (progress) => {
-            RenderRightAction = (text, color, x, progress, onPress) => {
-              const trans = progress.interpolate({
-                inputRange: [0, 1],
-                outputRange: [x, 0],
-              });
-
-              return (
-                <Animated.View
-                  style={{
-                    flex: 1,
-                    transform: [{ translateX: 0 }],
-                    marginVertical: 10,
-                  }}
-                >
-                  <TouchableOpacity
-                    style={[styles.rightAction, { backgroundColor: color }]}
-                    onPress={onPress}
-                  >
-                    <Text style={styles.rightActionText}>{text}</Text>
-                  </TouchableOpacity>
-                </Animated.View>
-              );
-            };
-
-            return (
-              <View style={{ width: 192, flexDirection: "row-reverse" }}>
-                {RenderRightAction("Delete", "#c24451", 128, progress, Delete)}
-                {RenderRightAction("Edit", "#4490c2", 192, progress, Edit)}
-              </View>
-            );
-          };
-
-          const UpdateRef = (ref) => {
-            swipeableRow = ref;
-          };
-
-          const Close = () => {
-            swipeableRow.close();
-          };
-
-          const Edit = () => {
-            Alert.alert("Functionality to come soon");
-          };
-
-          const Delete = () => {
-            Close();
-            const updatedExercises = [...props.exercises];
-            updatedExercises[index] = null;
-            props.setExercises(updatedExercises);
-            Alert.alert("Exercise deleted");
-          };
-
-          return (
-            <Swipeable
-              ref={UpdateRef}
-              friction={2}
-              rightThreshold={50}
-              renderRightActions={RenderRightActions}
-              key={index}
-            >
-              <View style={styles.container}>
-                <View key={index} style={styles.exerciseContainer}>
-                  <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.reps}>{item.reps} reps</Text>
-                  <Text style={styles.sets}>{item.sets} sets </Text>
-                  <Image
-                    style={styles.image}
-                    source={require("../../assets/shading.png")}
-                  />
-                </View>
-              </View>
-            </Swipeable>
-          );
+          return <ExerciseModifier item={item} index={index} key={index} />;
         })}
         <View style={{ height: 100 }} />
       </ScrollView>
@@ -104,56 +21,8 @@ function NewExerciseSelector(props) {
 export default NewExerciseSelector;
 
 const styles = StyleSheet.create({
-  name: {
-    color: "#e6e6e6",
-    fontWeight: 800,
-    fontSize: 40,
-  },
-  reps: {
-    color: "#e6e6e6",
-    fontSize: 20,
-  },
-  sets: {
-    color: "#e6e6e6",
-    fontSize: 20,
-  },
-  exerciseContainer: {
-    flex: 1,
-    backgroundColor: "#93c244",
-    borderColor: "#2e476b",
-    borderRadius: 10,
-    justifyContent: "center",
-    borderWidth: 2,
-    padding: 10,
-    overflow: "hidden",
-  },
-  image: {
-    position: "absolute",
-    resizeMode: "stretch",
-    opacity: 0.05,
-    transform: [{ scaleX: 1 }, { scaleY: 1 }],
-    zIndex: -1,
-  },
   container: {
     flex: 1,
-    margin: 5,
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  scroll: {
-    flex: 1,
     paddingBottom: 20,
-  },
-  rightAction: {
-    borderRadius: 10,
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "center",
-    marginRight: 10,
-  },
-  rightActionText: {
-    color: "#e6e6e6",
-    fontSize: 20,
-    padding: 10,
   },
 });
