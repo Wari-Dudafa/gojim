@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Animated,
   Alert,
+  TextInput,
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
@@ -16,6 +17,16 @@ function ExerciseModifier(props) {
   const [reps, setReps] = useState(6);
   const [sets, setSets] = useState(4);
   const index = props.index;
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const animationValue = useRef(new Animated.Value(0)).current;
+
+  const dynamicStyle = {
+    height: animationValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 100],
+    }),
+  };
 
   if (props.item == null) return;
 
@@ -64,10 +75,10 @@ function ExerciseModifier(props) {
 
   const Edit = () => {
     Close();
+    ToggleEdit();
     temp = [...props.exercises];
     temp[index].UpdateExercise({ name: name, reps: reps, sets: sets });
     props.setExercises(temp);
-    Alert.alert("Exercise edited");
   };
 
   const Delete = () => {
@@ -76,6 +87,16 @@ function ExerciseModifier(props) {
     temp[index] = null;
     props.setExercises(temp);
     Alert.alert("Exercise deleted");
+  };
+
+  const ToggleEdit = () => {
+    setIsEnabled(!isEnabled);
+    const toValue = isEnabled ? 0 : 1;
+    Animated.timing(animationValue, {
+      toValue,
+      duration: 500,
+      useNativeDriver: false,
+    }).start();
   };
 
   return (
@@ -90,6 +111,20 @@ function ExerciseModifier(props) {
           <Text style={styles.name}>{props.item.name}</Text>
           <Text style={styles.reps}>{props.item.reps} reps</Text>
           <Text style={styles.sets}>{props.item.sets} sets </Text>
+          <Animated.View
+            style={[{ flex: 1, backgroundColor: "blue" }, dynamicStyle]}
+          >
+            <TextInput
+              style={{ flex: 1 }}
+              placeholder="Exercise name"
+              value={name}
+              onChangeText={setName}
+            />
+            <TouchableOpacity
+              onPress={ToggleEdit}
+              style={{ flex: 1, backgroundColor: "red" }}
+            />
+          </Animated.View>
           <Image
             style={styles.image}
             source={require("../../assets/shading.png")}
