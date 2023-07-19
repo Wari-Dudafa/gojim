@@ -10,7 +10,15 @@ function NewExerciseSelector(props) {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView style={styles.container}>
         {props.exercises.map((item, index) => {
-          return <ExerciseModifier item={item} index={index} key={index} />;
+          return (
+            <ExerciseModifier
+              item={item}
+              index={index}
+              key={index}
+              exercises={props.exercises}
+              setExercises={props.setExercises}
+            />
+          );
         })}
         <View style={{ height: 100 }} />
       </ScrollView>

@@ -11,7 +11,13 @@ import {
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 function ExerciseModifier(props) {
-  const [swipeableRow, setSwipeableRow] = useState(null);
+  const [swipeableRow, setSwipeableRow] = useState();
+  const [name, setName] = useState("Squats");
+  const [reps, setReps] = useState(6);
+  const [sets, setSets] = useState(4);
+  const index = props.index;
+
+  if (props.item == null) return;
 
   RenderRightActions = (progress) => {
     RenderRightAction = (text, color, x, progress, onPress) => {
@@ -58,12 +64,18 @@ function ExerciseModifier(props) {
 
   const Edit = () => {
     Close();
-    Alert.alert("Functionality to come soon");
+    temp = [...props.exercises];
+    temp[index].UpdateExercise({ name: name, reps: reps, sets: sets });
+    props.setExercises(temp);
+    Alert.alert("Exercise edited");
   };
 
   const Delete = () => {
     Close();
-    Alert.alert("Functionality to come soon");
+    temp = [...props.exercises];
+    temp[index] = null;
+    props.setExercises(temp);
+    Alert.alert("Exercise deleted");
   };
 
   return (

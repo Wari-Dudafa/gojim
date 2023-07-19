@@ -3,7 +3,6 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Text,
   StyleSheet,
   Alert,
 } from "react-native";
@@ -15,9 +14,9 @@ import NewExerciseSelector from "../components/NewExerciseSelector";
 function AddDaysPage({ navigation, props }) {
   // Default exercise in a day
   const defaultExercise = new Exercise({
-    name: "Bench Press",
-    reps: 12,
-    sets: 3,
+    name: "Exercise",
+    reps: 0,
+    sets: 0,
   });
 
   const [dayName, setDayName] = useState("");
@@ -25,7 +24,12 @@ function AddDaysPage({ navigation, props }) {
 
   const AddExercise = () => {
     // Create a new array with the existing exercises and the new exercise
-    const updatedExercises = [...exercises, defaultExercise];
+    let newExcercise = new Exercise({
+      name: "New Exercise",
+      reps: 0,
+      sets: 0,
+    });
+    const updatedExercises = [...exercises, newExcercise];
     // Update the state with the new array
     setExercises(updatedExercises);
   };
