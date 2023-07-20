@@ -8,23 +8,42 @@ import {
   Animated,
   Alert,
   TextInput,
+  Easing,
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 function ExerciseModifier(props) {
   const [swipeableRow, setSwipeableRow] = useState();
-  const [name, setName] = useState("Squats");
-  const [reps, setReps] = useState(6);
-  const [sets, setSets] = useState(4);
+  const [name, setName] = useState();
+  const [reps, setReps] = useState(1);
+  const [sets, setSets] = useState(1);
   const index = props.index;
-
   const [isEnabled, setIsEnabled] = useState(false);
   const animationValue = useRef(new Animated.Value(0)).current;
-
+  const deletingAnimationValue = useRef(new Animated.Value(1)).current;
+  const easingFunction = Easing.bezier(0.645, 0.045, 0.355, 1);
   const dynamicStyle = {
     height: animationValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 100],
+      outputRange: [0, 350],
+    }),
+    opacity: animationValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+    }),
+  };
+  const deletingStyle = {
+    transform: [
+      {
+        scale: deletingAnimationValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+        }),
+      },
+    ],
+    opacity: deletingAnimationValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
     }),
   };
 
@@ -58,7 +77,7 @@ function ExerciseModifier(props) {
     return (
       <View style={{ width: 192, flexDirection: "row-reverse" }}>
         {RenderRightAction("Delete", "#c24451", 128, progress, Delete)}
-        {RenderRightAction("Edit", "#4490c2", 192, progress, Edit)}
+        {RenderRightAction("Edit", "#4490c2", 192, progress, ToggleEdit)}
       </View>
     );
   };
@@ -74,64 +93,113 @@ function ExerciseModifier(props) {
   };
 
   const Edit = () => {
-    Close();
-    ToggleEdit();
     temp = [...props.exercises];
     temp[index].UpdateExercise({ name: name, reps: reps, sets: sets });
     props.setExercises(temp);
+    setName();
+    ToggleEdit();
   };
 
   const Delete = () => {
     Close();
-    temp = [...props.exercises];
-    temp[index] = null;
-    props.setExercises(temp);
     Alert.alert("Exercise deleted");
+    const toValue = 0;
+    Animated.timing(deletingAnimationValue, {
+      toValue,
+      duration: 500,
+      useNativeDriver: true,
+      easing: easingFunction,
+    }).start(() => {
+      temp = [...props.exercises];
+      temp[index] = null;
+      props.setExercises(temp);
+    });
   };
 
   const ToggleEdit = () => {
+    Close();
+    setName();
     setIsEnabled(!isEnabled);
     const toValue = isEnabled ? 0 : 1;
     Animated.timing(animationValue, {
       toValue,
       duration: 500,
       useNativeDriver: false,
+      easing: easingFunction,
     }).start();
   };
 
   return (
-    <Swipeable
-      ref={UpdateRef}
-      friction={2}
-      rightThreshold={50}
-      renderRightActions={RenderRightActions}
-    >
-      <View style={styles.container}>
-        <View style={styles.exerciseContainer}>
-          <Text style={styles.name}>{props.item.name}</Text>
-          <Text style={styles.reps}>{props.item.reps} reps</Text>
-          <Text style={styles.sets}>{props.item.sets} sets </Text>
-          <Animated.View
-            style={[{ flex: 1, backgroundColor: "blue" }, dynamicStyle]}
-          >
-            <TextInput
-              style={{ flex: 1 }}
-              placeholder="Exercise name"
-              value={name}
-              onChangeText={setName}
+    <Animated.View style={deletingStyle}>
+      <Swipeable
+        ref={UpdateRef}
+        friction={2}
+        rightThreshold={50}
+        renderRightActions={RenderRightActions}
+        style={{ flex: 1 }}
+      >
+        <View style={styles.container}>
+          <View style={styles.exerciseContainer}>
+            <Text style={styles.name}>{props.item.name}</Text>
+            <Text style={styles.reps}>{props.item.reps} reps</Text>
+            <Text style={styles.sets}>{props.item.sets} sets </Text>
+            <Animated.View style={[{ flex: 1 }, dynamicStyle]}>
+              <TextInput
+                style={{ flex: 1, backgroundColor: "blue" }}
+                placeholder="Exercise name"
+                value={name}
+                onChangeText={setName}
+              />
+
+              <View style={{ flex: 1, backgroundColor: "red" }}>
+                <TouchableOpacity
+                  style={{ flex: 1, backgroundColor: "green" }}
+                  onPress={() => setReps(reps + 1)}
+                />
+                <Text>Reps: {reps}</Text>
+                <TouchableOpacity
+                  style={{ flex: 1, backgroundColor: "green" }}
+                  onPress={() => {
+                    if (reps - 1 >= 1) {
+                      setReps(reps - 1);
+                    }
+                  }}
+                />
+              </View>
+
+              <View style={{ flex: 1, backgroundColor: "blue" }}>
+                <TouchableOpacity
+                  style={{ flex: 1, backgroundColor: "green" }}
+                  onPress={() => setSets(sets + 1)}
+                />
+                <Text>Sets: {sets}</Text>
+                <TouchableOpacity
+                  style={{ flex: 1, backgroundColor: "green" }}
+                  onPress={() => {
+                    if (sets - 1 >= 1) {
+                      setSets(sets - 1);
+                    }
+                  }}
+                />
+              </View>
+
+              <TouchableOpacity
+                onPress={Edit}
+                style={{ flex: 1, backgroundColor: "red" }}
+              />
+              <TouchableOpacity
+                onPress={ToggleEdit}
+                style={{ flex: 1, backgroundColor: "blue" }}
+              />
+            </Animated.View>
+            <Image
+              style={styles.image}
+              source={require("../../assets/shading.png")}
             />
-            <TouchableOpacity
-              onPress={ToggleEdit}
-              style={{ flex: 1, backgroundColor: "red" }}
-            />
-          </Animated.View>
-          <Image
-            style={styles.image}
-            source={require("../../assets/shading.png")}
-          />
+          </View>
         </View>
-      </View>
-    </Swipeable>
+      </Swipeable>
+    </Animated.View>
   );
 }
 

@@ -15,8 +15,8 @@ function AddDaysPage({ navigation, props }) {
   // Default exercise in a day
   const defaultExercise = new Exercise({
     name: "Exercise",
-    reps: 0,
-    sets: 0,
+    reps: 1,
+    sets: 1,
   });
 
   const [dayName, setDayName] = useState("");
@@ -26,8 +26,8 @@ function AddDaysPage({ navigation, props }) {
     // Create a new array with the existing exercises and the new exercise
     let newExcercise = new Exercise({
       name: "New Exercise",
-      reps: 0,
-      sets: 0,
+      reps: 1,
+      sets: 1,
     });
     const updatedExercises = [...exercises, newExcercise];
     // Update the state with the new array
@@ -41,6 +41,7 @@ function AddDaysPage({ navigation, props }) {
     Alert.alert("New day added");
     // Close modal
     navigation.pop();
+    console.log(exercises);
   };
 
   return (
