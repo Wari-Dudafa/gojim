@@ -35,13 +35,10 @@ function AddDaysPage({ navigation, props }) {
   };
 
   const SaveDay = () => {
-    // Adds exercise data from the array to the database
-    // Adds day name to the database
-    // User feedback
     Alert.alert("New day added");
-    // Close modal
     navigation.pop();
-    console.log(exercises);
+    // Adds exercise data from the array to the database
+    // Adds dayName to the database
   };
 
   return (

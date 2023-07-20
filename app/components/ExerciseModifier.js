@@ -35,7 +35,7 @@ function ExerciseModifier(props) {
   const deletingStyle = {
     transform: [
       {
-        scale: deletingAnimationValue.interpolate({
+        scaleY: deletingAnimationValue.interpolate({
           inputRange: [0, 1],
           outputRange: [0, 1],
         }),
@@ -44,6 +44,10 @@ function ExerciseModifier(props) {
     opacity: deletingAnimationValue.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 1],
+    }),
+    margin: deletingAnimationValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['-16%', '0%'],
     }),
   };
 
@@ -107,7 +111,7 @@ function ExerciseModifier(props) {
     Animated.timing(deletingAnimationValue, {
       toValue,
       duration: 500,
-      useNativeDriver: true,
+      useNativeDriver: false,
       easing: easingFunction,
     }).start(() => {
       temp = [...props.exercises];
