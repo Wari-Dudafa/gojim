@@ -1,6 +1,6 @@
 import { View, TouchableOpacity, Text } from "react-native";
-
-import SwipingDemo from "../../SwipingDemo";
+import { Feather } from "@expo/vector-icons";
+import SwipingContainer from "../components/SwipingContainer";
 
 function DaysPage({ navigation, props }) {
   return (
@@ -9,12 +9,12 @@ function DaysPage({ navigation, props }) {
         onPress={() => {
           navigation.navigate("AddDaysPage");
         }}
-        style={{ backgroundColor: "red" }}
+        style={{ position: "absolute", bottom: 15, right: 15, backgroundColor: '#4490c2', borderRadius: 50, padding: 5 }}
       >
-        <Text style={{ color: "#e6e6e6", fontSize: 20 }}>Add a new day</Text>
+        <Feather name="plus" size={60} color="#e6e6e6" />
       </TouchableOpacity>
 
-      <SwipingDemo />
+      <SwipingContainer />
     </View>
   );
 }
