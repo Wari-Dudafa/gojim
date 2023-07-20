@@ -1,18 +1,17 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 function Card(props) {
   return (
-    <View style={props.style}>
+    <View style={styles.mainCard}>
       <Image
         style={styles.image}
         source={require("../../assets/shading.png")}
       />
 
       <View style={styles.border}>
-        <Text style={styles.text}>{props.text}</Text>
+        <Text style={styles.name}>{props.name}</Text>
         <View style={styles.underline} />
       </View>
-
     </View>
   );
 }
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
     borderWidth: 5,
     alignContent: "center",
   },
-  text: {
+  name: {
     textAlign: "center",
     fontSize: 40,
     fontWeight: 900,
@@ -50,13 +49,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     backgroundColor: "#e6e6e6",
   },
+  mainCard: {
+    position: "absolute",
+    top: 70,
+    backgroundColor: "#93c244",
+    height: 450,
+    width: 280,
+    borderRadius: 10,
+    zIndex: 1,
+  },
 });
-
-// scaleY and scaleX don't take an anonymous function for whatever reason but if you ever need it- here is the code
-
-() => {
-  // Either 1 or -1
-  var randomNumber = Math.random();
-  var result = randomNumber < 0.5 ? 1 : -1;
-  return result;
-};

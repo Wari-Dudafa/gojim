@@ -1,11 +1,10 @@
 import { View, TouchableOpacity, Text } from "react-native";
 
-import SwipingCards from "../../SwipingCards";
+import SwipingDemo from "../../SwipingDemo";
 
 function DaysPage({ navigation, props }) {
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
-      <SwipingCards />
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("AddDaysPage");
@@ -14,6 +13,8 @@ function DaysPage({ navigation, props }) {
       >
         <Text style={{ color: "#e6e6e6", fontSize: 20 }}>Add a new day</Text>
       </TouchableOpacity>
+
+      <SwipingDemo />
     </View>
   );
 }

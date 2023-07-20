@@ -12,14 +12,6 @@ FiTone is a comprehensive fitness app designed to help you track your workouts a
 
 - **Progress Insights**: FiTone generates detailed reports and graphs to visualize your progress. Analyze your performance over time, identify trends, and make informed decisions about your fitness routine.
 
-<!-- 
-## Screenshots
-
-![Dashboard](./images/dashboard.png)
-![Workout Tracking](./images/workout-tracking.png)
-![Calorie Counter](./images/calorie-counter.png)
--->
-
 ## Technologies Used
 
 - React Native: A JavaScript library for building user interfaces.
@@ -34,7 +26,6 @@ Contributions to FiTone are always welcome! If you have any ideas, improvements,
 
 For any questions or inquiries, please reach out:
 
-Waripamo-owei Dudafa
 Email: waripamooweidudafa@gmail.com
 Youtube: [WariDev](https://www.youtube.com/@waridev)
 LinkedIn: [Wari Dudafa](https://www.linkedin.com/in/waripamo-owei-dudafa-832130241/)

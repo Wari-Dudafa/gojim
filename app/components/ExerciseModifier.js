@@ -8,7 +8,6 @@ import {
   Animated,
   Alert,
   TextInput,
-  Easing,
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
@@ -21,7 +20,6 @@ function ExerciseModifier(props) {
   const [isEnabled, setIsEnabled] = useState(false);
   const animationValue = useRef(new Animated.Value(0)).current;
   const deletingAnimationValue = useRef(new Animated.Value(1)).current;
-  const easingFunction = Easing.bezier(0.645, 0.045, 0.355, 1);
   const dynamicStyle = {
     height: animationValue.interpolate({
       inputRange: [0, 1],
@@ -40,6 +38,12 @@ function ExerciseModifier(props) {
           outputRange: [0, 1],
         }),
       },
+      {
+        scaleX: deletingAnimationValue.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0, 1],
+        }),
+      },
     ],
     opacity: deletingAnimationValue.interpolate({
       inputRange: [0, 1],
@@ -47,7 +51,7 @@ function ExerciseModifier(props) {
     }),
     margin: deletingAnimationValue.interpolate({
       inputRange: [0, 1],
-      outputRange: ['-16%', '0%'],
+      outputRange: ["-16.1%", "0%"],
     }),
   };
 
@@ -108,11 +112,11 @@ function ExerciseModifier(props) {
     Close();
     Alert.alert("Exercise deleted");
     const toValue = 0;
-    Animated.timing(deletingAnimationValue, {
+    Animated.spring(deletingAnimationValue, {
       toValue,
-      duration: 500,
+      speed: 5,
+      bounciness: 5,
       useNativeDriver: false,
-      easing: easingFunction,
     }).start(() => {
       temp = [...props.exercises];
       temp[index] = null;
@@ -125,12 +129,20 @@ function ExerciseModifier(props) {
     setName();
     setIsEnabled(!isEnabled);
     const toValue = isEnabled ? 0 : 1;
-    Animated.timing(animationValue, {
-      toValue,
-      duration: 500,
-      useNativeDriver: false,
-      easing: easingFunction,
-    }).start();
+    if (isEnabled) {
+      Animated.timing(animationValue, {
+        toValue,
+        duration: 400,
+        useNativeDriver: false,
+      }).start();
+    } else {
+      Animated.spring(animationValue, {
+        toValue,
+        speed: 5,
+        bounciness: 5,
+        useNativeDriver: false,
+      }).start();
+    }
   };
 
   return (
@@ -140,7 +152,6 @@ function ExerciseModifier(props) {
         friction={2}
         rightThreshold={50}
         renderRightActions={RenderRightActions}
-        style={{ flex: 1 }}
       >
         <View style={styles.container}>
           <View style={styles.exerciseContainer}>
