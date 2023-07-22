@@ -9,6 +9,7 @@ import {
   Alert,
   TextInput,
 } from "react-native";
+import { Feather } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
 function ExerciseModifier(props) {
@@ -170,7 +171,10 @@ function ExerciseModifier(props) {
                 <TouchableOpacity
                   style={{ flex: 1, backgroundColor: "green" }}
                   onPress={() => setReps(reps + 1)}
-                />
+                >
+                  <Feather name="plus" size={10} color="#e6e6e6" />
+                </TouchableOpacity>
+
                 <Text>Reps: {reps}</Text>
                 <TouchableOpacity
                   style={{ flex: 1, backgroundColor: "green" }}
@@ -179,14 +183,16 @@ function ExerciseModifier(props) {
                       setReps(reps - 1);
                     }
                   }}
-                />
+                >
+                  <Feather name="minus" size={10} color="#e6e6e6" />
+                </TouchableOpacity>
               </View>
 
               <View style={{ flex: 1, backgroundColor: "blue" }}>
                 <TouchableOpacity
                   style={{ flex: 1, backgroundColor: "green" }}
                   onPress={() => setSets(sets + 1)}
-                />
+                ><Feather name="plus" size={10} color="#e6e6e6" /></TouchableOpacity>
                 <Text>Sets: {sets}</Text>
                 <TouchableOpacity
                   style={{ flex: 1, backgroundColor: "green" }}
@@ -195,7 +201,7 @@ function ExerciseModifier(props) {
                       setSets(sets - 1);
                     }
                   }}
-                />
+                ><Feather name="minus" size={10} color="#e6e6e6" /></TouchableOpacity>
               </View>
 
               <TouchableOpacity

@@ -1,25 +1,25 @@
 import { View, Text, Button, Alert } from "react-native";
-import * as SQLite from "expo-sqlite";
+
+import Database from "../classes/DatabaseClass";
 
 function SettingsPage(props) {
-  const db = SQLite.openDatabase("fitone.db");
-  const Deletedata = () => {
-    db.transaction((tx) => {
-      tx.executeSql(
-        "", // Drop entire database
-        null,
-        null,
-        (txObj, error) => console.log(error)
-      );
-    });
+  const db = new Database();
 
+  const Deletedata = () => {
+    db.delete();
     Alert.alert("Data Deleted");
+  };
+
+  const InitTables = () => {
+    db.init();
+    Alert.alert("New Tables Made");
   };
 
   return (
     <View>
       <Text>Settings page</Text>
       <Button title="Delete data" onPress={Deletedata} />
+      <Button title="Make new tables" onPress={InitTables} />
     </View>
   );
 }
