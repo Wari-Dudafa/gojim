@@ -10,6 +10,7 @@ import { Feather } from "@expo/vector-icons";
 
 import Exercise from "../classes/ExerciseClass";
 import NewExerciseSelector from "../components/NewExerciseSelector";
+import Database from "../classes/DatabaseClass";
 
 function AddDaysPage({ navigation, props }) {
   // Default exercise in a day
@@ -18,7 +19,7 @@ function AddDaysPage({ navigation, props }) {
     reps: 1,
     sets: 1,
   });
-
+  const db = new Database();
   const [dayName, setDayName] = useState("");
   const [exercises, setExercises] = useState([defaultExercise]);
 
@@ -39,6 +40,38 @@ function AddDaysPage({ navigation, props }) {
     navigation.pop();
     // Adds exercise data from the array to the database
     // Adds dayName to the database
+    let statement = "INSERT INTO days (name) VALUES('" + dayName + "')";
+    db.sql(
+      statement,
+      (resultSet) => {
+        let day_id = resultSet.insertId;
+
+        for (let index = 0; index < exercises.length; index++) {
+          let exercise = exercises[index];
+          statement =
+            "INSERT INTO exercises (name, reps, sets, day_id) VALUES('" +
+            exercise.name +
+            "', " +
+            exercise.reps +
+            ", " +
+            exercise.sets +
+            ", " +
+            day_id +
+            ")";
+          db.sql(
+            statement,
+            () => {},
+            (error) => {
+              Alert.alert("An error occured, please try again later");
+              console.log(error);
+            }
+          );
+        }
+      },
+      (error) => {
+        Alert.alert("An error occured, please try again later");
+      }
+    );
   };
 
   return (

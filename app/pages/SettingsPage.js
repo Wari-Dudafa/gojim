@@ -6,12 +6,18 @@ function SettingsPage(props) {
   const db = new Database();
 
   const Deletedata = () => {
-    db.wipeDatabase();
+    db.wipeDatabase((error) => {
+      Alert.alert("An error occured, please try again later");
+      console.log(error);
+    });
     Alert.alert("Data Deleted");
   };
 
   const InitTables = () => {
-    db.init();
+    db.init((error) => {
+      Alert.alert("An error occured, please try again later");
+      console.log(error);
+    });
     Alert.alert("New Tables Made");
   };
 

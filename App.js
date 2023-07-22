@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Text, StyleSheet, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Alert } from "react-native";
 
 import DaysStackPage from "./app/pages/DaysStackPage";
 import SettingsPage from "./app/pages/SettingsPage";
@@ -14,7 +14,10 @@ export default function App() {
   const db = new Database();
 
   useEffect(() => {
-    db.init();
+    db.init((error) => {
+      Alert.alert("An error occured, please try again later");
+      console.log(error);
+    });
   }, []);
 
   return (

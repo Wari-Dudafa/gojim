@@ -4,8 +4,8 @@ import { StyleSheet, View } from "react-native";
 import SwipeableCard from "./SwipeableCard.js";
 
 function SwipingContainer(props) {
-  const cards = props.days
-  const [selectedCard, setSelectedCard] = useState(0);
+  const cards = props.days;
+  const [selectedCard, setSelectedCard] = useState(1); // Temp first card
 
   function DisplayCards() {
     let currentDay = cards[selectedCard];

@@ -4,13 +4,19 @@ export default class Database {
   constructor() {
     this.db = sqlite.openDatabase("fitone.db");
     this.tables = [
+      // They all have an incrementing id as a primary key
       {
         name: "exercises",
         rows: [
           { rowName: "name", rowType: "TEXT" },
           { rowName: "reps", rowType: "INTEGER" },
           { rowName: "sets", rowType: "INTEGER" },
+          { rowName: "day_id", rowType: "INTEGER" },
         ],
+      },
+      {
+        name: "days",
+        rows: [{ rowName: "name", rowType: "TEXT" }],
       },
     ];
   }
@@ -51,14 +57,19 @@ export default class Database {
 
   wipeDatabase(errorCallback) {
     // Drops all tables
-    this.db.transaction((tx) => {
-      tx.executeSql(
-        "", // Drop entire database
-        null,
-        null,
-        (txObj, error) => errorCallback(error)
-      );
-    });
+
+    for (let index = 0; index < this.tables.length; index++) {
+      let tableName = this.tables[index].name
+      
+      this.db.transaction((tx) => {
+        tx.executeSql(
+          "DROP TABLE IF EXISTS " + tableName + "",
+          null,
+          null,
+          (txObj, error) => errorCallback(error)
+        );
+      });
+    }
   }
 
   sql(statement, callback, errorCallback) {

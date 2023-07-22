@@ -3,33 +3,29 @@ import { Feather } from "@expo/vector-icons";
 
 import SwipingContainer from "../components/SwipingContainer";
 import Database from "../classes/DatabaseClass";
+import { useState, useEffect } from "g";
 
 function DaysPage({ navigation, props }) {
   const db = new Database();
-  db.sql(
-    "SELECT * FROM exercises",
-    (resultSet) => {
-      console.log(resultSet.rows._array);
-    },
-    (error) => {
-      Alert.alert("An error occured");
-    }
-  );
+  const [days, setDays] = useState([
+    { name: "..." },
+    { name: "..." },
+    { name: "..." },
+  ]);
 
-  const cards = [
-    // Temporary data will reading from the database works
-    { name: "0" },
-    { name: "1" },
-    { name: "2" },
-    { name: "3" },
-    { name: "4" },
-    { name: "5" },
-    { name: "6" },
-    { name: "7" },
-    { name: "8" },
-    { name: "9" },
-    { name: "10" },
-  ];
+  useEffect(() => {
+    db.sql(
+      "SELECT * FROM days",
+      (resultSet) => {
+        setDays(resultSet.rows._array);
+      },
+      (error) => {
+        Alert.alert("An error occured");
+      }
+    );
+  }, []);
+
+  console.log(days);
 
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
@@ -46,10 +42,9 @@ function DaysPage({ navigation, props }) {
           padding: 5,
         }}
       >
-        <Feather name="plus" size={60} color="#e6e6e6" />
+        <Feather name="check" size={55} color="#e6e6e6" />
       </TouchableOpacity>
-
-      <SwipingContainer days={cards} />
+      <SwipingContainer days={days} />
     </View>
   );
 }
