@@ -1,13 +1,9 @@
-import * as SQLite from "expo-sqlite";
+import * as sqlite from "expo-sqlite";
 
 export default class Database {
   constructor() {
-    this.db = SQLite.openDatabase("fitone.db");
-  }
-
-  init() {
-    // Initialise all tables required for the application
-    tables = [
+    this.db = sqlite.openDatabase("fitone.db");
+    this.tables = [
       {
         name: "exercises",
         rows: [
@@ -17,9 +13,12 @@ export default class Database {
         ],
       },
     ];
+  }
 
-    for (let index = 0; index < tables.length; index++) {
-      let table = tables[index];
+  init(errorCallback) {
+    // Initialise all tables required for the application
+    for (let index = 0; index < this.tables.length; index++) {
+      let table = this.tables[index];
       let rows = table.rows;
       let sqlStatement =
         "CREATE TABLE IF NOT EXISTS " +
@@ -44,19 +43,31 @@ export default class Database {
       // Run the sql statement
       this.db.transaction((tx) => {
         tx.executeSql(sqlStatement, null, null, (txObj, error) =>
-          console.log(error)
+          errorCallback(error)
         );
       });
     }
   }
 
-  delete() {
+  wipeDatabase(errorCallback) {
+    // Drops all tables
     this.db.transaction((tx) => {
       tx.executeSql(
         "", // Drop entire database
         null,
         null,
-        (txObj, error) => console.log(error)
+        (txObj, error) => errorCallback(error)
+      );
+    });
+  }
+
+  sql(statement, callback, errorCallback) {
+    this.db.transaction((tx) => {
+      tx.executeSql(
+        statement,
+        null,
+        (txObj, resultSet) => callback(resultSet),
+        (txObj, error) => errorCallback(error)
       );
     });
   }

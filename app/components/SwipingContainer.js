@@ -1,23 +1,11 @@
 // Got some serious help from: https://aboutreact.com/react-native-swipeable-cardview-like-tinder/
 import React, { useState } from "react";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import SwipeableCard from "./SwipeableCard.js";
 
-function SwipingContainer() {
-  const cards = [
-    { dayName: "0" },
-    { dayName: "1" },
-    { dayName: "2" },
-    { dayName: "3" },
-    { dayName: "4" },
-    { dayName: "5" },
-    { dayName: "6" },
-    { dayName: "7" },
-    { dayName: "8" },
-    { dayName: "9" },
-    { dayName: "10" },
-  ];
-  const [selectedCard, setSelectedCard] = useState(5);
+function SwipingContainer(props) {
+  const cards = props.days
+  const [selectedCard, setSelectedCard] = useState(0);
 
   function DisplayCards() {
     let currentDay = cards[selectedCard];
@@ -73,6 +61,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: -10,
-    transform: [{scale: 1.1}]
+    transform: [{ scale: 1.1 }],
   },
 });

@@ -6,7 +6,7 @@ function SettingsPage(props) {
   const db = new Database();
 
   const Deletedata = () => {
-    db.delete();
+    db.wipeDatabase();
     Alert.alert("Data Deleted");
   };
 

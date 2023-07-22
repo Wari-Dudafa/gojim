@@ -163,7 +163,7 @@ const SwipeableCard = ({ currentDay, right, left, updateIndex }) => {
             opacity: leftAnimations.cardOpacity,
           }}
         />
-        <Card name={left.dayName} />
+        <Card name={left.name} />
       </Animated.View>
 
       <Animated.View
@@ -192,7 +192,7 @@ const SwipeableCard = ({ currentDay, right, left, updateIndex }) => {
             opacity: rightAnimations.cardOpacity,
           }}
         />
-        <Card name={right.dayName} />
+        <Card name={right.name} />
       </Animated.View>
 
       <Animated.View
@@ -222,7 +222,7 @@ const SwipeableCard = ({ currentDay, right, left, updateIndex }) => {
             opacity: currentAnimation.cardOpacity,
           }}
         />
-        <Card name={currentDay.dayName} />
+        <Card name={currentDay.name} />
       </Animated.View>
     </>
   );
