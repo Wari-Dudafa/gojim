@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 function Card(props) {
@@ -15,7 +15,7 @@ function Card(props) {
         <View style={styles.underline} />
 
         <View style={styles.itemContainer}>
-          <ScrollView style={styles.exercises}></ScrollView>
+          <View style={styles.exercises}></View>
           <View style={styles.buttonContainer}>
             <View style={styles.trash}>
               <Feather name="trash" size={50} color="#e6e6e6" />

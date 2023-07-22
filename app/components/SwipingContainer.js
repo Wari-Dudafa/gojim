@@ -39,6 +39,9 @@ function SwipingContainer(props) {
         currentDay={currentDay}
         left={left}
         right={right}
+        // currentDay={{name: 'hello'}}
+        // left={{name: 'hello'}}
+        // right={{name: 'hello'}}
         setSelectedCard={setSelectedCard}
         selectedCard={selectedCard}
         offset="left"

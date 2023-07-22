@@ -252,7 +252,7 @@ function ExerciseModifier(props) {
                     margin: 5,
                   }}
                 >
-                  <Text>cancel</Text>
+                  <Text>save</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={ToggleEdit}
@@ -263,7 +263,7 @@ function ExerciseModifier(props) {
                     margin: 5,
                   }}
                 >
-                  <Text>save</Text>
+                  <Text>cancel</Text>
                 </TouchableOpacity>
               </View>
             </Animated.View>
