@@ -161,57 +161,111 @@ function ExerciseModifier(props) {
             <Text style={styles.sets}>{props.item.sets} sets </Text>
             <Animated.View style={[{ flex: 1 }, dynamicStyle]}>
               <TextInput
-                style={{ flex: 1, backgroundColor: "blue" }}
+                style={{
+                  flex: 1,
+                  color: "#e6e6e6",
+                  textAlign: "center",
+                  fontWeight: 700,
+                  fontSize: 40,
+                }}
                 placeholder="Exercise name"
                 value={name}
                 onChangeText={setName}
               />
 
-              <View style={{ flex: 1, backgroundColor: "red" }}>
+              <View
+                style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
+              >
                 <TouchableOpacity
-                  style={{ flex: 1, backgroundColor: "green" }}
+                  style={{
+                    flex: 1,
+                    backgroundColor: "green",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
                   onPress={() => setReps(reps + 1)}
                 >
-                  <Feather name="plus" size={10} color="#e6e6e6" />
+                  <Feather name="plus" size={30} color="#e6e6e6" />
                 </TouchableOpacity>
 
-                <Text>Reps: {reps}</Text>
+                <Text style={{ padding: 10 }}>Reps: {reps}</Text>
                 <TouchableOpacity
-                  style={{ flex: 1, backgroundColor: "green" }}
+                  style={{
+                    flex: 1,
+                    backgroundColor: "green",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
                   onPress={() => {
                     if (reps - 1 >= 1) {
                       setReps(reps - 1);
                     }
                   }}
                 >
-                  <Feather name="minus" size={10} color="#e6e6e6" />
+                  <Feather name="minus" size={30} color="#e6e6e6" />
                 </TouchableOpacity>
               </View>
 
-              <View style={{ flex: 1, backgroundColor: "blue" }}>
+              <View
+                style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
+              >
                 <TouchableOpacity
-                  style={{ flex: 1, backgroundColor: "green" }}
+                  style={{
+                    flex: 1,
+                    backgroundColor: "green",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
                   onPress={() => setSets(sets + 1)}
-                ><Feather name="plus" size={10} color="#e6e6e6" /></TouchableOpacity>
-                <Text>Sets: {sets}</Text>
+                >
+                  <Feather name="plus" size={30} color="#e6e6e6" />
+                </TouchableOpacity>
+                <Text style={{ padding: 10 }}>Sets: {sets}</Text>
                 <TouchableOpacity
-                  style={{ flex: 1, backgroundColor: "green" }}
+                  style={{
+                    flex: 1,
+                    backgroundColor: "green",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: 10,
+                  }}
                   onPress={() => {
                     if (sets - 1 >= 1) {
                       setSets(sets - 1);
                     }
                   }}
-                ><Feather name="minus" size={10} color="#e6e6e6" /></TouchableOpacity>
+                >
+                  <Feather name="minus" size={30} color="#e6e6e6" />
+                </TouchableOpacity>
               </View>
 
-              <TouchableOpacity
-                onPress={Edit}
-                style={{ flex: 1, backgroundColor: "red" }}
-              />
-              <TouchableOpacity
-                onPress={ToggleEdit}
-                style={{ flex: 1, backgroundColor: "blue" }}
-              />
+              <View style={{ flex: 1, flexDirection: "row" }}>
+                <TouchableOpacity
+                  onPress={Edit}
+                  style={{
+                    flex: 1,
+                    backgroundColor: "red",
+                    borderRadius: 10,
+                    margin: 5,
+                  }}
+                >
+                  <Text>cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={ToggleEdit}
+                  style={{
+                    flex: 1,
+                    backgroundColor: "blue",
+                    borderRadius: 10,
+                    margin: 5,
+                  }}
+                >
+                  <Text>save</Text>
+                </TouchableOpacity>
+              </View>
             </Animated.View>
             <Image
               style={styles.image}

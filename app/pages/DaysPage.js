@@ -1,9 +1,10 @@
+import { useState, useCallback } from "react";
 import { View, TouchableOpacity, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 import SwipingContainer from "../components/SwipingContainer";
 import Database from "../classes/DatabaseClass";
-import { useState, useEffect } from "g";
 
 function DaysPage({ navigation, props }) {
   const db = new Database();
@@ -13,19 +14,19 @@ function DaysPage({ navigation, props }) {
     { name: "..." },
   ]);
 
-  useEffect(() => {
-    db.sql(
-      "SELECT * FROM days",
-      (resultSet) => {
-        setDays(resultSet.rows._array);
-      },
-      (error) => {
-        Alert.alert("An error occured");
-      }
-    );
-  }, []);
-
-  console.log(days);
+  useFocusEffect(
+    useCallback(() => {
+      db.sql(
+        "SELECT * FROM days",
+        (resultSet) => {
+          setDays(resultSet.rows._array);
+        },
+        (error) => {
+          Alert.alert("An error occured");
+        }
+      );
+    }, [])
+  );
 
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
@@ -42,7 +43,7 @@ function DaysPage({ navigation, props }) {
           padding: 5,
         }}
       >
-        <Feather name="check" size={55} color="#e6e6e6" />
+        <Feather name="plus" size={55} color="#e6e6e6" />
       </TouchableOpacity>
       <SwipingContainer days={days} />
     </View>
