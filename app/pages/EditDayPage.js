@@ -1,6 +1,10 @@
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-function FoodPage(props) {
+function EditDayPage({ navigation, route }) {
+  let day = route.params.day;
+  console.log(day);
+
   return (
     <View style={styles.container}>
       <Text></Text>
@@ -8,7 +12,7 @@ function FoodPage(props) {
   );
 }
 
-export default FoodPage;
+export default EditDayPage;
 
 const styles = StyleSheet.create({
   container: {

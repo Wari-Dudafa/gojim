@@ -51,6 +51,7 @@ function SwipingContainer(props) {
         selectedCard={selectedCard}
         updateIndex={updateIndex}
         canSwipe={canSwipe}
+        navigation={props.navigation}
       />
     );
   }

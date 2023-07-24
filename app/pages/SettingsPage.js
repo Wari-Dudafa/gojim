@@ -1,4 +1,4 @@
-import { View, Text, Button, Alert } from "react-native";
+import { View, Text, Button, Alert, StyleSheet } from "react-native";
 
 import Database from "../classes/DatabaseClass";
 
@@ -14,11 +14,18 @@ function SettingsPage(props) {
   };
 
   return (
-    <View>
-      <Text>Settings page</Text>
+    <View style={styles.container}>
+      <Text></Text>
       <Button title="Delete data" onPress={Deletedata} />
     </View>
   );
 }
 
 export default SettingsPage;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#0f1824",
+  },
+});
