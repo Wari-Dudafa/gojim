@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 function EditDayPage({ navigation, route }) {
   let day = route.params.day;
@@ -7,7 +7,7 @@ function EditDayPage({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Text></Text>
+      <></>
     </View>
   );
 }

@@ -1,9 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 function FoodPage(props) {
   return (
     <View style={styles.container}>
-      <Text></Text>
+      <></>
     </View>
   );
 }
