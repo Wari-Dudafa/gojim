@@ -13,7 +13,14 @@ import { Feather } from "@expo/vector-icons";
 
 import Card from "./Card.js";
 
-const SwipeableCard = ({ currentDay, right, left, updateIndex, canSwipe }) => {
+const SwipeableCard = ({
+  currentDay,
+  right,
+  left,
+  updateIndex,
+  canSwipe,
+  navigation,
+}) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   let cardOpacity = new Animated.Value(1);
@@ -176,7 +183,12 @@ const SwipeableCard = ({ currentDay, right, left, updateIndex, canSwipe }) => {
               <Feather name="activity" size={40} color="#e6e6e6" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.bottomButtons}>
+            <TouchableOpacity
+              style={styles.bottomButtons}
+              onPress={() => {
+                navigation.navigate("EditDayPage", { day: currentDay });
+              }}
+            >
               <Feather name="edit-2" size={40} color="#e6e6e6" />
             </TouchableOpacity>
 

@@ -45,7 +45,7 @@ function DaysPage({ navigation, props }) {
       >
         <Feather name="plus" size={55} color="#e6e6e6" />
       </TouchableOpacity>
-      <SwipingContainer days={days} />
+      <SwipingContainer days={days} navigation={navigation}/>
     </View>
   );
 }
