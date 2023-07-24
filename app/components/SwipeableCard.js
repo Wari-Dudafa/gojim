@@ -1,6 +1,16 @@
 // Got some serious help from: https://aboutreact.com/react-native-swipeable-cardview-like-tinder/
 import React, { useState } from "react";
-import { Animated, PanResponder, Dimensions, StyleSheet } from "react-native";
+import {
+  Text,
+  Animated,
+  PanResponder,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Feather } from "@expo/vector-icons";
+
 import Card from "./Card.js";
 
 const SwipeableCard = ({ currentDay, right, left, updateIndex }) => {
@@ -135,95 +145,142 @@ const SwipeableCard = ({ currentDay, right, left, updateIndex }) => {
     }),
   };
 
+  if (!currentDay) currentDay = false;
+  if (!right) right = false;
+  if (!left) left = false;
+
   return (
     <>
-      <Animated.View
-        {...panResponder.panHandlers}
-        style={[
-          styles.cardStyle,
-          {
-            transform: [
-              { translateX: leftAnimations.cardX },
-              { rotate: leftAnimations.cardRotation },
-              { translateY: leftAnimations.cardY },
-              { scale: leftAnimations.cardScale },
-            ],
-          },
-        ]}
-      >
-        <Animated.View
-          style={{
-            position: "absolute",
-            backgroundColor: "black",
-            borderRadius: 10,
-            width: 280,
-            height: 450,
-            top: 70,
-            zIndex: 2,
-            opacity: leftAnimations.cardOpacity,
-          }}
-        />
-        <Card name={left.name} />
-      </Animated.View>
+      {currentDay ? (
+        <>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.bottomButtons}>
+              <Feather name="activity" size={40} color="#e6e6e6" />
+            </TouchableOpacity>
 
-      <Animated.View
-        {...panResponder.panHandlers}
-        style={[
-          styles.cardStyle,
-          {
-            transform: [
-              { translateX: rightAnimations.cardX },
-              { rotate: rightAnimations.cardRotation },
-              { translateY: rightAnimations.cardY },
-              { scale: rightAnimations.cardScale },
-            ],
-          },
-        ]}
-      >
-        <Animated.View
-          style={{
-            position: "absolute",
-            backgroundColor: "black",
-            width: 280,
-            height: 450,
-            borderRadius: 10,
-            top: 70,
-            zIndex: 2,
-            opacity: rightAnimations.cardOpacity,
-          }}
-        />
-        <Card name={right.name} />
-      </Animated.View>
+            <TouchableOpacity style={styles.bottomButtons}>
+              <Feather name="edit-2" size={40} color="#e6e6e6" />
+            </TouchableOpacity>
 
-      <Animated.View
-        {...panResponder.panHandlers}
-        style={[
-          styles.cardStyle,
-          {
-            opacity: cardOpacity,
-            transform: [
-              { translateX: xPosition },
-              { rotate: currentAnimation.rotateCard },
-              { scale: currentAnimation.cardScale },
-              { translateY: currentAnimation.cardY },
-            ],
-          },
-        ]}
-      >
-        <Animated.View
-          style={{
-            position: "absolute",
-            backgroundColor: "black",
-            width: 280,
-            height: 450,
-            borderRadius: 10,
-            top: 70,
-            zIndex: 2,
-            opacity: currentAnimation.cardOpacity,
-          }}
-        />
-        <Card name={currentDay.name} />
-      </Animated.View>
+            <TouchableOpacity style={styles.bottomButtons}>
+              <Feather name="play" size={40} color="#e6e6e6" />
+            </TouchableOpacity>
+          </View>
+
+          <Animated.View
+            {...panResponder.panHandlers}
+            style={[
+              styles.cardStyle,
+              {
+                transform: [
+                  { translateX: leftAnimations.cardX },
+                  { rotate: leftAnimations.cardRotation },
+                  { translateY: leftAnimations.cardY },
+                  { scale: leftAnimations.cardScale },
+                ],
+              },
+            ]}
+          >
+            {left ? (
+              <>
+                <Card name={left.name} />
+                <Animated.View
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "black",
+                    borderRadius: 10,
+                    width: 280,
+                    height: 450,
+                    top: 70,
+                    zIndex: 2,
+                    opacity: leftAnimations.cardOpacity,
+                  }}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+          </Animated.View>
+
+          <Animated.View
+            {...panResponder.panHandlers}
+            style={[
+              styles.cardStyle,
+              {
+                transform: [
+                  { translateX: rightAnimations.cardX },
+                  { rotate: rightAnimations.cardRotation },
+                  { translateY: rightAnimations.cardY },
+                  { scale: rightAnimations.cardScale },
+                ],
+              },
+            ]}
+          >
+            {right ? (
+              <>
+                <Card name={right.name} />
+                <Animated.View
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "black",
+                    borderRadius: 10,
+                    width: 280,
+                    height: 450,
+                    top: 70,
+                    zIndex: 2,
+                    opacity: rightAnimations.cardOpacity,
+                  }}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+          </Animated.View>
+
+          <Animated.View
+            {...panResponder.panHandlers}
+            style={[
+              styles.cardStyle,
+              {
+                opacity: cardOpacity,
+                transform: [
+                  { translateX: xPosition },
+                  { rotate: currentAnimation.rotateCard },
+                  { scale: currentAnimation.cardScale },
+                  { translateY: currentAnimation.cardY },
+                ],
+              },
+            ]}
+          >
+            <Animated.View
+              style={{
+                position: "absolute",
+                backgroundColor: "black",
+                borderRadius: 10,
+                width: 280,
+                height: 450,
+                top: 70,
+                zIndex: 2,
+                opacity: currentAnimation.cardOpacity,
+              }}
+            />
+            <Card name={currentDay.name} />
+          </Animated.View>
+        </>
+      ) : (
+        <>
+          <Text
+            style={{
+              padding: 50,
+              color: "#e6e6e6",
+              alignSelf: "center",
+              textAlign: "center",
+            }}
+          >
+            There are currently no days, please click the plus button to add one
+          </Text>
+        </>
+      )}
     </>
   );
 };
@@ -239,5 +296,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: "center",
     color: "#e6e6e6",
+  },
+  bottomButtons: {
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: "#4490c2",
+    marginHorizontal: 10,
+  },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingLeft: 10,
+    paddingRight: 10,
+    zIndex: 5,
+    position: "absolute",
+    top: 440,
   },
 });

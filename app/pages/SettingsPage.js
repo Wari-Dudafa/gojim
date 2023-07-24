@@ -13,19 +13,10 @@ function SettingsPage(props) {
     Alert.alert("Data Deleted");
   };
 
-  const InitTables = () => {
-    db.init((error) => {
-      Alert.alert("An error occured, please try again later");
-      console.log(error);
-    });
-    Alert.alert("New Tables Made");
-  };
-
   return (
     <View>
       <Text>Settings page</Text>
       <Button title="Delete data" onPress={Deletedata} />
-      <Button title="Make new tables" onPress={InitTables} />
     </View>
   );
 }

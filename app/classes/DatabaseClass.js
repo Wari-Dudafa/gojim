@@ -59,8 +59,8 @@ export default class Database {
     // Drops all tables
 
     for (let index = 0; index < this.tables.length; index++) {
-      let tableName = this.tables[index].name
-      
+      let tableName = this.tables[index].name;
+
       this.db.transaction((tx) => {
         tx.executeSql(
           "DROP TABLE IF EXISTS " + tableName + "",
@@ -70,6 +70,10 @@ export default class Database {
         );
       });
     }
+
+    this.init((error) => {
+      errorCallback(error);
+    });
   }
 
   sql(statement, callback, errorCallback) {

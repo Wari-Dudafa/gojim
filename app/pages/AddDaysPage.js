@@ -36,7 +36,10 @@ function AddDaysPage({ navigation, props }) {
   };
 
   const SaveDay = () => {
-    Alert.alert("New day added");
+    if (dayName.length == 0) {
+      Alert.alert("Please type a day name");
+      return;
+    }
     navigation.pop();
     // Adds exercise data from the array to the database
     // Adds dayName to the database
@@ -67,6 +70,7 @@ function AddDaysPage({ navigation, props }) {
             }
           );
         }
+        Alert.alert("New day added");
       },
       (error) => {
         Alert.alert("An error occured, please try again later");

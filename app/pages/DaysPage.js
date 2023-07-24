@@ -39,7 +39,7 @@ function DaysPage({ navigation, props }) {
           bottom: 15,
           right: 15,
           backgroundColor: "#4490c2",
-          borderRadius: 50,
+          borderRadius: 5,
           padding: 5,
         }}
       >

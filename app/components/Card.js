@@ -1,5 +1,4 @@
 import { View, Text, StyleSheet, Image } from "react-native";
-import { Feather } from "@expo/vector-icons";
 
 function Card(props) {
   return (
@@ -16,15 +15,6 @@ function Card(props) {
 
         <View style={styles.itemContainer}>
           <View style={styles.exercises}></View>
-          <View style={styles.buttonContainer}>
-            <View style={styles.trash}>
-              <Feather name="trash" size={50} color="#e6e6e6" />
-            </View>
-
-            <View style={styles.play}>
-              <Feather name="play" size={50} color="#e6e6e6" />
-            </View>
-          </View>
         </View>
       </View>
     </View>
@@ -79,21 +69,5 @@ const styles = StyleSheet.create({
   },
   exercises: {
     flex: 1,
-  },
-  trash: {
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "#4490c2",
-  },
-  play: {
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: "#4490c2",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    paddingLeft: 10,
-    paddingRight: 10,
   },
 });
