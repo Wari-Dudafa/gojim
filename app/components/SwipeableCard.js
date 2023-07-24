@@ -13,7 +13,7 @@ import { Feather } from "@expo/vector-icons";
 
 import Card from "./Card.js";
 
-const SwipeableCard = ({ currentDay, right, left, updateIndex }) => {
+const SwipeableCard = ({ currentDay, right, left, updateIndex, canSwipe }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   let cardOpacity = new Animated.Value(1);
@@ -43,37 +43,55 @@ const SwipeableCard = ({ currentDay, right, left, updateIndex }) => {
           useNativeDriver: false,
         }).start();
       } else if (gestureState.dx > SCREEN_WIDTH - 180) {
-        Animated.parallel([
-          Animated.timing(xPosition, {
-            toValue: SCREEN_WIDTH,
-            duration: 200,
-            useNativeDriver: false,
-          }),
-          Animated.timing(cardOpacity, {
+        if (canSwipe) {
+          Animated.parallel([
+            Animated.timing(xPosition, {
+              toValue: SCREEN_WIDTH,
+              duration: 200,
+              useNativeDriver: false,
+            }),
+            Animated.timing(cardOpacity, {
+              toValue: 0,
+              duration: 200,
+              useNativeDriver: false,
+            }),
+          ]).start(() => {
+            // Right
+            updateIndex(-1);
+          });
+        } else {
+          Animated.spring(xPosition, {
             toValue: 0,
-            duration: 200,
+            speed: 5,
+            bounciness: 15,
             useNativeDriver: false,
-          }),
-        ]).start(() => {
-          // Right
-          updateIndex(-1);
-        });
+          }).start();
+        }
       } else if (gestureState.dx < -SCREEN_WIDTH + 180) {
-        Animated.parallel([
-          Animated.timing(xPosition, {
-            toValue: -SCREEN_WIDTH,
-            duration: 200,
-            useNativeDriver: false,
-          }),
-          Animated.timing(cardOpacity, {
+        if (canSwipe) {
+          Animated.parallel([
+            Animated.timing(xPosition, {
+              toValue: -SCREEN_WIDTH,
+              duration: 200,
+              useNativeDriver: false,
+            }),
+            Animated.timing(cardOpacity, {
+              toValue: 0,
+              duration: 200,
+              useNativeDriver: false,
+            }),
+          ]).start(() => {
+            // Left
+            updateIndex(1);
+          });
+        } else {
+          Animated.spring(xPosition, {
             toValue: 0,
-            duration: 200,
+            speed: 5,
+            bounciness: 15,
             useNativeDriver: false,
-          }),
-        ]).start(() => {
-          // Left
-          updateIndex(1);
-        });
+          }).start();
+        }
       }
     },
   });
