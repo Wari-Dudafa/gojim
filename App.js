@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -13,12 +12,10 @@ export default function App() {
   const Tab = createBottomTabNavigator();
   const db = new Database();
 
-  useEffect(() => {
-    db.init((error) => {
-      Alert.alert("An error occured, please try again later");
-      console.log(error);
-    });
-  }, []);
+  db.init((error) => {
+    Alert.alert("An error occured, please try again later");
+    console.log(error);
+  });
 
   return (
     <NavigationContainer>

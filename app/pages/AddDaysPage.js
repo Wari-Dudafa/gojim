@@ -74,6 +74,7 @@ function AddDaysPage({ navigation, props }) {
       },
       (error) => {
         Alert.alert("An error occured, please try again later");
+        console.log(error);
       }
     );
   };

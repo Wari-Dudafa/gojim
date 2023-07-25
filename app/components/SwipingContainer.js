@@ -10,8 +10,8 @@ function SwipingContainer(props) {
 
   function DisplayCards() {
     let currentDay = cards[selectedCard];
-    let left = null;
-    let right = null;
+    let left;
+    let right;
     let canSwipe = true
 
     if (cards.length == 1) {

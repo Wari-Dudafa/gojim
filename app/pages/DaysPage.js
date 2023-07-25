@@ -8,11 +8,7 @@ import Database from "../classes/DatabaseClass";
 
 function DaysPage({ navigation, props }) {
   const db = new Database();
-  const [days, setDays] = useState([
-    { name: "..." },
-    { name: "..." },
-    { name: "..." },
-  ]);
+  const [days, setDays] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
@@ -45,7 +41,7 @@ function DaysPage({ navigation, props }) {
       >
         <Feather name="plus" size={55} color="#e6e6e6" />
       </TouchableOpacity>
-      <SwipingContainer days={days} navigation={navigation}/>
+      <SwipingContainer days={days} navigation={navigation} />
     </View>
   );
 }

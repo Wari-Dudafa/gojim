@@ -6,11 +6,24 @@ function SettingsPage(props) {
   const db = new Database();
 
   const Deletedata = () => {
-    db.wipeDatabase((error) => {
-      Alert.alert("An error occured, please try again later");
-      console.log(error);
-    });
-    Alert.alert("Data Deleted");
+    Alert.alert(
+      "Confirmation",
+      "Are you sure you want to delete all your data?",
+      [
+        { text: "No", style: "cancel" },
+        {
+          text: "Yes",
+          onPress: () => {
+            db.wipeDatabase((error) => {
+              Alert.alert("An error occured, please try again later");
+              console.log(error);
+            });
+            Alert.alert("Data Deleted");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
