@@ -24,6 +24,7 @@ const SwipeableCard = ({
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   let cardOpacity = new Animated.Value(1);
+  const swipeThreshold = 225;
   let panResponder = PanResponder.create({
     onStartShouldSetPanResponder: (evt, gestureState) => false,
     onMoveShouldSetPanResponder: (evt, gestureState) => true,
@@ -31,16 +32,11 @@ const SwipeableCard = ({
     onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
     onPanResponderMove: (evt, gestureState) => {
       xPosition.setValue(gestureState.dx);
-      if (gestureState.dx > SCREEN_WIDTH - 250) {
-        // console.log("right");
-      } else if (gestureState.dx < -SCREEN_WIDTH + 250) {
-        // console.log("left");
-      }
     },
     onPanResponderRelease: (evt, gestureState) => {
       if (
-        gestureState.dx < SCREEN_WIDTH - 180 &&
-        gestureState.dx > -SCREEN_WIDTH + 180
+        gestureState.dx < SCREEN_WIDTH - swipeThreshold &&
+        gestureState.dx > -SCREEN_WIDTH + swipeThreshold
       ) {
         Animated.spring(xPosition, {
           toValue: 0,
@@ -48,7 +44,7 @@ const SwipeableCard = ({
           bounciness: 15,
           useNativeDriver: false,
         }).start();
-      } else if (gestureState.dx > SCREEN_WIDTH - 180) {
+      } else if (gestureState.dx > SCREEN_WIDTH - swipeThreshold) {
         if (canSwipe) {
           Animated.parallel([
             Animated.timing(xPosition, {
@@ -73,7 +69,7 @@ const SwipeableCard = ({
             useNativeDriver: false,
           }).start();
         }
-      } else if (gestureState.dx < -SCREEN_WIDTH + 180) {
+      } else if (gestureState.dx < -SCREEN_WIDTH + swipeThreshold) {
         if (canSwipe) {
           Animated.parallel([
             Animated.timing(xPosition, {

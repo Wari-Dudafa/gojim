@@ -1,28 +1,6 @@
-import { useRef, useEffect } from "react";
-import { View, Text, StyleSheet, Image, Animated } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 
 function Card(props) {
-  const animatedValue = useRef(new Animated.Value(0)).current;
-  let showWidgets = true;
-
-  useEffect(() => {
-    fadeInAnimation();
-  }, []);
-
-  const fadeInAnimation = () => {
-    Animated.spring(animatedValue, {
-      toValue: 1,
-      speed: 5,
-      bounciness: 10,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const fadeIn = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1],
-  });
-
   return (
     <View style={styles.mainCard}>
       <Image
@@ -33,13 +11,10 @@ function Card(props) {
       <View style={styles.border}>
         <Text style={styles.name}>{props.name}</Text>
         <View style={styles.underline} />
-        {showWidgets ? (
-          <Animated.View style={{ opacity: fadeIn }}>
-            <Text>[Insert widget here]</Text>
-          </Animated.View>
-        ) : (
-          <></>
-        )}
+
+        <View>
+          <Text style={{ textAlign: "center" }}>[Insert widget here]</Text>
+        </View>
 
         <View style={styles.itemContainer}>
           <View style={styles.exercises}></View>
