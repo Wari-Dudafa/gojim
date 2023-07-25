@@ -1,5 +1,5 @@
 // Got some serious help from: https://aboutreact.com/react-native-swipeable-cardview-like-tinder/
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   Text,
   Animated,
@@ -24,7 +24,6 @@ const SwipeableCard = ({
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   let cardOpacity = new Animated.Value(1);
-
   let panResponder = PanResponder.create({
     onStartShouldSetPanResponder: (evt, gestureState) => false,
     onMoveShouldSetPanResponder: (evt, gestureState) => true,

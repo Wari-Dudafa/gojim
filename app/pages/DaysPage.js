@@ -19,6 +19,7 @@ function DaysPage({ navigation, props }) {
         },
         (error) => {
           Alert.alert("An error occured");
+          console.log(error);
         }
       );
     }, [])
