@@ -1,5 +1,5 @@
 // Got some serious help from: https://aboutreact.com/react-native-swipeable-cardview-like-tinder/
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   Animated,
@@ -23,15 +23,21 @@ const SwipeableCard = ({
 }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
-  let cardOpacity = new Animated.Value(1);
-  const swipeThreshold = 225;
-  let panResponder = PanResponder.create({
+  const [sideCardsAnimatedValue, setSideCardsAnimatedValue] = useState(
+    new Animated.Value(0)
+  );
+  const cardOpacity = new Animated.Value(1);
+  const swipeThreshold = 250;
+  const speed = 100;
+  const bounciness = 1;
+  const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: (evt, gestureState) => false,
     onMoveShouldSetPanResponder: (evt, gestureState) => true,
     onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
     onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
     onPanResponderMove: (evt, gestureState) => {
       xPosition.setValue(gestureState.dx);
+      sideCardsAnimatedValue.setValue(gestureState.dx);
     },
     onPanResponderRelease: (evt, gestureState) => {
       if (
@@ -41,21 +47,35 @@ const SwipeableCard = ({
         Animated.spring(xPosition, {
           toValue: 0,
           speed: 5,
-          bounciness: 15,
-          useNativeDriver: false,
+          bounciness: 10,
+          useNativeDriver: true,
+        }).start();
+        Animated.spring(sideCardsAnimatedValue, {
+          toValue: 0,
+          speed: 5,
+          bounciness: 10,
+          useNativeDriver: true,
         }).start();
       } else if (gestureState.dx > SCREEN_WIDTH - swipeThreshold) {
         if (canSwipe) {
           Animated.parallel([
-            Animated.timing(xPosition, {
+            Animated.spring(xPosition, {
               toValue: SCREEN_WIDTH,
-              duration: 200,
-              useNativeDriver: false,
+              speed: speed,
+              bounciness: bounciness,
+              useNativeDriver: true,
             }),
-            Animated.timing(cardOpacity, {
+            Animated.spring(cardOpacity, {
               toValue: 0,
-              duration: 200,
-              useNativeDriver: false,
+              speed: speed,
+              bounciness: bounciness,
+              useNativeDriver: true,
+            }),
+            Animated.spring(sideCardsAnimatedValue, {
+              toValue: 200,
+              speed: speed,
+              bounciness: bounciness,
+              useNativeDriver: true,
             }),
           ]).start(() => {
             // Right
@@ -65,22 +85,30 @@ const SwipeableCard = ({
           Animated.spring(xPosition, {
             toValue: 0,
             speed: 5,
-            bounciness: 15,
-            useNativeDriver: false,
+            bounciness: 10,
+            useNativeDriver: true,
           }).start();
         }
       } else if (gestureState.dx < -SCREEN_WIDTH + swipeThreshold) {
         if (canSwipe) {
           Animated.parallel([
-            Animated.timing(xPosition, {
+            Animated.spring(xPosition, {
               toValue: -SCREEN_WIDTH,
-              duration: 200,
-              useNativeDriver: false,
+              speed: speed,
+              bounciness: bounciness,
+              useNativeDriver: true,
             }),
-            Animated.timing(cardOpacity, {
+            Animated.spring(cardOpacity, {
               toValue: 0,
-              duration: 200,
-              useNativeDriver: false,
+              speed: speed,
+              bounciness: bounciness,
+              useNativeDriver: true,
+            }),
+            Animated.spring(sideCardsAnimatedValue, {
+              toValue: -200,
+              speed: speed,
+              bounciness: bounciness,
+              useNativeDriver: true,
             }),
           ]).start(() => {
             // Left
@@ -91,14 +119,14 @@ const SwipeableCard = ({
             toValue: 0,
             speed: 5,
             bounciness: 15,
-            useNativeDriver: false,
+            useNativeDriver: true,
           }).start();
         }
       }
     },
   });
 
-  let currentAnimation = {
+  const currentAnimation = {
     cardOpacity: xPosition.interpolate({
       inputRange: [-200, 0, 200],
       outputRange: [0.2, 0, 0.2],
@@ -117,51 +145,99 @@ const SwipeableCard = ({
     }),
   };
 
-  let rightAnimations = {
+  const rightAnimations = {
     // Right
-    cardOpacity: xPosition.interpolate({
+    cardOpacity: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
       outputRange: [0, 0.5, 0],
     }),
-    cardRotation: xPosition.interpolate({
+    cardRotation: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
-      outputRange: ["0deg", "15deg", "20deg"],
+      outputRange: ["0deg", "15deg", "10deg"],
     }),
-    cardX: xPosition.interpolate({
+    cardX: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
-      outputRange: [0, 150, 250],
+      outputRange: [0, 150, 0],
     }),
-    cardY: xPosition.interpolate({
+    cardY: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
-      outputRange: [20, 45, 150],
+      outputRange: [0, 45, 600],
     }),
-    cardScale: xPosition.interpolate({
-      inputRange: [-200, 0, 200],
-      outputRange: [0.9, 0.8, 0.3],
+    cardScale: sideCardsAnimatedValue.interpolate({
+      inputRange: [-200, 0, 60, 200],
+      outputRange: [1, 0.8, 0, 0],
     }),
   };
 
-  let leftAnimations = {
+  const ultraRightAnimations = {
+    // Ultra right
+    cardOpacity: sideCardsAnimatedValue.interpolate({
+      inputRange: [-400, -200, 0, 200],
+      outputRange: [0.5, 0.5, 0.9, 0.9],
+    }),
+    cardRotation: sideCardsAnimatedValue.interpolate({
+      inputRange: [-400, -200, 0, 200],
+      outputRange: ["15deg", "15deg", "0deg", "0deg"],
+    }),
+    cardX: sideCardsAnimatedValue.interpolate({
+      inputRange: [-400, -200, 0, 200],
+      outputRange: [150, 150, 100, 100],
+    }),
+    cardY: sideCardsAnimatedValue.interpolate({
+      inputRange: [-400, -200, 0, 200],
+      outputRange: [45, 45, 150, 150],
+    }),
+    cardScale: sideCardsAnimatedValue.interpolate({
+      inputRange: [-400, -200, 0, 200],
+      outputRange: [0.8, 0.8, 0.3, 0],
+    }),
+  };
+
+  const leftAnimations = {
     // Left
-    cardOpacity: xPosition.interpolate({
+    cardOpacity: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
       outputRange: [0, 0.5, 0],
     }),
-    cardRotation: xPosition.interpolate({
+    cardRotation: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
-      outputRange: ["-20deg", "-15deg", "0deg"],
+      outputRange: ["-10deg", "-15deg", "0deg"],
     }),
-    cardX: xPosition.interpolate({
+    cardX: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
-      outputRange: [-250, -150, 0],
+      outputRange: [0, -150, 0],
     }),
-    cardY: xPosition.interpolate({
+    cardY: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
-      outputRange: [150, 45, 20],
+      outputRange: [600, 45, 0],
     }),
-    cardScale: xPosition.interpolate({
-      inputRange: [-200, 0, 200],
-      outputRange: [0.3, 0.8, 0.9],
+    cardScale: sideCardsAnimatedValue.interpolate({
+      inputRange: [-200, -60, 0, 200],
+      outputRange: [0, 0, 0.8, 1],
+    }),
+  };
+
+  const ultraLeftAnimations = {
+    // Ultra left
+    cardOpacity: sideCardsAnimatedValue.interpolate({
+      inputRange: [-200, 0, 200, 400],
+      outputRange: [0.9, 0.9, 0.5, 0.5],
+    }),
+    cardRotation: sideCardsAnimatedValue.interpolate({
+      inputRange: [-200, 0, 200, 400],
+      outputRange: ["0deg", "0deg", "-15deg", "-15deg"],
+    }),
+    cardX: sideCardsAnimatedValue.interpolate({
+      inputRange: [-200, 0, 200, 400],
+      outputRange: [-100, -100, -150, -150],
+    }),
+    cardY: sideCardsAnimatedValue.interpolate({
+      inputRange: [-200, 0, 200, 400],
+      outputRange: [150, 150, 45, 45],
+    }),
+    cardScale: sideCardsAnimatedValue.interpolate({
+      inputRange: [-200, 0, 200, 400],
+      outputRange: [0, 0.3, 0.8, 0.8],
     }),
   };
 
@@ -198,6 +274,76 @@ const SwipeableCard = ({
               styles.cardStyle,
               {
                 transform: [
+                  { translateX: ultraLeftAnimations.cardX },
+                  { rotate: ultraLeftAnimations.cardRotation },
+                  { translateY: ultraLeftAnimations.cardY },
+                  { scale: ultraLeftAnimations.cardScale },
+                ],
+              },
+            ]}
+          >
+            {left ? (
+              <>
+                <Card name=" " fade={false} />
+                <Animated.View
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "black",
+                    borderRadius: 10,
+                    width: 280,
+                    height: 450,
+                    top: 70,
+                    zIndex: 2,
+                    opacity: ultraLeftAnimations.cardOpacity,
+                  }}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+          </Animated.View>
+
+          <Animated.View
+            {...panResponder.panHandlers}
+            style={[
+              styles.cardStyle,
+              {
+                transform: [
+                  { translateX: ultraRightAnimations.cardX },
+                  { rotate: ultraRightAnimations.cardRotation },
+                  { translateY: ultraRightAnimations.cardY },
+                  { scale: ultraRightAnimations.cardScale },
+                ],
+              },
+            ]}
+          >
+            {right ? (
+              <>
+                <Card name=" " fade={false} />
+                <Animated.View
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "black",
+                    borderRadius: 10,
+                    width: 280,
+                    height: 450,
+                    top: 70,
+                    zIndex: 2,
+                    opacity: ultraRightAnimations.cardOpacity,
+                  }}
+                />
+              </>
+            ) : (
+              <></>
+            )}
+          </Animated.View>
+
+          <Animated.View
+            {...panResponder.panHandlers}
+            style={[
+              styles.cardStyle,
+              {
+                transform: [
                   { translateX: leftAnimations.cardX },
                   { rotate: leftAnimations.cardRotation },
                   { translateY: leftAnimations.cardY },
@@ -208,7 +354,7 @@ const SwipeableCard = ({
           >
             {left ? (
               <>
-                <Card name={left.name} />
+                <Card name={left.name} fade={true} />
                 <Animated.View
                   style={{
                     position: "absolute",
@@ -243,7 +389,7 @@ const SwipeableCard = ({
           >
             {right ? (
               <>
-                <Card name={right.name} />
+                <Card name={right.name} fade={true} />
                 <Animated.View
                   style={{
                     position: "absolute",
@@ -289,7 +435,7 @@ const SwipeableCard = ({
                 opacity: currentAnimation.cardOpacity,
               }}
             />
-            <Card name={currentDay.name} />
+            <Card name={currentDay.name} fade={false} />
           </Animated.View>
         </>
       ) : (

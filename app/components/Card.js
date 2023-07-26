@@ -1,6 +1,37 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { useEffect } from "react";
+import { View, Text, StyleSheet, Image, Animated } from "react-native";
 
 function Card(props) {
+  const fadeInValue = new Animated.Value(0);
+  const cardOpacity = fadeInValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
+
+  const fadeIn = () => {
+    Animated.timing(fadeInValue, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const stayIn = () => {
+    Animated.timing(fadeInValue, {
+      toValue: 1,
+      duration: 0,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  useEffect(() => {
+    if (props.fade) {
+      fadeIn();
+    } else {
+      stayIn();
+    }
+  }, []);
+
   return (
     <View style={styles.mainCard}>
       <Image
@@ -9,16 +40,14 @@ function Card(props) {
       />
 
       <View style={styles.border}>
-        <Text style={styles.name}>{props.name}</Text>
+        <Animated.Text style={[styles.name, { opacity: cardOpacity }]}>
+          {props.name}
+        </Animated.Text>
         <View style={styles.underline} />
 
-        <View>
-          <Text style={{ textAlign: "center" }}>[Insert widget here]</Text>
-        </View>
-
-        <View style={styles.itemContainer}>
-          <View style={styles.exercises}></View>
-        </View>
+        <Animated.View style={{ opacity: cardOpacity }}>
+          {/* This is where the widgets will be */}
+        </Animated.View>
       </View>
     </View>
   );
