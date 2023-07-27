@@ -196,24 +196,24 @@ const SwipeableCard = ({
   const behindCardAnimations = {
     // Behind card
     cardOpacity: sideCardsAnimatedValue.interpolate({
-      inputRange: [-200, 0, 200, 400],
-      outputRange: [0.9, 0.9, 0.5, 0.5],
+      inputRange: [-400, -200, 0, 200, 400],
+      outputRange: [0.5, 0.5, 0.9, 0.5, 0.5],
     }),
     cardRotation: sideCardsAnimatedValue.interpolate({
-      inputRange: [-200, 0, 200, 400],
-      outputRange: ["0deg", "0deg", "-15deg", "-15deg"],
+      inputRange: [-400, -200, 0, 200, 400],
+      outputRange: ["15deg", "15deg", "0deg", "-15deg", "-15deg"],
     }),
     cardX: sideCardsAnimatedValue.interpolate({
-      inputRange: [-200, 0, 200, 400],
-      outputRange: [-100, -100, -150, -150],
+      inputRange: [-400, -200, 0, 200, 400],
+      outputRange: [150, 150, 0, -150, -150],
     }),
     cardY: sideCardsAnimatedValue.interpolate({
-      inputRange: [-200, 0, 200, 400],
-      outputRange: [150, 150, 45, 45],
+      inputRange: [-400, -200, 0, 200, 400],
+      outputRange: [45, 45, 150, 45, 45],
     }),
     cardScale: sideCardsAnimatedValue.interpolate({
-      inputRange: [-200, 0, 200, 400],
-      outputRange: [0, 0.3, 0.8, 0.8],
+      inputRange: [-400, -200, 0, 200, 400],
+      outputRange: [0.8, 0.8, 0.3, 0.8, 0.8],
     }),
   };
 
