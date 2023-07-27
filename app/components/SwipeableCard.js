@@ -1,5 +1,5 @@
 // Got some serious help from: https://aboutreact.com/react-native-swipeable-cardview-like-tinder/
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Text,
   Animated,
@@ -169,30 +169,6 @@ const SwipeableCard = ({
     }),
   };
 
-  const ultraRightAnimations = {
-    // Ultra right
-    cardOpacity: sideCardsAnimatedValue.interpolate({
-      inputRange: [-400, -200, 0, 200],
-      outputRange: [0.5, 0.5, 0.9, 0.9],
-    }),
-    cardRotation: sideCardsAnimatedValue.interpolate({
-      inputRange: [-400, -200, 0, 200],
-      outputRange: ["15deg", "15deg", "0deg", "0deg"],
-    }),
-    cardX: sideCardsAnimatedValue.interpolate({
-      inputRange: [-400, -200, 0, 200],
-      outputRange: [150, 150, 100, 100],
-    }),
-    cardY: sideCardsAnimatedValue.interpolate({
-      inputRange: [-400, -200, 0, 200],
-      outputRange: [45, 45, 150, 150],
-    }),
-    cardScale: sideCardsAnimatedValue.interpolate({
-      inputRange: [-400, -200, 0, 200],
-      outputRange: [0.8, 0.8, 0.3, 0],
-    }),
-  };
-
   const leftAnimations = {
     // Left
     cardOpacity: sideCardsAnimatedValue.interpolate({
@@ -217,8 +193,8 @@ const SwipeableCard = ({
     }),
   };
 
-  const ultraLeftAnimations = {
-    // Ultra left
+  const behindCardAnimations = {
+    // Behind card
     cardOpacity: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200, 400],
       outputRange: [0.9, 0.9, 0.5, 0.5],
@@ -263,7 +239,12 @@ const SwipeableCard = ({
               <Feather name="edit-2" size={40} color="#e6e6e6" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.bottomButtons}>
+            <TouchableOpacity
+              style={styles.bottomButtons}
+              onPress={() => {
+                navigation.navigate("StartWorkoutPage");
+              }}
+            >
               <Feather name="play" size={40} color="#e6e6e6" />
             </TouchableOpacity>
           </View>
@@ -274,10 +255,10 @@ const SwipeableCard = ({
               styles.cardStyle,
               {
                 transform: [
-                  { translateX: ultraLeftAnimations.cardX },
-                  { rotate: ultraLeftAnimations.cardRotation },
-                  { translateY: ultraLeftAnimations.cardY },
-                  { scale: ultraLeftAnimations.cardScale },
+                  { translateX: behindCardAnimations.cardX },
+                  { rotate: behindCardAnimations.cardRotation },
+                  { translateY: behindCardAnimations.cardY },
+                  { scale: behindCardAnimations.cardScale },
                 ],
               },
             ]}
@@ -294,42 +275,7 @@ const SwipeableCard = ({
                     height: 450,
                     top: 70,
                     zIndex: 2,
-                    opacity: ultraLeftAnimations.cardOpacity,
-                  }}
-                />
-              </>
-            ) : (
-              <></>
-            )}
-          </Animated.View>
-
-          <Animated.View
-            {...panResponder.panHandlers}
-            style={[
-              styles.cardStyle,
-              {
-                transform: [
-                  { translateX: ultraRightAnimations.cardX },
-                  { rotate: ultraRightAnimations.cardRotation },
-                  { translateY: ultraRightAnimations.cardY },
-                  { scale: ultraRightAnimations.cardScale },
-                ],
-              },
-            ]}
-          >
-            {right ? (
-              <>
-                <Card name=" " fade={false} />
-                <Animated.View
-                  style={{
-                    position: "absolute",
-                    backgroundColor: "black",
-                    borderRadius: 10,
-                    width: 280,
-                    height: 450,
-                    top: 70,
-                    zIndex: 2,
-                    opacity: ultraRightAnimations.cardOpacity,
+                    opacity: behindCardAnimations.cardOpacity,
                   }}
                 />
               </>
