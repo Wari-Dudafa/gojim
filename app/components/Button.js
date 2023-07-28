@@ -1,6 +1,4 @@
-import React from "react";
 import { Text, TouchableOpacity } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Haptics from "expo-haptics";
 
 function Button(props) {

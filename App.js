@@ -3,7 +3,6 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Text, StyleSheet, SafeAreaView, Alert } from "react-native";
-import { Image } from "expo-image";
 
 import DaysStackPage from "./app/pages/DaysStackPage";
 import SettingsPage from "./app/pages/SettingsPage";
@@ -15,7 +14,6 @@ export default function App() {
   const db = new Database();
 
   useEffect(() => {
-    Image.prefetch("../../assets/shading.png");
     db.init((error) => {
       Alert.alert("An error occured, please try again later");
       console.log(error);

@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { View, StyleSheet, Animated } from "react-native";
-import { Image } from "expo-image";
+import { View, StyleSheet, Animated, Image } from "react-native";
 
 function Card(props) {
   const fadeInValue = new Animated.Value(0);
@@ -37,7 +36,6 @@ function Card(props) {
     <View style={styles.mainCard}>
       <Image
         style={styles.image}
-        cachePolicy="memory-disk"
         source={require("../../assets/shading.png")}
       />
 

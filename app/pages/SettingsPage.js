@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, Alert, StyleSheet, Switch } from "react-native";
 
@@ -7,10 +7,31 @@ import Button from "../components/Button";
 
 function SettingsPage() {
   const db = new Database();
-  const [isEnabled, setIsEnabled] = useState(false);
+  const [buttonHapticSetting, setButtonHapticSetting] = useState(true);
 
-  const toggleSwitch = () => {
-    setIsEnabled((previousState) => !previousState);
+  useEffect(() => {
+    getData();
+  }, [buttonHapticSetting]);
+
+  const storeData = async () => {
+    setButtonHapticSetting(!buttonHapticSetting);
+    try {
+      await AsyncStorage.setItem(
+        "buttonHapticSetting",
+        buttonHapticSetting.toString()
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem("hapticSetting");
+      console.log(value);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const Deletedata = () => {
@@ -41,7 +62,12 @@ function SettingsPage() {
         onPress={Deletedata}
         style={{ backgroundColor: "blue", padding: 10 }}
       />
-      <Switch onValueChange={toggleSwitch} value={isEnabled} />
+      <Switch
+        onValueChange={() => {
+          storeData();
+        }}
+        value={buttonHapticSetting}
+      />
     </View>
   );
 }
