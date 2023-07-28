@@ -33,7 +33,7 @@ function Card(props) {
   }, []);
 
   return (
-    <View style={styles.mainCard}>
+    <View style={styles.mainCard} shouldRasterizeIOS={true}>
       <Image
         style={styles.image}
         source={require("../../assets/shading.png")} // Blinking, acceptable performance

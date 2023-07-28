@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Text, StyleSheet, SafeAreaView, Alert } from "react-native";
+import { enableScreens } from "react-native-screens";
 
 import DaysStackPage from "./app/pages/DaysStackPage";
 import SettingsPage from "./app/pages/SettingsPage";
@@ -12,6 +13,7 @@ import Database from "./app/classes/DatabaseClass";
 export default function App() {
   const Tab = createBottomTabNavigator();
   const db = new Database();
+  enableScreens();
 
   useEffect(() => {
     db.init((error) => {

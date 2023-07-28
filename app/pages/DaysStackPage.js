@@ -5,6 +5,7 @@ import DaysPage from "./DaysPage";
 import AddDaysPage from "./AddDaysPage";
 import EditDayPage from "./EditDayPage";
 import StartWorkoutPage from "./StartWorkoutPage";
+import StartExercisePage from "./StartExercisePage";
 
 function DaysStackPage() {
   const Stack = createNativeStackNavigator();
@@ -18,6 +19,7 @@ function DaysStackPage() {
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="AddDaysPage" component={AddDaysPage} />
         <Stack.Screen name="EditDayPage" component={EditDayPage} />
+        <Stack.Screen name="StartExercisePage" component={StartExercisePage} />
       </Stack.Group>
     </Stack.Navigator>
   );

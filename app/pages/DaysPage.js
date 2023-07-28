@@ -7,7 +7,7 @@ import SwipingContainer from "../components/SwipingContainer";
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
 
-function DaysPage({ navigation }) {
+function DaysPage(props) {
   const db = new Database();
   const [days, setDays] = useState([]);
 
@@ -30,7 +30,7 @@ function DaysPage({ navigation }) {
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
       <Button
         onPress={() => {
-          navigation.navigate("AddDaysPage");
+          props.navigation.navigate("AddDaysPage");
         }}
         style={{
           position: "absolute",
@@ -43,7 +43,7 @@ function DaysPage({ navigation }) {
       >
         <Feather name="plus" size={55} color="#e6e6e6" />
       </Button>
-      <SwipingContainer days={days} navigation={navigation} />
+      <SwipingContainer days={days} navigation={props.navigation} />
     </View>
   );
 }

@@ -7,9 +7,9 @@ import Database from "../classes/DatabaseClass";
 import NewExerciseSelector from "../components/NewExerciseSelector";
 import Button from "../components/Button";
 
-function EditDayPage({ navigation, route }) {
+function EditDayPage(props) {
   const db = new Database();
-  const day = route.params.day;
+  const day = props.route.params.day;
   const [newName, setNewName] = useState("");
   const [exercises, setExercises] = useState([]);
 
@@ -51,7 +51,7 @@ function EditDayPage({ navigation, route }) {
     if (newName.length == 0) {
       setNewName(day.name);
     }
-    navigation.pop();
+    props.navigation.pop();
     // Saving logic
   };
 
@@ -64,7 +64,7 @@ function EditDayPage({ navigation, route }) {
         {
           text: "Yes",
           onPress: () => {
-            navigation.pop();
+            props.navigation.pop();
             // Deleting logic
             Alert.alert("Day Deleted");
           },

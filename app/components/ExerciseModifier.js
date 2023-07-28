@@ -148,7 +148,7 @@ function ExerciseModifier(props) {
   };
 
   return (
-    <Animated.View style={deletingStyle}>
+    <Animated.View style={deletingStyle} shouldRasterizeIOS={true}>
       <Swipeable
         ref={UpdateRef}
         friction={2}
@@ -271,6 +271,7 @@ function ExerciseModifier(props) {
             <Image
               style={styles.image}
               source={require("../../assets/shading.png")}
+              defaultSource={require("../../assets/shading.png")}
             />
           </View>
         </View>
@@ -288,11 +289,11 @@ const styles = StyleSheet.create({
     fontSize: 40,
   },
   reps: {
-    color: "#e6e6e6",
+    color: "lightgrey",
     fontSize: 20,
   },
   sets: {
-    color: "#e6e6e6",
+    color: "lightgrey",
     fontSize: 20,
   },
   exerciseContainer: {

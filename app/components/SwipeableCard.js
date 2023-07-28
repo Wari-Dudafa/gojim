@@ -14,14 +14,14 @@ import * as Haptics from "expo-haptics";
 import Card from "./Card.js";
 import Button from "./Button.js";
 
-const SwipeableCard = ({
+function SwipeableCard({
   currentDay,
   right,
   left,
   updateIndex,
   canSwipe,
   navigation,
-}) => {
+}) {
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   const [hapticSetting, setHapticSetting] = useState(true);
@@ -261,6 +261,7 @@ const SwipeableCard = ({
           </View>
 
           <Animated.View
+            shouldRasterizeIOS={true}
             {...panResponder.panHandlers}
             style={[
               styles.cardStyle,
@@ -296,6 +297,7 @@ const SwipeableCard = ({
           </Animated.View>
 
           <Animated.View
+            shouldRasterizeIOS={true}
             {...panResponder.panHandlers}
             style={[
               styles.cardStyle,
@@ -331,6 +333,7 @@ const SwipeableCard = ({
           </Animated.View>
 
           <Animated.View
+            shouldRasterizeIOS={true}
             {...panResponder.panHandlers}
             style={[
               styles.cardStyle,
@@ -366,6 +369,7 @@ const SwipeableCard = ({
           </Animated.View>
 
           <Animated.View
+            shouldRasterizeIOS={true}
             {...panResponder.panHandlers}
             style={[
               styles.cardStyle,
@@ -404,7 +408,7 @@ const SwipeableCard = ({
       )}
     </>
   );
-};
+}
 
 export default SwipeableCard;
 

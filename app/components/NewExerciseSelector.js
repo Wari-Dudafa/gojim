@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import ExerciseModifier from "./ExerciseModifier";
@@ -8,20 +8,17 @@ function NewExerciseSelector(props) {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ScrollView style={styles.container}>
-        {props.exercises.map((item, index) => {
-          return (
-            <ExerciseModifier
-              item={item}
-              index={index}
-              key={index}
-              exercises={props.exercises}
-              setExercises={props.setExercises}
-            />
-          );
-        })}
-        <View style={{ height: 100 }} />
-      </ScrollView>
+      <FlatList
+        data={props.exercises}
+        renderItem={({ item, index }) => (
+          <ExerciseModifier
+            item={item}
+            index={index}
+            exercises={props.exercises}
+            setExercises={props.setExercises}
+          />
+        )}
+      />
     </GestureHandlerRootView>
   );
 }

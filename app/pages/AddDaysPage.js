@@ -7,7 +7,7 @@ import NewExerciseSelector from "../components/NewExerciseSelector";
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
 
-function AddDaysPage({ navigation }) {
+function AddDaysPage(props) {
   // Default exercise in a day
   const defaultExercise = new Exercise({
     name: "Exercise",
@@ -35,7 +35,7 @@ function AddDaysPage({ navigation }) {
       Alert.alert("Please type a day name");
       return;
     }
-    navigation.pop();
+    props.navigation.pop();
     // Adds exercise data from the array to the database
     // Adds dayName to the database
     let statement = "INSERT INTO days (name) VALUES('" + dayName + "')";
