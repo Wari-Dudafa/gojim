@@ -36,7 +36,8 @@ function Card(props) {
     <View style={styles.mainCard}>
       <Image
         style={styles.image}
-        source={require("../../assets/shading.png")}
+        source={require("../../assets/shading.png")} // Blinking, acceptable performance
+        defaultSource={require("../../assets/shading.png")} // No blinking, terrible performance
       />
 
       <View style={styles.border}>
@@ -62,7 +63,6 @@ const styles = StyleSheet.create({
     height: 450,
     resizeMode: "stretch",
     opacity: 0.05,
-    transform: [{ scaleX: 1 }, { scaleY: 1 }],
     zIndex: -1,
   },
   border: {

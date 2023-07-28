@@ -75,6 +75,17 @@ function SettingsPage() {
         </Text>
         <Switch onValueChange={storeData} value={hapticSetting} />
       </View>
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          padding: 10,
+        }}
+      >
+        <Text style={{ color: "#e6e6e6", paddingRight: 10 }}>Kilograms</Text>
+        <Switch />
+        <Text style={{ color: "#e6e6e6", paddingLeft: 10 }}>Pounds</Text>
+      </View>
       <Button title="Delete data" onPress={deleteData} />
     </View>
   );

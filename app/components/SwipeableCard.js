@@ -397,14 +397,7 @@ const SwipeableCard = ({
         </>
       ) : (
         <>
-          <Text
-            style={{
-              padding: 50,
-              color: "#e6e6e6",
-              alignSelf: "center",
-              textAlign: "center",
-            }}
-          >
+          <Text style={styles.noDaysText}>
             There are currently no days, please click the plus button to add one
           </Text>
         </>
@@ -440,5 +433,11 @@ const styles = StyleSheet.create({
     zIndex: 5,
     position: "absolute",
     top: 440,
+  },
+  noDaysText: {
+    padding: 50,
+    color: "#e6e6e6",
+    alignSelf: "center",
+    textAlign: "center",
   },
 });
