@@ -1,6 +1,6 @@
 import { View, StyleSheet } from "react-native";
 
-function FoodPage(props) {
+function FoodPage() {
   return (
     <View style={styles.container}>
       <></>

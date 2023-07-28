@@ -4,13 +4,14 @@ import {
   Text,
   StyleSheet,
   Image,
-  TouchableOpacity,
   Animated,
   Alert,
   TextInput,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+
+import Button from "./Button";
 
 function ExerciseModifier(props) {
   const [swipeableRow, setSwipeableRow] = useState();
@@ -73,12 +74,12 @@ function ExerciseModifier(props) {
             marginVertical: 10,
           }}
         >
-          <TouchableOpacity
+          <Button
             style={[styles.rightAction, { backgroundColor: color }]}
             onPress={onPress}
           >
             <Text style={styles.rightActionText}>{text}</Text>
-          </TouchableOpacity>
+          </Button>
         </Animated.View>
       );
     };
@@ -176,7 +177,7 @@ function ExerciseModifier(props) {
               <View
                 style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
               >
-                <TouchableOpacity
+                <Button
                   style={{
                     flex: 1,
                     backgroundColor: "green",
@@ -187,10 +188,10 @@ function ExerciseModifier(props) {
                   onPress={() => setReps(reps + 1)}
                 >
                   <Feather name="plus" size={30} color="#e6e6e6" />
-                </TouchableOpacity>
+                </Button>
 
                 <Text style={{ padding: 10 }}>Reps: {reps}</Text>
-                <TouchableOpacity
+                <Button
                   style={{
                     flex: 1,
                     backgroundColor: "green",
@@ -205,13 +206,13 @@ function ExerciseModifier(props) {
                   }}
                 >
                   <Feather name="minus" size={30} color="#e6e6e6" />
-                </TouchableOpacity>
+                </Button>
               </View>
 
               <View
                 style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
               >
-                <TouchableOpacity
+                <Button
                   style={{
                     flex: 1,
                     backgroundColor: "green",
@@ -222,9 +223,9 @@ function ExerciseModifier(props) {
                   onPress={() => setSets(sets + 1)}
                 >
                   <Feather name="plus" size={30} color="#e6e6e6" />
-                </TouchableOpacity>
+                </Button>
                 <Text style={{ padding: 10 }}>Sets: {sets}</Text>
-                <TouchableOpacity
+                <Button
                   style={{
                     flex: 1,
                     backgroundColor: "green",
@@ -239,11 +240,11 @@ function ExerciseModifier(props) {
                   }}
                 >
                   <Feather name="minus" size={30} color="#e6e6e6" />
-                </TouchableOpacity>
+                </Button>
               </View>
 
               <View style={{ flex: 1, flexDirection: "row" }}>
-                <TouchableOpacity
+                <Button
                   onPress={Edit}
                   style={{
                     flex: 1,
@@ -253,8 +254,8 @@ function ExerciseModifier(props) {
                   }}
                 >
                   <Text>save</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
+                </Button>
+                <Button
                   onPress={ToggleEdit}
                   style={{
                     flex: 1,
@@ -264,7 +265,7 @@ function ExerciseModifier(props) {
                   }}
                 >
                   <Text>cancel</Text>
-                </TouchableOpacity>
+                </Button>
               </View>
             </Animated.View>
             <Image

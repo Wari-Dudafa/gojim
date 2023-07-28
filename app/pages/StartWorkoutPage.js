@@ -1,9 +1,12 @@
-import { View, Button } from "react-native";
+import { View } from "react-native";
+
+import Button from "../components/Button";
 
 function StartWorkoutPage({ navigation }) {
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
       <Button
+        style={{ backgroundColor: "blue", paddging: 10 }}
         title="End workout"
         onPress={() => {
           navigation.pop();

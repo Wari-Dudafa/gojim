@@ -6,7 +6,7 @@ import AddDaysPage from "./AddDaysPage";
 import EditDayPage from "./EditDayPage";
 import StartWorkoutPage from "./StartWorkoutPage";
 
-function DaysStackPage(props) {
+function DaysStackPage() {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator

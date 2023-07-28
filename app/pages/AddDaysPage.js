@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   View,
   TextInput,
-  TouchableOpacity,
   StyleSheet,
   Alert,
 } from "react-native";
@@ -11,8 +10,9 @@ import { Feather } from "@expo/vector-icons";
 import Exercise from "../classes/ExerciseClass";
 import NewExerciseSelector from "../components/NewExerciseSelector";
 import Database from "../classes/DatabaseClass";
+import Button from "../components/Button";
 
-function AddDaysPage({ navigation, props }) {
+function AddDaysPage({ navigation }) {
   // Default exercise in a day
   const defaultExercise = new Exercise({
     name: "Exercise",
@@ -82,13 +82,13 @@ function AddDaysPage({ navigation, props }) {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <TouchableOpacity style={styles.plus} onPress={AddExercise}>
+        <Button style={styles.plus} onPress={AddExercise}>
           <Feather name="plus" size={50} color="#e6e6e6" />
-        </TouchableOpacity>
+        </Button>
 
-        <TouchableOpacity style={styles.check} onPress={SaveDay}>
+        <Button style={styles.check} onPress={SaveDay}>
           <Feather name="check" size={50} color="#e6e6e6" />
-        </TouchableOpacity>
+        </Button>
       </View>
 
       <TextInput

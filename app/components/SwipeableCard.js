@@ -6,12 +6,13 @@ import {
   PanResponder,
   Dimensions,
   StyleSheet,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
 
 import Card from "./Card.js";
+import Button from "./Button.js";
 
 const SwipeableCard = ({
   currentDay,
@@ -58,6 +59,7 @@ const SwipeableCard = ({
         }).start();
       } else if (gestureState.dx > SCREEN_WIDTH - swipeThreshold) {
         if (canSwipe) {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
           Animated.parallel([
             Animated.spring(xPosition, {
               toValue: SCREEN_WIDTH,
@@ -91,6 +93,7 @@ const SwipeableCard = ({
         }
       } else if (gestureState.dx < -SCREEN_WIDTH + swipeThreshold) {
         if (canSwipe) {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
           Animated.parallel([
             Animated.spring(xPosition, {
               toValue: -SCREEN_WIDTH,
@@ -226,27 +229,27 @@ const SwipeableCard = ({
       {currentDay ? (
         <>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.bottomButtons}>
+            <Button style={styles.bottomButtons} onPress={() => {}}>
               <Feather name="activity" size={40} color="#e6e6e6" />
-            </TouchableOpacity>
+            </Button>
 
-            <TouchableOpacity
+            <Button
               style={styles.bottomButtons}
               onPress={() => {
                 navigation.navigate("EditDayPage", { day: currentDay });
               }}
             >
               <Feather name="edit-2" size={40} color="#e6e6e6" />
-            </TouchableOpacity>
+            </Button>
 
-            <TouchableOpacity
+            <Button
               style={styles.bottomButtons}
               onPress={() => {
                 navigation.navigate("StartWorkoutPage");
               }}
             >
               <Feather name="play" size={40} color="#e6e6e6" />
-            </TouchableOpacity>
+            </Button>
           </View>
 
           <Animated.View

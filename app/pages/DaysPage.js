@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
-import { View, TouchableOpacity, Alert } from "react-native";
+import { View, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 
 import SwipingContainer from "../components/SwipingContainer";
 import Database from "../classes/DatabaseClass";
+import Button from "../components/Button";
 
-function DaysPage({ navigation, props }) {
+function DaysPage({ navigation }) {
   const db = new Database();
   const [days, setDays] = useState([]);
 
@@ -27,7 +28,7 @@ function DaysPage({ navigation, props }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
-      <TouchableOpacity
+      <Button
         onPress={() => {
           navigation.navigate("AddDaysPage");
         }}
@@ -41,7 +42,7 @@ function DaysPage({ navigation, props }) {
         }}
       >
         <Feather name="plus" size={55} color="#e6e6e6" />
-      </TouchableOpacity>
+      </Button>
       <SwipingContainer days={days} navigation={navigation} />
     </View>
   );

@@ -3,7 +3,6 @@ import {
   View,
   StyleSheet,
   TextInput,
-  TouchableOpacity,
   Alert,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
@@ -11,6 +10,7 @@ import { Feather } from "@expo/vector-icons";
 import Exercise from "../classes/ExerciseClass";
 import Database from "../classes/DatabaseClass";
 import NewExerciseSelector from "../components/NewExerciseSelector";
+import Button from "../components/Button";
 
 function EditDayPage({ navigation, route }) {
   const db = new Database();
@@ -82,17 +82,17 @@ function EditDayPage({ navigation, route }) {
   return (
     <View style={styles.container}>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <TouchableOpacity style={styles.plus} onPress={AddExercise}>
+        <Button style={styles.plus} onPress={AddExercise}>
           <Feather name="plus" size={50} color="#e6e6e6" />
-        </TouchableOpacity>
+        </Button>
 
-        <TouchableOpacity style={styles.plus} onPress={DeleteDay}>
+        <Button style={styles.plus} onPress={DeleteDay}>
           <Feather name="trash" size={45} color="#e6e6e6" />
-        </TouchableOpacity>
+        </Button>
 
-        <TouchableOpacity style={styles.check} onPress={SaveDay}>
+        <Button style={styles.check} onPress={SaveDay}>
           <Feather name="check" size={50} color="#e6e6e6" />
-        </TouchableOpacity>
+        </Button>
       </View>
 
       <TextInput
