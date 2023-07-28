@@ -1,26 +1,25 @@
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Alert, StyleSheet, Switch } from "react-native";
+import { View, Alert, StyleSheet, Switch, Text } from "react-native";
 
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
 
 function SettingsPage() {
   const db = new Database();
-  const [buttonHapticSetting, setButtonHapticSetting] = useState(true);
+  const [hapticSetting, setHapticSetting] = useState(true);
 
   useEffect(() => {
     getData();
-  }, [buttonHapticSetting]);
+  }, []);
 
   const storeData = async () => {
-    setButtonHapticSetting(!buttonHapticSetting);
+    const newHapticSetting = !hapticSetting;
+    setHapticSetting(newHapticSetting);
     try {
-      await AsyncStorage.setItem(
-        "buttonHapticSetting",
-        buttonHapticSetting.toString()
-      );
+      await AsyncStorage.setItem("hapticSetting", newHapticSetting.toString());
     } catch (error) {
+      Alert.alert("An error occured, please try again later");
       console.log(error);
     }
   };
@@ -28,13 +27,20 @@ function SettingsPage() {
   const getData = async () => {
     try {
       const value = await AsyncStorage.getItem("hapticSetting");
-      console.log(value);
+      if (value == "true") {
+        // Setting is true so set the setting to true
+        setHapticSetting(true);
+      } else if (value == "false") {
+        // Setting is false so set the setting to false
+        setHapticSetting(false);
+      }
     } catch (error) {
+      Alert.alert("An error occured, please try again later");
       console.log(error);
     }
   };
 
-  const Deletedata = () => {
+  const deleteData = () => {
     Alert.alert(
       "Confirmation",
       "Are you sure you want to delete all your data?",
@@ -57,17 +63,19 @@ function SettingsPage() {
 
   return (
     <View style={styles.container}>
-      <Button
-        title="Delete data"
-        onPress={Deletedata}
-        style={{ backgroundColor: "blue", padding: 10 }}
-      />
-      <Switch
-        onValueChange={() => {
-          storeData();
+      <View
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          padding: 10,
         }}
-        value={buttonHapticSetting}
-      />
+      >
+        <Text style={{ color: "#e6e6e6", paddingRight: 10 }}>
+          Haptic feeback
+        </Text>
+        <Switch onValueChange={storeData} value={hapticSetting} />
+      </View>
+      <Button title="Delete data" onPress={deleteData} />
     </View>
   );
 }
@@ -78,6 +86,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#0f1824",
-    alignItems: "center",
   },
 });

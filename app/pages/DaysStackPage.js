@@ -14,10 +14,7 @@ function DaysStackPage() {
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name="DaysPage" component={DaysPage} />
-      <Stack.Screen
-        name="StartWorkoutPage"
-        component={StartWorkoutPage}
-      />
+      <Stack.Screen name="StartWorkoutPage" component={StartWorkoutPage} />
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="AddDaysPage" component={AddDaysPage} />
         <Stack.Screen name="EditDayPage" component={EditDayPage} />

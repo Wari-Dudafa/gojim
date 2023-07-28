@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Alert,
-} from "react-native";
+import { View, StyleSheet, TextInput, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import Exercise from "../classes/ExerciseClass";

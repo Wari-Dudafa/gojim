@@ -24,6 +24,7 @@ const SwipeableCard = ({
 }) => {
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
+  const [hapticSetting, setHapticSetting] = useState(true);
   const [sideCardsAnimatedValue, setSideCardsAnimatedValue] = useState(
     new Animated.Value(0)
   );
@@ -59,7 +60,9 @@ const SwipeableCard = ({
         }).start();
       } else if (gestureState.dx > SCREEN_WIDTH - swipeThreshold) {
         if (canSwipe) {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          if (hapticSetting) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          }
           Animated.parallel([
             Animated.spring(xPosition, {
               toValue: SCREEN_WIDTH,
@@ -93,7 +96,9 @@ const SwipeableCard = ({
         }
       } else if (gestureState.dx < -SCREEN_WIDTH + swipeThreshold) {
         if (canSwipe) {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          if (hapticSetting) {
+            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          }
           Animated.parallel([
             Animated.spring(xPosition, {
               toValue: -SCREEN_WIDTH,
@@ -229,7 +234,10 @@ const SwipeableCard = ({
       {currentDay ? (
         <>
           <View style={styles.buttonContainer}>
-            <Button style={styles.bottomButtons} onPress={() => {}}>
+            <Button
+              style={styles.bottomButtons}
+              setHapticSetting={setHapticSetting}
+            >
               <Feather name="activity" size={40} color="#e6e6e6" />
             </Button>
 
