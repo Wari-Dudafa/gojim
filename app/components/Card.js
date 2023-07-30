@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   image: {
     position: "absolute",
     width: 280,
-    height: 450,
+    height: "100%",
     resizeMode: "stretch",
     opacity: 0.05,
     zIndex: -1,

@@ -98,6 +98,7 @@ function SettingsPage() {
         <Text style={{ color: "#e6e6e6" }}>Kilograms</Text>
         <Switch value={true} />
       </View>
+      
       <Button title="Delete data" onPress={deleteData} />
     </View>
   );

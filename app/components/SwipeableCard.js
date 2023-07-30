@@ -253,7 +253,7 @@ function SwipeableCard({
             <Button
               style={styles.bottomButtons}
               onPress={() => {
-                navigation.navigate("StartWorkoutPage");
+                navigation.navigate("StartDayPage", { day: currentDay });
               }}
             >
               <Feather name="play" size={40} color="#e6e6e6" />
