@@ -71,7 +71,9 @@ function SettingsPage() {
           padding: 10,
         }}
       >
-        <Text style={{ color: "#e6e6e6" }}>Haptic feeback (Only one that works)</Text>
+        <Text style={{ color: "#e6e6e6" }}>
+          Haptic feeback (Only one that works)
+        </Text>
         <Switch onValueChange={storeData} value={hapticSetting} />
       </View>
 
@@ -98,7 +100,21 @@ function SettingsPage() {
         <Text style={{ color: "#e6e6e6" }}>Kilograms</Text>
         <Switch value={true} />
       </View>
-      
+
+      <View
+        style={{
+          justifyContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
+          padding: 10,
+        }}
+      >
+        <Text style={{ color: "#e6e6e6" }}>Push yourself factor</Text>
+        <Button>
+          <Text style={{ color: "#e6e6e6" }}>20%</Text>
+        </Button>
+      </View>
+
       <Button title="Delete data" onPress={deleteData} />
     </View>
   );

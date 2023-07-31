@@ -12,6 +12,7 @@ function EditDayPage(props) {
   const day = props.route.params.day;
   const [newName, setNewName] = useState("");
   const [exercises, setExercises] = useState([]);
+  const [secondaryExercises, setSecondaryExercises] = useState([]);
 
   useEffect(() => {
     let day_id = day.id;
@@ -27,6 +28,7 @@ function EditDayPage(props) {
           newArray.push(exercise);
         }
         setExercises(newArray);
+        setSecondaryExercises(newArray);
       },
       (error) => {
         Alert.alert("An error occured, please try again later");
@@ -48,11 +50,14 @@ function EditDayPage(props) {
   };
 
   const SaveDay = () => {
-    if (newName.length == 0) {
+    if (newName.length > 0) {
       setNewName(day.name);
     }
     props.navigation.pop();
-    // Saving logic
+    // Update day name
+    // Loop over og array and if it doesnt already exist, save it
+    // If it is now null check what it was the the secondaryExercise array
+    // Grab that id and delete that exercise from the database
   };
 
   const DeleteDay = () => {
@@ -65,7 +70,8 @@ function EditDayPage(props) {
           text: "Yes",
           onPress: () => {
             props.navigation.pop();
-            // Deleting logic
+            // Delete the day from the database
+            // Delete all exercises with this day id
             Alert.alert("Day Deleted");
           },
         },

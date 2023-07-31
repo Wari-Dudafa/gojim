@@ -1,21 +1,39 @@
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, FlatList } from "react-native";
 
 import WeightRepSelector from "./WeightRepSelector";
 
 function ExercisePillar(props) {
+  const WeightRepSelectorRenderer = () => {
+    let setCount = props.exercise.sets;
+    let repCount = props.exercise.reps;
+    let weightRepSelectorArray = new Array(setCount).fill({});
+    return (
+      <FlatList
+        style={{ flex: 1 }}
+        data={weightRepSelectorArray}
+        renderItem={({ index }) => {
+          return (
+            <>
+              <WeightRepSelector repCount={repCount} key={index} />
+            </>
+          );
+        }}
+      />
+    );
+  };
+
   return (
     <View style={styles.greenPillars}>
       <Text style={styles.headerText}>{props.headerText}</Text>
+      <View style={{ alignItems: "center" }}>
+        <View style={styles.underline} />
+      </View>
       <Image
         style={styles.image}
         source={require("../../assets/shading.png")}
         defaultSource={require("../../assets/shading.png")}
       />
-      {props.editable ? (
-        <WeightRepSelector reps={props.exercise.reps} />
-      ) : (
-        <></>
-      )}
+      {props.editable ? <WeightRepSelectorRenderer /> : <></>}
     </View>
   );
 }
@@ -28,6 +46,12 @@ const styles = StyleSheet.create({
     color: "#e6e6e6",
     fontWeight: 600,
     fontSize: 30,
+  },
+  underline: {
+    backgroundColor: "#e6e6e6",
+    borderRadius: 10,
+    height: 4,
+    width: "90%",
   },
   image: {
     position: "absolute",

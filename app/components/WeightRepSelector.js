@@ -1,11 +1,25 @@
-import { useState } from "react";
-import { Text, View } from "react-native";
+import { useState, useEffect } from "react";
+import { Text, View, StyleSheet } from "react-native";
 import SimplePicker from "react-native-simple-picker";
+import { Feather } from "@expo/vector-icons";
+
+import Button from "./Button";
 
 function WeightRepSelector(props) {
   const [simplePicker, setSimplePicker] = useState();
   const [repsDone, setRepsDone] = useState();
-  const options = ["1", "2", "3", "4", "5"];
+  const [repOptions, setRepOptions] = useState([]);
+
+  useEffect(() => {
+    props.repCount;
+    let tempRepOptions = [];
+    let pushYourSelfFactor = 0.2;
+    let extraReps = parseInt(props.repCount * pushYourSelfFactor);
+    for (let index = 1; index < props.repCount + extraReps + 1; index++) {
+      tempRepOptions.push(index.toString());
+    }
+    setRepOptions(tempRepOptions);
+  }, []);
 
   const UpdateRef = (ref) => {
     setSimplePicker(ref);
@@ -16,19 +30,33 @@ function WeightRepSelector(props) {
   };
 
   return (
-    <View>
-      <Text
-        onPress={() => {
-          simplePicker.show();
-        }}
-      >
-        How many reps did you do?
-      </Text>
-      {repsDone ? <Text>{repsDone}</Text> : <></>}
+    <View style={styles.container}>
+      <View style={styles.reps}>
+        <Text>Reps:</Text>
+        {repsDone ? (
+          <Button
+            style={{}}
+            onPress={() => {
+              simplePicker.show();
+            }}
+          >
+            <Text>{repsDone}</Text>
+          </Button>
+        ) : (
+          <Button
+            style={{}}
+            onPress={() => {
+              simplePicker.show();
+            }}
+          >
+            <Feather name="chevron-down" size={30} color="#e6e6e6" />
+          </Button>
+        )}
+      </View>
 
       <SimplePicker
         ref={UpdateRef}
-        options={options}
+        options={repOptions}
         onSubmit={SimplePickerOnSubmit}
       />
     </View>
@@ -36,3 +64,13 @@ function WeightRepSelector(props) {
 }
 
 export default WeightRepSelector;
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
+  reps: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+});
