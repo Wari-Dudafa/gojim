@@ -36,8 +36,8 @@ function Card(props) {
     <View style={styles.mainCard} shouldRasterizeIOS={true}>
       <Image
         style={styles.image}
-        source={require("../../assets/shading.png")} // Blinking, acceptable performance
-        defaultSource={require("../../assets/shading.png")} // No blinking, terrible performance
+        source={require("../../assets/shading-1.png")} // Blinking, acceptable performance
+        defaultSource={require("../../assets/shading-1.png")} // No blinking, terrible performance
       />
 
       <View style={styles.border}>

@@ -30,8 +30,8 @@ function ExercisePillar(props) {
       </View>
       <Image
         style={styles.image}
-        source={require("../../assets/shading.png")}
-        defaultSource={require("../../assets/shading.png")}
+        source={require("../../assets/shading-1.png")}
+        defaultSource={require("../../assets/shading-1.png")}
       />
       {props.editable ? <WeightRepSelectorRenderer /> : <></>}
     </View>
