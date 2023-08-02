@@ -90,9 +90,14 @@ function EditDayPage(props) {
         {
           text: "Yes",
           onPress: () => {
-            props.navigation.pop();
             // Delete the day from the database
-            // Delete all exercises with this day id
+            let statement = "DELETE FROM days WHERE id = " + day.id;
+            db.sql(statement, (resultSet) => {
+              // Delete all exercises with this day id
+              let statement = "DELETE FROM exercises WHERE day_id = " + day.id;
+              db.sql(statement, (resultSet) => {});
+            });
+            props.navigation.pop();
             Alert.alert("Day Deleted");
           },
         },
