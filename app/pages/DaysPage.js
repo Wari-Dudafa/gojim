@@ -13,16 +13,9 @@ function DaysPage(props) {
 
   useFocusEffect(
     useCallback(() => {
-      db.sql(
-        "SELECT * FROM days",
-        (resultSet) => {
-          setDays(resultSet.rows._array);
-        },
-        (error) => {
-          Alert.alert("An error occured");
-          console.log(error);
-        }
-      );
+      db.sql("SELECT * FROM days", (resultSet) => {
+        setDays(resultSet.rows._array);
+      });
     }, [])
   );
 

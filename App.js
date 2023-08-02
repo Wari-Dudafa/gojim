@@ -16,10 +16,7 @@ export default function App() {
   enableScreens();
 
   useEffect(() => {
-    db.init((error) => {
-      Alert.alert("An error occured, please try again later");
-      console.log(error);
-    });
+    db.init();
   }, []);
 
   return (

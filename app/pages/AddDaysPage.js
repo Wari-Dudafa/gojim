@@ -39,39 +39,25 @@ function AddDaysPage(props) {
     // Adds exercise data from the array to the database
     // Adds dayName to the database
     let statement = "INSERT INTO days (name) VALUES('" + dayName + "')";
-    db.sql(
-      statement,
-      (resultSet) => {
-        let day_id = resultSet.insertId;
+    db.sql(statement, (resultSet) => {
+      let day_id = resultSet.insertId;
 
-        for (let index = 0; index < exercises.length; index++) {
-          let exercise = exercises[index];
-          statement =
-            "INSERT INTO exercises (name, reps, sets, day_id) VALUES('" +
-            exercise.name +
-            "', " +
-            exercise.reps +
-            ", " +
-            exercise.sets +
-            ", " +
-            day_id +
-            ")";
-          db.sql(
-            statement,
-            () => {},
-            (error) => {
-              Alert.alert("An error occured, please try again later");
-              console.log(error);
-            }
-          );
-        }
-        Alert.alert("New day added");
-      },
-      (error) => {
-        Alert.alert("An error occured, please try again later");
-        console.log(error);
+      for (let index = 0; index < exercises.length; index++) {
+        let exercise = exercises[index];
+        statement =
+          "INSERT INTO exercises (name, reps, sets, day_id) VALUES('" +
+          exercise.name +
+          "', " +
+          exercise.reps +
+          ", " +
+          exercise.sets +
+          ", " +
+          day_id +
+          ")";
+        db.sql(statement, () => {});
       }
-    );
+      Alert.alert("New day added");
+    });
   };
 
   return (

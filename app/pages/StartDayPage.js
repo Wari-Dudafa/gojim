@@ -12,16 +12,9 @@ function StartDayPage(props) {
 
   useEffect(() => {
     let statement = "SELECT * FROM exercises WHERE day_id = " + day.id;
-    db.sql(
-      statement,
-      (resultSet) => {
-        setExercises(resultSet.rows._array);
-      },
-      (error) => {
-        Alert.alert("An error occured");
-        console.log(error);
-      }
-    );
+    db.sql(statement, (resultSet) => {
+      setExercises(resultSet.rows._array);
+    });
   }, []);
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
@@ -52,8 +45,12 @@ function StartDayPage(props) {
       </View>
       <FlatList
         data={exercises}
-        renderItem={({ item }) => (
-          <ExerciseStarter exercise={item} navigation={props.navigation} />
+        renderItem={({ item, index }) => (
+          <ExerciseStarter
+            exercise={item}
+            navigation={props.navigation}
+            key={index}
+          />
         )}
       />
     </View>

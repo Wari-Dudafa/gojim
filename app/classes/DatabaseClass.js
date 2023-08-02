@@ -1,4 +1,5 @@
 import * as sqlite from "expo-sqlite";
+import { Alert } from "react-native";
 
 export default class Database {
   constructor() {
@@ -21,7 +22,7 @@ export default class Database {
     ];
   }
 
-  init(errorCallback) {
+  init() {
     // Initialise all tables required for the application
     for (let index = 0; index < this.tables.length; index++) {
       let table = this.tables[index];
@@ -48,14 +49,15 @@ export default class Database {
 
       // Run the sql statement
       this.db.transaction((tx) => {
-        tx.executeSql(sqlStatement, null, null, (txObj, error) =>
-          errorCallback(error)
-        );
+        tx.executeSql(sqlStatement, null, null, (txObj, error) => {
+          Alert.alert("An error occured, please try again later");
+          console.error(error);
+        });
       });
     }
   }
 
-  wipeDatabase(errorCallback) {
+  wipeDatabase() {
     // Drops all tables
 
     for (let index = 0; index < this.tables.length; index++) {
@@ -66,23 +68,27 @@ export default class Database {
           "DROP TABLE IF EXISTS " + tableName + "",
           null,
           null,
-          (txObj, error) => errorCallback(error)
+          (txObj, error) => {
+            Alert.alert("An error occured, please try again later");
+            console.error(error);
+          }
         );
       });
     }
 
-    this.init((error) => {
-      errorCallback(error);
-    });
+    this.init();
   }
 
-  sql(statement, callback, errorCallback) {
+  sql(statement, callback) {
     this.db.transaction((tx) => {
       tx.executeSql(
         statement,
         null,
         (txObj, resultSet) => callback(resultSet),
-        (txObj, error) => errorCallback(error)
+        (txObj, error) => {
+          Alert.alert("An error occured, please try again later");
+          console.error(error);
+        }
       );
     });
   }

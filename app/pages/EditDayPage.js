@@ -18,23 +18,16 @@ function EditDayPage(props) {
     let day_id = day.id;
 
     statement = "SELECT * FROM exercises WHERE day_id = " + day_id;
-    db.sql(
-      statement,
-      (resultSet) => {
-        let temp = [...resultSet.rows._array];
-        let newArray = [];
-        for (let index = 0; index < temp.length; index++) {
-          let exercise = new Exercise(temp[index]);
-          newArray.push(exercise);
-        }
-        setExercises(newArray);
-        setSecondaryExercises(newArray);
-      },
-      (error) => {
-        Alert.alert("An error occured, please try again later");
-        console.log(error);
+    db.sql(statement, (resultSet) => {
+      let temp = [...resultSet.rows._array];
+      let newArray = [];
+      for (let index = 0; index < temp.length; index++) {
+        let exercise = new Exercise(temp[index]);
+        newArray.push(exercise);
       }
-    );
+      setExercises(newArray);
+      setSecondaryExercises(newArray);
+    });
   }, []);
 
   const AddExercise = () => {
@@ -50,14 +43,42 @@ function EditDayPage(props) {
   };
 
   const SaveDay = () => {
-    if (newName.length > 0) {
-      setNewName(day.name);
-    }
     props.navigation.pop();
-    // Update day name
-    // Loop over og array and if it doesnt already exist, save it
-    // If it is now null check what it was the the secondaryExercise array
-    // Grab that id and delete that exercise from the database
+
+    if (newName.length > 0) {
+      // Update day name
+      let statement =
+        "UPDATE days SET name = '" + newName + "' WHERE id = " + day.id;
+      db.sql(statement, (resultSet) => {});
+    }
+
+    // Loop over og array and if it doesn't already exist, save it
+    let oldExercisesLimitIndex = secondaryExercises.length; // Any item at an array location bigger or equal to this is a new item
+
+    for (let index = 0; index < exercises.length; index++) {
+      let exercise = exercises[index];
+      // If it is now null check what it was the the secondaryExercise array
+      if (exercise == null) {
+        // Grab that id and delete that exercise from the database
+        exercise = secondaryExercises[index];
+        statement = "DELETE FROM exercises WHERE id = " + exercise.id;
+        db.sql(statement, (resultSet) => {});
+      }
+      if (index >= oldExercisesLimitIndex) {
+        // Add new exercise to the database
+        statement =
+          "INSERT INTO exercises (name, reps, sets, day_id) VALUES('" +
+          exercise.name +
+          "', " +
+          exercise.reps +
+          ", " +
+          exercise.sets +
+          ", " +
+          day.id +
+          ")";
+        db.sql(statement, () => {});
+      }
+    }
   };
 
   const DeleteDay = () => {

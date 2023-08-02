@@ -14,6 +14,7 @@ function NewExerciseSelector(props) {
           <ExerciseModifier
             item={item}
             index={index}
+            key={index}
             exercises={props.exercises}
             setExercises={props.setExercises}
           />

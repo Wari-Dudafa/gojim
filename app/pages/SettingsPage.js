@@ -49,10 +49,7 @@ function SettingsPage() {
         {
           text: "Yes",
           onPress: () => {
-            db.wipeDatabase((error) => {
-              Alert.alert("An error occured, please try again later");
-              console.log(error);
-            });
+            db.wipeDatabase();
             Alert.alert("Data Deleted");
           },
         },
