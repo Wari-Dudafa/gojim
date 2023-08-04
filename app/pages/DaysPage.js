@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { View, Alert } from "react-native";
+import { View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 

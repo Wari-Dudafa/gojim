@@ -82,18 +82,6 @@ function SettingsPage() {
           padding: 10,
         }}
       >
-        <Text style={{ color: "#e6e6e6" }}>Dark mode</Text>
-        <Switch value={true} />
-      </View>
-
-      <View
-        style={{
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: 10,
-        }}
-      >
         <Text style={{ color: "#e6e6e6" }}>Kilograms</Text>
         <Switch value={true} />
       </View>

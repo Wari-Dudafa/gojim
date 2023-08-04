@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Text, StyleSheet, SafeAreaView, Alert } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { enableScreens } from "react-native-screens";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import DaysStackPage from "./app/pages/DaysStackPage";
 import SettingsPage from "./app/pages/SettingsPage";
@@ -21,7 +22,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <View style={styles.container}>
         <Tab.Navigator
           screenOptions={({ route }) => ({
@@ -34,19 +35,56 @@ export default function App() {
             tabBarStyle: {
               borderTopWidth: 3,
               borderTopColor: "#2e476b",
-              height: 89,
-              paddingTop: 25,
+              height: "10%",
               backgroundColor: "#1f3047",
-              justifyContent: "space-around",
-              alignItems: "center",
-              borderTopLeftRadius: 0,
-              borderTopRightRadius: 0,
             },
           })}
         >
-          <Tab.Screen name="DaysStackPage" component={DaysStackPage} />
-          <Tab.Screen name="FoodPage" component={FoodPage} />
-          <Tab.Screen name="SettingsPage" component={SettingsPage} />
+          <Tab.Screen
+            name="DaysStackPage"
+            component={DaysStackPage}
+            options={{
+              tabBarIcon: ({ size, focused }) => {
+                return (
+                  <MaterialCommunityIcons
+                    name="weight"
+                    size={focused ? size * 2 : size * 1.3}
+                    color={focused ? "#93c244" : "#e6e6e6"}
+                  />
+                );
+              },
+            }}
+          />
+          <Tab.Screen
+            name="FoodPage"
+            component={FoodPage}
+            options={{
+              tabBarIcon: ({ size, focused }) => {
+                return (
+                  <MaterialCommunityIcons
+                    name="bowl-mix"
+                    size={focused ? size * 2 : size * 1.3}
+                    color={focused ? "#93c244" : "#e6e6e6"}
+                  />
+                );
+              },
+            }}
+          />
+          <Tab.Screen
+            name="SettingsPage"
+            component={SettingsPage}
+            options={{
+              tabBarIcon: ({ size, focused }) => {
+                return (
+                  <MaterialCommunityIcons
+                    name="cog"
+                    size={focused ? size * 2 : size * 1.3}
+                    color={focused ? "#93c244" : "#e6e6e6"}
+                  />
+                );
+              },
+            }}
+          />
         </Tab.Navigator>
       </View>
     </NavigationContainer>

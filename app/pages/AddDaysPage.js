@@ -44,17 +44,19 @@ function AddDaysPage(props) {
 
       for (let index = 0; index < exercises.length; index++) {
         let exercise = exercises[index];
-        statement =
-          "INSERT INTO exercises (name, reps, sets, day_id) VALUES('" +
-          exercise.name +
-          "', " +
-          exercise.reps +
-          ", " +
-          exercise.sets +
-          ", " +
-          day_id +
-          ")";
-        db.sql(statement, () => {});
+        if (exercise != null) {
+          statement =
+            "INSERT INTO exercises (name, reps, sets, day_id) VALUES('" +
+            exercise.name +
+            "', " +
+            exercise.reps +
+            ", " +
+            exercise.sets +
+            ", " +
+            day_id +
+            ")";
+          db.sql(statement, () => {});
+        }
       }
       Alert.alert("New day added");
     });

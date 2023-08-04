@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { View, FlatList, Alert, Text } from "react-native";
+import { View, FlatList, Text } from "react-native";
 
 import Button from "../components/Button";
 import Database from "../classes/DatabaseClass";
