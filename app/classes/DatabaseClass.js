@@ -16,6 +16,28 @@ export default class Database {
         ],
       },
       {
+        name: "sets",
+        rows: [
+          { rowName: "date", rowType: "INTEGER" },
+          { rowName: "day_id", rowType: "INTEGER" },
+        ],
+      },
+      {
+        name: "reps_per_set",
+        rows: [
+          { rowName: "sets_id", rowType: "INTEGER" },
+          { rowName: "rep_count", rowType: "INTEGER" },
+        ],
+      },
+      {
+        name: "weight_per_set",
+        rows: [
+          { rowName: "sets_id", rowType: "INTEGER" },
+          { rowName: "weight_kg", rowType: "INTEGER" },
+          { rowName: "weight_lbs", rowType: "INTEGER" },
+        ],
+      },
+      {
         name: "days",
         rows: [{ rowName: "name", rowType: "TEXT" }],
       },

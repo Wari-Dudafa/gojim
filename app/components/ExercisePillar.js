@@ -1,6 +1,7 @@
 import { View, Text, Image, StyleSheet, FlatList } from "react-native";
 
 import WeightRepSelector from "./WeightRepSelector";
+import LastWeightRepSession from "./LastWeightRepSession";
 
 function ExercisePillar(props) {
   const WeightRepSelectorRenderer = () => {
@@ -33,7 +34,15 @@ function ExercisePillar(props) {
         source={require("../../assets/shading-1.png")}
         defaultSource={require("../../assets/shading-1.png")}
       />
-      {props.editable ? <WeightRepSelectorRenderer /> : <></>}
+      {props.editable ? (
+        <WeightRepSelectorRenderer />
+      ) : (
+        <>
+          <LastWeightRepSession />
+          <LastWeightRepSession />
+          <LastWeightRepSession />
+        </>
+      )}
     </View>
   );
 }

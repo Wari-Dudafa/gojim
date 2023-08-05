@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 
 import ExercisePillar from "../components/ExercisePillar";
+import Button from "../components/Button";
 
 function StartExercisePage(props) {
   const exercise = props.route.params.exercise;
@@ -31,8 +32,12 @@ function StartExercisePage(props) {
           exercise={exercise}
         />
       </View>
-
-      <View style={{ height: 50 }}></View>
+      <Button
+        title="Done"
+        onPress={() => {
+          props.navigation.pop();
+        }}
+      />
     </View>
   );
 }

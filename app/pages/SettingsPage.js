@@ -1,6 +1,13 @@
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, Alert, StyleSheet, Switch, Text } from "react-native";
+import {
+  View,
+  Alert,
+  StyleSheet,
+  Switch,
+  Text,
+  ScrollView,
+} from "react-native";
 
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
@@ -60,47 +67,35 @@ function SettingsPage() {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: 10,
-        }}
-      >
-        <Text style={{ color: "#e6e6e6" }}>
-          Haptic feeback (Only one that works)
-        </Text>
-        <Switch onValueChange={storeData} value={hapticSetting} />
-      </View>
+      <ScrollView>
+        <View
+          style={{
+            justifyContent: "space-between",
+            flexDirection: "row",
+            alignItems: "center",
+            padding: 10,
+          }}
+        >
+          <Text style={{ color: "#e6e6e6" }}>
+            Haptic feeback (Only one that works)
+          </Text>
+          <Switch onValueChange={storeData} value={hapticSetting} />
+        </View>
 
-      <View
-        style={{
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: 10,
-        }}
-      >
-        <Text style={{ color: "#e6e6e6" }}>Kilograms</Text>
-        <Switch value={true} />
-      </View>
+        <View
+          style={{
+            justifyContent: "space-between",
+            flexDirection: "row",
+            alignItems: "center",
+            padding: 10,
+          }}
+        >
+          <Text style={{ color: "#e6e6e6" }}>Kilograms</Text>
+          <Switch value={true} />
+        </View>
 
-      <View
-        style={{
-          justifyContent: "space-between",
-          flexDirection: "row",
-          alignItems: "center",
-          padding: 10,
-        }}
-      >
-        <Text style={{ color: "#e6e6e6" }}>Push yourself factor</Text>
-        <Button>
-          <Text style={{ color: "#e6e6e6" }}>20%</Text>
-        </Button>
-      </View>
-
-      <Button title="Delete data" onPress={deleteData} />
+        <Button title="Delete data" onPress={deleteData} />
+      </ScrollView>
     </View>
   );
 }

@@ -1,4 +1,3 @@
-import "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import DaysPage from "./DaysPage";
@@ -16,10 +15,11 @@ function DaysStackPage() {
     >
       <Stack.Screen name="DaysPage" component={DaysPage} />
       <Stack.Screen name="StartDayPage" component={StartDayPage} />
+      <Stack.Screen name="StartExercisePage" component={StartExercisePage} />
+
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen name="AddDaysPage" component={AddDaysPage} />
         <Stack.Screen name="EditDayPage" component={EditDayPage} />
-        <Stack.Screen name="StartExercisePage" component={StartExercisePage} />
       </Stack.Group>
     </Stack.Navigator>
   );
