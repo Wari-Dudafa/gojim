@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import {
   View,
   Text,
@@ -246,26 +246,24 @@ function ExerciseModifier(props) {
               <View style={{ flex: 1, flexDirection: "row" }}>
                 <Button
                   onPress={Edit}
+                  title="save"
                   style={{
                     flex: 1,
-                    backgroundColor: "red",
+                    backgroundColor: "#4490c2",
                     borderRadius: 10,
                     margin: 5,
                   }}
-                >
-                  <Text>save</Text>
-                </Button>
+                ></Button>
                 <Button
+                  title="cancel"
                   onPress={ToggleEdit}
                   style={{
                     flex: 1,
-                    backgroundColor: "blue",
+                    backgroundColor: "#c24451",
                     borderRadius: 10,
                     margin: 5,
                   }}
-                >
-                  <Text>cancel</Text>
-                </Button>
+                ></Button>
               </View>
             </Animated.View>
             <Image

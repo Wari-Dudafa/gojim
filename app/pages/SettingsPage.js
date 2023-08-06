@@ -90,7 +90,9 @@ function SettingsPage() {
             padding: 10,
           }}
         >
-          <Text style={{ color: "#e6e6e6" }}>Kilograms</Text>
+          <Text style={{ color: "#e6e6e6" }}>
+            Kilograms (Pounds support coming soon)
+          </Text>
           <Switch value={true} />
         </View>
 

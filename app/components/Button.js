@@ -39,7 +39,15 @@ function Button(props) {
   return (
     <TouchableOpacity
       style={
-        props.style ? props.style : { backgroundColor: "blue", padding: 10 }
+        props.style
+          ? props.style
+          : {
+              backgroundColor: "blue",
+              padding: 10,
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }
       }
       onPress={() => {
         if (hapticSetting) {

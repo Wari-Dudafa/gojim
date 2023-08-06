@@ -32,7 +32,6 @@ function WeightRepSelector(props) {
   };
 
   const borderBottomColor = () => {
-    console.log(parseInt(weight) * parseInt(repsDone));
     if (
       parseInt(weight) * parseInt(repsDone) >=
       productOfPreviousSessionsRepsAndWeight
@@ -55,7 +54,7 @@ function WeightRepSelector(props) {
               maxLength={repCharacterLimit}
               value={repsDone}
               onChangeText={(text) => onChanged(text, "reps")}
-              onEndEditing={() => borderBottomColor()}
+              onEndEditing={borderBottomColor}
             />
             <TextInput
               style={styles.inputNumber}
@@ -64,7 +63,7 @@ function WeightRepSelector(props) {
               maxLength={weightCharacterLimit}
               value={weight}
               onChangeText={(text) => onChanged(text, "weight")}
-              onEndEditing={() => borderBottomColor()}
+              onEndEditing={borderBottomColor}
             />
           </View>
         </>
@@ -78,7 +77,7 @@ function WeightRepSelector(props) {
               maxLength={repCharacterLimit}
               value={repsDone}
               onChangeText={(text) => onChanged(text, "reps")}
-              onEndEditing={() => borderBottomColor()}
+              onEndEditing={borderBottomColor}
             />
             <TextInput
               style={styles.inputNumber}
@@ -87,7 +86,7 @@ function WeightRepSelector(props) {
               maxLength={weightCharacterLimit}
               value={weight}
               onChangeText={(text) => onChanged(text, "weight")}
-              onEndEditing={() => borderBottomColor()}
+              onEndEditing={borderBottomColor}
             />
           </View>
         </>

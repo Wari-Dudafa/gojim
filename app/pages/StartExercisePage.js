@@ -5,6 +5,7 @@ import Button from "../components/Button";
 
 function StartExercisePage(props) {
   const exercise = props.route.params.exercise;
+
   return (
     <View style={styles.container}>
       <View
@@ -12,7 +13,6 @@ function StartExercisePage(props) {
           flexDirection: "row",
           justifyContent: "space-between",
           padding: 10,
-          paddingBottom: 30,
         }}
       >
         <Text style={{ color: "#e6e6e6", fontWeight: 800, fontSize: 40 }}>
@@ -32,6 +32,7 @@ function StartExercisePage(props) {
           exercise={exercise}
         />
       </View>
+
       <Button
         title="Done"
         onPress={() => {
