@@ -1,9 +1,12 @@
+import { useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import Button from "./Button";
 
 function ExerciseStarter(props) {
+  const [unPressed, setUnPressed] = useState(true);
+
   return (
     <View shouldRasterizeIOS={true} style={styles.container}>
       <View style={styles.exerciseContainer}>
@@ -12,19 +15,50 @@ function ExerciseStarter(props) {
           <Text style={styles.reps}>{props.exercise.reps} reps</Text>
           <Text style={styles.sets}>{props.exercise.sets} sets </Text>
         </View>
-        <Button
-          style={styles.playButton}
-          onPress={() =>
-            props.navigation.navigate("StartExercisePage", { exercise: props.exercise })
-          }
-        >
-          <Feather
-            name="play-circle"
-            size={70}
-            color="#4490c2"
-            style={{ justifyContent: "center", alignSelf: "center" }}
-          />
-        </Button>
+        {unPressed ? (
+          <>
+            <Button
+              onPress={() => {
+                props.navigation.navigate("StartExercisePage", {
+                  exercise: props.exercise,
+                });
+                // So the logo switch doesnt happen instantly
+                setTimeout(() => {
+                  setUnPressed(false);
+                }, 1000);
+              }}
+              style={styles.playButton}
+            >
+              <Feather name="play" size={55} color="#e6e6e6" />
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button style={styles.progressChevrons}>
+              <View style={{ justifyContent: "center", alignSelf: "center" }}>
+                <Feather
+                  name="chevron-down"
+                  size={70}
+                  color="#c24451"
+                  // color="#4490c2"
+                  style={{ padding: 0, margin: 0 }}
+                />
+                <Feather
+                  name="chevron-down"
+                  size={70}
+                  color="#c24451"
+                  // color="#4490c2"
+                  style={{
+                    position: "absolute",
+                    padding: 0,
+                    margin: 0,
+                    top: 20,
+                  }}
+                />
+              </View>
+            </Button>
+          </>
+        )}
         <Image
           style={styles.image}
           source={require("../../assets/shading-1.png")}
@@ -79,6 +113,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   playButton: {
+    borderRadius: 5,
+    padding: 5,
+    justifyContent: "center",
+    alignSelf: "center",
+  },
+  progressChevrons: {
     borderRadius: 5,
     justifyContent: "center",
   },

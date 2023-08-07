@@ -15,7 +15,15 @@ function ExercisePillar(props) {
         renderItem={({ index }) => {
           return (
             <>
-              <WeightRepSelector repCount={repCount} key={index} />
+              <WeightRepSelector
+                repCount={repCount}
+                key={index}
+                index={index}
+                newReps={props.newReps}
+                setNewReps={props.setNewReps}
+                newWeight={props.newWeight}
+                setNewWeight={props.setNewWeight}
+              />
             </>
           );
         }}

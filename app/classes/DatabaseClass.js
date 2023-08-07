@@ -70,34 +70,17 @@ export default class Database {
       }
 
       // Run the sql statement
-      this.db.transaction((tx) => {
-        tx.executeSql(sqlStatement, null, null, (txObj, error) => {
-          Alert.alert("An error occured, please try again later");
-          console.error(error);
-        });
-      });
+      this.sql(sqlStatement, () => {});
     }
   }
 
   wipeDatabase() {
     // Drops all tables
-
     for (let index = 0; index < this.tables.length; index++) {
       let tableName = this.tables[index].name;
-
-      this.db.transaction((tx) => {
-        tx.executeSql(
-          "DROP TABLE IF EXISTS " + tableName + "",
-          null,
-          null,
-          (txObj, error) => {
-            Alert.alert("An error occured, please try again later");
-            console.error(error);
-          }
-        );
-      });
+      let statement = "DROP TABLE IF EXISTS " + tableName + "";
+      this.sql(statement, () => {});
     }
-
     this.init();
   }
 

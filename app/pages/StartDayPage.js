@@ -30,7 +30,6 @@ function StartDayPage(props) {
             color: "#e6e6e6",
             fontWeight: 800,
             textAlign: "center",
-
             fontSize: 40,
           }}
         >

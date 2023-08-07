@@ -27,7 +27,7 @@ function SettingsPage() {
       await AsyncStorage.setItem("hapticSetting", newHapticSetting.toString());
     } catch (error) {
       Alert.alert("An error occured, please try again later");
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -43,7 +43,7 @@ function SettingsPage() {
       }
     } catch (error) {
       Alert.alert("An error occured, please try again later");
-      console.log(error);
+      console.error(error);
     }
   };
 

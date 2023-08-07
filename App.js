@@ -17,8 +17,8 @@ export default function App() {
   const Tab = createBottomTabNavigator();
   const db = new Database();
   const [hapticSetting, setHapticSetting] = useState();
-  enableScreens();
 
+  enableScreens();
   useEffect(() => {
     db.init();
   }, []);

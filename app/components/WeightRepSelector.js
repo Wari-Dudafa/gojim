@@ -13,12 +13,20 @@ function WeightRepSelector(props) {
     let tempText = text;
     let newLetter = tempText.charAt(tempText.length - 1);
     let numbers = "0123456789";
+    let tempArray;
+
     if (numbers.includes(newLetter)) {
       // New letter typed is a number
       if (value == "reps") {
         setRepsDone(tempText);
+        tempArray = props.newReps;
+        tempArray[props.index] = tempText;
+        props.setNewReps(tempArray);
       } else {
         setWeight(tempText);
+        tempArray = props.newWeight;
+        tempArray[props.index] = tempText;
+        props.setNewWeight(tempArray);
       }
     } else {
       // It isn't

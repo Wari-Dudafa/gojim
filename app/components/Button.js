@@ -28,7 +28,7 @@ function Button(props) {
       }
     } catch (error) {
       Alert.alert("An error occured, please try again later");
-      console.log(error);
+      console.error(error);
     }
   };
 
