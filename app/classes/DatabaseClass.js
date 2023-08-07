@@ -91,7 +91,6 @@ export default class Database {
         null,
         (txObj, resultSet) => callback(resultSet),
         (txObj, error) => {
-          this.init();
           Alert.alert("An error occured, please try again later");
           console.error(error);
         }

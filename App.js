@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -10,18 +10,13 @@ import * as Haptics from "expo-haptics";
 import DaysStackPage from "./app/pages/DaysStackPage";
 import SettingsPage from "./app/pages/SettingsPage";
 import FoodPage from "./app/pages/FoodPage";
-import Database from "./app/classes/DatabaseClass";
 import Button from "./app/components/Button";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
-  const db = new Database();
   const [hapticSetting, setHapticSetting] = useState();
 
   enableScreens();
-  useEffect(() => {
-    db.init();
-  }, []);
 
   return (
     <NavigationContainer>

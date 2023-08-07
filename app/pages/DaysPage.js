@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
@@ -11,8 +11,12 @@ function DaysPage(props) {
   const db = new Database();
   const [days, setDays] = useState([]);
 
+  useEffect(() => {
+    db.init();
+  }, []);
+
   useFocusEffect(
-    useCallback(() => {
+    useCallback(() => {    
       db.sql("SELECT * FROM days", (resultSet) => {
         setDays(resultSet.rows._array);
       });
