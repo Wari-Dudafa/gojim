@@ -1,9 +1,47 @@
+import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, FlatList } from "react-native";
 
 import WeightRepSelector from "./WeightRepSelector";
 import LastWeightRepSession from "./LastWeightRepSession";
+import Database from "../classes/DatabaseClass";
 
 function ExercisePillar(props) {
+  const db = new Database();
+  const [lastWeightRepSession, setLastWeightRepSession] = useState([]);
+  const [display, setDisplay] = useState(false);
+
+  useEffect(() => {
+    if (props.editable == false) {
+      // Grab session ID
+      let statement = "SELECT MAX(id) AS max_id FROM session";
+      db.sql(statement, (resultSet) => {
+        let sessionId = resultSet.rows._array[0].max_id - 1 || null;
+        if (sessionId) {
+          statement =
+            "SELECT rp.rep_count AS reps_in_set, wp.weight_kg AS weight_in_set " +
+            "FROM sets s " +
+            "JOIN reps_per_set rp ON s.id = rp.sets_id " +
+            "JOIN weight_per_set wp ON s.id = wp.sets_id " +
+            "WHERE s.session_id = " +
+            sessionId +
+            " AND s.exercise_id = " +
+            props.exercise.id;
+          db.sql(statement, (resultSet) => {
+            let results = resultSet.rows._array;
+            if (results.length == 0) {
+              // This is the first time doing this lift
+              setDisplay(false);
+            } else {
+              setLastWeightRepSession(results);
+              setDisplay(true);
+            }
+          });
+        }
+      });
+    }
+  }, []);
+
+
   const WeightRepSelectorRenderer = () => {
     let setCount = props.exercise.sets;
     let repCount = props.exercise.reps;
@@ -31,6 +69,28 @@ function ExercisePillar(props) {
     );
   };
 
+  const LastWeightRepSessionRenderer = () => {
+    if (display) {
+      return (
+        <FlatList
+          style={{ flex: 1 }}
+          data={lastWeightRepSession}
+          renderItem={({ item, index }) => {
+            let reps = parseInt(item.reps_in_set);
+            let weight = parseInt(item.weight_in_set);
+            return (
+              <>
+                <LastWeightRepSession reps={reps} weight={weight} key={index} />
+              </>
+            );
+          }}
+        />
+      );
+    } else {
+      return null;
+    }
+  };
+
   return (
     <View style={styles.greenPillars}>
       <Text style={styles.headerText}>{props.headerText}</Text>
@@ -45,11 +105,7 @@ function ExercisePillar(props) {
       {props.editable ? (
         <WeightRepSelectorRenderer />
       ) : (
-        <>
-          <LastWeightRepSession />
-          <LastWeightRepSession />
-          <LastWeightRepSession />
-        </>
+        <LastWeightRepSessionRenderer />
       )}
     </View>
   );

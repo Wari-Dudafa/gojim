@@ -36,7 +36,7 @@ function StartExercisePage(props) {
       let date = new Date();
       let exerciseId = exercise.id;
       let reps = newReps[index];
-      let weight = newReps[index];
+      let weight = newWeight[index];
       // Grab session ID
       let statement = "SELECT MAX(id) AS max_id FROM session";
       db.sql(statement, (resultSet) => {

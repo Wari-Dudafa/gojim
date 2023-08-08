@@ -5,8 +5,10 @@ function LastWeightRepSession(props) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>12</Text>
-      <Text style={styles.text}>15 {weightUnit}</Text>
+      <Text style={styles.text}>{props.reps}</Text>
+      <Text style={styles.text}>
+        {props.weight} {weightUnit}
+      </Text>
     </View>
   );
 }

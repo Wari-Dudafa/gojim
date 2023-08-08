@@ -33,31 +33,7 @@ function ExerciseStarter(props) {
             </Button>
           </>
         ) : (
-          <>
-            <Button style={styles.progressChevrons}>
-              <View style={{ justifyContent: "center", alignSelf: "center" }}>
-                <Feather
-                  name="chevron-down"
-                  size={70}
-                  color="#c24451"
-                  // color="#4490c2"
-                  style={{ padding: 0, margin: 0 }}
-                />
-                <Feather
-                  name="chevron-down"
-                  size={70}
-                  color="#c24451"
-                  // color="#4490c2"
-                  style={{
-                    position: "absolute",
-                    padding: 0,
-                    margin: 0,
-                    top: 20,
-                  }}
-                />
-              </View>
-            </Button>
-          </>
+          <></>
         )}
         <Image
           style={styles.image}

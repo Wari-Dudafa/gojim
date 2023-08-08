@@ -7,7 +7,7 @@ function WeightRepSelector(props) {
   const repCharacterLimit = 3;
   const [progress, setProgress] = useState(false);
   const weightCharacterLimit = 4;
-  const productOfPreviousSessionsRepsAndWeight = 180;
+  const productOfPreviousSessionsRepsAndWeight = 180; // Hard coded, will be changed later
 
   const onChanged = (text, value) => {
     let tempText = text;
