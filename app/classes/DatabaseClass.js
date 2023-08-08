@@ -16,10 +16,18 @@ export default class Database {
         ],
       },
       {
+        name: "session",
+        rows: [
+          { rowName: "date", rowType: "TEXT" },
+          { rowName: "day_id", rowType: "INTEGER" },
+        ],
+      },
+      {
         name: "sets",
         rows: [
-          { rowName: "date", rowType: "INTEGER" },
-          { rowName: "day_id", rowType: "INTEGER" },
+          { rowName: "date", rowType: "TEXT" },
+          { rowName: "session_id", rowType: "INTEGER" },
+          { rowName: "exercise_id", rowType: "INTEGER" },
         ],
       },
       {
@@ -49,7 +57,7 @@ export default class Database {
     for (let index = 0; index < this.tables.length; index++) {
       let table = this.tables[index];
       let rows = table.rows;
-      let sqlStatement =
+      let statement =
         "CREATE TABLE IF NOT EXISTS " +
         table.name +
         " (id INTEGER PRIMARY KEY AUTOINCREMENT, ";
@@ -66,11 +74,11 @@ export default class Database {
           final = ", ";
         }
 
-        sqlStatement = sqlStatement + rowName + " " + rowType + final;
+        statement = statement + rowName + " " + rowType + final;
       }
 
       // Run the sql statement
-      this.sql(sqlStatement, () => {});
+      this.sql(statement, () => {});
     }
   }
 
@@ -91,7 +99,9 @@ export default class Database {
         null,
         (txObj, resultSet) => callback(resultSet),
         (txObj, error) => {
-          Alert.alert("An error occured, please try again later");
+          Alert.alert(
+            "An error occured with the database, please try again later"
+          );
           console.error(error);
         }
       );

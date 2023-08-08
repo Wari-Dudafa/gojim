@@ -11,11 +11,22 @@ function StartDayPage(props) {
   const db = new Database();
 
   useEffect(() => {
+    // Grab exercises
     let statement = "SELECT * FROM exercises WHERE day_id = " + day.id;
     db.sql(statement, (resultSet) => {
       setExercises(resultSet.rows._array);
+      // Make a new session
+      let date = new Date();
+      let statement =
+        "INSERT INTO session (date, day_id) VALUES('" +
+        date +
+        "', " +
+        day.id +
+        ")";
+      db.sql(statement, () => {});
     });
   }, []);
+
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
       <View

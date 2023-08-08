@@ -47,7 +47,7 @@ function Card(props) {
         <View style={styles.underline} />
 
         <Animated.View style={{ opacity: cardOpacity }}>
-          {/* This is where the widgets will be */}
+          {/* Github style contribution graph */}
         </Animated.View>
       </View>
     </View>

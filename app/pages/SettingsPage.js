@@ -57,7 +57,7 @@ function SettingsPage() {
           text: "Yes",
           onPress: () => {
             db.wipeDatabase();
-            Alert.alert("Data Deleted");
+            Alert.alert("Confirmation", "Data deleted successfully");
           },
         },
       ],
