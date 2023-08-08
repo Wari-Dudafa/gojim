@@ -1,13 +1,15 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { enableScreens } from "react-native-screens";
 
-import DaysPage from "./DaysPage";
-import AddDaysPage from "./AddDaysPage";
-import EditDayPage from "./EditDayPage";
-import StartDayPage from "./StartDayPage";
-import StartExercisePage from "./StartExercisePage";
+import DaysPage from "../pages/DaysPage";
+import AddDaysPage from "../pages/AddDaysPage";
+import EditDayPage from "../pages/EditDayPage";
+import StartDayPage from "../pages/StartDayPage";
+import StartExercisePage from "../pages/StartExercisePage";
 
-function DaysStackPage() {
+function DaysStack() {
   const Stack = createNativeStackNavigator();
+  enableScreens();
   return (
     <Stack.Navigator
       initialRouteName="DaysPage"
@@ -25,4 +27,4 @@ function DaysStackPage() {
   );
 }
 
-export default DaysStackPage;
+export default DaysStack;
