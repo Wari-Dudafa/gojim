@@ -11,9 +11,7 @@ function StartExercisePage(props) {
   const [canLeave, setCanLeave] = useState(false);
   // Makes empty arrays the length of the no of sets
   const [newReps, setNewReps] = useState(new Array(exercise.sets).fill(""));
-  const [newWeight, setNewWeight] = useState(
-    new Array(exercise.sets).fill("2")
-  );
+  const [newWeight, setNewWeight] = useState(new Array(exercise.sets).fill(""));
 
   useEffect(() => {
     dontLetUserLeave();
@@ -31,21 +29,23 @@ function StartExercisePage(props) {
   };
 
   const doneButtonPressed = () => {
-    let proceed = false;
+    let checker = [];
     // Makes sure there are no blanks
     for (let index = 0; index < newReps.length; index++) {
       if (newReps[index].length > 0 && newWeight[index].length > 0) {
-        proceed = true;
+        checker.push(true);
+      } else {
+        checker.push(false);
       }
     }
-    if (proceed) {
+    if (checker.includes(false)) {
+      Alert.alert("Not complete", "Please enter reps done and weight lifted");
+    } else {
       addData();
       setCanLeave(true);
       setTimeout(() => {
         props.navigation.pop();
       }, 50);
-    } else {
-      Alert.alert("Not complete", "Please enter reps done and weight lifted");
     }
   };
 

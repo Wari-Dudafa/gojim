@@ -79,7 +79,7 @@ function ExercisePillar(props) {
           data={lastWeightRepSession}
           renderItem={({ item, index }) => {
             let reps = parseInt(item.reps_in_set);
-            let weight = parseInt(item.weight_in_set);
+            let weight = parseFloat(item.weight_in_set);
             return (
               <>
                 <LastWeightRepSession reps={reps} weight={weight} key={index} />

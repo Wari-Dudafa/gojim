@@ -7,12 +7,12 @@ function WeightRepSelector(props) {
   const repCharacterLimit = 3;
   const [progress, setProgress] = useState(false);
   const [tooManyRepsChecker, setTooManyRepsChecker] = useState(true);
-  const weightCharacterLimit = 4;
+  const weightCharacterLimit = 6;
 
   const onChanged = (text, value) => {
     let tempText = text;
     let newLetter = tempText.charAt(tempText.length - 1);
-    let numbers = "0123456789";
+    let numbers = "0123456789.";
     let tempArray;
 
     if (numbers.includes(newLetter)) {
@@ -40,9 +40,11 @@ function WeightRepSelector(props) {
   };
 
   const borderBottomColor = () => {
+    if (!props.lastWeightRepSession[props.index]) return;
     if (props.lastWeightRepSession.length > 0) {
       if (
-        parseInt(weight) > props.lastWeightRepSession[props.index].weight_in_set
+        parseFloat(weight) >
+        props.lastWeightRepSession[props.index].weight_in_set
       ) {
         setProgress(true);
       } else {
