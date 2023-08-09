@@ -111,14 +111,15 @@ export default AppStack;
 
 const styles = StyleSheet.create({
   tabBar: {
-    borderTopWidth: 3,
-    borderTopColor: "#2e476b",
     height: "10%",
+    borderTopWidth: 0,
     backgroundColor: "#1f3047",
   },
   header: {
     backgroundColor: "red",
     height: 85,
+    borderBottomWidth: 3,
+    borderBottomColor: "#2e476b",
     backgroundColor: "#1f3047",
     justifyContent: "center",
     alignItems: "center",

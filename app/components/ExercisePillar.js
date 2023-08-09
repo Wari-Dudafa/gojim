@@ -11,36 +11,36 @@ function ExercisePillar(props) {
   const [display, setDisplay] = useState(false);
 
   useEffect(() => {
-    if (props.editable == false) {
-      // Grab session ID
-      let statement = "SELECT MAX(id) AS max_id FROM session";
-      db.sql(statement, (resultSet) => {
-        let sessionId = resultSet.rows._array[0].max_id - 1 || null;
-        if (sessionId) {
-          statement =
-            "SELECT rp.rep_count AS reps_in_set, wp.weight_kg AS weight_in_set " +
-            "FROM sets s " +
-            "JOIN reps_per_set rp ON s.id = rp.sets_id " +
-            "JOIN weight_per_set wp ON s.id = wp.sets_id " +
-            "WHERE s.session_id = " +
-            sessionId +
-            " AND s.exercise_id = " +
-            props.exercise.id;
-          db.sql(statement, (resultSet) => {
-            let results = resultSet.rows._array;
-            if (results.length == 0) {
-              // This is the first time doing this lift
-              setDisplay(false);
-            } else {
-              setLastWeightRepSession(results);
-              setDisplay(true);
-            }
-          });
-        }
-      });
-    }
+    grabSessionId();
   }, []);
 
+  const grabSessionId = () => {
+    let statement = "SELECT MAX(id) AS max_id FROM session";
+    db.sql(statement, (resultSet) => {
+      let sessionId = resultSet.rows._array[0].max_id - 1 || null;
+      if (sessionId) {
+        statement =
+          "SELECT rp.rep_count AS reps_in_set, wp.weight_kg AS weight_in_set " +
+          "FROM sets s " +
+          "JOIN reps_per_set rp ON s.id = rp.sets_id " +
+          "JOIN weight_per_set wp ON s.id = wp.sets_id " +
+          "WHERE s.session_id = " +
+          sessionId +
+          " AND s.exercise_id = " +
+          props.exercise.id;
+        db.sql(statement, (resultSet) => {
+          let results = resultSet.rows._array;
+          if (results.length == 0) {
+            // This is the first time doing this lift
+            setDisplay(false);
+          } else {
+            setLastWeightRepSession(results);
+            setDisplay(true);
+          }
+        });
+      }
+    });
+  };
 
   const WeightRepSelectorRenderer = () => {
     let setCount = props.exercise.sets;
@@ -54,7 +54,9 @@ function ExercisePillar(props) {
           return (
             <>
               <WeightRepSelector
+                lastWeightRepSession={lastWeightRepSession}
                 repCount={repCount}
+                exercise={props.exercise}
                 key={index}
                 index={index}
                 newReps={props.newReps}
@@ -92,22 +94,33 @@ function ExercisePillar(props) {
   };
 
   return (
-    <View style={styles.greenPillars}>
-      <Text style={styles.headerText}>{props.headerText}</Text>
-      <View style={{ alignItems: "center" }}>
-        <View style={styles.underline} />
-      </View>
-      <Image
-        style={styles.image}
-        source={require("../../assets/shading-1.png")}
-        defaultSource={require("../../assets/shading-1.png")}
-      />
-      {props.editable ? (
-        <WeightRepSelectorRenderer />
-      ) : (
+    <>
+      <View style={styles.greenPillars}>
+        <Text style={styles.headerText}>Last time</Text>
+        <View style={{ alignItems: "center" }}>
+          <View style={styles.underline} />
+        </View>
+        <Image
+          style={styles.image}
+          source={require("../../assets/shading-1.png")}
+          defaultSource={require("../../assets/shading-1.png")}
+        />
         <LastWeightRepSessionRenderer />
-      )}
-    </View>
+      </View>
+
+      <View style={styles.greenPillars}>
+        <Text style={styles.headerText}>Today</Text>
+        <View style={{ alignItems: "center" }}>
+          <View style={styles.underline} />
+        </View>
+        <Image
+          style={styles.image}
+          source={require("../../assets/shading-1.png")}
+          defaultSource={require("../../assets/shading-1.png")}
+        />
+        <WeightRepSelectorRenderer />
+      </View>
+    </>
   );
 }
 

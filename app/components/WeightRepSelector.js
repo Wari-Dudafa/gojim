@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput, Alert } from "react-native";
 
 function WeightRepSelector(props) {
   const [repsDone, setRepsDone] = useState("");
   const [weight, setWeight] = useState("");
   const repCharacterLimit = 3;
   const [progress, setProgress] = useState(false);
+  const [tooManyRepsChecker, setTooManyRepsChecker] = useState(true);
   const weightCharacterLimit = 4;
-  const productOfPreviousSessionsRepsAndWeight = 180; // Hard coded, will be changed later
 
   const onChanged = (text, value) => {
     let tempText = text;
@@ -40,13 +40,23 @@ function WeightRepSelector(props) {
   };
 
   const borderBottomColor = () => {
-    if (
-      parseInt(weight) * parseInt(repsDone) >=
-      productOfPreviousSessionsRepsAndWeight
-    ) {
-      setProgress(true);
-    } else {
-      setProgress(false);
+    if (props.lastWeightRepSession.length > 0) {
+      if (
+        parseInt(weight) > props.lastWeightRepSession[props.index].weight_in_set
+      ) {
+        setProgress(true);
+      } else {
+        setProgress(false);
+      }
+    }
+    tooManyReps();
+  };
+
+  const tooManyReps = () => {
+    if (repsDone > props.exercise.reps && tooManyRepsChecker) {
+      // You’ve done a lot of reps, try increasing the weight
+      Alert.alert("You’ve done a lot of reps, try increasing the weight");
+      setTooManyRepsChecker(false);
     }
   };
 

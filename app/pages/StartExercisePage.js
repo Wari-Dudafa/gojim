@@ -95,13 +95,6 @@ function StartExercisePage(props) {
 
       <View style={{ flex: 1, flexDirection: "row" }}>
         <ExercisePillar
-          headerText={"Last time"}
-          editable={false}
-          exercise={exercise}
-        />
-        <ExercisePillar
-          headerText={"Today"}
-          editable={true}
           exercise={exercise}
           newReps={newReps}
           setNewReps={setNewReps}

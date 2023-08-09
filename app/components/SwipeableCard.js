@@ -7,6 +7,7 @@ import {
   Dimensions,
   StyleSheet,
   View,
+  Alert,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
@@ -235,7 +236,10 @@ function SwipeableCard({
         <>
           <View style={styles.buttonContainer}>
             <Button
-              style={styles.bottomButtons}
+              style={[
+                styles.bottomButtons,
+                { borderTopLeftRadius: 100, borderBottomLeftRadius: 100 },
+              ]}
               setHapticSetting={setHapticSetting}
             >
               <Feather name="activity" size={40} color="#e6e6e6" />
@@ -244,19 +248,37 @@ function SwipeableCard({
             <Button
               style={styles.bottomButtons}
               onPress={() => {
+                Alert.alert(
+                  "Confirmation",
+                  "Are you ready to start your session?",
+                  [
+                    { text: "No", style: "cancel" },
+                    {
+                      text: "Yes",
+                      onPress: () => {
+                        navigation.navigate("StartDayPage", {
+                          day: currentDay,
+                        });
+                      },
+                    },
+                  ],
+                  { cancelable: false }
+                );
+              }}
+            >
+              <Feather name="play" size={40} color="#e6e6e6" />
+            </Button>
+
+            <Button
+              style={[
+                styles.bottomButtons,
+                { borderTopRightRadius: 100, borderBottomRightRadius: 100 },
+              ]}
+              onPress={() => {
                 navigation.navigate("EditDayPage", { day: currentDay });
               }}
             >
               <Feather name="edit-2" size={40} color="#e6e6e6" />
-            </Button>
-
-            <Button
-              style={styles.bottomButtons}
-              onPress={() => {
-                navigation.navigate("StartDayPage", { day: currentDay });
-              }}
-            >
-              <Feather name="play" size={40} color="#e6e6e6" />
             </Button>
           </View>
 
@@ -426,7 +448,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     backgroundColor: "#4490c2",
-    marginHorizontal: 10,
+    marginHorizontal: 5,
   },
   buttonContainer: {
     flex: 1,
