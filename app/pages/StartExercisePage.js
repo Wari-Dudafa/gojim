@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
 
 import ExercisePillar from "../components/ExercisePillar";
@@ -8,11 +8,27 @@ import Database from "../classes/DatabaseClass";
 function StartExercisePage(props) {
   const db = new Database();
   const exercise = props.route.params.exercise;
+  const [canLeave, setCanLeave] = useState(false);
   // Makes empty arrays the length of the no of sets
   const [newReps, setNewReps] = useState(new Array(exercise.sets).fill(""));
   const [newWeight, setNewWeight] = useState(
     new Array(exercise.sets).fill("2")
   );
+
+  useEffect(() => {
+    dontLetUserLeave();
+  }, [canLeave]);
+
+  const dontLetUserLeave = () => {
+    props.navigation.addListener("beforeRemove", (e) => {
+      // Prevent default behavior of leaving the screen
+      if (canLeave) {
+        props.navigation.dispatch(e.data.action);
+      } else {
+        e.preventDefault();
+      }
+    });
+  };
 
   const doneButtonPressed = () => {
     let proceed = false;
@@ -24,7 +40,10 @@ function StartExercisePage(props) {
     }
     if (proceed) {
       addData();
-      props.navigation.pop();
+      setCanLeave(true);
+      setTimeout(() => {
+        props.navigation.pop();
+      }, 50);
     } else {
       Alert.alert("Not complete", "Please enter reps done and weight lifted");
     }

@@ -55,6 +55,7 @@ function SettingsPage() {
         { text: "No", style: "cancel" },
         {
           text: "Yes",
+          style: "destructive",
           onPress: () => {
             db.wipeDatabase();
             Alert.alert("Confirmation", "Data deleted successfully");

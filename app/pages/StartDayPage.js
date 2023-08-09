@@ -8,6 +8,7 @@ import ExerciseStarter from "../components/ExerciseStarter";
 function StartDayPage(props) {
   const day = props.route.params.day;
   const [exercises, setExercises] = useState([]);
+  const [canLeave, setCanLeave] = useState(false);
   const db = new Database();
 
   useEffect(() => {
@@ -26,6 +27,21 @@ function StartDayPage(props) {
       db.sql(statement, () => {});
     });
   }, []);
+
+  useEffect(() => {
+    dontLetUserLeave();
+  }, [canLeave]);
+
+  const dontLetUserLeave = () => {
+    props.navigation.addListener("beforeRemove", (e) => {
+      // Prevent default behavior of leaving the screen
+      if (canLeave) {
+        props.navigation.dispatch(e.data.action);
+      } else {
+        e.preventDefault();
+      }
+    });
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
@@ -49,7 +65,10 @@ function StartDayPage(props) {
         <Button
           title="End workout"
           onPress={() => {
-            props.navigation.pop();
+            setCanLeave(true);
+            setTimeout(() => {
+              props.navigation.pop();
+            }, 50);
           }}
         />
       </View>
