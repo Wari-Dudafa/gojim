@@ -166,7 +166,6 @@ function ExerciseModifier(props) {
                   flex: 1,
                   color: "#e6e6e6",
                   textAlign: "center",
-                  fontWeight: 700,
                   fontSize: 40,
                 }}
                 placeholder="Exercise name"
