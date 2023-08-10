@@ -12,8 +12,9 @@ import { useTheme } from "react-native-paper";
 
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
+import AppBar from "../components/AppBar";
 
-function SettingsPage() {
+function SettingsPage(props) {
   const theme = useTheme();
   const db = new Database();
   const [hapticSetting, setHapticSetting] = useState(true);
@@ -72,6 +73,11 @@ function SettingsPage() {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
+      <AppBar
+        title="Settings"
+        navigation={props.navigation}
+        back={true}
+      />
       <ScrollView>
         <View
           style={{

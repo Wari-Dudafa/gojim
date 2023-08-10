@@ -5,12 +5,12 @@ import { useTheme } from "react-native-paper";
 import Button from "../components/Button";
 import Database from "../classes/DatabaseClass";
 import ExerciseStarter from "../components/ExerciseStarter";
+import AppBar from "../components/AppBar";
 
 function StartDayPage(props) {
   const theme = useTheme();
   const day = props.route.params.day;
   const [exercises, setExercises] = useState([]);
-  const [canLeave, setCanLeave] = useState(false);
   const db = new Database();
 
   useEffect(() => {
@@ -30,23 +30,9 @@ function StartDayPage(props) {
     });
   }, []);
 
-  useEffect(() => {
-    dontLetUserLeave();
-  }, [canLeave]);
-
-  const dontLetUserLeave = () => {
-    props.navigation.addListener("beforeRemove", (e) => {
-      // Prevent default behavior of leaving the screen
-      if (canLeave) {
-        props.navigation.dispatch(e.data.action);
-      } else {
-        e.preventDefault();
-      }
-    });
-  };
-
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <AppBar navigation={props.navigation} back={true} />
       <View
         style={{
           padding: 10,
@@ -67,10 +53,7 @@ function StartDayPage(props) {
         <Button
           title="End workout"
           onPress={() => {
-            setCanLeave(true);
-            setTimeout(() => {
-              props.navigation.pop();
-            }, 50);
+            props.navigation.pop();
           }}
         />
       </View>

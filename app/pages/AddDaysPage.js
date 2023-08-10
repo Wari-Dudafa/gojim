@@ -7,6 +7,7 @@ import Exercise from "../classes/ExerciseClass";
 import NewExerciseSelector from "../components/NewExerciseSelector";
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
+import AppBar from "../components/AppBar";
 
 function AddDaysPage(props) {
   const theme = useTheme();
@@ -68,6 +69,10 @@ function AddDaysPage(props) {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
+      <AppBar
+        navigation={props.navigation}
+        back={true}
+      />
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Button style={styles.plus} onPress={AddExercise}>
           <Feather name="plus" size={50} color={theme.colors.onBackground} />

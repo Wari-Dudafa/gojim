@@ -7,6 +7,7 @@ import Exercise from "../classes/ExerciseClass";
 import Database from "../classes/DatabaseClass";
 import NewExerciseSelector from "../components/NewExerciseSelector";
 import Button from "../components/Button";
+import AppBar from "../components/AppBar";
 
 function EditDayPage(props) {
   const theme = useTheme();
@@ -110,6 +111,7 @@ function EditDayPage(props) {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
+      <AppBar navigation={props.navigation} back={true} />
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Button style={styles.plus} onPress={AddExercise}>
           <Feather name="plus" size={50} color={theme.colors.onBackground} />
@@ -125,7 +127,7 @@ function EditDayPage(props) {
       </View>
 
       <TextInput
-        style={[styles.dayName, {color: theme.colors.onBackground}]}
+        style={[styles.dayName, { color: theme.colors.onBackground }]}
         placeholder={day.name}
         value={newName}
         onChangeText={setNewName}

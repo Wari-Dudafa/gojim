@@ -248,7 +248,7 @@ function SwipeableCard({
               ]}
               setHapticSetting={setHapticSetting}
             >
-              <Feather name="activity" size={40} color={theme.colors.Onsecondary} />
+              <Feather name="activity" size={40} color={theme.colors.onSecondary} />
             </Button>
 
             <Button
@@ -272,7 +272,7 @@ function SwipeableCard({
                 );
               }}
             >
-              <Feather name="play" size={40} color={theme.colors.Onsecondary} />
+              <Feather name="play" size={40} color={theme.colors.onSecondary} />
             </Button>
 
             <Button
@@ -288,7 +288,7 @@ function SwipeableCard({
                 navigation.navigate("EditDayPage", { day: currentDay });
               }}
             >
-              <Feather name="edit-2" size={40} color={theme.colors.Onsecondary} />
+              <Feather name="edit-2" size={40} color={theme.colors.onSecondary} />
             </Button>
           </View>
 

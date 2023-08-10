@@ -7,6 +7,7 @@ import { useTheme } from "react-native-paper";
 import SwipingContainer from "../components/SwipingContainer";
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
+import AppBar from "../components/AppBar";
 
 function DaysPage(props) {
   const theme = useTheme();
@@ -27,6 +28,11 @@ function DaysPage(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <AppBar
+        title="Welcome user!"
+        settings={true}
+        navigation={props.navigation}
+      />
       <Button
         onPress={() => {
           props.navigation.navigate("AddDaysPage");
@@ -38,9 +44,10 @@ function DaysPage(props) {
           backgroundColor: theme.colors.secondary,
           borderRadius: 5,
           padding: 5,
+          zIndex: 100,
         }}
       >
-        <Feather name="plus" size={55} color={theme.colors.Onsecondary} />
+        <Feather name="plus" size={55} color={theme.colors.onSecondary} />
       </Button>
       <SwipingContainer days={days} navigation={props.navigation} />
     </View>
