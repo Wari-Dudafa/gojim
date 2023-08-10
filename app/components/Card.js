@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { View, StyleSheet, Animated, Image } from "react-native";
+import { useTheme } from "react-native-paper";
 
 function Card(props) {
+  const theme = useTheme();
   const fadeInValue = new Animated.Value(0);
   const cardOpacity = fadeInValue.interpolate({
     inputRange: [0, 1],
@@ -33,7 +35,10 @@ function Card(props) {
   }, []);
 
   return (
-    <View style={styles.mainCard} shouldRasterizeIOS={true}>
+    <View
+      style={[styles.mainCard, { backgroundColor: theme.colors.primary }]}
+      shouldRasterizeIOS={true}
+    >
       <Image
         style={styles.image}
         source={require("../../assets/shading-1.png")} // Blinking, acceptable performance
@@ -89,7 +94,6 @@ const styles = StyleSheet.create({
   mainCard: {
     position: "absolute",
     top: 70,
-    backgroundColor: "#93c244",
     height: 450,
     width: 280,
     borderRadius: 10,

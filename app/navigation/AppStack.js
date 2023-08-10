@@ -20,7 +20,7 @@ function AppStack() {
 
   return (
     <NavigationContainer>
-      <StatusBar style="light" />
+      <StatusBar style="auto" />
       <View style={styles.container}>
         <Tab.Navigator
           screenOptions={({ route }) => ({

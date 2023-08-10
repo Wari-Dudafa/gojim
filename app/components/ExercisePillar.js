@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, FlatList } from "react-native";
+import { useTheme } from "react-native-paper";
 
 import WeightRepSelector from "./WeightRepSelector";
 import LastWeightRepSession from "./LastWeightRepSession";
 import Database from "../classes/DatabaseClass";
 
 function ExercisePillar(props) {
+  const theme = useTheme();
   const db = new Database();
   const [lastWeightRepSession, setLastWeightRepSession] = useState([]);
   const [display, setDisplay] = useState(false);
@@ -95,10 +97,10 @@ function ExercisePillar(props) {
 
   return (
     <>
-      <View style={styles.greenPillars}>
+      <View style={[styles.greenPillars, {backgroundColor: theme.colors.primary}]}>
         <Text style={styles.headerText}>Last time</Text>
         <View style={{ alignItems: "center" }}>
-          <View style={styles.underline} />
+          <View style={[styles.underline, {backgroundColor: theme.colors.secondary}]} />
         </View>
         <Image
           style={styles.image}
@@ -108,10 +110,10 @@ function ExercisePillar(props) {
         <LastWeightRepSessionRenderer />
       </View>
 
-      <View style={styles.greenPillars}>
+      <View style={[styles.greenPillars, {backgroundColor: theme.colors.primary}]}>
         <Text style={styles.headerText}>Today</Text>
         <View style={{ alignItems: "center" }}>
-          <View style={styles.underline} />
+          <View style={[styles.underline, {backgroundColor: theme.colors.secondary}]} />
         </View>
         <Image
           style={styles.image}
@@ -134,7 +136,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   underline: {
-    backgroundColor: "#e6e6e6",
     borderRadius: 10,
     height: 4,
     width: "90%",
@@ -147,7 +148,6 @@ const styles = StyleSheet.create({
   },
   greenPillars: {
     flex: 1,
-    backgroundColor: "#93c244",
     borderRadius: 10,
     borderColor: "#e6e6e6",
     borderWidth: 5,
