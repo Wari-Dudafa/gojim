@@ -19,7 +19,7 @@ function TabBarStack() {
       <Tab.Navigator
         labeled={false}
         activeColor={theme.colors.primary}
-        inactiveColor={theme.colors.onPrimary}
+        inactiveColor={theme.colors.outline}
         barStyle={{
           backgroundColor: theme.colors.elevation.level3,
         }}

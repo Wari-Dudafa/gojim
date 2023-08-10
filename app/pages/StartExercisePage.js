@@ -86,7 +86,6 @@ function StartExercisePage(props) {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      {" "}
       <AppBar navigation={props.navigation} back={true} />
       <View
         style={{
@@ -120,6 +119,7 @@ function StartExercisePage(props) {
           doneButtonPressed();
         }}
       />
+      <View style={{height: 30}}></View>
     </View>
   );
 }
