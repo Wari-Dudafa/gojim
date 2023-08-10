@@ -1,6 +1,6 @@
 import { MD3DarkTheme } from "react-native-paper";
 
-console.log(`Dark theme: ${JSON.stringify(MD3DarkTheme, undefined, 2)}`);
+// console.log(`Dark theme: ${JSON.stringify(MD3DarkTheme, undefined, 2)}`);
 
 const DarkTheme = {
   ...MD3DarkTheme,

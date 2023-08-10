@@ -2,12 +2,14 @@ import { useState, useCallback, useEffect } from "react";
 import { View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
+import { useTheme } from "react-native-paper";
 
 import SwipingContainer from "../components/SwipingContainer";
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
 
 function DaysPage(props) {
+  const theme = useTheme();
   const db = new Database();
   const [days, setDays] = useState([]);
 
@@ -16,7 +18,7 @@ function DaysPage(props) {
   }, []);
 
   useFocusEffect(
-    useCallback(() => {    
+    useCallback(() => {
       db.sql("SELECT * FROM days", (resultSet) => {
         setDays(resultSet.rows._array);
       });
@@ -24,7 +26,7 @@ function DaysPage(props) {
   );
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <Button
         onPress={() => {
           props.navigation.navigate("AddDaysPage");
@@ -33,12 +35,12 @@ function DaysPage(props) {
           position: "absolute",
           bottom: 15,
           right: 15,
-          backgroundColor: "#4490c2",
+          backgroundColor: theme.colors.secondary,
           borderRadius: 5,
           padding: 5,
         }}
       >
-        <Feather name="plus" size={55} color="#e6e6e6" />
+        <Feather name="plus" size={55} color={theme.colors.Onsecondary} />
       </Button>
       <SwipingContainer days={days} navigation={props.navigation} />
     </View>

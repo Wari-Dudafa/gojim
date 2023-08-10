@@ -6,6 +6,7 @@ import { View, Text, StyleSheet, SafeAreaView } from "react-native";
 import { enableScreens } from "react-native-screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
+import { useTheme } from "react-native-paper";
 
 import SettingsPage from "../pages/SettingsPage";
 import FoodPage from "../pages/FoodPage";
@@ -13,25 +14,44 @@ import Button from "../components/Button";
 import DaysStack from "../navigation/DaysStack";
 
 function AppStack() {
+  const theme = useTheme();
   const Tab = createBottomTabNavigator();
   const [hapticSetting, setHapticSetting] = useState();
 
   enableScreens();
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <StatusBar style="auto" />
       <View style={styles.container}>
         <Tab.Navigator
           screenOptions={({ route }) => ({
             header: () => (
-              <SafeAreaView style={styles.header}>
-                <Text style={styles.headerTitle}>{route.name}</Text>
+              <SafeAreaView
+                style={[
+                  styles.header,
+                  {
+                    backgroundColor: theme.colors.elevation.level5,
+                    borderBottomColor: theme.colors.elevation.level3,
+                  },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.headerTitle,
+                    { color: theme.colors.onBackground },
+                  ]}
+                >
+                  {route.name}
+                </Text>
                 <Button style={{}} setHapticSetting={setHapticSetting} />
               </SafeAreaView>
             ),
             tabBarShowLabel: false,
-            tabBarStyle: styles.tabBar,
+            tabBarStyle: [
+              styles.tabBar,
+              { backgroundColor: theme.colors.elevation.level5 },
+            ],
           })}
         >
           <Tab.Screen
@@ -43,7 +63,9 @@ function AppStack() {
                   <MaterialCommunityIcons
                     name="weight"
                     size={focused ? size * 2 : size * 1.3}
-                    color={focused ? "#93c244" : "#e6e6e6"}
+                    color={
+                      focused ? theme.colors.primary : theme.colors.onPrimary
+                    }
                   />
                 );
               },
@@ -66,7 +88,9 @@ function AppStack() {
                   <MaterialCommunityIcons
                     name="bowl-mix"
                     size={focused ? size * 2 : size * 1.3}
-                    color={focused ? "#93c244" : "#e6e6e6"}
+                    color={
+                      focused ? theme.colors.primary : theme.colors.onPrimary
+                    }
                   />
                 );
               },
@@ -88,7 +112,9 @@ function AppStack() {
                   <MaterialCommunityIcons
                     name="cog"
                     size={focused ? size * 2 : size * 1.3}
-                    color={focused ? "#93c244" : "#e6e6e6"}
+                    color={
+                      focused ? theme.colors.primary : theme.colors.onPrimary
+                    }
                   />
                 );
               },
@@ -113,20 +139,16 @@ const styles = StyleSheet.create({
   tabBar: {
     height: "10%",
     borderTopWidth: 0,
-    backgroundColor: "#1f3047",
   },
   header: {
     backgroundColor: "red",
     height: 85,
     borderBottomWidth: 3,
-    borderBottomColor: "#2e476b",
-    backgroundColor: "#1f3047",
     justifyContent: "center",
     alignItems: "center",
   },
   headerTitle: {
     fontSize: 18,
-    color: "#e6e6e6",
     fontWeight: "bold",
   },
   screenContainer: {

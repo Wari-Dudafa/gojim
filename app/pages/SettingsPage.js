@@ -8,11 +8,13 @@ import {
   Text,
   ScrollView,
 } from "react-native";
+import { useTheme } from "react-native-paper";
 
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
 
 function SettingsPage() {
+  const theme = useTheme();
   const db = new Database();
   const [hapticSetting, setHapticSetting] = useState(true);
 
@@ -67,7 +69,9 @@ function SettingsPage() {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
       <ScrollView>
         <View
           style={{
@@ -77,7 +81,7 @@ function SettingsPage() {
             padding: 10,
           }}
         >
-          <Text style={{ color: "#e6e6e6" }}>
+          <Text style={{ color: theme.colors.onBackground }}>
             Haptic feeback (Only one that works)
           </Text>
           <Switch onValueChange={storeData} value={hapticSetting} />
@@ -91,7 +95,7 @@ function SettingsPage() {
             padding: 10,
           }}
         >
-          <Text style={{ color: "#e6e6e6" }}>
+          <Text style={{ color: theme.colors.onBackground }}>
             Kilograms (Pounds support coming soon)
           </Text>
           <Switch value={true} />
@@ -108,6 +112,5 @@ export default SettingsPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0f1824",
   },
 });

@@ -1,19 +1,29 @@
 import { useState } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useTheme } from "react-native-paper";
 
 import Button from "./Button";
 
 function ExerciseStarter(props) {
+  const theme = useTheme();
   const [unPressed, setUnPressed] = useState(true);
 
   return (
     <View shouldRasterizeIOS={true} style={styles.container}>
-      <View style={styles.exerciseContainer}>
+      <View
+        style={[
+          styles.exerciseContainer,
+          {
+            backgroundColor: theme.colors.primary,
+            borderColor: theme.colors.outline,
+          },
+        ]}
+      >
         <View>
-          <Text style={styles.name}>{props.exercise.name}</Text>
-          <Text style={styles.reps}>{props.exercise.reps} reps</Text>
-          <Text style={styles.sets}>{props.exercise.sets} sets </Text>
+          <Text style={[styles.name, {color: theme.colors.onPrimary}]}>{props.exercise.name}</Text>
+          <Text style={[styles.reps, {color: theme.colors.onPrimary}]}>{props.exercise.reps} reps</Text>
+          <Text style={[styles.sets, {color: theme.colors.onPrimary}]}>{props.exercise.sets} sets </Text>
         </View>
         {unPressed ? (
           <>
@@ -29,7 +39,7 @@ function ExerciseStarter(props) {
               }}
               style={styles.playButton}
             >
-              <Feather name="play" size={55} color="#e6e6e6" />
+              <Feather name="play" size={55} color={theme.colors.onPrimary} />
             </Button>
           </>
         ) : (
@@ -49,25 +59,20 @@ export default ExerciseStarter;
 
 const styles = StyleSheet.create({
   name: {
-    color: "#e6e6e6",
     fontWeight: 800,
     fontSize: 40,
   },
   reps: {
-    color: "#e6e6e6",
     fontSize: 20,
   },
   sets: {
-    color: "#e6e6e6",
     fontSize: 20,
   },
   exerciseContainer: {
     flex: 1,
-    backgroundColor: "#93c244",
-    borderColor: "#2e476b",
     borderRadius: 10,
     justifyContent: "center",
-    borderWidth: 2,
+    borderWidth: 5,
     padding: 10,
     overflow: "hidden",
     flexDirection: "row",

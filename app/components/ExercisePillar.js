@@ -97,10 +97,10 @@ function ExercisePillar(props) {
 
   return (
     <>
-      <View style={[styles.greenPillars, {backgroundColor: theme.colors.primary}]}>
-        <Text style={styles.headerText}>Last time</Text>
+      <View style={[styles.greenPillars, {backgroundColor: theme.colors.primary,  borderColor: theme.colors.outline}]}>
+        <Text style={[styles.headerText, {color: theme.colors.onPrimary}]}>Last time</Text>
         <View style={{ alignItems: "center" }}>
-          <View style={[styles.underline, {backgroundColor: theme.colors.secondary}]} />
+          <View style={[styles.underline, {backgroundColor: theme.colors.outline}]} />
         </View>
         <Image
           style={styles.image}
@@ -110,10 +110,10 @@ function ExercisePillar(props) {
         <LastWeightRepSessionRenderer />
       </View>
 
-      <View style={[styles.greenPillars, {backgroundColor: theme.colors.primary}]}>
-        <Text style={styles.headerText}>Today</Text>
+      <View style={[styles.greenPillars, {backgroundColor: theme.colors.primary, borderColor: theme.colors.outline}]}>
+        <Text style={[styles.headerText, {color: theme.colors.onPrimary}]}>Today</Text>
         <View style={{ alignItems: "center" }}>
-          <View style={[styles.underline, {backgroundColor: theme.colors.secondary}]} />
+          <View style={[styles.underline, {backgroundColor: theme.colors.outline}]} />
         </View>
         <Image
           style={styles.image}
@@ -131,7 +131,6 @@ export default ExercisePillar;
 const styles = StyleSheet.create({
   headerText: {
     textAlign: "center",
-    color: "#e6e6e6",
     fontWeight: 600,
     fontSize: 30,
   },
@@ -149,7 +148,6 @@ const styles = StyleSheet.create({
   greenPillars: {
     flex: 1,
     borderRadius: 10,
-    borderColor: "#e6e6e6",
     borderWidth: 5,
     margin: 5,
   },

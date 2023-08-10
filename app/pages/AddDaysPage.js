@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { View, TextInput, StyleSheet, Alert } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { useTheme } from "react-native-paper";
 
 import Exercise from "../classes/ExerciseClass";
 import NewExerciseSelector from "../components/NewExerciseSelector";
@@ -8,6 +9,7 @@ import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
 
 function AddDaysPage(props) {
+  const theme = useTheme();
   // Default exercise in a day
   const defaultExercise = new Exercise({
     name: "Exercise",
@@ -63,19 +65,21 @@ function AddDaysPage(props) {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Button style={styles.plus} onPress={AddExercise}>
-          <Feather name="plus" size={50} color="#e6e6e6" />
+          <Feather name="plus" size={50} color={theme.colors.onBackground} />
         </Button>
 
         <Button style={styles.check} onPress={SaveDay}>
-          <Feather name="check" size={50} color="#e6e6e6" />
+          <Feather name="check" size={50} color={theme.colors.onBackground} />
         </Button>
       </View>
 
       <TextInput
-        style={styles.dayName}
+        style={[styles.dayName, { color: theme.colors.onBackground }]}
         placeholder="Day name"
         value={dayName}
         onChangeText={setDayName}
@@ -99,13 +103,11 @@ const styles = StyleSheet.create({
   },
   dayName: {
     fontSize: 55,
-    color: "#e6e6e6",
     marginLeft: 10,
     textAlign: "center",
     marginBottom: 20,
   },
   container: {
     flex: 1,
-    backgroundColor: "#0f1824",
   },
 });

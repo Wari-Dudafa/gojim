@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { View, FlatList, Text } from "react-native";
+import { useTheme } from "react-native-paper";
 
 import Button from "../components/Button";
 import Database from "../classes/DatabaseClass";
 import ExerciseStarter from "../components/ExerciseStarter";
 
 function StartDayPage(props) {
+  const theme = useTheme();
   const day = props.route.params.day;
   const [exercises, setExercises] = useState([]);
   const [canLeave, setCanLeave] = useState(false);
@@ -44,7 +46,7 @@ function StartDayPage(props) {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#0f1824" }}>
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <View
         style={{
           padding: 10,
@@ -54,7 +56,7 @@ function StartDayPage(props) {
       >
         <Text
           style={{
-            color: "#e6e6e6",
+            color: theme.colors.onBackground,
             fontWeight: 800,
             textAlign: "center",
             fontSize: 40,

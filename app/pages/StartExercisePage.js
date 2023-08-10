@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Alert } from "react-native";
+import { useTheme } from "react-native-paper";
 
 import ExercisePillar from "../components/ExercisePillar";
 import Button from "../components/Button";
 import Database from "../classes/DatabaseClass";
 
 function StartExercisePage(props) {
+  const theme = useTheme();
   const db = new Database();
   const exercise = props.route.params.exercise;
   const [canLeave, setCanLeave] = useState(false);
@@ -99,7 +101,9 @@ function StartExercisePage(props) {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+    >
       <View
         style={{
           flexDirection: "row",
@@ -107,11 +111,10 @@ function StartExercisePage(props) {
           padding: 10,
         }}
       >
-        <Text style={{ color: "#e6e6e6", fontWeight: 800, fontSize: 40 }}>
+        <Text style={{ color: theme.colors.onBackground, fontWeight: 800, fontSize: 40 }}>
           {exercise.name}
         </Text>
       </View>
-
       <View style={{ flex: 1, flexDirection: "row" }}>
         <ExercisePillar
           exercise={exercise}
@@ -121,7 +124,6 @@ function StartExercisePage(props) {
           setNewWeight={setNewWeight}
         />
       </View>
-
       <Button
         title="Done"
         onPress={() => {
@@ -137,6 +139,5 @@ export default StartExercisePage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0f1824",
   },
 });

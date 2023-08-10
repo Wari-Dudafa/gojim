@@ -45,11 +45,18 @@ function Card(props) {
         defaultSource={require("../../assets/shading-1.png")} // No blinking, terrible performance
       />
 
-      <View style={styles.border}>
-        <Animated.Text style={[styles.name, { opacity: cardOpacity }]}>
+      <View style={[styles.border, {borderColor: theme.colors.outline}]}>
+        <Animated.Text
+          style={[
+            styles.name,
+            { opacity: cardOpacity, color: theme.colors.onPrimary },
+          ]}
+        >
           {props.name}
         </Animated.Text>
-        <View style={styles.underline} />
+        <View
+          style={[styles.underline, { backgroundColor: theme.colors.outline }]}
+        />
 
         <Animated.View style={{ opacity: cardOpacity }}>
           {/* Github style contribution graph */}
@@ -73,7 +80,6 @@ const styles = StyleSheet.create({
   border: {
     flex: 1,
     borderRadius: 10,
-    borderColor: "#e6e6e6",
     borderWidth: 5,
     alignContent: "center",
   },
@@ -81,7 +87,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 40,
     fontWeight: 900,
-    color: "#e6e6e6",
   },
   underline: {
     width: "90%",
@@ -89,7 +94,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignSelf: "center",
     marginTop: 5,
-    backgroundColor: "#e6e6e6",
   },
   mainCard: {
     position: "absolute",

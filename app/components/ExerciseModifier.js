@@ -10,10 +10,12 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import { useTheme } from "react-native-paper";
 
 import Button from "./Button";
 
 function ExerciseModifier(props) {
+  const theme = useTheme();
   const [swipeableRow, setSwipeableRow] = useState();
   const [name, setName] = useState();
   const [reps, setReps] = useState(1);
@@ -60,7 +62,7 @@ function ExerciseModifier(props) {
   if (props.item == null) return;
 
   RenderRightActions = (progress) => {
-    RenderRightAction = (text, color, x, progress, onPress) => {
+    RenderRightAction = (text, color, x, progress, onPress, textColor) => {
       const trans = progress.interpolate({
         inputRange: [0, 1],
         outputRange: [x, 0],
@@ -78,7 +80,9 @@ function ExerciseModifier(props) {
             style={[styles.rightAction, { backgroundColor: color }]}
             onPress={onPress}
           >
-            <Text style={styles.rightActionText}>{text}</Text>
+            <Text style={[styles.rightActionText, { color: { textColor } }]}>
+              {text}
+            </Text>
           </Button>
         </Animated.View>
       );
@@ -86,8 +90,22 @@ function ExerciseModifier(props) {
 
     return (
       <View style={{ width: 192, flexDirection: "row-reverse" }}>
-        {RenderRightAction("Delete", "#c24451", 128, progress, Delete)}
-        {RenderRightAction("Edit", "#4490c2", 192, progress, ToggleEdit)}
+        {RenderRightAction(
+          "Delete",
+          theme.colors.tertiary,
+          128,
+          progress,
+          Delete,
+          theme.colors.onTertiary
+        )}
+        {RenderRightAction(
+          "Edit",
+          theme.colors.secondary,
+          192,
+          progress,
+          ToggleEdit,
+          theme.colors.onSecondary
+        )}
       </View>
     );
   };
@@ -156,15 +174,29 @@ function ExerciseModifier(props) {
         renderRightActions={RenderRightActions}
       >
         <View style={styles.container}>
-          <View style={styles.exerciseContainer}>
-            <Text style={styles.name}>{props.item.name}</Text>
-            <Text style={styles.reps}>{props.item.reps} reps</Text>
-            <Text style={styles.sets}>{props.item.sets} sets </Text>
+          <View
+            style={[
+              styles.exerciseContainer,
+              {
+                backgroundColor: theme.colors.primary,
+                borderColor: theme.colors.outline,
+              },
+            ]}
+          >
+            <Text style={[styles.name, { color: theme.colors.onPrimary }]}>
+              {props.item.name}
+            </Text>
+            <Text style={[styles.reps, { color: theme.colors.onPrimary }]}>
+              {props.item.reps} reps
+            </Text>
+            <Text style={[styles.sets, { color: theme.colors.onPrimary }]}>
+              {props.item.sets} sets{" "}
+            </Text>
             <Animated.View style={[{ flex: 1 }, dynamicStyle]}>
               <TextInput
                 style={{
                   flex: 1,
-                  color: "#e6e6e6",
+                  color: theme.colors.onPrimary,
                   textAlign: "center",
                   fontSize: 40,
                 }}
@@ -179,21 +211,25 @@ function ExerciseModifier(props) {
                 <Button
                   style={{
                     flex: 1,
-                    backgroundColor: "green",
+                    backgroundColor: theme.colors.primaryContainer,
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 10,
                   }}
                   onPress={() => setReps(reps + 1)}
                 >
-                  <Feather name="plus" size={30} color="#e6e6e6" />
+                  <Feather
+                    name="plus"
+                    size={30}
+                    color={theme.colors.onPrimaryContainer}
+                  />
                 </Button>
 
                 <Text style={{ padding: 10 }}>Reps: {reps}</Text>
                 <Button
                   style={{
                     flex: 1,
-                    backgroundColor: "green",
+                    backgroundColor: theme.colors.primaryContainer,
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 10,
@@ -204,7 +240,11 @@ function ExerciseModifier(props) {
                     }
                   }}
                 >
-                  <Feather name="minus" size={30} color="#e6e6e6" />
+                  <Feather
+                    name="minus"
+                    size={30}
+                    color={theme.colors.onPrimaryContainer}
+                  />
                 </Button>
               </View>
 
@@ -214,20 +254,24 @@ function ExerciseModifier(props) {
                 <Button
                   style={{
                     flex: 1,
-                    backgroundColor: "green",
+                    backgroundColor: theme.colors.primaryContainer,
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 10,
                   }}
                   onPress={() => setSets(sets + 1)}
                 >
-                  <Feather name="plus" size={30} color="#e6e6e6" />
+                  <Feather
+                    name="plus"
+                    size={30}
+                    color={theme.colors.onPrimaryContainer}
+                  />
                 </Button>
                 <Text style={{ padding: 10 }}>Sets: {sets}</Text>
                 <Button
                   style={{
                     flex: 1,
-                    backgroundColor: "green",
+                    backgroundColor: theme.colors.primaryContainer,
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 10,
@@ -238,7 +282,11 @@ function ExerciseModifier(props) {
                     }
                   }}
                 >
-                  <Feather name="minus" size={30} color="#e6e6e6" />
+                  <Feather
+                    name="minus"
+                    size={30}
+                    color={theme.colors.onPrimaryContainer}
+                  />
                 </Button>
               </View>
 
@@ -248,7 +296,7 @@ function ExerciseModifier(props) {
                   title="save"
                   style={{
                     flex: 1,
-                    backgroundColor: "#4490c2",
+                    backgroundColor: theme.colors.secondary,
                     borderRadius: 10,
                     margin: 5,
                   }}
@@ -258,7 +306,7 @@ function ExerciseModifier(props) {
                   onPress={ToggleEdit}
                   style={{
                     flex: 1,
-                    backgroundColor: "#c24451",
+                    backgroundColor: theme.colors.secondary,
                     borderRadius: 10,
                     margin: 5,
                   }}
@@ -281,7 +329,6 @@ export default ExerciseModifier;
 
 const styles = StyleSheet.create({
   name: {
-    color: "#e6e6e6",
     fontWeight: 800,
     fontSize: 40,
   },
@@ -295,11 +342,9 @@ const styles = StyleSheet.create({
   },
   exerciseContainer: {
     flex: 1,
-    backgroundColor: "#93c244",
-    borderColor: "#2e476b",
     borderRadius: 10,
     justifyContent: "center",
-    borderWidth: 2,
+    borderWidth: 5,
     padding: 10,
     overflow: "hidden",
   },
@@ -324,7 +369,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   rightActionText: {
-    color: "#e6e6e6",
     fontSize: 20,
     padding: 10,
   },

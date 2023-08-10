@@ -1,11 +1,15 @@
 import { View, StyleSheet, Text } from "react-native";
+import { useTheme } from "react-native-paper";
 
 function LastWeightRepSession(props) {
+  const theme = useTheme();
   const weightUnit = "kg";
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{props.reps}</Text>
+    <View style={[styles.container, { borderBottomColor: theme.colors.inversePrimary }]}>
+      <Text style={styles.text}>
+        {props.reps}
+      </Text>
       <Text style={styles.text}>
         {props.weight} {weightUnit}
       </Text>
@@ -20,7 +24,6 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    borderBottomColor: "grey",
     borderBottomWidth: 15,
     borderBottomEndRadius: 10,
     borderBottomStartRadius: 10,

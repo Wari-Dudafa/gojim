@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { View, StyleSheet, TextInput, Alert } from "react-native";
+import { useTheme } from "react-native-paper";
 
 function WeightRepSelector(props) {
+  const theme = useTheme();
   const [repsDone, setRepsDone] = useState("");
   const [weight, setWeight] = useState("");
   const repCharacterLimit = 3;
@@ -66,7 +68,7 @@ function WeightRepSelector(props) {
     <>
       {progress ? (
         <>
-          <View style={[styles.container, { borderBottomColor: "#4490c2" }]}>
+          <View style={[styles.container, { borderBottomColor: theme.colors.secondary }]}>
             <TextInput
               style={styles.inputNumber}
               placeholder="reps"
@@ -89,7 +91,7 @@ function WeightRepSelector(props) {
         </>
       ) : (
         <>
-          <View style={[styles.container, { borderBottomColor: "#c24451" }]}>
+          <View style={[styles.container, { borderBottomColor: theme.colors.tertiary }]}>
             <TextInput
               style={styles.inputNumber}
               placeholder="reps"

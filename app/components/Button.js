@@ -65,7 +65,7 @@ function Button(props) {
           style={
             props.titleStyle
               ? props.titleStyle
-              : { textAlign: "center", color: "white" }
+              : { textAlign: "center", color: theme.colors.onSecondary }
           }
         >
           {props.title}

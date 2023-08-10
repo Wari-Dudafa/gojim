@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
+import { useTheme } from "react-native-paper";
 
 import Card from "./Card.js";
 import Button from "./Button.js";
@@ -23,6 +24,7 @@ function SwipeableCard({
   canSwipe,
   navigation,
 }) {
+  const theme = useTheme();
   const SCREEN_WIDTH = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   const [hapticSetting, setHapticSetting] = useState(true);
@@ -238,15 +240,19 @@ function SwipeableCard({
             <Button
               style={[
                 styles.bottomButtons,
-                { borderTopLeftRadius: 100, borderBottomLeftRadius: 100 },
+                {
+                  borderTopLeftRadius: 100,
+                  borderBottomLeftRadius: 100,
+                  backgroundColor: theme.colors.secondary,
+                },
               ]}
               setHapticSetting={setHapticSetting}
             >
-              <Feather name="activity" size={40} color="#e6e6e6" />
+              <Feather name="activity" size={40} color={theme.colors.Onsecondary} />
             </Button>
 
             <Button
-              style={styles.bottomButtons}
+              style={[styles.bottomButtons, {backgroundColor: theme.colors.secondary}]}
               onPress={() => {
                 Alert.alert(
                   "Confirmation",
@@ -266,19 +272,23 @@ function SwipeableCard({
                 );
               }}
             >
-              <Feather name="play" size={40} color="#e6e6e6" />
+              <Feather name="play" size={40} color={theme.colors.Onsecondary} />
             </Button>
 
             <Button
               style={[
                 styles.bottomButtons,
-                { borderTopRightRadius: 100, borderBottomRightRadius: 100 },
+                {
+                  borderTopRightRadius: 100,
+                  borderBottomRightRadius: 100,
+                  backgroundColor: theme.colors.secondary,
+                },
               ]}
               onPress={() => {
                 navigation.navigate("EditDayPage", { day: currentDay });
               }}
             >
-              <Feather name="edit-2" size={40} color="#e6e6e6" />
+              <Feather name="edit-2" size={40} color={theme.colors.Onsecondary} />
             </Button>
           </View>
 
@@ -423,7 +433,7 @@ function SwipeableCard({
         </>
       ) : (
         <>
-          <Text style={styles.noDaysText}>
+          <Text style={[styles.noDaysText, {color: theme.colors.onBackground}]}>
             There are currently no days, please click the plus button to add one
           </Text>
         </>
@@ -439,15 +449,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     position: "absolute",
   },
-  swipeText: {
-    fontSize: 20,
-    textAlign: "center",
-    color: "#e6e6e6",
-  },
   bottomButtons: {
     padding: 10,
     borderRadius: 5,
-    backgroundColor: "#4490c2",
     marginHorizontal: 5,
   },
   buttonContainer: {
@@ -462,7 +466,6 @@ const styles = StyleSheet.create({
   },
   noDaysText: {
     padding: 50,
-    color: "#e6e6e6",
     alignSelf: "center",
     textAlign: "center",
   },
