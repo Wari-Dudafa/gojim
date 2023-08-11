@@ -13,6 +13,10 @@ function StartDayPage(props) {
   const db = new Database();
 
   useEffect(() => {
+    getExercises();
+  }, []);
+
+  const getExercises = () => {
     // Grab exercises
     let statement = "SELECT * FROM exercises WHERE day_id = " + day.id;
     db.sql(statement, (resultSet) => {
@@ -27,7 +31,7 @@ function StartDayPage(props) {
         ")";
       db.sql(statement, () => {});
     });
-  }, []);
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>

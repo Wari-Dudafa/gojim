@@ -73,11 +73,7 @@ function SettingsPage(props) {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      <AppBar
-        title="Settings"
-        navigation={props.navigation}
-        back={true}
-      />
+      <AppBar title="Settings" navigation={props.navigation} back={true} />
       <ScrollView>
         <View
           style={{

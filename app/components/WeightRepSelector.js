@@ -42,6 +42,7 @@ function WeightRepSelector(props) {
   };
 
   const borderBottomColor = () => {
+    tooManyReps();
     if (!props.lastWeightRepSession[props.index]) return;
     if (props.lastWeightRepSession.length > 0) {
       if (
@@ -53,7 +54,6 @@ function WeightRepSelector(props) {
         setProgress(false);
       }
     }
-    tooManyReps();
   };
 
   const tooManyReps = () => {
@@ -68,7 +68,12 @@ function WeightRepSelector(props) {
     <>
       {progress ? (
         <>
-          <View style={[styles.container, { borderBottomColor: theme.colors.secondary }]}>
+          <View
+            style={[
+              styles.container,
+              { borderBottomColor: theme.colors.secondary },
+            ]}
+          >
             <TextInput
               style={styles.inputNumber}
               placeholder="reps"
@@ -91,7 +96,12 @@ function WeightRepSelector(props) {
         </>
       ) : (
         <>
-          <View style={[styles.container, { borderBottomColor: theme.colors.tertiary }]}>
+          <View
+            style={[
+              styles.container,
+              { borderBottomColor: theme.colors.tertiary },
+            ]}
+          >
             <TextInput
               style={styles.inputNumber}
               placeholder="reps"

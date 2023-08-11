@@ -18,7 +18,11 @@ function EditDayPage(props) {
   const [secondaryExercises, setSecondaryExercises] = useState([]);
 
   useEffect(() => {
-    statement = "SELECT * FROM exercises WHERE day_id = " + day.id;
+    getExercises();
+  }, []);
+
+  const getExercises = () => {
+    let statement = "SELECT * FROM exercises WHERE day_id = " + day.id;
     db.sql(statement, (resultSet) => {
       let temp = [...resultSet.rows._array];
       let newArray = [];
@@ -29,7 +33,7 @@ function EditDayPage(props) {
       setExercises(newArray);
       setSecondaryExercises(newArray);
     });
-  }, []);
+  };
 
   const AddExercise = () => {
     // Create a new array with the existing exercises and the new exercise

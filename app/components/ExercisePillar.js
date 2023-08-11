@@ -97,10 +97,25 @@ function ExercisePillar(props) {
 
   return (
     <>
-      <View style={[styles.greenPillars, {backgroundColor: theme.colors.primary,  borderColor: theme.colors.outline}]}>
-        <Text style={[styles.headerText, {color: theme.colors.onPrimary}]}>Last time</Text>
+      <View
+        style={[
+          styles.greenPillars,
+          {
+            backgroundColor: theme.colors.primary,
+            borderColor: theme.colors.outline,
+          },
+        ]}
+      >
+        <Text style={[styles.headerText, { color: theme.colors.onPrimary }]}>
+          Last time
+        </Text>
         <View style={{ alignItems: "center" }}>
-          <View style={[styles.underline, {backgroundColor: theme.colors.outline}]} />
+          <View
+            style={[
+              styles.underline,
+              { backgroundColor: theme.colors.outline },
+            ]}
+          />
         </View>
         <Image
           style={styles.image}
@@ -110,10 +125,25 @@ function ExercisePillar(props) {
         <LastWeightRepSessionRenderer />
       </View>
 
-      <View style={[styles.greenPillars, {backgroundColor: theme.colors.primary, borderColor: theme.colors.outline}]}>
-        <Text style={[styles.headerText, {color: theme.colors.onPrimary}]}>Today</Text>
+      <View
+        style={[
+          styles.greenPillars,
+          {
+            backgroundColor: theme.colors.primary,
+            borderColor: theme.colors.outline,
+          },
+        ]}
+      >
+        <Text style={[styles.headerText, { color: theme.colors.onPrimary }]}>
+          Today
+        </Text>
         <View style={{ alignItems: "center" }}>
-          <View style={[styles.underline, {backgroundColor: theme.colors.outline}]} />
+          <View
+            style={[
+              styles.underline,
+              { backgroundColor: theme.colors.outline },
+            ]}
+          />
         </View>
         <Image
           style={styles.image}

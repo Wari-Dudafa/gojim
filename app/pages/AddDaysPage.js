@@ -69,10 +69,7 @@ function AddDaysPage(props) {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      <AppBar
-        navigation={props.navigation}
-        back={true}
-      />
+      <AppBar navigation={props.navigation} back={true} />
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Button style={styles.plus} onPress={AddExercise}>
           <Feather name="plus" size={50} color={theme.colors.onBackground} />

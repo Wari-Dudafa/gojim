@@ -10,6 +10,18 @@ function Card(props) {
     outputRange: [0, 1],
   });
 
+  useEffect(() => {
+    determineAnimation();
+  }, []);
+
+  const determineAnimation = () => {
+    if (props.fade) {
+      fadeIn();
+    } else {
+      stayIn();
+    }
+  };
+
   const fadeIn = () => {
     Animated.timing(fadeInValue, {
       toValue: 1,
@@ -26,14 +38,6 @@ function Card(props) {
     }).start();
   };
 
-  useEffect(() => {
-    if (props.fade) {
-      fadeIn();
-    } else {
-      stayIn();
-    }
-  }, []);
-
   return (
     <View
       style={[styles.mainCard, { backgroundColor: theme.colors.primary }]}
@@ -45,7 +49,7 @@ function Card(props) {
         defaultSource={require("../../assets/shading-1.png")} // No blinking, terrible performance
       />
 
-      <View style={[styles.border, {borderColor: theme.colors.outline}]}>
+      <View style={[styles.border, { borderColor: theme.colors.outline }]}>
         <Animated.Text
           style={[
             styles.name,

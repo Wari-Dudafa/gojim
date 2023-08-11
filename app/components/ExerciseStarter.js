@@ -21,9 +21,15 @@ function ExerciseStarter(props) {
         ]}
       >
         <View>
-          <Text style={[styles.name, {color: theme.colors.onPrimary}]}>{props.exercise.name}</Text>
-          <Text style={[styles.reps, {color: theme.colors.onPrimary}]}>{props.exercise.reps} reps</Text>
-          <Text style={[styles.sets, {color: theme.colors.onPrimary}]}>{props.exercise.sets} sets </Text>
+          <Text style={[styles.name, { color: theme.colors.onPrimary }]}>
+            {props.exercise.name}
+          </Text>
+          <Text style={[styles.reps, { color: theme.colors.onPrimary }]}>
+            {props.exercise.reps} reps
+          </Text>
+          <Text style={[styles.sets, { color: theme.colors.onPrimary }]}>
+            {props.exercise.sets} sets{" "}
+          </Text>
         </View>
         {unPressed ? (
           <>

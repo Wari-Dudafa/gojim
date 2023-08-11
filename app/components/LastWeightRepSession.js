@@ -6,10 +6,13 @@ function LastWeightRepSession(props) {
   const weightUnit = "kg";
 
   return (
-    <View style={[styles.container, { borderBottomColor: theme.colors.inversePrimary }]}>
-      <Text style={styles.text}>
-        {props.reps}
-      </Text>
+    <View
+      style={[
+        styles.container,
+        { borderBottomColor: theme.colors.inversePrimary },
+      ]}
+    >
+      <Text style={styles.text}>{props.reps}</Text>
       <Text style={styles.text}>
         {props.weight} {weightUnit}
       </Text>

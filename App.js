@@ -11,6 +11,10 @@ export default function App() {
   const [theme, setTheme] = useState(DarkTheme);
 
   useEffect(() => {
+    determineColorScheme();
+  }, [colorScheme]);
+
+  const determineColorScheme = () => {
     if (colorScheme === "dark") {
       // render dark mode
       setTheme(DarkTheme);
@@ -18,7 +22,7 @@ export default function App() {
       // render light mode
       setTheme(LightTheme);
     }
-  }, [colorScheme]);
+  };
   return (
     <PaperProvider theme={theme}>
       <AppStack />
