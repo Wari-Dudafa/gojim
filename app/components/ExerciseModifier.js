@@ -211,25 +211,21 @@ function ExerciseModifier(props) {
                 <Button
                   style={{
                     flex: 1,
-                    backgroundColor: theme.colors.primaryContainer,
+                    backgroundColor: theme.colors.onPrimary,
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 10,
                   }}
                   onPress={() => setReps(reps + 1)}
                 >
-                  <Feather
-                    name="plus"
-                    size={30}
-                    color={theme.colors.onPrimaryContainer}
-                  />
+                  <Feather name="plus" size={30} color={theme.colors.outline} />
                 </Button>
 
-                <Text style={{ padding: 10 }}>Reps: {reps}</Text>
+                <Text style={{ padding: 10, fontSize: 20 }}>Reps: {reps}</Text>
                 <Button
                   style={{
                     flex: 1,
-                    backgroundColor: theme.colors.primaryContainer,
+                    backgroundColor: theme.colors.onPrimary,
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 10,
@@ -243,7 +239,7 @@ function ExerciseModifier(props) {
                   <Feather
                     name="minus"
                     size={30}
-                    color={theme.colors.onPrimaryContainer}
+                    color={theme.colors.outline}
                   />
                 </Button>
               </View>
@@ -254,24 +250,20 @@ function ExerciseModifier(props) {
                 <Button
                   style={{
                     flex: 1,
-                    backgroundColor: theme.colors.primaryContainer,
+                    backgroundColor: theme.colors.onPrimary,
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 10,
                   }}
                   onPress={() => setSets(sets + 1)}
                 >
-                  <Feather
-                    name="plus"
-                    size={30}
-                    color={theme.colors.onPrimaryContainer}
-                  />
+                  <Feather name="plus" size={30} color={theme.colors.outline} />
                 </Button>
-                <Text style={{ padding: 10 }}>Sets: {sets}</Text>
+                <Text style={{ padding: 10, fontSize: 20 }}>Sets: {sets}</Text>
                 <Button
                   style={{
                     flex: 1,
-                    backgroundColor: theme.colors.primaryContainer,
+                    backgroundColor: theme.colors.onPrimary,
                     justifyContent: "center",
                     alignItems: "center",
                     borderRadius: 10,
@@ -285,7 +277,7 @@ function ExerciseModifier(props) {
                   <Feather
                     name="minus"
                     size={30}
-                    color={theme.colors.onPrimaryContainer}
+                    color={theme.colors.outline}
                   />
                 </Button>
               </View>
@@ -294,21 +286,33 @@ function ExerciseModifier(props) {
                 <Button
                   onPress={Edit}
                   title="save"
+                  titleStyle={{
+                    textAlign: "center",
+                    color: theme.colors.onSecondary,
+                    fontSize: 20,
+                  }}
                   style={{
                     flex: 1,
                     backgroundColor: theme.colors.secondary,
                     borderRadius: 10,
                     margin: 5,
+                    justifyContent: "center",
                   }}
                 ></Button>
                 <Button
                   title="cancel"
                   onPress={ToggleEdit}
+                  titleStyle={{
+                    textAlign: "center",
+                    color: theme.colors.onTertiary,
+                    fontSize: 20,
+                  }}
                   style={{
                     flex: 1,
-                    backgroundColor: theme.colors.secondary,
+                    backgroundColor: theme.colors.tertiary,
                     borderRadius: 10,
                     margin: 5,
+                    justifyContent: "center",
                   }}
                 ></Button>
               </View>

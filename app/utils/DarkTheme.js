@@ -1,7 +1,5 @@
 import { MD3DarkTheme } from "react-native-paper";
 
-// console.log(`Dark theme: ${JSON.stringify(MD3DarkTheme, undefined, 2)}`);
-
 const DarkTheme = {
   ...MD3DarkTheme,
   colors: {
@@ -22,12 +20,12 @@ const DarkTheme = {
     errorContainer: "rgb(147, 0, 10)",
     onErrorContainer: "rgb(255, 180, 171)",
     background: "rgb(28, 30, 27)",
-    onBackground: "rgb(231, 225, 229)",
+    onBackground: "rgb(228, 231, 225)",
     surface: "rgb(28, 30, 27)",
     onSurface: "rgb(231, 225, 229)",
     surfaceVariant: "rgb(72, 78, 69)",
     onSurfaceVariant: "rgb(204, 196, 206)",
-    outline: "rgb(230, 230, 230)",
+    outline: "rgb(226, 245, 213)",
     outlineVariant: "rgb(74, 69, 78)",
     shadow: "rgb(0, 0, 0)",
     scrim: "rgb(0, 0, 0)",

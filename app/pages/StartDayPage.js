@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { View, FlatList, Text } from "react-native";
+import { View, FlatList } from "react-native";
 import { useTheme } from "react-native-paper";
 
-import Button from "../components/Button";
 import Database from "../classes/DatabaseClass";
 import ExerciseStarter from "../components/ExerciseStarter";
 import AppBar from "../components/AppBar";
@@ -32,31 +31,14 @@ function StartDayPage(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <AppBar navigation={props.navigation} back={true} />
+      <AppBar navigation={props.navigation} back={true} title={day.name} />
       <View
         style={{
           padding: 10,
           flexDirection: "row",
           justifyContent: "space-between",
         }}
-      >
-        <Text
-          style={{
-            color: theme.colors.onBackground,
-            fontWeight: 800,
-            textAlign: "center",
-            fontSize: 40,
-          }}
-        >
-          {day.name}
-        </Text>
-        <Button
-          title="End workout"
-          onPress={() => {
-            props.navigation.pop();
-          }}
-        />
-      </View>
+      ></View>
       <FlatList
         data={exercises}
         renderItem={({ item, index }) => (

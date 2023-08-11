@@ -4,9 +4,9 @@ import { enableScreens } from "react-native-screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
 
-import SettingsPage from "../pages/SettingsPage";
 import FoodPage from "../pages/FoodPage";
 import DaysPage from "../pages/DaysPage";
+import ScalePage from "../pages/ScalePage";
 
 function TabBarStack() {
   const theme = useTheme();
@@ -39,6 +39,19 @@ function TabBarStack() {
           options={{
             tabBarIcon: ({ color }) => (
               <MaterialCommunityIcons name="bowl-mix" color={color} size={26} />
+            ),
+          }}
+        />
+        <Tab.Screen
+          name="ScalePage"
+          component={ScalePage}
+          options={{
+            tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="scale-bathroom"
+                color={color}
+                size={26}
+              />
             ),
           }}
         />

@@ -172,10 +172,10 @@ function SwipeableCard({
     }),
     cardY: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
-      outputRange: [0, 45, 600],
+      outputRange: [0, 45, 350],
     }),
     cardScale: sideCardsAnimatedValue.interpolate({
-      inputRange: [-200, 0, 60, 200],
+      inputRange: [-200, 0, 150, 200],
       outputRange: [1, 0.8, 0, 0],
     }),
   };
@@ -196,10 +196,10 @@ function SwipeableCard({
     }),
     cardY: sideCardsAnimatedValue.interpolate({
       inputRange: [-200, 0, 200],
-      outputRange: [600, 45, 0],
+      outputRange: [350, 45, 0],
     }),
     cardScale: sideCardsAnimatedValue.interpolate({
-      inputRange: [-200, -60, 0, 200],
+      inputRange: [-200, -150, 0, 200],
       outputRange: [0, 0, 0.8, 1],
     }),
   };
@@ -248,11 +248,18 @@ function SwipeableCard({
               ]}
               setHapticSetting={setHapticSetting}
             >
-              <Feather name="activity" size={40} color={theme.colors.onSecondary} />
+              <Feather
+                name="activity"
+                size={40}
+                color={theme.colors.onSecondary}
+              />
             </Button>
 
             <Button
-              style={[styles.bottomButtons, {backgroundColor: theme.colors.secondary}]}
+              style={[
+                styles.bottomButtons,
+                { backgroundColor: theme.colors.secondary },
+              ]}
               onPress={() => {
                 Alert.alert(
                   "Confirmation",
@@ -288,7 +295,11 @@ function SwipeableCard({
                 navigation.navigate("EditDayPage", { day: currentDay });
               }}
             >
-              <Feather name="edit-2" size={40} color={theme.colors.onSecondary} />
+              <Feather
+                name="edit-2"
+                size={40}
+                color={theme.colors.onSecondary}
+              />
             </Button>
           </View>
 
@@ -433,7 +444,9 @@ function SwipeableCard({
         </>
       ) : (
         <>
-          <Text style={[styles.noDaysText, {color: theme.colors.onBackground}]}>
+          <Text
+            style={[styles.noDaysText, { color: theme.colors.onBackground }]}
+          >
             There are currently no days, please click the plus button to add one
           </Text>
         </>

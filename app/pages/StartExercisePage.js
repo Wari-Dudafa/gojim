@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, SafeAreaView } from "react-native";
 import { useTheme } from "react-native-paper";
 
 import ExercisePillar from "../components/ExercisePillar";
@@ -86,25 +86,15 @@ function StartExercisePage(props) {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      <AppBar navigation={props.navigation} back={true} />
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          padding: 10,
+      <AppBar title={exercise.name} />
+      <Button
+        title="Done"
+        onPress={() => {
+          doneButtonPressed();
         }}
-      >
-        <Text
-          style={{
-            color: theme.colors.onBackground,
-            fontWeight: 800,
-            fontSize: 40,
-          }}
-        >
-          {exercise.name}
-        </Text>
-      </View>
-      <View style={{ flex: 1, flexDirection: "row" }}>
+      />
+
+      <SafeAreaView style={{ flex: 1, flexDirection: "row" }}>
         <ExercisePillar
           exercise={exercise}
           newReps={newReps}
@@ -112,14 +102,7 @@ function StartExercisePage(props) {
           newWeight={newWeight}
           setNewWeight={setNewWeight}
         />
-      </View>
-      <Button
-        title="Done"
-        onPress={() => {
-          doneButtonPressed();
-        }}
-      />
-      <View style={{height: 30}}></View>
+      </SafeAreaView>
     </View>
   );
 }

@@ -2,19 +2,19 @@ import { View, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 import AppBar from "../components/AppBar";
 
-function FoodPage(props) {
+function ScalePage(props) {
   const theme = useTheme();
   return (
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      <AppBar title="Food" settings={true} navigation={props.navigation} />
+      <AppBar title="Scale" settings={true} navigation={props.navigation} />
       <></>
     </View>
   );
 }
 
-export default FoodPage;
+export default ScalePage;
 
 const styles = StyleSheet.create({
   container: {
