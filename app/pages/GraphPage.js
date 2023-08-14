@@ -10,9 +10,12 @@ function GraphPage(props) {
   const lineData = [
     { value: 70 },
     { value: 36 },
-    { value: 50 },
+    { value: 60 },
+    { value: 40 },
     { value: 40 },
     { value: 18 },
+    { value: 38 },
+    { value: 80 },
     { value: 38 },
   ];
   return (
@@ -24,13 +27,12 @@ function GraphPage(props) {
         areaChart
         data={lineData}
         hideDataPoints
-        spacing={68}
         isAnimated
-        color1="#8a56ce"
-        startFillColor1="#8a56ce"
-        endFillColor1="#8a56ce"
-        startOpacity={0.9}
-        endOpacity={0.2}
+        color1={theme.colors.primary}
+        startFillColor1={theme.colors.primary}
+        endFillColor1={theme.colors.primary}
+        startOpacity={0.8}
+        endOpacity={0.1}
         initialSpacing={0}
         noOfSections={4}
         yAxisColor="white"
@@ -39,34 +41,6 @@ function GraphPage(props) {
         rulesColor="gray"
         yAxisTextStyle={{ color: "gray" }}
         xAxisColor="lightgray"
-        pointerConfig={{
-          pointerStripUptoDataPoint: true,
-          pointerStripColor: "lightgray",
-          pointerStripWidth: 2,
-          strokeDashArray: [2, 5],
-          pointerColor: "lightgray",
-          radius: 4,
-          pointerLabelWidth: 100,
-          pointerLabelHeight: 120,
-          pointerLabelComponent: (items) => {
-            return (
-              <View
-                style={{
-                  backgroundColor: "#282C3E",
-                  borderRadius: 4,
-                  justifyContent: "center",
-                  paddingLeft: 16,
-                }}
-              >
-                <Text
-                  style={{ color: "white", fontWeight: "bold", padding: 20 }}
-                >
-                  {items[0].value}
-                </Text>
-              </View>
-            );
-          },
-        }}
       />
     </View>
   );

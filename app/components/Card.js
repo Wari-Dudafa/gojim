@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, StyleSheet, Animated, Image } from "react-native";
+import { View, StyleSheet, Animated, Image, Text } from "react-native";
 import { useTheme } from "react-native-paper";
 import { BarChart } from "react-native-gifted-charts";
 
@@ -15,7 +15,120 @@ function Card(props) {
     inputRange: [0, 1],
     outputRange: [0, 1],
   });
-  const barData = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
+  const barData = [
+    {
+      value: 1,
+      frontColor: theme.colors.onPrimary,
+      labelTextStyle: { color: theme.colors.onPrimary },
+      topLabelComponent: () => (
+        <Text
+          style={{
+            color: theme.colors.onPrimary,
+            fontSize: 18,
+            marginBottom: 6,
+          }}
+        >
+          M
+        </Text>
+      ),
+    },
+    {
+      value: Math.floor(Math.random() * 1 + 0.5),
+      frontColor: theme.colors.onPrimary,
+      labelTextStyle: { color: theme.colors.onPrimary },
+      topLabelComponent: () => (
+        <Text
+          style={{
+            color: theme.colors.onPrimary,
+            fontSize: 18,
+            marginBottom: 6,
+          }}
+        >
+          T
+        </Text>
+      ),
+    },
+    {
+      value: Math.floor(Math.random() * 1 + 0.5),
+      frontColor: theme.colors.onPrimary,
+      labelTextStyle: { color: theme.colors.onPrimary },
+      topLabelComponent: () => (
+        <Text
+          style={{
+            color: theme.colors.onPrimary,
+            fontSize: 18,
+            marginBottom: 6,
+          }}
+        >
+          W
+        </Text>
+      ),
+    },
+    {
+      value: Math.floor(Math.random() * 1 + 0.5),
+      frontColor: theme.colors.onPrimary,
+      labelTextStyle: { color: theme.colors.onPrimary },
+      topLabelComponent: () => (
+        <Text
+          style={{
+            color: theme.colors.onPrimary,
+            fontSize: 18,
+            marginBottom: 6,
+          }}
+        >
+          T
+        </Text>
+      ),
+    },
+    {
+      value: Math.floor(Math.random() * 1 + 0.5),
+      frontColor: theme.colors.onPrimary,
+      labelTextStyle: { color: theme.colors.onPrimary },
+      topLabelComponent: () => (
+        <Text
+          style={{
+            color: theme.colors.onPrimary,
+            fontSize: 18,
+            marginBottom: 6,
+          }}
+        >
+          F
+        </Text>
+      ),
+    },
+    {
+      value: Math.floor(Math.random() * 1 + 0.5),
+      frontColor: theme.colors.onPrimary,
+      labelTextStyle: { color: theme.colors.onPrimary },
+      topLabelComponent: () => (
+        <Text
+          style={{
+            color: theme.colors.onPrimary,
+            fontSize: 18,
+            marginBottom: 6,
+          }}
+        >
+          S
+        </Text>
+      ),
+    },
+    {
+      value: 1,
+      frontColor: theme.colors.onPrimary,
+      labelTextStyle: { color: theme.colors.onPrimary },
+      topLabelComponent: () => (
+        <Text
+          style={{
+            color: theme.colors.onPrimary,
+            fontSize: 18,
+            marginBottom: 6,
+          }}
+        >
+          S
+        </Text>
+      ),
+    },
+  ];
 
   useEffect(() => {
     determineAnimation();
@@ -83,22 +196,26 @@ function Card(props) {
           style={[styles.underline, { backgroundColor: theme.colors.outline }]}
         />
         {props.widgets ? (
-          <Animated.View style={{ opacity: widgetOpacity, flex: 1 }}>
+          <Animated.View
+            style={{ opacity: widgetOpacity, flex: 1, overflow: "hidden" }}
+          >
             <View
               style={{
                 justifyContent: "center",
                 alignItems: "center",
-                alignSelf: "flex-end",
               }}
             >
               <BarChart
                 yAxisThickness={0}
                 xAxisThickness={0}
-                noOfSections={4}
                 barBorderRadius={4}
-                initialSpacing={0}
+                initialSpacing={5}
+                hideRules
+                hideYAxisText
+                maxValue={2}
+                spacing={10}
+                barWidth={24}
                 data={barData}
-                isAnimated // Setting this to true gives nice animations but then I get a weird warning
               />
             </View>
           </Animated.View>
