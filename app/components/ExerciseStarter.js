@@ -10,7 +10,7 @@ function ExerciseStarter(props) {
   const [unPressed, setUnPressed] = useState(true);
 
   return (
-    <View shouldRasterizeIOS={true} style={styles.container}>
+    <View shouldRasterizeIOS style={styles.container}>
       <View
         style={[
           styles.exerciseContainer,

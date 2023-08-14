@@ -35,7 +35,7 @@ function StartDayPage(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <AppBar navigation={props.navigation} back={true} title={day.name} />
+      <AppBar navigation={props.navigation} back title={day.name} />
       <View
         style={{
           padding: 10,

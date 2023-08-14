@@ -73,7 +73,7 @@ function SettingsPage(props) {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      <AppBar title="Settings" navigation={props.navigation} back={true} />
+      <AppBar title="Settings" navigation={props.navigation} back />
       <ScrollView>
         <View
           style={{
@@ -100,7 +100,7 @@ function SettingsPage(props) {
           <Text style={{ color: theme.colors.onBackground }}>
             Kilograms (Pounds support coming soon)
           </Text>
-          <Switch value={true} />
+          <Switch value />
         </View>
 
         <Button title="Delete data" onPress={deleteData} />

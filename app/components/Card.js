@@ -1,14 +1,21 @@
 import { useEffect } from "react";
 import { View, StyleSheet, Animated, Image } from "react-native";
 import { useTheme } from "react-native-paper";
+import { BarChart } from "react-native-gifted-charts";
 
 function Card(props) {
   const theme = useTheme();
   const fadeInValue = new Animated.Value(0);
+  const widgetFadeInValue = new Animated.Value(0);
   const cardOpacity = fadeInValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 1],
   });
+  const widgetOpacity = widgetFadeInValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 1],
+  });
+  const barData = [{ value: 15 }, { value: 30 }, { value: 26 }, { value: 40 }];
 
   useEffect(() => {
     determineAnimation();
@@ -20,10 +27,22 @@ function Card(props) {
     } else {
       stayIn();
     }
+    if (props.widgets) {
+      fadeInWidgets();
+      getBarGraphData();
+    }
   };
 
   const fadeIn = () => {
     Animated.timing(fadeInValue, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const fadeInWidgets = () => {
+    Animated.timing(widgetFadeInValue, {
       toValue: 1,
       duration: 500,
       useNativeDriver: true,
@@ -38,10 +57,12 @@ function Card(props) {
     }).start();
   };
 
+  const getBarGraphData = () => {};
+
   return (
     <View
       style={[styles.mainCard, { backgroundColor: theme.colors.primary }]}
-      shouldRasterizeIOS={true}
+      shouldRasterizeIOS
     >
       <Image
         style={styles.image}
@@ -56,15 +77,32 @@ function Card(props) {
             { opacity: cardOpacity, color: theme.colors.onPrimary },
           ]}
         >
-          {props.name}
+          {props.dayName}
         </Animated.Text>
         <View
           style={[styles.underline, { backgroundColor: theme.colors.outline }]}
         />
-
-        <Animated.View style={{ opacity: cardOpacity }}>
-          {/* Github style contribution graph */}
-        </Animated.View>
+        {props.widgets ? (
+          <Animated.View style={{ opacity: widgetOpacity, flex: 1 }}>
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                alignSelf: "flex-end",
+              }}
+            >
+              <BarChart
+                yAxisThickness={0}
+                xAxisThickness={0}
+                noOfSections={4}
+                barBorderRadius={4}
+                initialSpacing={0}
+                data={barData}
+                isAnimated // Setting this to true gives nice animations but then I get a weird warning
+              />
+            </View>
+          </Animated.View>
+        ) : null}
       </View>
     </View>
   );

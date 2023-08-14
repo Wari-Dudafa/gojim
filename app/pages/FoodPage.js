@@ -8,7 +8,7 @@ function FoodPage(props) {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      <AppBar title="Food" settings={true} navigation={props.navigation} />
+      <AppBar title="Food" settings navigation={props.navigation} />
       <></>
     </View>
   );

@@ -8,7 +8,7 @@ function ScalePage(props) {
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      <AppBar title="Scale" settings={true} navigation={props.navigation} />
+      <AppBar title="Scale" settings navigation={props.navigation} />
       <></>
     </View>
   );

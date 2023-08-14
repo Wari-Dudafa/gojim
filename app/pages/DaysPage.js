@@ -28,7 +28,7 @@ function DaysPage(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <AppBar title="Days" settings={true} navigation={props.navigation} />
+      <AppBar title="Days" settings navigation={props.navigation} />
       <Button
         onPress={() => {
           props.navigation.navigate("AddDaysPage");

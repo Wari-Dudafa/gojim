@@ -246,6 +246,9 @@ function SwipeableCard({
                   backgroundColor: theme.colors.secondary,
                 },
               ]}
+              onPress={() => {
+                navigation.navigate("GraphPage", { day: currentDay });
+              }}
               setHapticSetting={setHapticSetting}
             >
               <Feather
@@ -304,7 +307,7 @@ function SwipeableCard({
           </View>
 
           <Animated.View
-            shouldRasterizeIOS={true}
+            shouldRasterizeIOS
             {...panResponder.panHandlers}
             style={[
               styles.cardStyle,
@@ -320,7 +323,7 @@ function SwipeableCard({
           >
             {left ? (
               <>
-                <Card name=" " fade={false} />
+                <Card dayName=" " fade={false} />
                 <Animated.View
                   style={{
                     position: "absolute",
@@ -340,7 +343,7 @@ function SwipeableCard({
           </Animated.View>
 
           <Animated.View
-            shouldRasterizeIOS={true}
+            shouldRasterizeIOS
             {...panResponder.panHandlers}
             style={[
               styles.cardStyle,
@@ -356,7 +359,7 @@ function SwipeableCard({
           >
             {left ? (
               <>
-                <Card name={left.name} fade={true} />
+                <Card dayName={left.name} fade />
                 <Animated.View
                   style={{
                     position: "absolute",
@@ -376,7 +379,7 @@ function SwipeableCard({
           </Animated.View>
 
           <Animated.View
-            shouldRasterizeIOS={true}
+            shouldRasterizeIOS
             {...panResponder.panHandlers}
             style={[
               styles.cardStyle,
@@ -392,7 +395,7 @@ function SwipeableCard({
           >
             {right ? (
               <>
-                <Card name={right.name} fade={true} />
+                <Card dayName={right.name} fade />
                 <Animated.View
                   style={{
                     position: "absolute",
@@ -412,7 +415,7 @@ function SwipeableCard({
           </Animated.View>
 
           <Animated.View
-            shouldRasterizeIOS={true}
+            shouldRasterizeIOS
             {...panResponder.panHandlers}
             style={[
               styles.cardStyle,
@@ -439,7 +442,12 @@ function SwipeableCard({
                 opacity: currentAnimation.cardOpacity,
               }}
             />
-            <Card name={currentDay.name} fade={false} />
+            <Card
+              dayId={currentDay.id}
+              dayName={currentDay.name}
+              fade={false}
+              widgets
+            />
           </Animated.View>
         </>
       ) : (

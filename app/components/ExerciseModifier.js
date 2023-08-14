@@ -166,7 +166,7 @@ function ExerciseModifier(props) {
   };
 
   return (
-    <Animated.View style={deletingStyle} shouldRasterizeIOS={true}>
+    <Animated.View style={deletingStyle} shouldRasterizeIOS>
       <Swipeable
         ref={UpdateRef}
         friction={2}

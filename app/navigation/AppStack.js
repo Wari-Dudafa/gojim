@@ -9,6 +9,7 @@ import TabBarStack from "./TabBarStack";
 import StartDayPage from "../pages/StartDayPage";
 import StartExercisePage from "../pages/StartExercisePage";
 import SettingsPage from "../pages/SettingsPage";
+import GraphPage from "../pages/GraphPage";
 
 function AppStack(props) {
   const Stack = createNativeStackNavigator();
@@ -26,6 +27,7 @@ function AppStack(props) {
         <Stack.Screen name="AddDaysPage" component={AddDaysPage} />
         <Stack.Screen name="EditDayPage" component={EditDayPage} />
         <Stack.Screen name="SettingsPage" component={SettingsPage} />
+        <Stack.Screen name="GraphPage" component={GraphPage} />
 
         <Stack.Screen name="TabBarStack" component={TabBarStack} />
       </Stack.Navigator>
