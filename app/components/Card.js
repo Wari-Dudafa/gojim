@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { View, StyleSheet, Animated, Image, Text } from "react-native";
+import { View, StyleSheet, Animated, Image } from "react-native";
 import { useTheme } from "react-native-paper";
-import { BarChart } from "react-native-gifted-charts";
+
+import CardBarGraph from "./CardBarGraph";
 
 function Card(props) {
   const theme = useTheme();
@@ -15,120 +16,6 @@ function Card(props) {
     inputRange: [0, 1],
     outputRange: [0, 1],
   });
-  const barData = [
-    {
-      value: 1,
-      frontColor: theme.colors.onPrimary,
-      labelTextStyle: { color: theme.colors.onPrimary },
-      topLabelComponent: () => (
-        <Text
-          style={{
-            color: theme.colors.onPrimary,
-            fontSize: 18,
-            marginBottom: 6,
-          }}
-        >
-          M
-        </Text>
-      ),
-    },
-    {
-      value: Math.floor(Math.random() * 1 + 0.5),
-      frontColor: theme.colors.onPrimary,
-      labelTextStyle: { color: theme.colors.onPrimary },
-      topLabelComponent: () => (
-        <Text
-          style={{
-            color: theme.colors.onPrimary,
-            fontSize: 18,
-            marginBottom: 6,
-          }}
-        >
-          T
-        </Text>
-      ),
-    },
-    {
-      value: Math.floor(Math.random() * 1 + 0.5),
-      frontColor: theme.colors.onPrimary,
-      labelTextStyle: { color: theme.colors.onPrimary },
-      topLabelComponent: () => (
-        <Text
-          style={{
-            color: theme.colors.onPrimary,
-            fontSize: 18,
-            marginBottom: 6,
-          }}
-        >
-          W
-        </Text>
-      ),
-    },
-    {
-      value: Math.floor(Math.random() * 1 + 0.5),
-      frontColor: theme.colors.onPrimary,
-      labelTextStyle: { color: theme.colors.onPrimary },
-      topLabelComponent: () => (
-        <Text
-          style={{
-            color: theme.colors.onPrimary,
-            fontSize: 18,
-            marginBottom: 6,
-          }}
-        >
-          T
-        </Text>
-      ),
-    },
-    {
-      value: Math.floor(Math.random() * 1 + 0.5),
-      frontColor: theme.colors.onPrimary,
-      labelTextStyle: { color: theme.colors.onPrimary },
-      topLabelComponent: () => (
-        <Text
-          style={{
-            color: theme.colors.onPrimary,
-            fontSize: 18,
-            marginBottom: 6,
-          }}
-        >
-          F
-        </Text>
-      ),
-    },
-    {
-      value: Math.floor(Math.random() * 1 + 0.5),
-      frontColor: theme.colors.onPrimary,
-      labelTextStyle: { color: theme.colors.onPrimary },
-      topLabelComponent: () => (
-        <Text
-          style={{
-            color: theme.colors.onPrimary,
-            fontSize: 18,
-            marginBottom: 6,
-          }}
-        >
-          S
-        </Text>
-      ),
-    },
-    {
-      value: 1,
-      frontColor: theme.colors.onPrimary,
-      labelTextStyle: { color: theme.colors.onPrimary },
-      topLabelComponent: () => (
-        <Text
-          style={{
-            color: theme.colors.onPrimary,
-            fontSize: 18,
-            marginBottom: 6,
-          }}
-        >
-          S
-        </Text>
-      ),
-    },
-  ];
 
   useEffect(() => {
     determineAnimation();
@@ -142,7 +29,6 @@ function Card(props) {
     }
     if (props.widgets) {
       fadeInWidgets();
-      getBarGraphData();
     }
   };
 
@@ -169,8 +55,6 @@ function Card(props) {
       useNativeDriver: true,
     }).start();
   };
-
-  const getBarGraphData = () => {};
 
   return (
     <View
@@ -199,25 +83,7 @@ function Card(props) {
           <Animated.View
             style={{ opacity: widgetOpacity, flex: 1, overflow: "hidden" }}
           >
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <BarChart
-                yAxisThickness={0}
-                xAxisThickness={0}
-                barBorderRadius={4}
-                initialSpacing={5}
-                hideRules
-                hideYAxisText
-                maxValue={2}
-                spacing={10}
-                barWidth={24}
-                data={barData}
-              />
-            </View>
+            <CardBarGraph dayId={props.dayId} />
           </Animated.View>
         ) : null}
       </View>
