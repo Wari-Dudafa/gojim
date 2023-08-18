@@ -9,8 +9,8 @@ import {
   View,
   Alert,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import * as Haptics from "expo-haptics";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import { useTheme } from "react-native-paper";
 
 import Card from "./Card.js";
@@ -64,7 +64,7 @@ function SwipeableCard({
       } else if (gestureState.dx > SCREEN_WIDTH - swipeThreshold) {
         if (canSwipe) {
           if (hapticSetting) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            impactAsync(ImpactFeedbackStyle.Medium);
           }
           Animated.parallel([
             Animated.spring(xPosition, {
@@ -100,7 +100,7 @@ function SwipeableCard({
       } else if (gestureState.dx < -SCREEN_WIDTH + swipeThreshold) {
         if (canSwipe) {
           if (hapticSetting) {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+            impactAsync(ImpactFeedbackStyle.Medium);
           }
           Animated.parallel([
             Animated.spring(xPosition, {
@@ -251,8 +251,8 @@ function SwipeableCard({
               }}
               setHapticSetting={setHapticSetting}
             >
-              <Feather
-                name="activity"
+              <MaterialCommunityIcons
+                name="chart-line"
                 size={40}
                 color={theme.colors.onSecondary}
               />
@@ -282,7 +282,11 @@ function SwipeableCard({
                 );
               }}
             >
-              <Feather name="play" size={40} color={theme.colors.onSecondary} />
+              <MaterialCommunityIcons
+                name="play"
+                size={40}
+                color={theme.colors.onSecondary}
+              />
             </Button>
 
             <Button
@@ -298,8 +302,8 @@ function SwipeableCard({
                 navigation.navigate("EditDayPage", { day: currentDay });
               }}
             >
-              <Feather
-                name="edit-2"
+              <MaterialCommunityIcons
+                name="pencil"
                 size={40}
                 color={theme.colors.onSecondary}
               />

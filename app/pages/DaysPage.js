@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import { View } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import { useTheme } from "react-native-paper";
 
@@ -43,7 +43,11 @@ function DaysPage(props) {
           zIndex: 100,
         }}
       >
-        <Feather name="plus" size={55} color={theme.colors.onSecondary} />
+        <MaterialCommunityIcons
+          name="plus"
+          size={55}
+          color={theme.colors.onSecondary}
+        />
       </Button>
       <SwipingContainer days={days} navigation={props.navigation} />
     </View>

@@ -8,7 +8,7 @@ import {
   Alert,
   TextInput,
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import { useTheme } from "react-native-paper";
 
@@ -60,6 +60,12 @@ function ExerciseModifier(props) {
   };
 
   if (props.item == null) return;
+
+  const BottomPadding = () => {
+    if (props.index == props.lastIndex) {
+      return <View style={{ height: 70 }} />;
+    }
+  };
 
   RenderRightActions = (progress) => {
     RenderRightAction = (text, color, x, progress, onPress, textColor) => {
@@ -166,166 +172,189 @@ function ExerciseModifier(props) {
   };
 
   return (
-    <Animated.View style={deletingStyle} shouldRasterizeIOS>
-      <Swipeable
-        ref={UpdateRef}
-        friction={2}
-        rightThreshold={50}
-        renderRightActions={RenderRightActions}
-      >
-        <View style={styles.container}>
-          <View
-            style={[
-              styles.exerciseContainer,
-              {
-                backgroundColor: theme.colors.primary,
-                borderColor: theme.colors.outline,
-              },
-            ]}
-          >
-            <Text style={[styles.name, { color: theme.colors.onPrimary }]}>
-              {props.item.name}
-            </Text>
-            <Text style={[styles.reps, { color: theme.colors.onPrimary }]}>
-              {props.item.reps} reps
-            </Text>
-            <Text style={[styles.sets, { color: theme.colors.onPrimary }]}>
-              {props.item.sets} sets{" "}
-            </Text>
-            <Animated.View style={[{ flex: 1 }, dynamicStyle]}>
-              <TextInput
-                style={{
-                  flex: 1,
-                  color: theme.colors.onPrimary,
-                  textAlign: "center",
-                  fontSize: 40,
-                }}
-                placeholder="Exercise name"
-                value={name}
-                onChangeText={setName}
+    <>
+      <Animated.View style={deletingStyle} shouldRasterizeIOS>
+        <Swipeable
+          ref={UpdateRef}
+          friction={2}
+          rightThreshold={50}
+          renderRightActions={RenderRightActions}
+        >
+          <View style={styles.container}>
+            <View
+              style={[
+                styles.exerciseContainer,
+                {
+                  backgroundColor: theme.colors.primary,
+                  borderColor: theme.colors.outline,
+                },
+              ]}
+            >
+              <Text style={[styles.name, { color: theme.colors.onPrimary }]}>
+                {props.item.name}
+              </Text>
+              <Text style={[styles.reps, { color: theme.colors.onPrimary }]}>
+                {props.item.reps} reps
+              </Text>
+              <Text style={[styles.sets, { color: theme.colors.onPrimary }]}>
+                {props.item.sets} sets{" "}
+              </Text>
+              <Animated.View style={[{ flex: 1 }, dynamicStyle]}>
+                <TextInput
+                  style={{
+                    flex: 1,
+                    color: theme.colors.onPrimary,
+                    textAlign: "center",
+                    fontSize: 40,
+                  }}
+                  placeholder="Exercise name"
+                  value={name}
+                  onChangeText={setName}
+                />
+
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Button
+                    style={{
+                      flex: 1,
+                      backgroundColor: theme.colors.onPrimary,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 10,
+                    }}
+                    onPress={() => setReps(reps + 1)}
+                  >
+                    <MaterialCommunityIcons
+                      name="plus"
+                      size={30}
+                      color={theme.colors.outline}
+                    />
+                  </Button>
+
+                  <Text style={{ padding: 10, fontSize: 20 }}>
+                    Reps: {reps}
+                  </Text>
+                  <Button
+                    style={{
+                      flex: 1,
+                      backgroundColor: theme.colors.onPrimary,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 10,
+                    }}
+                    onPress={() => {
+                      if (reps - 1 >= 1) {
+                        setReps(reps - 1);
+                      }
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="minus"
+                      size={30}
+                      color={theme.colors.outline}
+                    />
+                  </Button>
+                </View>
+
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Button
+                    style={{
+                      flex: 1,
+                      backgroundColor: theme.colors.onPrimary,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 10,
+                    }}
+                    onPress={() => setSets(sets + 1)}
+                  >
+                    <MaterialCommunityIcons
+                      name="plus"
+                      size={30}
+                      color={theme.colors.outline}
+                    />
+                  </Button>
+                  <Text style={{ padding: 10, fontSize: 20 }}>
+                    Sets: {sets}
+                  </Text>
+                  <Button
+                    style={{
+                      flex: 1,
+                      backgroundColor: theme.colors.onPrimary,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: 10,
+                    }}
+                    onPress={() => {
+                      if (sets - 1 >= 1) {
+                        setSets(sets - 1);
+                      }
+                    }}
+                  >
+                    <MaterialCommunityIcons
+                      name="minus"
+                      size={30}
+                      color={theme.colors.outline}
+                    />
+                  </Button>
+                </View>
+
+                <View style={{ flex: 1, flexDirection: "row" }}>
+                  <Button
+                    onPress={Edit}
+                    title="save"
+                    titleStyle={{
+                      textAlign: "center",
+                      color: theme.colors.onSecondary,
+                      fontSize: 20,
+                    }}
+                    style={{
+                      flex: 1,
+                      backgroundColor: theme.colors.secondary,
+                      borderRadius: 10,
+                      margin: 5,
+                      justifyContent: "center",
+                    }}
+                  ></Button>
+                  <Button
+                    title="cancel"
+                    onPress={ToggleEdit}
+                    titleStyle={{
+                      textAlign: "center",
+                      color: theme.colors.onTertiary,
+                      fontSize: 20,
+                    }}
+                    style={{
+                      flex: 1,
+                      backgroundColor: theme.colors.tertiary,
+                      borderRadius: 10,
+                      margin: 5,
+                      justifyContent: "center",
+                    }}
+                  ></Button>
+                </View>
+              </Animated.View>
+              <Image
+                style={styles.image}
+                source={require("../../assets/shading-1.png")}
+                defaultSource={require("../../assets/shading-1.png")}
               />
-
-              <View
-                style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
-              >
-                <Button
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.onPrimary,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 10,
-                  }}
-                  onPress={() => setReps(reps + 1)}
-                >
-                  <Feather name="plus" size={30} color={theme.colors.outline} />
-                </Button>
-
-                <Text style={{ padding: 10, fontSize: 20 }}>Reps: {reps}</Text>
-                <Button
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.onPrimary,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 10,
-                  }}
-                  onPress={() => {
-                    if (reps - 1 >= 1) {
-                      setReps(reps - 1);
-                    }
-                  }}
-                >
-                  <Feather
-                    name="minus"
-                    size={30}
-                    color={theme.colors.outline}
-                  />
-                </Button>
-              </View>
-
-              <View
-                style={{ flex: 1, flexDirection: "row", alignItems: "center" }}
-              >
-                <Button
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.onPrimary,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 10,
-                  }}
-                  onPress={() => setSets(sets + 1)}
-                >
-                  <Feather name="plus" size={30} color={theme.colors.outline} />
-                </Button>
-                <Text style={{ padding: 10, fontSize: 20 }}>Sets: {sets}</Text>
-                <Button
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.onPrimary,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: 10,
-                  }}
-                  onPress={() => {
-                    if (sets - 1 >= 1) {
-                      setSets(sets - 1);
-                    }
-                  }}
-                >
-                  <Feather
-                    name="minus"
-                    size={30}
-                    color={theme.colors.outline}
-                  />
-                </Button>
-              </View>
-
-              <View style={{ flex: 1, flexDirection: "row" }}>
-                <Button
-                  onPress={Edit}
-                  title="save"
-                  titleStyle={{
-                    textAlign: "center",
-                    color: theme.colors.onSecondary,
-                    fontSize: 20,
-                  }}
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.secondary,
-                    borderRadius: 10,
-                    margin: 5,
-                    justifyContent: "center",
-                  }}
-                ></Button>
-                <Button
-                  title="cancel"
-                  onPress={ToggleEdit}
-                  titleStyle={{
-                    textAlign: "center",
-                    color: theme.colors.onTertiary,
-                    fontSize: 20,
-                  }}
-                  style={{
-                    flex: 1,
-                    backgroundColor: theme.colors.tertiary,
-                    borderRadius: 10,
-                    margin: 5,
-                    justifyContent: "center",
-                  }}
-                ></Button>
-              </View>
-            </Animated.View>
-            <Image
-              style={styles.image}
-              source={require("../../assets/shading-1.png")}
-              defaultSource={require("../../assets/shading-1.png")}
-            />
+            </View>
           </View>
-        </View>
-      </Swipeable>
-    </Animated.View>
+        </Swipeable>
+      </Animated.View>
+      <BottomPadding />
+    </>
   );
 }
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Text, TouchableOpacity, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import * as Haptics from "expo-haptics";
+import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import { useTheme } from "react-native-paper";
 
 function Button(props) {
@@ -53,7 +53,7 @@ function Button(props) {
       }
       onPress={() => {
         if (hapticSetting) {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          impactAsync(ImpactFeedbackStyle.Medium);
         }
         if (props.onPress) {
           props.onPress();

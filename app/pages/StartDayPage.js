@@ -3,7 +3,7 @@ import { View, FlatList } from "react-native";
 import { useTheme } from "react-native-paper";
 
 import Database from "../classes/DatabaseClass";
-import ExerciseStarter from "../components/ExerciseStarter";
+import ExerciseWithButton from "../components/ExerciseWithButton";
 import AppBar from "../components/AppBar";
 
 function StartDayPage(props) {
@@ -46,9 +46,14 @@ function StartDayPage(props) {
       <FlatList
         data={exercises}
         renderItem={({ item, index }) => (
-          <ExerciseStarter
+          <ExerciseWithButton
             exercise={item}
+            navigate
+            index={index}
+            lastIndex={exercises.length - 1}
+            buttonIcon="play-outline"
             navigation={props.navigation}
+            navigationDestination="StartExercisePage"
             key={index}
           />
         )}

@@ -1,9 +1,9 @@
-import * as sqlite from "expo-sqlite";
+import { openDatabase } from "expo-sqlite";
 import { Alert } from "react-native";
 
 export default class Database {
   constructor() {
-    this.db = sqlite.openDatabase("fitone.db");
+    this.db = openDatabase("fitone.db");
     this.tables = [
       // They all have an incrementing id as a primary key
       {

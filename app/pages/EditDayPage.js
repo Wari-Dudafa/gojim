@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { View, StyleSheet, TextInput, Alert } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
 
 import Exercise from "../classes/ExerciseClass";
@@ -118,15 +118,27 @@ function EditDayPage(props) {
       <AppBar navigation={props.navigation} back />
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <Button style={styles.plus} onPress={AddExercise}>
-          <Feather name="plus" size={50} color={theme.colors.onBackground} />
+          <MaterialCommunityIcons
+            name="plus"
+            size={50}
+            color={theme.colors.onBackground}
+          />
         </Button>
 
         <Button style={styles.plus} onPress={DeleteDay}>
-          <Feather name="trash" size={45} color={theme.colors.onBackground} />
+          <MaterialCommunityIcons
+            name="delete"
+            size={45}
+            color={theme.colors.onBackground}
+          />
         </Button>
 
         <Button style={styles.check} onPress={SaveDay}>
-          <Feather name="check" size={50} color={theme.colors.onBackground} />
+          <MaterialCommunityIcons
+            name="check"
+            size={50}
+            color={theme.colors.onBackground}
+          />
         </Button>
       </View>
 

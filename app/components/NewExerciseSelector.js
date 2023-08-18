@@ -15,6 +15,7 @@ function NewExerciseSelector(props) {
             item={item}
             index={index}
             key={index}
+            lastIndex={props.exercises.length - 1}
             exercises={props.exercises}
             setExercises={props.setExercises}
           />
