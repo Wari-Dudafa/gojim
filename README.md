@@ -1,6 +1,6 @@
 # FiTone Fitness App
 
-![FiTone Logo](./assets/icon.png)
+<img src="./assets/icon.png" alt="Fitone logo" width="300">
 
 FiTone is a comprehensive fitness app designed to help you track your workouts and calories, allowing you to stay motivated and achieve your fitness goals. With FiTone, you can easily monitor your progress, record your exercises, and keep an eye on your calorie intake.
 
