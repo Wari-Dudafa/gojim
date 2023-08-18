@@ -14,8 +14,8 @@ FiTone is a comprehensive fitness app designed to help you track your workouts a
 
 ## Screenshots
 
-![Dark home page](./assets/screenshots/DayPage_dark.png)
-![Light home page](./assets/screenshots/DayPage_light.png)
+![Dark home page](./assets/screenshots/DayPage_dark.PNG)
+![Light home page](./assets/screenshots/DayPage_light.PNG)
 
 ## Technologies Used
 
