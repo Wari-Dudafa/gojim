@@ -111,6 +111,10 @@ function GraphPage(props) {
 
   const parseDateAndWeight = (result) => {
     let lineData = [];
+    lineData.push({
+      value: 0,
+      dataPointColor: theme.colors.secondary,
+    });
     for (let index = 0; index < result.length; index++) {
       let date = new Date(result[index].date);
       let dateStr =
@@ -171,7 +175,7 @@ function GraphPage(props) {
             dataPointText: counter,
             textShiftY: -10,
             textShiftX: -5,
-            label: datesArray[index],
+            label: datesArray[index - 1],
             dataPointColor: theme.colors.secondary,
           });
           counter = 1;
@@ -188,8 +192,11 @@ function GraphPage(props) {
         }
       }
     }
-    console.log(lineData);
-    setLineData(lineData);
+    lineData.push({
+      value: 0,
+      dataPointColor: theme.colors.secondary,
+    });
+    setLineData(lineData.reverse());
   };
 
   return (
@@ -217,7 +224,7 @@ function GraphPage(props) {
           endFillColor1={theme.colors.primary}
           startOpacity={0.8}
           endOpacity={0}
-          initialSpacing={50}
+          initialSpacing={20}
           endSpacing={900}
           noOfSections={4}
           yAxisThickness={0}
