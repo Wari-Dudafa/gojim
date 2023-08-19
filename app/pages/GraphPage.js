@@ -17,7 +17,9 @@ function GraphPage(props) {
   const [showExercises, setShowExercises] = useState(false);
   const [exercises, setExercises] = useState([]);
   const theme = useTheme();
-  const [lineData, setLineData] = useState([{ value: 0 }]);
+  const [lineData, setLineData] = useState([
+    { value: 0, dataPointColor: theme.colors.secondary },
+  ]);
 
   useEffect(() => {
     getGraphData();
@@ -29,24 +31,30 @@ function GraphPage(props) {
       setShowExercises(false);
     } else if (selectedGraph == "weightLifted") {
       getExercises();
+      setLineData([{ value: 0, dataPointColor: theme.colors.secondary }]);
       setShowExercises(true);
     }
     // Adding more graphs requires more else ifs for each graph
   };
 
   const getActivityGraphData = () => {
-    let statement = "";
-    setLineData([
-      { value: 38 },
-      { value: 80 },
-      { value: 38 },
-      { value: 40 },
-      { value: 40 },
-      { value: 60 },
-      { value: 36 },
-      { value: 70 },
-      { value: 18 },
-    ]);
+    let currentDate = new Date();
+    let statement =
+      "SELECT s.date FROM session s WHERE s.day_id = " +
+      day.id +
+      " ORDER BY s.date DESC";
+
+    db.sql(statement, (resultSet) => {
+      let dates = resultSet.rows._array;
+
+      if (dates.length == 0) {
+        // This exercises has never been done
+        setLineData([{ value: 0, dataPointColor: theme.colors.secondary }]);
+      } else {
+        // Handle data
+        parseActivity(dates);
+      }
+    });
   };
 
   const getExercises = () => {
@@ -54,17 +62,6 @@ function GraphPage(props) {
     db.sql(statement, (resultSet) => {
       setExercises(resultSet.rows._array);
     });
-    setLineData([
-      { value: 40 },
-      { value: 36 },
-      { value: 70 },
-      { value: 18 },
-      { value: 38 },
-      { value: 38 },
-      { value: 40 },
-      { value: 60 },
-      { value: 80 },
-    ]);
   };
 
   const getExerciseGraphData = (exercise) => {
@@ -80,7 +77,11 @@ function GraphPage(props) {
 
     db.sql(statement, (resultSet) => {
       let result = resultSet.rows._array;
-      console.log(result);
+      if (result.length > 0) {
+        parseDateAndWeight(result);
+      } else {
+        setLineData([{ value: 0, dataPointColor: theme.colors.secondary }]);
+      }
     });
   };
 
@@ -108,6 +109,89 @@ function GraphPage(props) {
     }
   };
 
+  const parseDateAndWeight = (result) => {
+    let lineData = [];
+    for (let index = 0; index < result.length; index++) {
+      let date = new Date(result[index].date);
+      let dateStr =
+        "" +
+        date.getDate() +
+        "/" +
+        date.getMonth() +
+        "/" +
+        date.getFullYear() +
+        "";
+      let value = {
+        value: result[index].weight_kg,
+        dataPointText: result[index].weight_kg,
+        textShiftY: -10,
+        textShiftX: -5,
+        label: dateStr,
+        dataPointColor: theme.colors.secondary,
+      };
+      lineData.push(value);
+    }
+    setLineData(lineData);
+  };
+
+  const parseActivity = (result) => {
+    let datesArray = [];
+    let lineData = [];
+    let counter = 1;
+    for (let index = 0; index < result.length; index++) {
+      let date = new Date(result[index].date);
+      let dateStr =
+        "" +
+        date.getDate() +
+        "/" +
+        date.getMonth() +
+        "/" +
+        date.getFullYear() +
+        "";
+      datesArray.push(dateStr);
+    }
+
+    for (let index = 0; index < datesArray.length; index++) {
+      if (index > 0) {
+        if (datesArray[index] == datesArray[index - 1]) {
+          counter = counter + 1;
+          if (index == datesArray.length - 1) {
+            lineData.push({
+              value: counter,
+              dataPointText: counter,
+              textShiftY: -10,
+              textShiftX: -5,
+              label: datesArray[index],
+              dataPointColor: theme.colors.secondary,
+            });
+          }
+        } else {
+          lineData.push({
+            value: counter,
+            dataPointText: counter,
+            textShiftY: -10,
+            textShiftX: -5,
+            label: datesArray[index],
+            dataPointColor: theme.colors.secondary,
+          });
+          counter = 1;
+          if (index == datesArray.length - 1) {
+            lineData.push({
+              value: counter,
+              dataPointText: counter,
+              textShiftY: -10,
+              textShiftX: -5,
+              label: datesArray[index],
+              dataPointColor: theme.colors.secondary,
+            });
+          }
+        }
+      }
+    }
+    console.log(lineData);
+    setLineData(lineData);
+  };
+
   return (
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
@@ -126,7 +210,6 @@ function GraphPage(props) {
         <LineChart
           areaChart
           data={lineData}
-          hideDataPoints
           height={300}
           spacing={zoomMultiplier}
           color1={theme.colors.primary}
@@ -134,11 +217,12 @@ function GraphPage(props) {
           endFillColor1={theme.colors.primary}
           startOpacity={0.8}
           endOpacity={0}
-          initialSpacing={0}
+          initialSpacing={50}
           endSpacing={900}
           noOfSections={4}
           yAxisThickness={0}
           rulesType="solid"
+          xAxisLabelTextStyle={{ color: theme.colors.onBackground }}
           rulesColor={theme.colors.onBackground}
           yAxisTextStyle={{ color: theme.colors.onBackground }}
           xAxisColor={theme.colors.onBackground}

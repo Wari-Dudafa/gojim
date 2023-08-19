@@ -47,6 +47,7 @@ function StartDayPage(props) {
         data={exercises}
         renderItem={({ item, index }) => (
           <ExerciseWithButton
+            showRepsSets
             exercise={item}
             navigate
             index={index}

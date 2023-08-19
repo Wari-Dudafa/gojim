@@ -31,12 +31,16 @@ function ExerciseWithButton(props) {
             <Text style={[styles.name, { color: theme.colors.onPrimary }]}>
               {props.exercise.name}
             </Text>
-            <Text style={[styles.reps, { color: theme.colors.onPrimary }]}>
-              {props.exercise.reps} reps
-            </Text>
-            <Text style={[styles.sets, { color: theme.colors.onPrimary }]}>
-              {props.exercise.sets} sets
-            </Text>
+            {props.showRepsSets ? (
+              <>
+                <Text style={[styles.reps, { color: theme.colors.onPrimary }]}>
+                  {props.exercise.reps} reps
+                </Text>
+                <Text style={[styles.sets, { color: theme.colors.onPrimary }]}>
+                  {props.exercise.sets} sets
+                </Text>
+              </>
+            ) : null}
           </View>
           {unPressed ? (
             <>

@@ -128,7 +128,6 @@ function CardBarGraph(props) {
   }, []);
 
   const getBarGraphData = () => {
-    // for (let index = 0; index < 1_000_000_000; index++) {}
     let currentDate = new Date();
     let statement =
       "SELECT s.date FROM session s WHERE s.day_id = " +
