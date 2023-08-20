@@ -9,14 +9,9 @@ function CardBarGraph(props) {
   const db = new Database();
   const theme = useTheme();
 
-  const [plural, setPlural] = useState(true);
   const [exerciseCount, setExerciseCount] = useState("");
   const [pieChartData, setPieChartData] = useState([
-    { value: 30, color: theme.colors.backdrop },
-    { value: 40, color: theme.colors.backdrop },
-    { value: 20, color: theme.colors.backdrop },
-    { value: 20, color: theme.colors.backdrop },
-    { value: 20, color: theme.colors.backdrop },
+    { value: 100, color: theme.colors.backdrop },
   ]);
 
   useEffect(() => {
@@ -33,9 +28,14 @@ function CardBarGraph(props) {
       "SELECT id FROM exercises WHERE day_id = " + props.dayId + "";
     db.sql(statement, (resultSet) => {
       let exerciseCount = resultSet.rows.length;
-      if (exerciseCount == 1) {
-        setPlural(false);
+      let tempPieData = [];
+      for (let index = 0; index < exerciseCount; index++) {
+        tempPieData.push({
+          value: 100 / exerciseCount,
+          color: theme.colors.backdrop,
+        });
       }
+      setPieChartData(tempPieData);
       setExerciseCount(exerciseCount);
     });
   };
@@ -43,13 +43,12 @@ function CardBarGraph(props) {
   return (
     <View style={{ paddingLeft: 15, paddingTop: 20 }}>
       <PieChart
-        strokeColor="white"
+        strokeColor={theme.colors.outline}
         strokeWidth={1}
         data={pieChartData}
         innerCircleColor={theme.colors.primary}
         innerCircleBorderColor={theme.colors.outline}
         showValuesAsLabels={true}
-        showText
         outline
         textSize={15}
         showTextBackground={true}
@@ -65,27 +64,6 @@ function CardBarGraph(props) {
               >
                 {exerciseCount}
               </Text>
-              {plural ? (
-                <Text
-                  style={{
-                    color: theme.colors.onPrimary,
-                    fontSize: 17,
-                    textAlign: "center",
-                  }}
-                >
-                  Exercises
-                </Text>
-              ) : (
-                <Text
-                  style={{
-                    color: theme.colors.onPrimary,
-                    fontSize: 17,
-                    textAlign: "center",
-                  }}
-                >
-                  Exercise
-                </Text>
-              )}
             </View>
           );
         }}
