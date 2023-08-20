@@ -34,8 +34,28 @@ function AddDaysPage(props) {
   };
 
   const SaveDay = () => {
+    let checker = [];
+    let proceed = false;
     if (dayName.length == 0) {
       Alert.alert("Please type a day name");
+      return;
+    }
+    for (let index = 0; index < exercises.length; index++) {
+      let exercise = exercises[index];
+      if (exercise == null) {
+        checker.push(false);
+      } else {
+        checker.push(true);
+      }
+    }
+    for (let index = 0; index < checker.length; index++) {
+      let check = checker[index];
+      if (check) {
+        proceed = true;
+      }
+    }
+    if (!proceed) {
+      Alert.alert("Please add an exercise");
       return;
     }
     props.navigation.pop();
@@ -80,7 +100,9 @@ function AddDaysPage(props) {
 
       <NewExerciseSelector exercises={exercises} setExercises={setExercises} />
 
-      <SafeAreaView style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <SafeAreaView
+        style={{ flexDirection: "row", justifyContent: "space-between" }}
+      >
         <Button style={styles.plus} onPress={AddExercise}>
           <MaterialCommunityIcons
             name="plus"

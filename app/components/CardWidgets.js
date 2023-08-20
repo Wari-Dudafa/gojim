@@ -9,16 +9,18 @@ function CardBarGraph(props) {
   const db = new Database();
   const theme = useTheme();
 
-  const [exerciseCount, setExerciseCount] = useState(99);
+  const [plural, setPlural] = useState(true);
+  const [exerciseCount, setExerciseCount] = useState("");
   const [pieChartData, setPieChartData] = useState([
-    { value: 30 },
-    { value: 40 },
-    { value: 20 },
-    { value: 20 },
-    { value: 20 },
+    { value: 30, color: theme.colors.backdrop },
+    { value: 40, color: theme.colors.backdrop },
+    { value: 20, color: theme.colors.backdrop },
+    { value: 20, color: theme.colors.backdrop },
+    { value: 20, color: theme.colors.backdrop },
   ]);
 
   useEffect(() => {
+    getExerciseCount();
     getPieChartData();
   }, []);
 
@@ -26,15 +28,30 @@ function CardBarGraph(props) {
     let statement = "";
   };
 
+  const getExerciseCount = () => {
+    let statement =
+      "SELECT id FROM exercises WHERE day_id = " + props.dayId + "";
+    db.sql(statement, (resultSet) => {
+      let exerciseCount = resultSet.rows.length;
+      if (exerciseCount == 1) {
+        setPlural(false);
+      }
+      setExerciseCount(exerciseCount);
+    });
+  };
+
   return (
-    <View style={{ position: "absolute", backgroundColor: "red" }}>
+    <View style={{ paddingLeft: 15, paddingTop: 20 }}>
       <PieChart
+        strokeColor="white"
+        strokeWidth={1}
         data={pieChartData}
         innerCircleColor={theme.colors.primary}
         innerCircleBorderColor={theme.colors.outline}
         showValuesAsLabels={true}
         showText
-        textSize={18}
+        outline
+        textSize={15}
         showTextBackground={true}
         centerLabelComponent={() => {
           return (
@@ -48,15 +65,27 @@ function CardBarGraph(props) {
               >
                 {exerciseCount}
               </Text>
-              <Text
-                style={{
-                  color: theme.colors.onPrimary,
-                  fontSize: 17,
-                  textAlign: "center",
-                }}
-              >
-                Exercises
-              </Text>
+              {plural ? (
+                <Text
+                  style={{
+                    color: theme.colors.onPrimary,
+                    fontSize: 17,
+                    textAlign: "center",
+                  }}
+                >
+                  Exercises
+                </Text>
+              ) : (
+                <Text
+                  style={{
+                    color: theme.colors.onPrimary,
+                    fontSize: 17,
+                    textAlign: "center",
+                  }}
+                >
+                  Exercise
+                </Text>
+              )}
             </View>
           );
         }}

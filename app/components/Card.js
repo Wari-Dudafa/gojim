@@ -80,9 +80,7 @@ function Card(props) {
           style={[styles.underline, { backgroundColor: theme.colors.outline }]}
         />
         {props.widgets ? (
-          <Animated.View
-            style={{ opacity: widgetOpacity, flex: 1, overflow: "hidden" }}
-          >
+          <Animated.View style={{ opacity: widgetOpacity, flex: 1 }}>
             <CardWidgets dayId={props.dayId} />
           </Animated.View>
         ) : null}
