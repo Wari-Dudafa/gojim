@@ -98,7 +98,12 @@ function AddDaysPage(props) {
         onChangeText={setDayName}
       />
 
-      <NewExerciseSelector exercises={exercises} setExercises={setExercises} />
+      <NewExerciseSelector
+        edit
+        delete
+        exercises={exercises}
+        setExercises={setExercises}
+      />
 
       <SafeAreaView
         style={{ flexDirection: "row", justifyContent: "space-between" }}

@@ -96,22 +96,26 @@ function ExerciseModifier(props) {
 
     return (
       <View style={{ width: 192, flexDirection: "row-reverse" }}>
-        {RenderRightAction(
-          "Delete",
-          theme.colors.tertiary,
-          128,
-          progress,
-          Delete,
-          theme.colors.onTertiary
-        )}
-        {RenderRightAction(
-          "Edit",
-          theme.colors.secondary,
-          192,
-          progress,
-          ToggleEdit,
-          theme.colors.onSecondary
-        )}
+        {props.delete
+          ? RenderRightAction(
+              "Delete",
+              theme.colors.tertiary,
+              128,
+              progress,
+              Delete,
+              theme.colors.onTertiary
+            )
+          : null}
+        {props.edit
+          ? RenderRightAction(
+              "Edit",
+              theme.colors.secondary,
+              192,
+              progress,
+              ToggleEdit,
+              theme.colors.onSecondary
+            )
+          : null}
       </View>
     );
   };

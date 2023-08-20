@@ -124,7 +124,11 @@ function EditDayPage(props) {
         onChangeText={setNewName}
       />
 
-      <NewExerciseSelector exercises={exercises} setExercises={setExercises} />
+      <NewExerciseSelector
+        delete
+        exercises={exercises}
+        setExercises={setExercises}
+      />
 
       <SafeAreaView
         style={{ flexDirection: "row", justifyContent: "space-between" }}
