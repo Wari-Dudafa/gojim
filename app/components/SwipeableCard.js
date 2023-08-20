@@ -341,9 +341,7 @@ function SwipeableCard({
                   }}
                 />
               </>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </Animated.View>
 
           <Animated.View
@@ -377,9 +375,7 @@ function SwipeableCard({
                   }}
                 />
               </>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </Animated.View>
 
           <Animated.View
@@ -413,9 +409,7 @@ function SwipeableCard({
                   }}
                 />
               </>
-            ) : (
-              <></>
-            )}
+            ) : null}
           </Animated.View>
 
           <Animated.View
@@ -455,13 +449,9 @@ function SwipeableCard({
           </Animated.View>
         </>
       ) : (
-        <>
-          <Text
-            style={[styles.noDaysText, { color: theme.colors.onBackground }]}
-          >
-            There are currently no days, please click the plus button to add one
-          </Text>
-        </>
+        <Text style={[styles.noDaysText, { color: theme.colors.onBackground }]}>
+          There are currently no days, please click the plus button to add one
+        </Text>
       )}
     </>
   );

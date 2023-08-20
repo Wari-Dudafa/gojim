@@ -43,34 +43,30 @@ function ExerciseWithButton(props) {
             ) : null}
           </View>
           {unPressed ? (
-            <>
-              <Button
-                onPress={() => {
-                  if (props.navigate) {
-                    props.navigation.navigate(props.navigationDestination, {
-                      exercise: props.exercise,
-                    });
-                    // So the logo switch doesnt happen instantly
-                    setTimeout(() => {
-                      setUnPressed(false);
-                    }, 1000);
-                  }
-                  if (props.onPress) {
-                    props.onPress();
-                  }
-                }}
-                style={styles.playButton}
-              >
-                <MaterialCommunityIcons
-                  name={props.buttonIcon}
-                  size={55}
-                  color={theme.colors.onPrimary}
-                />
-              </Button>
-            </>
-          ) : (
-            <></>
-          )}
+            <Button
+              onPress={() => {
+                if (props.navigate) {
+                  props.navigation.navigate(props.navigationDestination, {
+                    exercise: props.exercise,
+                  });
+                  // So the logo switch doesnt happen instantly
+                  setTimeout(() => {
+                    setUnPressed(false);
+                  }, 1000);
+                }
+                if (props.onPress) {
+                  props.onPress();
+                }
+              }}
+              style={styles.playButton}
+            >
+              <MaterialCommunityIcons
+                name={props.buttonIcon}
+                size={55}
+                color={theme.colors.onPrimary}
+              />
+            </Button>
+          ) : null}
           <Image
             style={styles.image}
             source={require("../../assets/shading-1.png")}

@@ -67,61 +67,57 @@ function WeightRepSelector(props) {
   return (
     <>
       {progress ? (
-        <>
-          <View
-            style={[
-              styles.container,
-              { borderBottomColor: theme.colors.secondary },
-            ]}
-          >
-            <TextInput
-              style={styles.inputNumber}
-              placeholder="reps"
-              keyboardType="numeric"
-              maxLength={repCharacterLimit}
-              value={repsDone}
-              onChangeText={(text) => onChanged(text, "reps")}
-              onEndEditing={borderBottomColor}
-            />
-            <TextInput
-              style={styles.inputNumber}
-              placeholder="weight"
-              keyboardType="numeric"
-              maxLength={weightCharacterLimit}
-              value={weight}
-              onChangeText={(text) => onChanged(text, "weight")}
-              onEndEditing={borderBottomColor}
-            />
-          </View>
-        </>
+        <View
+          style={[
+            styles.container,
+            { borderBottomColor: theme.colors.secondary },
+          ]}
+        >
+          <TextInput
+            style={styles.inputNumber}
+            placeholder="reps"
+            keyboardType="numeric"
+            maxLength={repCharacterLimit}
+            value={repsDone}
+            onChangeText={(text) => onChanged(text, "reps")}
+            onEndEditing={borderBottomColor}
+          />
+          <TextInput
+            style={styles.inputNumber}
+            placeholder="weight"
+            keyboardType="numeric"
+            maxLength={weightCharacterLimit}
+            value={weight}
+            onChangeText={(text) => onChanged(text, "weight")}
+            onEndEditing={borderBottomColor}
+          />
+        </View>
       ) : (
-        <>
-          <View
-            style={[
-              styles.container,
-              { borderBottomColor: theme.colors.tertiary },
-            ]}
-          >
-            <TextInput
-              style={styles.inputNumber}
-              placeholder="reps"
-              keyboardType="numeric"
-              maxLength={repCharacterLimit}
-              value={repsDone}
-              onChangeText={(text) => onChanged(text, "reps")}
-              onEndEditing={borderBottomColor}
-            />
-            <TextInput
-              style={styles.inputNumber}
-              placeholder="weight"
-              keyboardType="numeric"
-              maxLength={weightCharacterLimit}
-              value={weight}
-              onChangeText={(text) => onChanged(text, "weight")}
-              onEndEditing={borderBottomColor}
-            />
-          </View>
-        </>
+        <View
+          style={[
+            styles.container,
+            { borderBottomColor: theme.colors.tertiary },
+          ]}
+        >
+          <TextInput
+            style={styles.inputNumber}
+            placeholder="reps"
+            keyboardType="numeric"
+            maxLength={repCharacterLimit}
+            value={repsDone}
+            onChangeText={(text) => onChanged(text, "reps")}
+            onEndEditing={borderBottomColor}
+          />
+          <TextInput
+            style={styles.inputNumber}
+            placeholder="weight"
+            keyboardType="numeric"
+            maxLength={weightCharacterLimit}
+            value={weight}
+            onChangeText={(text) => onChanged(text, "weight")}
+            onEndEditing={borderBottomColor}
+          />
+        </View>
       )}
     </>
   );

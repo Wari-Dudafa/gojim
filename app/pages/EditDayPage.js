@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, StyleSheet, TextInput, Alert } from "react-native";
+import { View, StyleSheet, TextInput, Alert, SafeAreaView } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
 
@@ -116,7 +116,19 @@ function EditDayPage(props) {
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
       <AppBar navigation={props.navigation} back />
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+
+      <TextInput
+        style={[styles.dayName, { color: theme.colors.onBackground }]}
+        placeholder={day.name}
+        value={newName}
+        onChangeText={setNewName}
+      />
+
+      <NewExerciseSelector exercises={exercises} setExercises={setExercises} />
+
+      <SafeAreaView
+        style={{ flexDirection: "row", justifyContent: "space-between" }}
+      >
         <Button style={styles.plus} onPress={AddExercise}>
           <MaterialCommunityIcons
             name="plus"
@@ -140,16 +152,7 @@ function EditDayPage(props) {
             color={theme.colors.onBackground}
           />
         </Button>
-      </View>
-
-      <TextInput
-        style={[styles.dayName, { color: theme.colors.onBackground }]}
-        placeholder={day.name}
-        value={newName}
-        onChangeText={setNewName}
-      />
-
-      <NewExerciseSelector exercises={exercises} setExercises={setExercises} />
+      </SafeAreaView>
     </View>
   );
 }

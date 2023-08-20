@@ -54,19 +54,17 @@ function ExercisePillar(props) {
         data={weightRepSelectorArray}
         renderItem={({ index }) => {
           return (
-            <>
-              <WeightRepSelector
-                lastWeightRepSession={lastWeightRepSession}
-                repCount={repCount}
-                exercise={props.exercise}
-                key={index}
-                index={index}
-                newReps={props.newReps}
-                setNewReps={props.setNewReps}
-                newWeight={props.newWeight}
-                setNewWeight={props.setNewWeight}
-              />
-            </>
+            <WeightRepSelector
+              lastWeightRepSession={lastWeightRepSession}
+              repCount={repCount}
+              exercise={props.exercise}
+              key={index}
+              index={index}
+              newReps={props.newReps}
+              setNewReps={props.setNewReps}
+              newWeight={props.newWeight}
+              setNewWeight={props.setNewWeight}
+            />
           );
         }}
       />
@@ -83,9 +81,7 @@ function ExercisePillar(props) {
             let reps = parseInt(item.reps_in_set);
             let weight = parseFloat(item.weight_in_set);
             return (
-              <>
-                <LastWeightRepSession reps={reps} weight={weight} key={index} />
-              </>
+              <LastWeightRepSession reps={reps} weight={weight} key={index} />
             );
           }}
         />

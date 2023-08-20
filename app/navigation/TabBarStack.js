@@ -1,5 +1,4 @@
-import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
-
+import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 import { enableScreens } from "react-native-screens";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
@@ -17,6 +16,9 @@ function TabBarStack() {
   return (
     <>
       <Tab.Navigator
+        theme={{
+          colors: { secondaryContainer: theme.colors.primaryContainer },
+        }}
         labeled={false}
         activeColor={theme.colors.primary}
         inactiveColor={theme.colors.outline}

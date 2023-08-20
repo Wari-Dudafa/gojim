@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { View, StyleSheet, Animated, Image } from "react-native";
 import { useTheme } from "react-native-paper";
 
-import CardBarGraph from "./CardBarGraph";
+import CardWidgets from "./CardWidgets";
 
 function Card(props) {
   const theme = useTheme();
@@ -83,7 +83,7 @@ function Card(props) {
           <Animated.View
             style={{ opacity: widgetOpacity, flex: 1, overflow: "hidden" }}
           >
-            <CardBarGraph dayId={props.dayId} />
+            <CardWidgets dayId={props.dayId} />
           </Animated.View>
         ) : null}
       </View>

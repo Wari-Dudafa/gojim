@@ -35,7 +35,7 @@ function Button(props) {
   };
 
   if (props.visible == false) {
-    return <></>;
+    return null;
   }
 
   return (
@@ -71,7 +71,7 @@ function Button(props) {
           {props.title}
         </Text>
       ) : (
-        <></>
+        null
       )}
       {props.children}
     </TouchableOpacity>

@@ -9,7 +9,6 @@ function FoodPage(props) {
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
       <AppBar title="Food" settings navigation={props.navigation} />
-      <></>
     </View>
   );
 }

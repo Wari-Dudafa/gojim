@@ -9,7 +9,6 @@ function ScalePage(props) {
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
       <AppBar title="Scale" settings navigation={props.navigation} />
-      <></>
     </View>
   );
 }
