@@ -1,4 +1,4 @@
-# FiTone Fitness App
+# GoJim Fitness App
 
 <img src="./assets/icon.png" alt="FiTone Logo"  width="350">
 
