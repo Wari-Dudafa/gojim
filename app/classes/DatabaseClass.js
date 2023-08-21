@@ -3,7 +3,7 @@ import { Alert } from "react-native";
 
 export default class Database {
   constructor() {
-    this.db = openDatabase("fitone.db");
+    this.db = openDatabase("gojim.db");
     this.tables = [
       // They all have an incrementing id as a primary key
       {
