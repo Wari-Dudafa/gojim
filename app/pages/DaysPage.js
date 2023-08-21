@@ -1,12 +1,11 @@
 import { useState, useCallback, useEffect } from "react";
 import { View } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import { useTheme } from "react-native-paper";
 
 import SwipingContainer from "../components/SwipingContainer";
+import CornerActionButton from "../components/CornerActionButton";
 import Database from "../classes/DatabaseClass";
-import Button from "../components/Button";
 import AppBar from "../components/AppBar";
 
 function DaysPage(props) {
@@ -29,26 +28,13 @@ function DaysPage(props) {
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <AppBar title="Days" settings navigation={props.navigation} />
-      <Button
+      <CornerActionButton
+        icon="plus"
         onPress={() => {
+          // Make new day
           props.navigation.navigate("AddDaysPage");
         }}
-        style={{
-          position: "absolute",
-          bottom: 15,
-          right: 15,
-          backgroundColor: theme.colors.secondary,
-          borderRadius: 5,
-          padding: 5,
-          zIndex: 100,
-        }}
-      >
-        <MaterialCommunityIcons
-          name="plus"
-          size={55}
-          color={theme.colors.onSecondary}
-        />
-      </Button>
+      />
       <SwipingContainer days={days} navigation={props.navigation} />
     </View>
   );

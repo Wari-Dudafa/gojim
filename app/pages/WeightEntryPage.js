@@ -3,18 +3,18 @@ import { useTheme } from "react-native-paper";
 
 import AppBar from "../components/AppBar";
 
-function FoodPage(props) {
+function WeightEntryPage(props) {
   const theme = useTheme();
   return (
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
-      <AppBar title="Food" settings navigation={props.navigation} />
+      <AppBar title="New weight log" back navigation={props.navigation} />
     </View>
   );
 }
 
-export default FoodPage;
+export default WeightEntryPage;
 
 const styles = StyleSheet.create({
   container: {
