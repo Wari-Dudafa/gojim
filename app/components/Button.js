@@ -46,6 +46,7 @@ function Button(props) {
           : {
               backgroundColor: theme.colors.secondary,
               padding: 10,
+              margin: 5,
               borderRadius: 10,
               justifyContent: "center",
               alignItems: "center",
@@ -70,9 +71,7 @@ function Button(props) {
         >
           {props.title}
         </Text>
-      ) : (
-        null
-      )}
+      ) : null}
       {props.children}
     </TouchableOpacity>
   );

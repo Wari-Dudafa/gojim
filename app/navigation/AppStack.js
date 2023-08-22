@@ -11,6 +11,7 @@ import StartExercisePage from "../pages/StartExercisePage";
 import SettingsPage from "../pages/SettingsPage";
 import GraphPage from "../pages/GraphPage";
 import WeightEntryPage from "../pages/WeightEntryPage";
+import SetupStack from "./SetupStack";
 
 function AppStack(props) {
   const Stack = createNativeStackNavigator();
@@ -20,7 +21,7 @@ function AppStack(props) {
       <StatusBar style="auto" />
 
       <Stack.Navigator
-        initialRouteName="TabBarStack"
+        initialRouteName={props.initialRouteName}
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="StartDayPage" component={StartDayPage} />
@@ -31,6 +32,7 @@ function AppStack(props) {
         <Stack.Screen name="GraphPage" component={GraphPage} />
         <Stack.Screen name="WeightEntryPage" component={WeightEntryPage} />
 
+        <Stack.Screen name="SetupStack" component={SetupStack} />
         <Stack.Screen name="TabBarStack" component={TabBarStack} />
       </Stack.Navigator>
     </NavigationContainer>

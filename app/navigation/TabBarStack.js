@@ -14,51 +14,49 @@ function TabBarStack() {
   enableScreens();
 
   return (
-    <>
-      <Tab.Navigator
-        theme={{
-          colors: { secondaryContainer: theme.colors.primaryContainer },
+    <Tab.Navigator
+      theme={{
+        colors: { secondaryContainer: theme.colors.primaryContainer },
+      }}
+      labeled={false}
+      activeColor={theme.colors.primary}
+      inactiveColor={theme.colors.outline}
+      barStyle={{
+        backgroundColor: theme.colors.elevation.level3,
+      }}
+    >
+      <Tab.Screen
+        name="DaysPage"
+        component={DaysPage}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="weight" color={color} size={26} />
+          ),
         }}
-        labeled={false}
-        activeColor={theme.colors.primary}
-        inactiveColor={theme.colors.outline}
-        barStyle={{
-          backgroundColor: theme.colors.elevation.level3,
+      />
+      <Tab.Screen
+        name="FoodPage"
+        component={FoodPage}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="bowl-mix" color={color} size={26} />
+          ),
         }}
-      >
-        <Tab.Screen
-          name="DaysPage"
-          component={DaysPage}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="weight" color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="FoodPage"
-          component={FoodPage}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="bowl-mix" color={color} size={26} />
-            ),
-          }}
-        />
-        <Tab.Screen
-          name="ScalePage"
-          component={ScalePage}
-          options={{
-            tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons
-                name="scale-bathroom"
-                color={color}
-                size={26}
-              />
-            ),
-          }}
-        />
-      </Tab.Navigator>
-    </>
+      />
+      <Tab.Screen
+        name="ScalePage"
+        component={ScalePage}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons
+              name="scale-bathroom"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }
 

@@ -69,6 +69,31 @@ function SettingsPage(props) {
     );
   };
 
+  const setFirstTimeOpening = async () => {
+    Alert.alert(
+      "Confirmation",
+      "Are you sure you want to do this?",
+      [
+        { text: "No", style: "cancel" },
+        {
+          text: "Yes",
+          style: "destructive",
+          onPress: async () => {
+            let keyToDelete = "firstTimeOpening";
+
+            try {
+              await AsyncStorage.removeItem(keyToDelete);
+              Alert.alert("Confirmation", "Proccess completed  successfully");
+            } catch (error) {
+              console.error("Error deleting key", error);
+            }
+          },
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
   return (
     <View
       style={[styles.container, { backgroundColor: theme.colors.background }]}
@@ -103,6 +128,10 @@ function SettingsPage(props) {
           <Switch value />
         </View>
 
+        <Button
+          title="Set first time opening app"
+          onPress={setFirstTimeOpening}
+        />
         <Button title="Delete data" onPress={deleteData} />
       </ScrollView>
     </View>

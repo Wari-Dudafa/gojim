@@ -13,10 +13,6 @@ function DaysPage(props) {
   const db = new Database();
   const [days, setDays] = useState([]);
 
-  useEffect(() => {
-    db.init();
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
       db.sql("SELECT * FROM days", (resultSet) => {
