@@ -25,7 +25,7 @@ function SwipeableCard({
   navigation,
 }) {
   const theme = useTheme();
-  const SCREEN_WIDTH = Dimensions.get("window").width;
+  const screenWidth = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
   const [hapticSetting, setHapticSetting] = useState(true);
   const [sideCardsAnimatedValue, setSideCardsAnimatedValue] = useState(
@@ -35,10 +35,9 @@ function SwipeableCard({
   const swipeThreshold = 250;
   const speed = 100;
   const bounciness = 1;
+
   const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: (evt, gestureState) => false,
     onMoveShouldSetPanResponder: (evt, gestureState) => true,
-    onStartShouldSetPanResponderCapture: (evt, gestureState) => false,
     onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
     onPanResponderMove: (evt, gestureState) => {
       xPosition.setValue(gestureState.dx);
@@ -46,8 +45,8 @@ function SwipeableCard({
     },
     onPanResponderRelease: (evt, gestureState) => {
       if (
-        gestureState.dx < SCREEN_WIDTH - swipeThreshold &&
-        gestureState.dx > -SCREEN_WIDTH + swipeThreshold
+        gestureState.dx < screenWidth - swipeThreshold &&
+        gestureState.dx > -screenWidth + swipeThreshold
       ) {
         Animated.spring(xPosition, {
           toValue: 0,
@@ -61,14 +60,14 @@ function SwipeableCard({
           bounciness: 10,
           useNativeDriver: true,
         }).start();
-      } else if (gestureState.dx > SCREEN_WIDTH - swipeThreshold) {
+      } else if (gestureState.dx > screenWidth - swipeThreshold) {
         if (canSwipe) {
           if (hapticSetting) {
             impactAsync(ImpactFeedbackStyle.Medium);
           }
           Animated.parallel([
             Animated.spring(xPosition, {
-              toValue: SCREEN_WIDTH,
+              toValue: screenWidth,
               speed: speed,
               bounciness: bounciness,
               useNativeDriver: true,
@@ -97,14 +96,14 @@ function SwipeableCard({
             useNativeDriver: true,
           }).start();
         }
-      } else if (gestureState.dx < -SCREEN_WIDTH + swipeThreshold) {
+      } else if (gestureState.dx < -screenWidth + swipeThreshold) {
         if (canSwipe) {
           if (hapticSetting) {
             impactAsync(ImpactFeedbackStyle.Medium);
           }
           Animated.parallel([
             Animated.spring(xPosition, {
-              toValue: -SCREEN_WIDTH,
+              toValue: -screenWidth,
               speed: speed,
               bounciness: bounciness,
               useNativeDriver: true,
@@ -247,7 +246,7 @@ function SwipeableCard({
                 },
               ]}
               onPress={() => {
-                navigation.navigate("GraphPage", { day: currentDay });
+                navigation.navigate("ExerciseGraphPage", { day: currentDay });
               }}
               setHapticSetting={setHapticSetting}
             >

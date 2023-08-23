@@ -9,7 +9,7 @@ import AppBar from "../components/AppBar";
 import Database from "../classes/DatabaseClass";
 import ExerciseWithButton from "../components/ExerciseWithButton";
 
-function GraphPage(props) {
+function ExerciseGraphPage(props) {
   const db = new Database();
   const day = props.route.params.day;
   const [zoomMultiplier, setZoomMultiplier] = useState(100);
@@ -273,7 +273,7 @@ function GraphPage(props) {
   );
 }
 
-export default GraphPage;
+export default ExerciseGraphPage;
 
 const styles = StyleSheet.create({
   container: {

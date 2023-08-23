@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, StyleSheet, SafeAreaView, Alert } from "react-native";
+import { View, StyleSheet, Alert } from "react-native";
 import { useTheme } from "react-native-paper";
 
 import AppBar from "../components/AppBar";
@@ -26,7 +26,8 @@ function WeightEntryPage(props) {
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
       <AppBar title="New weight log" back navigation={props.navigation} />
-      <SafeAreaView
+
+      <View
         style={{
           marginTop: 10,
           justifyContent: "center",
@@ -37,7 +38,8 @@ function WeightEntryPage(props) {
           bodyWeight={bodyWeight}
           setBodyWeight={setBodyWeight}
         />
-      </SafeAreaView>
+      </View>
+
       <Button title="Done" onPress={submitWeight} />
     </View>
   );

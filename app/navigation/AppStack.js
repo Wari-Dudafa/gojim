@@ -9,7 +9,7 @@ import TabBarStack from "./TabBarStack";
 import StartDayPage from "../pages/StartDayPage";
 import StartExercisePage from "../pages/StartExercisePage";
 import SettingsPage from "../pages/SettingsPage";
-import GraphPage from "../pages/GraphPage";
+import ExerciseGraphPage from "../pages/ExerciseGraphPage";
 import WeightEntryPage from "../pages/WeightEntryPage";
 import SetupStack from "./SetupStack";
 
@@ -29,7 +29,7 @@ function AppStack(props) {
         <Stack.Screen name="AddDaysPage" component={AddDaysPage} />
         <Stack.Screen name="EditDayPage" component={EditDayPage} />
         <Stack.Screen name="SettingsPage" component={SettingsPage} />
-        <Stack.Screen name="GraphPage" component={GraphPage} />
+        <Stack.Screen name="ExerciseGraphPage" component={ExerciseGraphPage} />
         <Stack.Screen name="WeightEntryPage" component={WeightEntryPage} />
 
         <Stack.Screen name="SetupStack" component={SetupStack} />
