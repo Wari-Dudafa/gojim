@@ -10,7 +10,10 @@ function SetupStack(props) {
   return (
     <SafeAreaView
       onLayout={props.onLayout}
-      style={{ flex: 1, backgroundColor: theme.colors.primary }}
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.primary,
+      }}
     >
       <Button
         title="Complete setup"

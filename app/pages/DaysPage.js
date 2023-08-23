@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { View } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { useTheme } from "react-native-paper";
