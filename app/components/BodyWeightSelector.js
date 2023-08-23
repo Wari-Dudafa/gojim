@@ -1,4 +1,12 @@
-import { View, Dimensions, Image, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  Dimensions,
+  Image,
+  StyleSheet,
+  TextInput,
+  Keyboard,
+  Pressable,
+} from "react-native";
 import { useTheme } from "react-native-paper";
 
 function BodyWeightSelector(props) {
@@ -7,7 +15,7 @@ function BodyWeightSelector(props) {
   const windowHeight = Dimensions.get("window").height;
 
   return (
-    <View
+    <Pressable
       style={{
         width: windowWidth * 0.9,
         height: windowHeight / 2,
@@ -16,6 +24,9 @@ function BodyWeightSelector(props) {
         borderWidth: 10,
         backgroundColor: theme.colors.primary,
         borderColor: theme.colors.outline,
+      }}
+      onPress={() => {
+        Keyboard.dismiss();
       }}
     >
       <Image
@@ -69,7 +80,7 @@ function BodyWeightSelector(props) {
           defaultSource={require("../../assets/footprint.png")}
         />
       </View>
-    </View>
+    </Pressable>
   );
 }
 

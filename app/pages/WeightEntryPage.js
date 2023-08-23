@@ -26,9 +26,9 @@ function WeightEntryPage(props) {
       style={[styles.container, { backgroundColor: theme.colors.background }]}
     >
       <AppBar title="New weight log" back navigation={props.navigation} />
-      <Button title="Done" onPress={submitWeight} />
       <SafeAreaView
         style={{
+          marginTop: 10,
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -38,6 +38,7 @@ function WeightEntryPage(props) {
           setBodyWeight={setBodyWeight}
         />
       </SafeAreaView>
+      <Button title="Done" onPress={submitWeight} />
     </View>
   );
 }
