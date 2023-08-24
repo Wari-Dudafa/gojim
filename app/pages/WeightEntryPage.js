@@ -1,15 +1,18 @@
 import { useState } from "react";
-import { View, StyleSheet, Alert } from "react-native";
+import { View, StyleSheet, Alert, ScrollView } from "react-native";
+import TypeWriter from "@sucho/react-native-typewriter";
 import { useTheme } from "react-native-paper";
 
 import AppBar from "../components/AppBar";
 import Database from "../classes/DatabaseClass";
 import BodyWeightSelector from "../components/BodyWeightSelector";
+import RandomNiceMessage from "../utils/RandomNiceMessage";
 import Button from "../components/Button";
 
 function WeightEntryPage(props) {
   const theme = useTheme();
   const db = new Database();
+  const niceMessge = '"' + RandomNiceMessage() + '"';
   const [bodyWeight, setBodyWeight] = useState("");
 
   const submitWeight = () => {
@@ -41,6 +44,28 @@ function WeightEntryPage(props) {
       </View>
 
       <Button title="Done" onPress={submitWeight} />
+
+      <ScrollView>
+        <TypeWriter
+          textArray={[niceMessge]}
+          loop
+          speed={100}
+          delay={5000}
+          textStyle={{
+            color: theme.colors.onBackground,
+            fontSize: 30,
+            paddingLeft: 20,
+            paddingRight: 20,
+          }}
+          cursorStyle={{
+            opacity: 0,
+            width: 0,
+            height: 0,
+            position: "absolute",
+          }}
+        />
+        <View style={{ height: 10 }} />
+      </ScrollView>
     </View>
   );
 }
