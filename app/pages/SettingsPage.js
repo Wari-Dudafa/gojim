@@ -129,9 +129,11 @@ function SettingsPage(props) {
         </View>
 
         <Button
+          dev
           title="Set first time opening app"
           onPress={setFirstTimeOpening}
         />
+        <Button dev title="Initialise database" onPress={() => db.init()} />
         <Button title="Delete data" onPress={deleteData} />
       </ScrollView>
     </View>

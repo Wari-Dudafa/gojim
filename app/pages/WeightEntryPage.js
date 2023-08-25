@@ -20,7 +20,18 @@ function WeightEntryPage(props) {
       Alert.alert("Please type in a number");
     } else {
       // Add bodyweight to the databse
-      props.navigation.pop();
+      let date = new Date();
+      let statement =
+        "INSERT INTO user_weight (date, weight_kg, weight_lbs) VALUES('" +
+        date +
+        "', " +
+        bodyWeight +
+        ", " +
+        bodyWeight +
+        ")";
+      db.sql(statement, () => {
+        props.navigation.pop();
+      });
     }
   };
 

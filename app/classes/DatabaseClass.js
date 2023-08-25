@@ -46,6 +46,14 @@ export default class Database {
         ],
       },
       {
+        name: "user_weight",
+        rows: [
+          { rowName: "date", rowType: "TEXT" },
+          { rowName: "weight_kg", rowType: "INTEGER" },
+          { rowName: "weight_lbs", rowType: "INTEGER" },
+        ],
+      },
+      {
         name: "days",
         rows: [{ rowName: "name", rowType: "TEXT" }],
       },
