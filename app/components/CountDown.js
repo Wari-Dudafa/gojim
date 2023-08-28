@@ -12,12 +12,8 @@ function CountDown(props) {
   }, [props.targetTime]);
 
   const tick = () => {
-    if (
-      keepTicking &&
-      props.targetTime != "__$$__"
-    ) {
+    if (keepTicking && props.targetTime != "__$$__") {
       const interval = setInterval(() => {
-        console.log("loop: " + props.targetTime);
         let targetTime = new Date(props.targetTime);
         let currentTime = new Date();
         let diffTime = Math.abs(targetTime - currentTime);
