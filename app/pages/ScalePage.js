@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { useState, useEffect, useCallback } from "react";
+import { View, StyleSheet, DeviceEventEmitter } from "react-native";
 import { useTheme } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 import { LineChart } from "react-native-gifted-charts";
 import { Slider } from "@react-native-assets/slider";
 
@@ -14,9 +15,7 @@ function ScalePage(props) {
   const db = new Database();
   const [zoomMultiplier, setZoomMultiplier] = useState(100);
   const [showActionButton, setShowActionButton] = useState(false);
-  const [targetTime, setTargetTime] = useState(
-    "Fri Aug 25 2023 12:51:00 GMT+0100"
-  );
+  const [targetTime, setTargetTime] = useState("__$$__");
   const [lineData, setLineData] = useState([
     { value: 0, dataPointColor: theme.colors.secondary },
   ]);
@@ -24,14 +23,59 @@ function ScalePage(props) {
   useEffect(() => {
     getGraphData();
     getLastLogTime();
-    getLogTimeInterval();
+    DeviceEventEmitter.addListener("event.newUserWeightAdded", () =>
+      setShowActionButton(false)
+    );
   }, []);
 
-  const getGraphData = () => {};
+  useFocusEffect(
+    useCallback(() => {
+      getGraphData();
+    }, [])
+  );
 
-  const getLastLogTime = () => {};
+  const getGraphData = () => {
+    let statement = "SELECT * FROM user_weight";
+    db.sql(statement, (resultSet) => {
+      let userWeightData = resultSet.rows._array;
+      let lineData = [];
+      lineData.push({
+        value: 0,
+        dataPointColor: theme.colors.secondary,
+      });
+      for (let index = 0; index < userWeightData.length; index++) {
+        let date = new Date(userWeightData[index].date);
+        let dateStr =
+          "" +
+          date.getDate() +
+          "/" +
+          date.getMonth() +
+          "/" +
+          date.getFullYear() +
+          "";
+        let value = {
+          value: userWeightData[index].weight_kg,
+          dataPointText: userWeightData[index].weight_kg,
+          textShiftY: -10,
+          textShiftX: -5,
+          label: dateStr,
+          dataPointColor: theme.colors.secondary,
+        };
+        lineData.push(value);
+      }
+      setLineData(lineData);
+    });
+  };
 
-  const getLogTimeInterval = () => {};
+  const getLastLogTime = () => {
+    let statement = "SELECT MAX(date) AS last_log_time FROM user_weight";
+    db.sql(statement, (resultSet) => {
+      let lastLogTime = resultSet.rows._array[0].last_log_time;
+      let nextLogTime = new Date(lastLogTime);
+      nextLogTime.setDate(nextLogTime.getDate() + 1);
+      setTargetTime(nextLogTime.toString());
+    });
+  };
 
   return (
     <View

@@ -8,8 +8,16 @@ function CountDown(props) {
   const [keepTicking, setKeepTicking] = useState(true);
 
   useEffect(() => {
-    if (keepTicking) {
+    tick();
+  }, [props.targetTime]);
+
+  const tick = () => {
+    if (
+      keepTicking &&
+      props.targetTime != "__$$__"
+    ) {
       const interval = setInterval(() => {
+        console.log("loop: " + props.targetTime);
         let targetTime = new Date(props.targetTime);
         let currentTime = new Date();
         let diffTime = Math.abs(targetTime - currentTime);
@@ -38,9 +46,10 @@ function CountDown(props) {
 
       return () => clearInterval(interval);
     }
-  }, []);
+  };
+
   return (
-    <View style={{ paddingTop: 10 }}>
+    <View style={{ paddingTop: 10, marginBottom: -10 }}>
       <Text
         style={{
           color: theme.colors.onBackground,

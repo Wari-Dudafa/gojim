@@ -59,9 +59,15 @@ function SettingsPage(props) {
         {
           text: "Yes",
           style: "destructive",
-          onPress: () => {
+          onPress: async () => {
             db.wipeDatabase();
-            Alert.alert("Confirmation", "Data deleted successfully");
+            let keyToDelete = "firstTimeOpening";
+            try {
+              await AsyncStorage.removeItem(keyToDelete);
+              Alert.alert("Confirmation", "Data deleted successfully");
+            } catch (error) {
+              console.error("Error deleting key", error);
+            }
           },
         },
       ],

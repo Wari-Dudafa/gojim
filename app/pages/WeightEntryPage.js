@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { View, StyleSheet, Alert, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Alert,
+  ScrollView,
+  DeviceEventEmitter,
+} from "react-native";
 import TypeWriter from "@sucho/react-native-typewriter";
 import { useTheme } from "react-native-paper";
 
@@ -30,6 +36,7 @@ function WeightEntryPage(props) {
         bodyWeight +
         ")";
       db.sql(statement, () => {
+        DeviceEventEmitter.emit("event.newUserWeightAdded", {});
         props.navigation.pop();
       });
     }
