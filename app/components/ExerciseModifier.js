@@ -86,7 +86,7 @@ function ExerciseModifier(props) {
             style={[styles.rightAction, { backgroundColor: color }]}
             onPress={onPress}
           >
-            <Text style={[styles.rightActionText, { color: { textColor } }]}>
+            <Text style={[styles.rightActionText, { color: textColor }]}>
               {text}
             </Text>
           </Button>

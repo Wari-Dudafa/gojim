@@ -1,6 +1,5 @@
-import { useState, useCallback } from "react";
-import { View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import { useState, useEffect } from "react";
+import { View, DeviceEventEmitter } from "react-native";
 import { useTheme } from "react-native-paper";
 
 import SwipingContainer from "../components/SwipingContainer";
@@ -13,13 +12,20 @@ function DaysPage(props) {
   const db = new Database();
   const [days, setDays] = useState([]);
 
-  useFocusEffect(
-    useCallback(() => {
-      db.sql("SELECT * FROM days", (resultSet) => {
-        setDays(resultSet.rows._array);
-      });
-    }, [])
-  );
+  useEffect(() => {
+    getDays();
+    DeviceEventEmitter.addListener("event.refreshDays", () => {
+      getDays();
+    });
+  }, []);
+
+  const getDays = () => {
+    let statement = "SELECT * FROM days";
+    db.sql(statement, (resultSet) => {
+      let days = resultSet.rows._array;
+      setDays(days);
+    });
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>

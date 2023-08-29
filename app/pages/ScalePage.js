@@ -23,9 +23,10 @@ function ScalePage(props) {
   useEffect(() => {
     getGraphData();
     getLastLogTime();
-    DeviceEventEmitter.addListener("event.newUserWeightAdded", () =>
-      setShowActionButton(false)
-    );
+    DeviceEventEmitter.addListener("event.newUserWeightAdded", () => {
+      setShowActionButton(false);
+      getLastLogTime();
+    });
   }, []);
 
   useFocusEffect(
@@ -70,10 +71,10 @@ function ScalePage(props) {
   const getLastLogTime = () => {
     let statement = "SELECT MAX(date) AS last_log_time FROM user_weight";
     db.sql(statement, (resultSet) => {
-      if (resultSet.rows._array.length == 0) {
+      let lastLogTime = resultSet.rows._array[0].last_log_time;
+      if (lastLogTime == null) {
         setShowActionButton(true);
       } else {
-        let lastLogTime = resultSet.rows._array[0].last_log_time;
         let nextLogTime = new Date(lastLogTime);
         nextLogTime.setDate(nextLogTime.getDate() + 1);
         setTargetTime(nextLogTime.toString());

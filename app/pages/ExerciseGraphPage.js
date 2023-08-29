@@ -154,44 +154,55 @@ function ExerciseGraphPage(props) {
         "";
       datesArray.push(dateStr);
     }
-
-    for (let index = 0; index < datesArray.length; index++) {
-      if (index > 0) {
-        if (datesArray[index] == datesArray[index - 1]) {
-          counter = counter + 1;
-          if (index == datesArray.length - 1) {
+    if (datesArray.length == 1) {
+      lineData.push({
+        value: 1,
+        dataPointText: 1,
+        textShiftY: -10,
+        textShiftX: -5,
+        label: datesArray[0],
+        dataPointColor: theme.colors.secondary,
+      });
+    } else {
+      for (let index = 0; index < datesArray.length; index++) {
+        if (index > 0) {
+          if (datesArray[index] == datesArray[index - 1]) {
+            counter = counter + 1;
+            if (index == datesArray.length - 1) {
+              lineData.push({
+                value: counter,
+                dataPointText: counter,
+                textShiftY: -10,
+                textShiftX: -5,
+                label: datesArray[index],
+                dataPointColor: theme.colors.secondary,
+              });
+            }
+          } else {
             lineData.push({
               value: counter,
               dataPointText: counter,
               textShiftY: -10,
               textShiftX: -5,
-              label: datesArray[index],
+              label: datesArray[index - 1],
               dataPointColor: theme.colors.secondary,
             });
-          }
-        } else {
-          lineData.push({
-            value: counter,
-            dataPointText: counter,
-            textShiftY: -10,
-            textShiftX: -5,
-            label: datesArray[index - 1],
-            dataPointColor: theme.colors.secondary,
-          });
-          counter = 1;
-          if (index == datesArray.length - 1) {
-            lineData.push({
-              value: counter,
-              dataPointText: counter,
-              textShiftY: -10,
-              textShiftX: -5,
-              label: datesArray[index],
-              dataPointColor: theme.colors.secondary,
-            });
+            counter = 1;
+            if (index == datesArray.length - 1) {
+              lineData.push({
+                value: counter,
+                dataPointText: counter,
+                textShiftY: -10,
+                textShiftX: -5,
+                label: datesArray[index],
+                dataPointColor: theme.colors.secondary,
+              });
+            }
           }
         }
       }
     }
+
     lineData.push({
       value: 0,
       dataPointColor: theme.colors.secondary,
@@ -255,6 +266,9 @@ function ExerciseGraphPage(props) {
       </View>
 
       <SegmentedButtons
+        theme={{
+          colors: { secondaryContainer: theme.colors.primaryContainer },
+        }}
         value={selectedGraph}
         onValueChange={setSelectedGraph}
         buttons={[

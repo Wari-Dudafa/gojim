@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { View, TextInput, StyleSheet, Alert, SafeAreaView } from "react-native";
+import {
+  View,
+  TextInput,
+  StyleSheet,
+  Alert,
+  SafeAreaView,
+  DeviceEventEmitter,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
 
@@ -59,6 +66,7 @@ function AddDaysPage(props) {
       return;
     }
     props.navigation.pop();
+
     // Adds exercise data from the array to the database
     // Adds dayName to the database
     let statement = "INSERT INTO days (name) VALUES('" + dayName + "')";
@@ -82,6 +90,7 @@ function AddDaysPage(props) {
         }
       }
       Alert.alert("New day added");
+      DeviceEventEmitter.emit("event.refreshDays", {});
     });
   };
 
