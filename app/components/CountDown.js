@@ -22,11 +22,21 @@ function CountDown(props) {
         let minutes = parseInt((diffTime / 60000) % 60);
         let seconds = parseInt((diffTime / 1000) % 60);
 
+        if (String(hours).length == 1) {
+          hours = "0" + hours;
+        }
+        if (String(minutes).length == 1) {
+          minutes = "0" + minutes;
+        }
+        if (String(seconds).length == 1) {
+          seconds = "0" + seconds;
+        }
+
         let countdown = hours + ":" + minutes + ":" + seconds;
 
-        if (seconds == 0) {
-          if (minutes == 0) {
-            if (hours == 0) {
+        if (parseInt(seconds) == 0) {
+          if (parseInt(minutes) == 0) {
+            if (parseInt(hours) == 0) {
               props.timerRanOut(true);
               setKeepTicking(false);
             } else {

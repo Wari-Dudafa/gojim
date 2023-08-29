@@ -70,10 +70,14 @@ function ScalePage(props) {
   const getLastLogTime = () => {
     let statement = "SELECT MAX(date) AS last_log_time FROM user_weight";
     db.sql(statement, (resultSet) => {
-      let lastLogTime = resultSet.rows._array[0].last_log_time;
-      let nextLogTime = new Date(lastLogTime);
-      nextLogTime.setDate(nextLogTime.getDate() + 1);
-      setTargetTime(nextLogTime.toString());
+      if (resultSet.rows._array.length == 0) {
+        setShowActionButton(true);
+      } else {
+        let lastLogTime = resultSet.rows._array[0].last_log_time;
+        let nextLogTime = new Date(lastLogTime);
+        nextLogTime.setDate(nextLogTime.getDate() + 1);
+        setTargetTime(nextLogTime.toString());
+      }
     });
   };
 
