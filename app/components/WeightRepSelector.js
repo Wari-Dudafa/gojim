@@ -9,6 +9,7 @@ function WeightRepSelector(props) {
   const repCharacterLimit = 3;
   const [progress, setProgress] = useState(false);
   const [tooManyRepsChecker, setTooManyRepsChecker] = useState(true);
+  const [tooLittleRepsChecker, setTooLittleRepsChecker] = useState(true);
   const weightCharacterLimit = 6;
 
   const onChanged = (text, value) => {
@@ -43,6 +44,7 @@ function WeightRepSelector(props) {
 
   const borderBottomColor = () => {
     tooManyReps();
+    tooLittleReps();
     if (!props.lastWeightRepSession[props.index]) return;
     if (props.lastWeightRepSession.length > 0) {
       if (
@@ -60,6 +62,13 @@ function WeightRepSelector(props) {
     if (repsDone > props.exercise.reps && tooManyRepsChecker) {
       // You’ve done a lot of reps, try increasing the weight
       Alert.alert("You’ve done a lot of reps, try increasing the weight");
+      setTooManyRepsChecker(false);
+    }
+  };
+  const tooLittleReps = () => {
+    if (repsDone < props.exercise.reps * 0.6 && tooManyRepsChecker) {
+      // You’ve not done a lot of reps, try decreasing the weight
+      Alert.alert("You’ve not done a lot of reps, try decreasing the weight");
       setTooManyRepsChecker(false);
     }
   };

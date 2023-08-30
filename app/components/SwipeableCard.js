@@ -16,14 +16,7 @@ import { useTheme } from "react-native-paper";
 import Card from "./Card.js";
 import Button from "./Button.js";
 
-function SwipeableCard({
-  currentDay,
-  right,
-  left,
-  updateIndex,
-  canSwipe,
-  navigation,
-}) {
+function SwipeableCard(props) {
   const theme = useTheme();
   const screenWidth = Dimensions.get("window").width;
   const [xPosition, setXPosition] = useState(new Animated.Value(0));
@@ -61,7 +54,7 @@ function SwipeableCard({
           useNativeDriver: true,
         }).start();
       } else if (gestureState.dx > screenWidth - swipeThreshold) {
-        if (canSwipe) {
+        if (props.canSwipe) {
           if (hapticSetting) {
             impactAsync(ImpactFeedbackStyle.Medium);
           }
@@ -86,7 +79,7 @@ function SwipeableCard({
             }),
           ]).start(() => {
             // Right
-            updateIndex(-1);
+            props.updateIndex(-1);
           });
         } else {
           Animated.spring(xPosition, {
@@ -97,7 +90,7 @@ function SwipeableCard({
           }).start();
         }
       } else if (gestureState.dx < -screenWidth + swipeThreshold) {
-        if (canSwipe) {
+        if (props.canSwipe) {
           if (hapticSetting) {
             impactAsync(ImpactFeedbackStyle.Medium);
           }
@@ -122,7 +115,7 @@ function SwipeableCard({
             }),
           ]).start(() => {
             // Left
-            updateIndex(1);
+            props.updateIndex(1);
           });
         } else {
           Animated.spring(xPosition, {
@@ -227,6 +220,7 @@ function SwipeableCard({
     }),
   };
 
+  let { currentDay, right, left } = props;
   if (!currentDay) currentDay = false;
   if (!right) right = false;
   if (!left) left = false;
@@ -246,7 +240,9 @@ function SwipeableCard({
                 },
               ]}
               onPress={() => {
-                navigation.navigate("ExerciseGraphPage", { day: currentDay });
+                props.navigation.navigate("ExerciseGraphPage", {
+                  day: currentDay,
+                });
               }}
               setHapticSetting={setHapticSetting}
             >
@@ -271,7 +267,7 @@ function SwipeableCard({
                     {
                       text: "Yes",
                       onPress: () => {
-                        navigation.navigate("StartDayPage", {
+                        props.navigation.navigate("StartDayPage", {
                           day: currentDay,
                         });
                       },
@@ -298,7 +294,7 @@ function SwipeableCard({
                 },
               ]}
               onPress={() => {
-                navigation.navigate("EditDayPage", { day: currentDay });
+                props.navigation.navigate("EditDayPage", { day: currentDay });
               }}
             >
               <MaterialCommunityIcons
