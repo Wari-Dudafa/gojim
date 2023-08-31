@@ -16,32 +16,29 @@ function CardBarGraph(props) {
 
   useEffect(() => {
     getExerciseCount();
-    getPieChartData();
   }, []);
 
-  const getPieChartData = () => {
-    let statement = "";
-  };
-
   const getExerciseCount = () => {
-    let statement =
-      "SELECT id FROM exercises WHERE day_id = " + props.dayId + "";
-    db.sql(statement, (resultSet) => {
-      let exerciseCount = resultSet.rows.length;
-      let tempPieData = [];
-      for (let index = 0; index < exerciseCount; index++) {
-        tempPieData.push({
-          value: 100 / exerciseCount,
-          color: theme.colors.backdrop,
-        });
-      }
-      setPieChartData(tempPieData);
-      setExerciseCount(exerciseCount);
-    });
+    if (props.dayId != null) {
+      let statement =
+        "SELECT id FROM exercises WHERE day_id = " + props.dayId + "";
+      db.sql(statement, (resultSet) => {
+        let exerciseCount = resultSet.rows.length;
+        let tempPieData = [];
+        for (let index = 0; index < exerciseCount; index++) {
+          tempPieData.push({
+            value: 100 / exerciseCount,
+            color: theme.colors.backdrop,
+          });
+        }
+        setPieChartData(tempPieData);
+        setExerciseCount(exerciseCount);
+      });
+    }
   };
 
   return (
-    <View style={{ paddingLeft: 15, paddingTop: 20 }}>
+    <View style={{ paddingLeft: 30, paddingTop: 30 }}>
       <PieChart
         strokeColor={theme.colors.outline}
         strokeWidth={1}

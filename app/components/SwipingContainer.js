@@ -1,18 +1,18 @@
-// Got some serious help from: https://aboutreact.com/react-native-swipeable-cardview-like-tinder/
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Dimensions } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import SwipeableCard from "./SwipeableCard.js";
+import SwipeableCards from "./SwipeableCards.js";
 
 function SwipingContainer(props) {
   const deviceHeight = Dimensions.get("window").height;
-  const cards = props.days;
-  const [selectedCard, setSelectedCard] = useState(0);
   const [scale, setScale] = useState(1);
+  const [swipeable, setSwipeable] = useState(true);
 
   useEffect(() => {
     calculateScale();
-  }, []);
+    determineSwipeable();
+  }, [props.days]);
 
   const calculateScale = () => {
     if (deviceHeight > 700) {
@@ -24,58 +24,25 @@ function SwipingContainer(props) {
     }
   };
 
-  const DisplayCards = () => {
-    let currentDay = cards[selectedCard];
-    let canSwipe = true;
-    let left;
-    let right;
-
-    if (cards.length == 1) {
-      left = null;
-      right = null;
-      canSwipe = false;
+  const determineSwipeable = () => {
+    if (props.daysLength < 2) {
+      setSwipeable(false);
     } else {
-      if (cards[selectedCard - 1]) {
-        left = cards[selectedCard - 1];
-      } else {
-        left = cards[cards.length - 1];
-      }
-
-      if (cards[selectedCard + 1]) {
-        right = cards[selectedCard + 1];
-      } else {
-        right = cards[0];
-      }
+      setSwipeable(true);
     }
-
-    const updateIndex = (multiplier) => {
-      newIndex = selectedCard + multiplier;
-      if (cards[newIndex]) {
-        setSelectedCard(newIndex);
-      } else {
-        if (multiplier == -1) setSelectedCard(cards.length - 1);
-        if (multiplier == 1) setSelectedCard(0);
-      }
-    };
-
-    return (
-      <SwipeableCard
-        currentDay={currentDay}
-        left={left}
-        right={right}
-        setSelectedCard={setSelectedCard}
-        selectedCard={selectedCard}
-        updateIndex={updateIndex}
-        canSwipe={canSwipe}
-        navigation={props.navigation}
-      />
-    );
   };
 
   return (
-    <View style={[styles.container, { transform: [{ scale: scale }] }]}>
-      <DisplayCards />
-    </View>
+    <GestureHandlerRootView
+      style={[styles.container, { transform: [{ scale: scale }] }]}
+    >
+      <SwipeableCards
+        lastIndex={props.daysLength - 1}
+        days={props.days}
+        swipeable={swipeable}
+        navigation={props.navigation}
+      />
+    </GestureHandlerRootView>
   );
 }
 

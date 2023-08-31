@@ -1,65 +1,15 @@
-import { useEffect } from "react";
-import { View, StyleSheet, Animated, Image } from "react-native";
+import { View, StyleSheet, Image, Text } from "react-native";
 import { useTheme } from "react-native-paper";
+import Animated from "react-native-reanimated";
 
 import CardWidgets from "./CardWidgets";
 
 function Card(props) {
   const theme = useTheme();
-  const fadeInValue = new Animated.Value(0);
-  const widgetFadeInValue = new Animated.Value(0);
-  const cardOpacity = fadeInValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1],
-  });
-  const widgetOpacity = widgetFadeInValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, 1],
-  });
-
-  useEffect(() => {
-    determineAnimation();
-  }, []);
-
-  const determineAnimation = () => {
-    if (props.fade) {
-      fadeIn();
-    } else {
-      stayIn();
-    }
-    if (props.widgets) {
-      fadeInWidgets();
-    }
-  };
-
-  const fadeIn = () => {
-    Animated.timing(fadeInValue, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const fadeInWidgets = () => {
-    Animated.timing(widgetFadeInValue, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  const stayIn = () => {
-    Animated.timing(fadeInValue, {
-      toValue: 1,
-      duration: 0,
-      useNativeDriver: true,
-    }).start();
-  };
 
   return (
-    <View
-      style={[styles.mainCard, { backgroundColor: theme.colors.primary }]}
-      shouldRasterizeIOS
+    <Animated.View
+      style={[styles.card, props.style, { borderColor: theme.colors.outline }]}
     >
       <Image
         style={styles.image}
@@ -67,25 +17,18 @@ function Card(props) {
         defaultSource={require("../../assets/shading-1.png")} // No blinking, terrible performance
       />
 
-      <View style={[styles.border, { borderColor: theme.colors.outline }]}>
-        <Animated.Text
-          style={[
-            styles.name,
-            { opacity: cardOpacity, color: theme.colors.onPrimary },
-          ]}
-        >
-          {props.dayName}
-        </Animated.Text>
-        <View
-          style={[styles.underline, { backgroundColor: theme.colors.outline }]}
-        />
+      <Text style={[styles.name, { color: props.textColor }]}>
+        {props.day ? props.day.name : null}
+      </Text>
+      <View
+        style={[styles.underline, { backgroundColor: theme.colors.outline }]}
+      />
+      <View style={{ flex: 1 }}>
         {props.widgets ? (
-          <Animated.View style={{ opacity: widgetOpacity, flex: 1 }}>
-            <CardWidgets dayId={props.dayId} />
-          </Animated.View>
+          <CardWidgets dayId={props.day ? props.day.id : null} />
         ) : null}
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
@@ -94,17 +37,11 @@ export default Card;
 const styles = StyleSheet.create({
   image: {
     position: "absolute",
-    width: 280,
+    width: "100%",
     height: "100%",
     resizeMode: "stretch",
     opacity: 0.05,
     zIndex: -1,
-  },
-  border: {
-    flex: 1,
-    borderRadius: 10,
-    borderWidth: 5,
-    alignContent: "center",
   },
   name: {
     textAlign: "center",
@@ -118,16 +55,14 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     marginTop: 5,
   },
-  mainCard: {
+  card: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 20,
+    justifyContent: "center",
     position: "absolute",
-    top: 70,
-    height: 450,
-    width: 280,
+    overflow: "hidden",
     borderRadius: 10,
-    zIndex: 1,
-  },
-  itemContainer: {
-    flex: 1,
-    paddingBottom: 10,
+    borderWidth: 5,
   },
 });

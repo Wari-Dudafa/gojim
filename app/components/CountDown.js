@@ -18,6 +18,12 @@ function CountDown(props) {
         let currentTime = new Date();
         let diffTime = Math.abs(targetTime - currentTime);
 
+        if (dateInPast(targetTime, currentTime)) {
+          setTimeDiffernce("00:00:00");
+          props.timerRanOut(true);
+          setKeepTicking(false);
+        }
+
         let hours = parseInt(diffTime / (3.6 * 1000000));
         let minutes = parseInt((diffTime / 60000) % 60);
         let seconds = parseInt((diffTime / 1000) % 60);
@@ -52,6 +58,13 @@ function CountDown(props) {
 
       return () => clearInterval(interval);
     }
+  };
+
+  const dateInPast = (firstDate, secondDate) => {
+    if (firstDate.setHours(0, 0, 0, 0) <= secondDate.setHours(0, 0, 0, 0)) {
+      return true;
+    }
+    return false;
   };
 
   return (

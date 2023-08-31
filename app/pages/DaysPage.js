@@ -11,6 +11,7 @@ function DaysPage(props) {
   const theme = useTheme();
   const db = new Database();
   const [days, setDays] = useState([]);
+  const [daysLength, setDaysLength] = useState(days.length);
 
   useEffect(() => {
     getDays();
@@ -24,11 +25,17 @@ function DaysPage(props) {
     db.sql(statement, (resultSet) => {
       let days = resultSet.rows._array;
       setDays(days);
+      setDaysLength(days.length);
     });
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: theme.colors.background,
+      }}
+    >
       <AppBar title="Days" settings navigation={props.navigation} />
       <CornerActionButton
         icon="plus"
@@ -37,7 +44,18 @@ function DaysPage(props) {
           props.navigation.navigate("AddDaysPage");
         }}
       />
-      <SwipingContainer days={days} navigation={props.navigation} />
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+        }}
+      >
+        <SwipingContainer
+          days={days}
+          navigation={props.navigation}
+          daysLength={daysLength}
+        />
+      </View>
     </View>
   );
 }
