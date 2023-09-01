@@ -1,11 +1,36 @@
+import { useEffect } from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import { useTheme } from "react-native-paper";
-import Animated from "react-native-reanimated";
+import Animated, {
+  withTiming,
+  useSharedValue,
+  useAnimatedStyle,
+} from "react-native-reanimated";
 
 import CardWidgets from "./CardWidgets";
 
 function Card(props) {
   const theme = useTheme();
+  const fadingValue = useSharedValue(0);
+
+  useEffect(() => {
+    fadeInWidget();
+  }, []);
+
+  const fadeInWidget = () => {
+    if (props.widgets) {
+      let timeout = 750;
+      setTimeout(() => {
+        fadingValue.value = withTiming(1, { duration: timeout / 2 });
+      }, timeout);
+    }
+  };
+
+  const fadeIn = useAnimatedStyle(() => {
+    return {
+      opacity: fadingValue.value,
+    };
+  });
 
   return (
     <Animated.View
@@ -13,8 +38,8 @@ function Card(props) {
     >
       <Image
         style={styles.image}
-        source={require("../../assets/shading-1.png")} // Blinking, acceptable performance
-        defaultSource={require("../../assets/shading-1.png")} // No blinking, terrible performance
+        source={require("../../assets/shading-1.png")}
+        defaultSource={require("../../assets/shading-1.png")}
       />
 
       <Text style={[styles.name, { color: props.textColor }]}>
@@ -23,11 +48,11 @@ function Card(props) {
       <View
         style={[styles.underline, { backgroundColor: theme.colors.outline }]}
       />
-      <View style={{ flex: 1 }}>
+      <Animated.View style={[fadeIn, { flex: 1 }]}>
         {props.widgets ? (
           <CardWidgets dayId={props.day ? props.day.id : null} />
         ) : null}
-      </View>
+      </Animated.View>
     </Animated.View>
   );
 }

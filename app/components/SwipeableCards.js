@@ -8,6 +8,8 @@ import {
   withSpring,
   withTiming,
   runOnJS,
+  interpolate,
+  interpolateColor,
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
@@ -26,18 +28,20 @@ function SwipeableCards(props) {
 
   const swipeThreshold = screenWidth * 0.35;
 
-  const mainHorizontalOffset = useSharedValue(0, false);
+  const xPosition = useSharedValue(0);
+  const direction = useSharedValue(-1);
+
+  const mainHorizontalOffset = useSharedValue(0);
   const mainRotationOffset = useSharedValue(0);
   const mainOpacity = useSharedValue(1);
 
   const leftHorizontalOffset = useSharedValue(0);
   const leftRotationOffset = useSharedValue(0);
+  const leftScale = useSharedValue(0.9);
 
   const rightHorizontalOffset = useSharedValue(0);
   const rightRotationOffset = useSharedValue(0);
-
-  const extraHorizontalOffset = useSharedValue(0);
-  const extraRotationOffset = useSharedValue(0);
+  const rightScale = useSharedValue(0.9);
 
   const mass = 0.5;
   const damping = 50;
@@ -88,39 +92,17 @@ function SwipeableCards(props) {
       });
     })
     .onChange((event) => {
-      let direction;
-
-      let clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+      let velo;
 
       if (event.velocityX > 0) {
-        direction = 1;
+        velo = 1;
       } else {
-        direction = -1;
+        velo = -1;
       }
-
+      direction.value = velo;
+      xPosition.value = event.translationX;
       mainHorizontalOffset.value = event.translationX;
       mainRotationOffset.value = event.translationX / 10;
-
-      leftHorizontalOffset.value = clamp(
-        leftHorizontalOffset.value + 1 * direction,
-        -50,
-        0
-      );
-      leftRotationOffset.value = clamp(
-        leftHorizontalOffset.value + 1 * direction,
-        -20,
-        0
-      );
-      rightHorizontalOffset.value = clamp(
-        rightHorizontalOffset.value + 1 * direction,
-        0,
-        50
-      );
-      rightRotationOffset.value = clamp(
-        rightHorizontalOffset.value + 1 * direction,
-        0,
-        20
-      );
     })
     .onFinalize((event) => {
       if (
@@ -132,28 +114,23 @@ function SwipeableCards(props) {
           // Right logic
           runOnJS(setSelectedCard)(-1);
           pressed.value = false;
-          mainHorizontalOffset.value = withSpring(screenWidth);
-          mainRotationOffset.value = withSpring(mainRotationOffset.value + 30);
-          mainOpacity.value = withSpring(0, null, () => {
+          mainHorizontalOffset.value = withTiming(screenWidth * 1.5);
+          mainRotationOffset.value = withTiming(mainRotationOffset.value + 30);
+          mainOpacity.value = withTiming(0, null, () => {
             mainHorizontalOffset.value = 0;
             mainRotationOffset.value = 0;
             mainOpacity.value = 1;
+            xPosition.value = withSpring(0, {
+              mass: mass,
+              damping: damping,
+            });
           });
 
-          rightHorizontalOffset.value = withSpring(0, {
+          leftScale.value = withSpring(0.8, {
             mass: mass,
             damping: damping,
           });
-          rightRotationOffset.value = withSpring(0, {
-            mass: mass,
-            damping: damping,
-          });
-
-          leftHorizontalOffset.value = withSpring(0, {
-            mass: mass,
-            damping: damping,
-          });
-          leftRotationOffset.value = withSpring(0, {
+          rightScale.value = withSpring(0.8, {
             mass: mass,
             damping: damping,
           });
@@ -163,32 +140,32 @@ function SwipeableCards(props) {
           pressed.value = false;
           mainHorizontalOffset.value = withSpring(-screenWidth);
           mainRotationOffset.value = withSpring(mainRotationOffset.value - 30);
-          mainOpacity.value = withSpring(0, null, () => {
+          mainOpacity.value = withTiming(0, null, () => {
             mainHorizontalOffset.value = 0;
             mainRotationOffset.value = 0;
             mainOpacity.value = 1;
+            xPosition.value = withSpring(0, {
+              mass: mass,
+              damping: damping,
+            });
           });
 
-          rightHorizontalOffset.value = withSpring(0, {
+          leftScale.value = withSpring(0.8, {
             mass: mass,
             damping: damping,
           });
-          rightRotationOffset.value = withSpring(0, {
-            mass: mass,
-            damping: damping,
-          });
-
-          leftHorizontalOffset.value = withSpring(0, {
-            mass: mass,
-            damping: damping,
-          });
-          leftRotationOffset.value = withSpring(0, {
+          rightScale.value = withSpring(0.8, {
             mass: mass,
             damping: damping,
           });
         }
       } else {
         // Bring back to middle
+        xPosition.value = withSpring(0, {
+          mass: mass,
+          damping: damping,
+        });
+
         mainHorizontalOffset.value = withSpring(0, {
           mass: mass,
           damping: damping,
@@ -220,49 +197,107 @@ function SwipeableCards(props) {
       }
     });
 
-  const mainCard = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: mainHorizontalOffset.value },
-      { scale: withTiming(pressed.value ? 1 : 0.9) },
-      { rotate: String(mainRotationOffset.value) + "deg" },
-    ],
-    opacity: mainOpacity.value,
-    backgroundColor: theme.colors.primary,
-  }));
-  const leftCard = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: leftHorizontalOffset.value },
-      { scale: 0.9 },
-      { rotate: String(leftRotationOffset.value) + "deg" },
-    ],
-    backgroundColor: theme.colors.secondary,
-  }));
-  const rightCard = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: rightHorizontalOffset.value },
-      { scale: 0.9 },
-      { rotate: String(rightRotationOffset.value) + "deg" },
-    ],
-    backgroundColor: theme.colors.tertiary,
-  }));
-  const extraCard = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: extraHorizontalOffset.value },
-      { scale: 0.9 },
-      { rotate: String(extraRotationOffset.value) + "deg" },
-    ],
-  }));
+  const mainCard = useAnimatedStyle(() => {
+    let localX;
+    let s;
+
+    if (pressed.value) {
+      localX = xPosition.value;
+    } else {
+      localX = 0;
+    }
+
+    s = interpolate(
+      localX,
+      [-swipeThreshold, 0, swipeThreshold],
+      [0.2, 0, 0.2],
+      "clamp"
+    );
+
+    return {
+      transform: [
+        { translateX: mainHorizontalOffset.value },
+        { scale: withTiming(pressed.value ? 1 - s : 0.9) },
+        { rotate: String(mainRotationOffset.value) + "deg" },
+      ],
+      backgroundColor: theme.colors.primary,
+      opacity: mainOpacity.value,
+    };
+  });
+
+  const leftCard = useAnimatedStyle(() => {
+    let x;
+    let r;
+    let s;
+    let o;
+
+    x = interpolate(xPosition.value, [0, swipeThreshold], [0, 50], "clamp");
+    r = interpolate(xPosition.value, [0, swipeThreshold], [0, 20], "clamp");
+    s = interpolate(xPosition.value, [0, swipeThreshold], [0, 0.1], "clamp");
+    o = interpolate(xPosition.value, [-swipeThreshold / 2, 0], [0, 1], "clamp");
+
+    return {
+      transform: [
+        { translateX: leftHorizontalOffset.value + x },
+        { scale: leftScale.value + s },
+        { rotate: String(leftRotationOffset.value + r) + "deg" },
+      ],
+      backgroundColor: interpolateColor(
+        xPosition.value,
+        [0, swipeThreshold],
+        [theme.colors.secondary, theme.colors.primary]
+      ),
+      opacity: o,
+    };
+  });
+
+  const rightCard = useAnimatedStyle(() => {
+    let x;
+    let r;
+    let s;
+    let o;
+    let z;
+
+    if (direction.value > 0) {
+      z = 0;
+    } else {
+      z = -1;
+    }
+
+    x = interpolate(xPosition.value, [-swipeThreshold, 0], [50, 0], "clamp");
+    r = interpolate(xPosition.value, [-swipeThreshold, 0], [20, 0], "clamp");
+    s = interpolate(xPosition.value, [-swipeThreshold, 0], [0.1, 0], "clamp");
+    o = interpolate(xPosition.value, [0, swipeThreshold / 2], [1, 0], "clamp");
+
+    return {
+      transform: [
+        { translateX: rightHorizontalOffset.value - x },
+        { scale: rightScale.value + s },
+        { rotate: String(rightRotationOffset.value - r) + "deg" },
+      ],
+      backgroundColor: interpolateColor(
+        xPosition.value,
+        [-swipeThreshold, 0],
+        [theme.colors.primary, theme.colors.tertiary]
+      ),
+      opacity: o,
+      zIndex: z,
+    };
+  });
 
   function setSelectedCard(direction) {
-    let { lastIndex } = props;
+    let haltDuration = 150;
+    setTimeout(() => {
+      let { lastIndex } = props;
 
-    if (activeCard + direction < 0) {
-      runOnJS(setActiveCard)(lastIndex);
-    } else if (activeCard + direction > lastIndex) {
-      runOnJS(setActiveCard)(0);
-    } else {
-      runOnJS(setActiveCard)(activeCard + direction);
-    }
+      if (activeCard + direction < 0) {
+        runOnJS(setActiveCard)(lastIndex);
+      } else if (activeCard + direction > lastIndex) {
+        runOnJS(setActiveCard)(0);
+      } else {
+        runOnJS(setActiveCard)(activeCard + direction);
+      }
+    }, haltDuration);
   }
 
   RenderCards = () => {
@@ -281,12 +316,20 @@ function SwipeableCards(props) {
         <Card
           style={leftCard}
           day={leftDay}
-          textColor={theme.colors.onSecondary}
+          textColor={interpolateColor(
+            xPosition.value,
+            [0, swipeThreshold],
+            [theme.colors.onSecondary, theme.colors.onPrimary]
+          )}
         />
         <Card
           style={rightCard}
           day={rightDay}
-          textColor={theme.colors.onTertiary}
+          textColor={interpolateColor(
+            xPosition.value,
+            [-swipeThreshold, 0],
+            [theme.colors.onPrimary, theme.colors.onTertiary]
+          )}
         />
         <Card
           widgets
