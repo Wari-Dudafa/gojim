@@ -115,25 +115,6 @@ function SettingsPage(props) {
           }}
         >
           <Text style={{ color: theme.colors.onBackground }}>
-            Haptic feeback (Only one that works)
-          </Text>
-          <Switch
-            onValueChange={storeData}
-            value={hapticSetting}
-            trackColor={{ true: theme.colors.primary }}
-            thumbColor={theme.colors.surface}
-          />
-        </View>
-
-        <View
-          style={{
-            justifyContent: "space-between",
-            flexDirection: "row",
-            alignItems: "center",
-            padding: 10,
-          }}
-        >
-          <Text style={{ color: theme.colors.onBackground }}>
             Kilograms (Pounds support coming soon)
           </Text>
           <Switch

@@ -8,6 +8,7 @@ import AppStack from "./app/navigation/AppStack";
 import LightTheme from "./app/utils/LightTheme";
 import DarkTheme from "./app/utils/DarkTheme";
 import Database from "./app/classes/DatabaseClass";
+import SplashScreen from "./app/utils/SplashScreen";
 
 // Keep the splash screen visible
 preventAutoHideAsync();
@@ -17,6 +18,7 @@ export default function App() {
   const colorScheme = useColorScheme();
   const [theme, setTheme] = useState(DarkTheme);
   const [firstTimeOpening, setFirstTimeOpening] = useState(true);
+  const [splashScreen, setSplashScreen] = useState(true);
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
@@ -60,6 +62,14 @@ export default function App() {
 
   if (!appIsReady) {
     return null;
+  }
+
+  if (splashScreen) {
+    return (
+      <PaperProvider theme={theme}>
+        <SplashScreen setSplashScreen={setSplashScreen} />
+      </PaperProvider>
+    );
   }
 
   if (firstTimeOpening) {

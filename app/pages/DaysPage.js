@@ -11,7 +11,6 @@ function DaysPage(props) {
   const theme = useTheme();
   const db = new Database();
   const [days, setDays] = useState([]);
-  const [daysLength, setDaysLength] = useState(days.length);
 
   useEffect(() => {
     getDays();
@@ -25,7 +24,6 @@ function DaysPage(props) {
     db.sql(statement, (resultSet) => {
       let days = resultSet.rows._array;
       setDays(days);
-      setDaysLength(days.length);
     });
   };
 
@@ -50,11 +48,7 @@ function DaysPage(props) {
           justifyContent: "center",
         }}
       >
-        <SwipingContainer
-          days={days}
-          navigation={props.navigation}
-          daysLength={daysLength}
-        />
+        <SwipingContainer days={days} navigation={props.navigation} />
       </View>
     </View>
   );

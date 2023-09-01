@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, Alert, View } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Text, TouchableOpacity, View } from "react-native";
 import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import { useTheme } from "react-native-paper";
 import {
@@ -12,43 +10,14 @@ import { runOnJS } from "react-native-reanimated";
 
 function Button(props) {
   const theme = useTheme();
-  const [hapticSetting, setHapticSetting] = useState(true);
-
-  useEffect(() => {
-    getButtonHapticSetting();
-  }, []);
 
   const vibrate = () => {
-    if (hapticSetting) {
-      runOnJS(impactAsync)(ImpactFeedbackStyle.Medium);
-    }
+    runOnJS(impactAsync)(ImpactFeedbackStyle.Medium);
   };
 
   const pan = Gesture.Tap().onBegin(() => {
     runOnJS(vibrate)();
   });
-
-  const getButtonHapticSetting = async () => {
-    try {
-      const value = await AsyncStorage.getItem("hapticSetting");
-      if (value == "true") {
-        // Setting is true so set the setting to true
-        setHapticSetting(true);
-        if (props.setHapticSetting) {
-          props.setHapticSetting(true);
-        }
-      } else if (value == "false") {
-        // Setting is false so set the setting to false
-        setHapticSetting(false);
-        if (props.setHapticSetting) {
-          props.setHapticSetting(false);
-        }
-      }
-    } catch (error) {
-      Alert.alert("An error occured, please try again later");
-      console.error(error);
-    }
-  };
 
   if (props.visible == false) {
     return null;

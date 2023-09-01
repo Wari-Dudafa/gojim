@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Dimensions, StyleSheet, View, Text } from "react-native";
 import { useTheme } from "react-native-paper";
+import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import {
   useAnimatedStyle,
   useSharedValue,
@@ -66,6 +67,7 @@ function SwipeableCards(props) {
   const pan = Gesture.Pan()
     .onBegin(() => {
       pressed.value = true;
+      runOnJS(impactAsync)(ImpactFeedbackStyle.Medium);
 
       leftHorizontalOffset.value = withSpring(-50, {
         mass: mass,
@@ -247,7 +249,7 @@ function SwipeableCards(props) {
     transform: [
       { translateX: extraHorizontalOffset.value },
       { scale: 0.9 },
-      { rotate: String(extraHorizontalOffset.value) + "deg" },
+      { rotate: String(extraRotationOffset.value) + "deg" },
     ],
   }));
 

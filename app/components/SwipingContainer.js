@@ -37,7 +37,7 @@ function SwipingContainer(props) {
       style={[styles.container, { transform: [{ scale: scale }] }]}
     >
       <SwipeableCards
-        lastIndex={props.daysLength - 1}
+        lastIndex={props.days.length - 1}
         days={props.days}
         swipeable={swipeable}
         navigation={props.navigation}
