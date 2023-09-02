@@ -31,20 +31,18 @@ function SwipeableCards(props) {
   const xPosition = useSharedValue(0);
   const direction = useSharedValue(-1);
 
-  const mainHorizontalOffset = useSharedValue(0);
-  const mainRotationOffset = useSharedValue(0);
-  const mainOpacity = useSharedValue(1);
+  const primaryHorizontalOffset = useSharedValue(0);
+  const primaryRotationOffset = useSharedValue(0);
+  const primaryOpacity = useSharedValue(1);
 
-  const leftHorizontalOffset = useSharedValue(0);
-  const leftRotationOffset = useSharedValue(0);
-  const leftScale = useSharedValue(0.9);
+  const secondaryHorizontalOffset = useSharedValue(0);
+  const secondaryRotationOffset = useSharedValue(0);
+  const secondaryScale = useSharedValue(0.9);
 
-  const rightHorizontalOffset = useSharedValue(0);
-  const rightRotationOffset = useSharedValue(0);
-  const rightScale = useSharedValue(0.9);
-
-  const mass = 0.5;
-  const damping = 50;
+  const springConfig = {
+    mass: 0.5,
+    damping: 50,
+  };
 
   useEffect(() => {
     calculateDays();
@@ -73,23 +71,8 @@ function SwipeableCards(props) {
       pressed.value = true;
       runOnJS(impactAsync)(ImpactFeedbackStyle.Medium);
 
-      leftHorizontalOffset.value = withSpring(-50, {
-        mass: mass,
-        damping: damping,
-      });
-      leftRotationOffset.value = withSpring(-20, {
-        mass: mass,
-        damping: damping,
-      });
-
-      rightHorizontalOffset.value = withSpring(50, {
-        mass: mass,
-        damping: damping,
-      });
-      rightRotationOffset.value = withSpring(20, {
-        mass: mass,
-        damping: damping,
-      });
+      secondaryHorizontalOffset.value = withSpring(50, springConfig);
+      secondaryRotationOffset.value = withSpring(20, springConfig);
     })
     .onChange((event) => {
       let velo;
@@ -101,8 +84,8 @@ function SwipeableCards(props) {
       }
       direction.value = velo;
       xPosition.value = event.translationX;
-      mainHorizontalOffset.value = event.translationX;
-      mainRotationOffset.value = event.translationX / 10;
+      primaryHorizontalOffset.value = event.translationX;
+      primaryRotationOffset.value = event.translationX / 10;
     })
     .onFinalize((event) => {
       if (
@@ -114,84 +97,44 @@ function SwipeableCards(props) {
           // Right logic
           runOnJS(setSelectedCard)(-1);
           pressed.value = false;
-          mainHorizontalOffset.value = withTiming(screenWidth * 1.5);
-          mainRotationOffset.value = withTiming(mainRotationOffset.value + 30);
-          mainOpacity.value = withTiming(0, null, () => {
-            mainHorizontalOffset.value = 0;
-            mainRotationOffset.value = 0;
-            mainOpacity.value = 1;
-            xPosition.value = withSpring(0, {
-              mass: mass,
-              damping: damping,
-            });
+          primaryHorizontalOffset.value = withTiming(screenWidth * 1.5);
+          primaryRotationOffset.value = withTiming(
+            primaryRotationOffset.value + 30
+          );
+          primaryOpacity.value = withTiming(0, null, () => {
+            primaryHorizontalOffset.value = 0;
+            primaryRotationOffset.value = 0;
+            primaryOpacity.value = 1;
+            xPosition.value = withSpring(0, springConfig);
           });
 
-          leftScale.value = withSpring(0.8, {
-            mass: mass,
-            damping: damping,
-          });
-          rightScale.value = withSpring(0.8, {
-            mass: mass,
-            damping: damping,
-          });
+          secondaryScale.value = withSpring(0.8, springConfig);
         } else {
           // Left logic
           runOnJS(setSelectedCard)(1);
           pressed.value = false;
-          mainHorizontalOffset.value = withSpring(-screenWidth);
-          mainRotationOffset.value = withSpring(mainRotationOffset.value - 30);
-          mainOpacity.value = withTiming(0, null, () => {
-            mainHorizontalOffset.value = 0;
-            mainRotationOffset.value = 0;
-            mainOpacity.value = 1;
-            xPosition.value = withSpring(0, {
-              mass: mass,
-              damping: damping,
-            });
+          primaryHorizontalOffset.value = withSpring(-screenWidth);
+          primaryRotationOffset.value = withSpring(
+            primaryRotationOffset.value - 30
+          );
+          primaryOpacity.value = withTiming(0, null, () => {
+            primaryHorizontalOffset.value = 0;
+            primaryRotationOffset.value = 0;
+            primaryOpacity.value = 1;
+            xPosition.value = withSpring(0, springConfig);
           });
 
-          leftScale.value = withSpring(0.8, {
-            mass: mass,
-            damping: damping,
-          });
-          rightScale.value = withSpring(0.8, {
-            mass: mass,
-            damping: damping,
-          });
+          secondaryScale.value = withSpring(0.8, springConfig);
         }
       } else {
         // Bring back to middle
-        xPosition.value = withSpring(0, {
-          mass: mass,
-          damping: damping,
-        });
+        xPosition.value = withSpring(0, springConfig);
 
-        mainHorizontalOffset.value = withSpring(0, {
-          mass: mass,
-          damping: damping,
-        });
-        mainRotationOffset.value = withSpring(0, {
-          mass: mass,
-          damping: damping,
-        });
+        primaryHorizontalOffset.value = withSpring(0, springConfig);
+        primaryRotationOffset.value = withSpring(0, springConfig);
 
-        rightHorizontalOffset.value = withSpring(0, {
-          mass: mass,
-          damping: damping,
-        });
-        rightRotationOffset.value = withSpring(0, {
-          mass: mass,
-          damping: damping,
-        });
-
-        leftHorizontalOffset.value = withSpring(0, {
-          mass: mass,
-          damping: damping,
-        });
-        leftRotationOffset.value = withSpring(0, {
-          mass: mass,
-          damping: damping,
-        });
+        secondaryHorizontalOffset.value = withSpring(0, springConfig);
+        secondaryRotationOffset.value = withSpring(0, springConfig);
 
         pressed.value = false;
       }
@@ -216,12 +159,12 @@ function SwipeableCards(props) {
 
     return {
       transform: [
-        { translateX: mainHorizontalOffset.value },
+        { translateX: primaryHorizontalOffset.value },
         { scale: withTiming(pressed.value ? 1 - s : 0.9) },
-        { rotate: String(mainRotationOffset.value) + "deg" },
+        { rotate: String(primaryRotationOffset.value) + "deg" },
       ],
       backgroundColor: theme.colors.primary,
-      opacity: mainOpacity.value,
+      opacity: primaryOpacity.value,
     };
   });
 
@@ -238,9 +181,9 @@ function SwipeableCards(props) {
 
     return {
       transform: [
-        { translateX: leftHorizontalOffset.value + x },
-        { scale: leftScale.value + s },
-        { rotate: String(leftRotationOffset.value + r) + "deg" },
+        { translateX: -secondaryHorizontalOffset.value + x },
+        { scale: secondaryScale.value + s },
+        { rotate: String(-secondaryRotationOffset.value + r) + "deg" },
       ],
       backgroundColor: interpolateColor(
         xPosition.value,
@@ -271,9 +214,9 @@ function SwipeableCards(props) {
 
     return {
       transform: [
-        { translateX: rightHorizontalOffset.value - x },
-        { scale: rightScale.value + s },
-        { rotate: String(rightRotationOffset.value - r) + "deg" },
+        { translateX: secondaryHorizontalOffset.value - x },
+        { scale: secondaryScale.value + s },
+        { rotate: String(secondaryRotationOffset.value - r) + "deg" },
       ],
       backgroundColor: interpolateColor(
         xPosition.value,

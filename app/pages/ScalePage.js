@@ -50,7 +50,7 @@ function ScalePage(props) {
           "" +
           date.getDate() +
           "/" +
-          date.getMonth() +
+          (date.getMonth() + 1) +
           "/" +
           date.getFullYear() +
           "";

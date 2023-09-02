@@ -25,7 +25,7 @@ function SwipingContainer(props) {
   };
 
   const determineSwipeable = () => {
-    if (props.daysLength < 2) {
+    if (props.daysLength == 1) {
       setSwipeable(false);
     } else {
       setSwipeable(true);
