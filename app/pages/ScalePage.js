@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { View, StyleSheet, DeviceEventEmitter } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
 import { LineChart } from "react-native-gifted-charts";
@@ -23,15 +23,12 @@ function ScalePage(props) {
   useEffect(() => {
     getGraphData();
     getLastLogTime();
-    DeviceEventEmitter.addListener("event.newUserWeightAdded", () => {
-      setShowActionButton(false);
-      getLastLogTime();
-    });
   }, []);
 
   useFocusEffect(
     useCallback(() => {
       getGraphData();
+      getLastLogTime();
     }, [])
   );
 

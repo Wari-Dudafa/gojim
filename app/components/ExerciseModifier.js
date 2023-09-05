@@ -236,7 +236,7 @@ function ExerciseModifier(props) {
                     <MaterialCommunityIcons
                       name="plus"
                       size={30}
-                      color={theme.colors.outline}
+                      color={theme.colors.primary}
                     />
                   </Button>
 
@@ -260,7 +260,7 @@ function ExerciseModifier(props) {
                     <MaterialCommunityIcons
                       name="minus"
                       size={30}
-                      color={theme.colors.outline}
+                      color={theme.colors.primary}
                     />
                   </Button>
                 </View>
@@ -285,7 +285,7 @@ function ExerciseModifier(props) {
                     <MaterialCommunityIcons
                       name="plus"
                       size={30}
-                      color={theme.colors.outline}
+                      color={theme.colors.primary}
                     />
                   </Button>
                   <Text style={{ padding: 10, fontSize: 20 }}>
@@ -308,7 +308,7 @@ function ExerciseModifier(props) {
                     <MaterialCommunityIcons
                       name="minus"
                       size={30}
-                      color={theme.colors.outline}
+                      color={theme.colors.primary}
                     />
                   </Button>
                 </View>
