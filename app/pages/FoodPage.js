@@ -37,8 +37,10 @@ function FoodPage(props) {
       " AND " +
       "year = " +
       year;
+
     db.sql(statement, (resultSet) => {
       let results = resultSet.rows._array;
+      setData(results);
     });
   };
 
@@ -52,6 +54,7 @@ function FoodPage(props) {
         icon="plus"
         onPress={() => {
           // Add new food entry
+          props.navigation.navigate("AddFoodPage");
         }}
       />
 

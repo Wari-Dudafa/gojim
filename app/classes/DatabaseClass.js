@@ -59,14 +59,16 @@ export default class Database {
       },
       {
         name: "meals",
-        rows: [{ rowName: "calories", rowType: "INTEGER" }],
-        rows: [{ rowName: "protein", rowType: "INTEGER" }],
-        rows: [{ rowName: "carbs", rowType: "INTEGER" }],
-        rows: [{ rowName: "fats", rowType: "INTEGER" }],
-        rows: [{ rowName: "month", rowType: "INTEGER" }],
-        rows: [{ rowName: "day", rowType: "INTEGER" }],
-        rows: [{ rowName: "year", rowType: "INTEGER" }],
-        rows: [{ rowName: "date", rowType: "TEXT" }],
+        rows: [
+          { rowName: "day", rowType: "INTEGER" },
+          { rowName: "month", rowType: "INTEGER" },
+          { rowName: "year", rowType: "INTEGER" },
+          { rowName: "calories", rowType: "INTEGER" },
+          { rowName: "protein", rowType: "INTEGER" },
+          { rowName: "carbs", rowType: "INTEGER" },
+          { rowName: "fats", rowType: "INTEGER" },
+          { rowName: "date", rowType: "TEXT" },
+        ],
       },
     ];
   }
