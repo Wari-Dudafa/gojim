@@ -96,9 +96,9 @@ function MacroContainer(props) {
               }}
             />
 
-            <Macro type="Protein" />
-            <Macro type="Carobydrates" />
-            <Macro type="Fats" />
+            <Macro type="Protein (g)" />
+            <Macro type="Carobydrates (g)" />
+            <Macro type="Fats (g)" />
           </View>
         </Animated.View>
       </GestureDetector>

@@ -57,6 +57,17 @@ export default class Database {
         name: "days",
         rows: [{ rowName: "name", rowType: "TEXT" }],
       },
+      {
+        name: "meals",
+        rows: [{ rowName: "calories", rowType: "INTEGER" }],
+        rows: [{ rowName: "protein", rowType: "INTEGER" }],
+        rows: [{ rowName: "carbs", rowType: "INTEGER" }],
+        rows: [{ rowName: "fats", rowType: "INTEGER" }],
+        rows: [{ rowName: "month", rowType: "INTEGER" }],
+        rows: [{ rowName: "day", rowType: "INTEGER" }],
+        rows: [{ rowName: "year", rowType: "INTEGER" }],
+        rows: [{ rowName: "date", rowType: "TEXT" }],
+      },
     ];
   }
 

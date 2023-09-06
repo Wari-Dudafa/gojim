@@ -1,23 +1,9 @@
-import { useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 
-import Database from "../classes/DatabaseClass";
-
 function Macro(props) {
   const theme = useTheme();
-  const db = new Database();
-  const [percentage, setPercentage] = useState("0%");
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const getData = () => {
-    let statement = "";
-    let newPercentage = Math.floor(Math.random() * 101) + "%";
-    setPercentage(newPercentage);
-  };
+  const percentage = Math.floor(Math.random() * 101) + "%";
 
   return (
     <View

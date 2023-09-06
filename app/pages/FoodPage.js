@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
@@ -6,19 +6,41 @@ import { useFocusEffect } from "@react-navigation/native";
 import AppBar from "../components/AppBar";
 import CornerActionButton from "../components/CornerActionButton";
 import MacroContainer from "../components/MacroContainer";
+import Database from "../classes/DatabaseClass";
 
 function FoodPage(props) {
   const theme = useTheme();
+  const db = new Database();
+  const [data, setData] = useState();
 
   useEffect(() => {
-    // Get data
+    getData();
   }, []);
 
   useFocusEffect(
     useCallback(() => {
-      // Get data
+      getData();
     }, [])
   );
+
+  const getData = () => {
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+    let statement =
+      "SELECT * FROM meals WHERE day = " +
+      day +
+      " AND " +
+      "month = " +
+      month +
+      " AND " +
+      "year = " +
+      year;
+    db.sql(statement, (resultSet) => {
+      let results = resultSet.rows._array;
+    });
+  };
 
   return (
     <View
@@ -33,7 +55,7 @@ function FoodPage(props) {
         }}
       />
 
-      <MacroContainer />
+      <MacroContainer data={data} />
     </View>
   );
 }

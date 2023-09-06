@@ -5,7 +5,6 @@ import {
   TextInput,
   Alert,
   SafeAreaView,
-  DeviceEventEmitter,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
@@ -91,7 +90,6 @@ function EditDayPage(props) {
         db.sql(statement, () => {});
       }
     }
-    DeviceEventEmitter.emit("event.refreshDays", {});
   };
 
   const DeleteDay = () => {

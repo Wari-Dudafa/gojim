@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
-import { View, DeviceEventEmitter } from "react-native";
+import { useState, useEffect, useCallback } from "react";
+import { View } from "react-native";
 import { useTheme } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 
 import SwipingContainer from "../components/SwipingContainer";
 import CornerActionButton from "../components/CornerActionButton";
@@ -14,10 +15,13 @@ function DaysPage(props) {
 
   useEffect(() => {
     getDays();
-    DeviceEventEmitter.addListener("event.refreshDays", () => {
-      getDays();
-    });
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      getDays();
+    }, [])
+  );
 
   const getDays = () => {
     let statement = "SELECT * FROM days";

@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Alert,
   SafeAreaView,
-  DeviceEventEmitter,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
@@ -90,7 +89,6 @@ function AddDaysPage(props) {
         }
       }
       Alert.alert("New day added");
-      DeviceEventEmitter.emit("event.refreshDays", {});
     });
   };
 

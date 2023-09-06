@@ -5,6 +5,8 @@ import { useTheme } from "react-native-paper";
 function CalorieCounter(props) {
   const theme = useTheme();
   const screenWidth = Dimensions.get("window").width;
+  const maxCalories = 4000;
+  const caloriesConsumed = 2500;
 
   return (
     <View
@@ -17,7 +19,7 @@ function CalorieCounter(props) {
       <AnimatedCircularProgress
         size={screenWidth * 0.75}
         width={20}
-        fill={(2500 / 4000) * 100}
+        fill={(caloriesConsumed / maxCalories) * 100}
         rotation={-90}
         tintColor={theme.colors.secondary}
         backgroundColor={theme.colors.secondaryContainer}
@@ -32,7 +34,7 @@ function CalorieCounter(props) {
             fontSize: 30,
           }}
         >
-          2500/4000
+          {caloriesConsumed}/{maxCalories}
         </Text>
         <Text
           style={{
