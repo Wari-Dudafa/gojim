@@ -12,6 +12,9 @@ import {
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
 
+import Macro from "./Macro";
+import CalorieCounter from "./CalorieCounter";
+
 function MacroContainer(props) {
   const theme = useTheme();
   const screenWidth = Dimensions.get("window").width;
@@ -71,7 +74,7 @@ function MacroContainer(props) {
               borderColor: theme.colors.outline,
             }}
           >
-            {props.semiCirlceChildren}
+            <CalorieCounter />
           </View>
           <View
             style={{
@@ -92,7 +95,10 @@ function MacroContainer(props) {
                 transform: [{ translateY: -5 }],
               }}
             />
-            {props.mainBodyChildren}
+
+            <Macro type="Protein" />
+            <Macro type="Carobydrates" />
+            <Macro type="Fats" />
           </View>
         </Animated.View>
       </GestureDetector>
