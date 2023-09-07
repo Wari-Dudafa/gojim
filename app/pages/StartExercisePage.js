@@ -11,6 +11,7 @@ function StartExercisePage(props) {
   const theme = useTheme();
   const db = new Database();
   const exercise = props.route.params.exercise;
+  const poundsConversionMultiplier = 2.20462;
   // Makes empty arrays the length of the no of sets
   const [newReps, setNewReps] = useState(new Array(exercise.sets).fill(""));
   const [newWeight, setNewWeight] = useState(new Array(exercise.sets).fill(""));
@@ -73,7 +74,7 @@ function StartExercisePage(props) {
             ", " +
             weight +
             ", " +
-            weight + // lbs support planned but not coming out right now
+            weight * poundsConversionMultiplier + // lbs support planned but not coming out right now
             ")";
 
           db.sql(statement, () => {});

@@ -14,6 +14,7 @@ function WeightEntryPage(props) {
   const db = new Database();
   const niceMessge = '"' + RandomNiceMessage() + '"';
   const [bodyWeight, setBodyWeight] = useState("");
+  const poundsConversionMultiplier = 2.20462;
 
   const submitWeight = () => {
     if (bodyWeight.length == 0) {
@@ -27,7 +28,7 @@ function WeightEntryPage(props) {
         "', " +
         bodyWeight +
         ", " +
-        bodyWeight +
+        bodyWeight * poundsConversionMultiplier +
         ")";
       db.sql(statement, () => {
         props.navigation.pop();

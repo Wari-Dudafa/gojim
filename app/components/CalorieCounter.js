@@ -29,12 +29,12 @@ function CalorieCounter(props) {
       <View style={styles.bottom}>
         <Text
           style={{
-            color: theme.colors.onBackground,
+            color: theme.colors.primary,
             fontWeight: "bold",
-            fontSize: 30,
+            fontSize: 35,
           }}
         >
-          {caloriesConsumed}/{maxCalories}
+          {caloriesConsumed}
         </Text>
         <Text
           style={{
@@ -42,7 +42,15 @@ function CalorieCounter(props) {
             fontSize: 20,
           }}
         >
-          calories
+          of {maxCalories}
+        </Text>
+        <Text
+          style={{
+            color: theme.colors.onBackground,
+            fontSize: 15,
+          }}
+        >
+          Calories
         </Text>
       </View>
     </View>
@@ -54,8 +62,8 @@ export default CalorieCounter;
 const styles = StyleSheet.create({
   bottom: {
     position: "absolute",
-    width: "75%",
-    height: "45%",
+    width: "100%",
+    height: "60%",
     alignItems: "center",
   },
 });

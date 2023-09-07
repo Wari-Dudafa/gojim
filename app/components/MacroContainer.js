@@ -14,11 +14,24 @@ import {
 
 import Macro from "./Macro";
 import CalorieCounter from "./CalorieCounter";
+import { useEffect, useState } from "react";
 
 function MacroContainer(props) {
   const theme = useTheme();
+  const [calorieData, setCalorieData] = useState();
+  const [proteinData, setProteinData] = useState();
+  const [carbsData, setcCarbsData] = useState();
+  const [fatsData, setFatsData] = useState();
   const screenWidth = Dimensions.get("window").width;
   const screenHeight = Dimensions.get("window").height;
+
+  useEffect(() => {
+    parseData();
+  }, [props.data]);
+
+  const parseData = () => {
+    // Handle data
+  };
 
   const yPosition = useSharedValue(0);
   const springConfig = {
@@ -74,7 +87,7 @@ function MacroContainer(props) {
               borderColor: theme.colors.outline,
             }}
           >
-            <CalorieCounter />
+            <CalorieCounter data={calorieData} />
           </View>
           <View
             style={{
@@ -96,9 +109,9 @@ function MacroContainer(props) {
               }}
             />
 
-            <Macro type="Protein (g)" />
-            <Macro type="Carobydrates (g)" />
-            <Macro type="Fats (g)" />
+            <Macro type="Protein (g)" data={proteinData} />
+            <Macro type="Carobydrates (g)" data={carbsData} />
+            <Macro type="Fats (g)" data={fatsData} />
           </View>
         </Animated.View>
       </GestureDetector>

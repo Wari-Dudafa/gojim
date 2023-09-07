@@ -107,10 +107,22 @@ export default class Database {
     // Drops all tables
     for (let index = 0; index < this.tables.length; index++) {
       let tableName = this.tables[index].name;
-      let statement = "DROP TABLE IF EXISTS " + tableName + "";
-      this.sql(statement, () => {});
+      this.dropTable(tableName);
     }
     this.init();
+  }
+
+  dropTable(tableName) {
+    let statement;
+
+    if (tableName.length == 0) {
+      Alert.alert(
+        "An error occured dropping the table, please try again later"
+      );
+    } else {
+      statement = "DROP TABLE IF EXISTS " + tableName;
+      this.sql(statement, () => {});
+    }
   }
 
   sql(statement, callback) {
