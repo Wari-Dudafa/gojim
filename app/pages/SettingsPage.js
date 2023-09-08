@@ -76,28 +76,15 @@ function SettingsPage(props) {
   };
 
   const setFirstTimeOpening = async () => {
-    Alert.alert(
-      "Confirmation",
-      "Are you sure you want to do this?",
-      [
-        { text: "No", style: "cancel" },
-        {
-          text: "Yes",
-          style: "destructive",
-          onPress: async () => {
-            let keyToDelete = "firstTimeOpening";
+    let keyToDelete = "firstTimeOpening";
 
-            try {
-              await AsyncStorage.removeItem(keyToDelete);
-              Alert.alert("Confirmation", "Proccess completed  successfully");
-            } catch (error) {
-              console.error("Error deleting key", error);
-            }
-          },
-        },
-      ],
-      { cancelable: false }
-    );
+    try {
+      await AsyncStorage.removeItem(keyToDelete);
+      props.navigation.navigate("SetupStack");
+    } catch (error) {
+      Alert.alert("An error occured going back, please try again later");
+      console.error(error);
+    }
   };
 
   return (
@@ -106,14 +93,7 @@ function SettingsPage(props) {
     >
       <AppBar title="Settings" navigation={props.navigation} back />
       <ScrollView>
-        <View
-          style={{
-            justifyContent: "space-between",
-            flexDirection: "row",
-            alignItems: "center",
-            padding: 10,
-          }}
-        >
+        <View style={styles.switchText}>
           <Text style={{ color: theme.colors.onBackground }}>
             Kilograms (Pounds support coming soon)
           </Text>
@@ -125,13 +105,20 @@ function SettingsPage(props) {
         </View>
 
         <Button
-          dev
-          title="Set first time opening app"
-          onPress={setFirstTimeOpening}
+          title="Initialise database"
+          onPress={() => db.init()}
+          visible={false}
         />
-        <Button dev title="Initialise database" onPress={() => db.init()} />
-        <Button dev title="Drop table" onPress={() => db.dropTable("")} />
-        <Button title="Delete data" onPress={deleteData} />
+        <Button
+          title="Drop table"
+          onPress={() => db.dropTable("")}
+          visible={false}
+        />
+        <Button title="Back to setup" onPress={setFirstTimeOpening} />
+        <Button title="Delete all data" onPress={deleteData} />
+        <Text style={[styles.creditText, { color: theme.colors.onBackground }]}>
+          created by Waripamo-owei Dudafa
+        </Text>
       </ScrollView>
     </View>
   );
@@ -142,5 +129,16 @@ export default SettingsPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  switchText: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+  },
+  creditText: {
+    textAlign: "center",
+    padding: 10,
+    fontSize: 10,
   },
 });

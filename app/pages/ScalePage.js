@@ -61,15 +61,29 @@ function ScalePage(props) {
   };
 
   const getLastLogTime = () => {
-    let statement = "SELECT MAX(date) AS last_log_time FROM user_weight";
+    let statement = "SELECT date FROM user_weight ORDER BY ROWID DESC LIMIT 1;";
+
     db.sql(statement, (resultSet) => {
-      let lastLogTime = resultSet.rows._array[0].last_log_time;
+      let lastLogTime = resultSet.rows._array[0].date;
+
       if (lastLogTime == null) {
         setShowActionButton(true);
       } else {
+        let currentDate = new Date();
         let nextLogTime = new Date(lastLogTime);
-        nextLogTime.setDate(nextLogTime.getDate() + 1);
-        setTargetTime(nextLogTime.toString());
+
+        if (
+          nextLogTime.getDate() == currentDate.getDate() &&
+          nextLogTime.getMonth() == currentDate.getMonth() &&
+          nextLogTime.getFullYear() == currentDate.getFullYear()
+        ) {
+          // Last log was today
+          setShowActionButton(false);
+          nextLogTime.setDate(nextLogTime.getDate() + 1);
+          setTargetTime(nextLogTime.toString());
+        } else {
+          setShowActionButton(true);
+        }
       }
     });
   };
