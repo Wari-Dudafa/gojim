@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { View, Dimensions, Text, StyleSheet } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { useTheme } from "react-native-paper";
@@ -5,8 +6,13 @@ import { useTheme } from "react-native-paper";
 function CalorieCounter(props) {
   const theme = useTheme();
   const screenWidth = Dimensions.get("window").width;
-  const maxCalories = 4000;
-  const caloriesConsumed = 2500;
+  const [caloriesConsumed, setCaloriesConsumed] = useState(0);
+  const [maximum, setMaximum] = useState(0);
+
+  useEffect(() => {
+    setMaximum(4000);
+    setCaloriesConsumed(props.data);
+  }, [props.data]);
 
   return (
     <View
@@ -19,7 +25,7 @@ function CalorieCounter(props) {
       <AnimatedCircularProgress
         size={screenWidth * 0.75}
         width={20}
-        fill={(caloriesConsumed / maxCalories) * 100}
+        fill={(caloriesConsumed / maximum) * 100}
         rotation={-90}
         tintColor={theme.colors.secondary}
         backgroundColor={theme.colors.secondaryContainer}
@@ -42,7 +48,7 @@ function CalorieCounter(props) {
             fontSize: 20,
           }}
         >
-          of {maxCalories}
+          of {maximum}
         </Text>
         <Text
           style={{

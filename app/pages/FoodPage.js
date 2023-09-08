@@ -13,10 +13,6 @@ function FoodPage(props) {
   const db = new Database();
   const [data, setData] = useState();
 
-  useEffect(() => {
-    getData();
-  }, []);
-
   useFocusEffect(
     useCallback(() => {
       getData();

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { View } from "react-native";
 import { useTheme } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
@@ -12,10 +12,6 @@ function DaysPage(props) {
   const theme = useTheme();
   const db = new Database();
   const [days, setDays] = useState([]);
-
-  useEffect(() => {
-    getDays();
-  }, []);
 
   useFocusEffect(
     useCallback(() => {

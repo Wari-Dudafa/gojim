@@ -31,6 +31,25 @@ function MacroContainer(props) {
 
   const parseData = () => {
     // Handle data
+    let calories = 0;
+    let protein = 0;
+    let carbs = 0;
+    let fats = 0;
+
+    if (props.data != undefined) {
+      for (let index = 0; index < props.data.length; index++) {
+        const macros = props.data[index];
+        calories = calories + parseInt(macros.calories);
+        protein = protein + parseInt(macros.protein);
+        carbs = carbs + parseInt(macros.carbs);
+        fats = fats + parseInt(macros.fats);
+      }
+    }
+
+    setCalorieData(calories);
+    setProteinData(protein);
+    setcCarbsData(carbs);
+    setFatsData(fats);
   };
 
   const yPosition = useSharedValue(0);

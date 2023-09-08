@@ -1,9 +1,20 @@
+import { useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 
 function Macro(props) {
   const theme = useTheme();
-  const percentage = Math.floor(Math.random() * 101) + "%";
+  const [percentage, setPercentage] = useState("0%");
+  const [maximum, setMaximum] = useState(0);
+
+  useEffect(() => {
+    setMaximum(100);
+    if (props.data >= maximum) {
+      setPercentage("100%");
+    } else {
+      setPercentage((props.data / maximum) * 100 + "%");
+    }
+  }, [props.data]);
 
   return (
     <View

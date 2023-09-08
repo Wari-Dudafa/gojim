@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { View, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
@@ -19,11 +19,6 @@ function ScalePage(props) {
   const [lineData, setLineData] = useState([
     { value: 0, dataPointColor: theme.colors.secondary },
   ]);
-
-  useEffect(() => {
-    getGraphData();
-    getLastLogTime();
-  }, []);
 
   useFocusEffect(
     useCallback(() => {
