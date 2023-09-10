@@ -1,20 +1,29 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { View, StyleSheet, Alert, ScrollView } from "react-native";
-import TypeWriter from "@sucho/react-native-typewriter";
 import { useTheme } from "react-native-paper";
+import { useFocusEffect } from "@react-navigation/native";
 
 import AppBar from "../components/AppBar";
 import Database from "../classes/DatabaseClass";
 import BodyWeightSelector from "../components/BodyWeightSelector";
 import RandomNiceMessage from "../utils/RandomNiceMessage";
 import Button from "../components/Button";
+import TypeWriter from "../components/TypeWriter";
 
 function WeightEntryPage(props) {
   const theme = useTheme();
   const db = new Database();
-  const niceMessge = '"' + RandomNiceMessage() + '"';
+  const [niceMessge, setNiceMessage] = useState(
+    '"' + RandomNiceMessage() + '"'
+  );
   const [bodyWeight, setBodyWeight] = useState("");
   const poundsConversionMultiplier = 2.20462;
+
+  useFocusEffect(
+    useCallback(() => {
+      setNiceMessage('"' + RandomNiceMessage() + '"');
+    }, [])
+  );
 
   const submitWeight = () => {
     if (bodyWeight.length == 0) {
@@ -59,21 +68,15 @@ function WeightEntryPage(props) {
 
       <ScrollView>
         <TypeWriter
-          textArray={[niceMessge]}
-          loop
-          speed={100}
-          delay={5000}
+          text={niceMessge}
+          interval={350}
+          delay={14}
           textStyle={{
-            color: theme.colors.onBackground,
             fontSize: 30,
             paddingLeft: 20,
             paddingRight: 20,
-          }}
-          cursorStyle={{
-            opacity: 0,
-            width: 0,
-            height: 0,
-            position: "absolute",
+            textAlign: "center",
+            color: theme.colors.onBackground,
           }}
         />
         <View style={{ height: 10 }} />
