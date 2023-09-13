@@ -1,4 +1,4 @@
-import React from "react";
+import { Alert } from "react-native";
 import { Appbar } from "react-native-paper";
 import { useTheme } from "react-native-paper";
 
@@ -14,6 +14,23 @@ function AppBar(props) {
         <Appbar.BackAction
           onPress={() => {
             props.navigation.pop();
+          }}
+        />
+      ) : null}
+      {props.weeklyStreak ? (
+        <Appbar.Action
+          icon="fire"
+          onPress={() => {
+            Alert.alert(
+              "Your weekly gym streak is: " +
+                props.streak +
+                " " +
+                props.secondaryMessage
+            );
+          }}
+          style={{
+            padding: 0,
+            margin: 0,
           }}
         />
       ) : null}

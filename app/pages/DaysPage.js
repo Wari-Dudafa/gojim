@@ -12,10 +12,13 @@ function DaysPage(props) {
   const theme = useTheme();
   const db = new Database();
   const [days, setDays] = useState([]);
+  const [streak, setStreak] = useState(0);
+  const [secondaryMessage, setSecondaryMessage] = useState("");
 
   useFocusEffect(
     useCallback(() => {
       getDays();
+      getWeeklyStreak();
     }, [])
   );
 
@@ -27,6 +30,19 @@ function DaysPage(props) {
     });
   };
 
+  const getWeeklyStreak = () => {
+    let streak = 0;
+
+    if (streak == 0) {
+      setSecondaryMessage("Only up from here!");
+    } else if (streak == 1) {
+      setSecondaryMessage("Starting is the first step!");
+    } else {
+      setSecondaryMessage("Keep up the good work!");
+    }
+    setStreak(streak);
+  };
+
   return (
     <View
       style={{
@@ -34,7 +50,14 @@ function DaysPage(props) {
         backgroundColor: theme.colors.background,
       }}
     >
-      <AppBar title="Days" settings navigation={props.navigation} />
+      <AppBar
+        title="Days"
+        settings
+        weeklyStreak
+        streak={streak}
+        secondaryMessage={secondaryMessage}
+        navigation={props.navigation}
+      />
       <CornerActionButton
         icon="plus"
         onPress={() => {
