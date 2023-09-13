@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { View } from "react-native";
+import { View, Alert, Text } from "react-native";
 import { useTheme } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
 
@@ -12,13 +12,10 @@ function DaysPage(props) {
   const theme = useTheme();
   const db = new Database();
   const [days, setDays] = useState([]);
-  const [streak, setStreak] = useState(0);
-  const [secondaryMessage, setSecondaryMessage] = useState("");
 
   useFocusEffect(
     useCallback(() => {
       getDays();
-      getWeeklyStreak();
     }, [])
   );
 
@@ -31,16 +28,22 @@ function DaysPage(props) {
   };
 
   const getWeeklyStreak = () => {
-    let streak = 0;
+    let streak = 5000;
+    let secondaryMessage;
+
+    // Calculate the weekly streak
 
     if (streak == 0) {
-      setSecondaryMessage("Only up from here!");
+      secondaryMessage = "Only up from here!";
     } else if (streak == 1) {
-      setSecondaryMessage("Starting is the first step!");
+      secondaryMessage = "Starting is the first step!";
     } else {
-      setSecondaryMessage("Keep up the good work!");
+      secondaryMessage = "Keep up the good work!";
     }
-    setStreak(streak);
+
+    Alert.alert(
+      "Your weekly gym streak is: " + streak + " " + secondaryMessage
+    );
   };
 
   return (
@@ -54,8 +57,7 @@ function DaysPage(props) {
         title="Days"
         settings
         weeklyStreak
-        streak={streak}
-        secondaryMessage={secondaryMessage}
+        onPressStreak={getWeeklyStreak}
         navigation={props.navigation}
       />
       <CornerActionButton

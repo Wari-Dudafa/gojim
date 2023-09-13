@@ -298,6 +298,15 @@ function SwipeableCards(props) {
       <View style={styles.container}>
         <RenderCards />
         <DayPageButtons navigation={props.navigation} day={mainDay} />
+        <Text
+          style={{
+            fontSize: 20,
+            color: theme.colors.onBackground,
+            transform: [{ translateY: 10 }],
+          }}
+        >
+          {activeCard + 1}/{props.lastIndex + 1}
+        </Text>
       </View>
     </GestureDetector>
   );
@@ -310,6 +319,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 480,
     alignItems: "center",
+    justifyContent: "flex-end",
   },
   noDaysText: {
     padding: 50,

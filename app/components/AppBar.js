@@ -1,4 +1,3 @@
-import { Alert } from "react-native";
 import { Appbar } from "react-native-paper";
 import { useTheme } from "react-native-paper";
 
@@ -21,12 +20,7 @@ function AppBar(props) {
         <Appbar.Action
           icon="fire"
           onPress={() => {
-            Alert.alert(
-              "Your weekly gym streak is: " +
-                props.streak +
-                " " +
-                props.secondaryMessage
-            );
+            props.onPressStreak();
           }}
           style={{
             padding: 0,
