@@ -9,6 +9,7 @@ import {
   Alert,
   Dimensions,
   Image,
+  ScrollView,
 } from "react-native";
 import { useTheme } from "react-native-paper";
 import { BarCodeScanner } from "expo-barcode-scanner";
@@ -18,6 +19,7 @@ import AppBar from "../components/AppBar";
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
 import CornerActionButton from "../components/CornerActionButton";
+import FoodAmountSelector from "../components/FoodAmountSelector";
 
 function AddFoodPage(props) {
   const theme = useTheme();
@@ -25,14 +27,16 @@ function AddFoodPage(props) {
   const screenWidth = Dimensions.get("window").width;
   const screenHeight = Dimensions.get("window").height;
   const [scanning, setScanning] = useState(false);
-  const [currentFoodInex, setCurrentFoodIndex] = useState(0);
+  const [currentFoodIndex, setCurrentFoodIndex] = useState(0);
   const [scannedFoods, setScannedFoods] = useState([]);
+  const [foodAmount, setFoodAmount] = useState([]);
   const [calories, setCalories] = useState("");
   const [protein, setProtein] = useState("");
   const [carbs, setCarbs] = useState("");
   const [fats, setfats] = useState("");
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
+  const [finishedScanning, setFinishedScanning] = useState(false);
   const [shouldReScan, setShouldReScan] = useState(true);
   const [data, setData] = useState({});
 
@@ -40,21 +44,25 @@ function AddFoodPage(props) {
     getBarCodeScannerPermissions();
   }, []);
 
-  const onSubmit = () => {
+  const validateMacro = (macro) => {
+    let stringMacro = String(macro);
+
+    if (macro == null) {
+      return "0";
+    }
+
+    if (stringMacro.length == 0) {
+      return "0";
+    } else {
+      return stringMacro;
+    }
+  };
+
+  const onSubmitManualInput = () => {
     let date = new Date();
     let day = date.getDate();
     let month = date.getMonth();
     let year = date.getFullYear();
-
-    const validateMacro = (macro) => {
-      let stringMacro = String(macro);
-
-      if (stringMacro.length == 0) {
-        return "0";
-      } else {
-        return stringMacro;
-      }
-    };
 
     statement =
       "INSERT INTO meals (day, month, year, calories, protein, carbs, fats, date) VALUES(" +
@@ -75,9 +83,51 @@ function AddFoodPage(props) {
       date +
       "')";
 
-    db.sql(statement, (resultSet) => {
-      props.navigation.pop();
-    });
+    db.sql(statement, () => {});
+    props.navigation.pop();
+  };
+
+  const onSubmitQRInput = () => {
+    let date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth();
+    let year = date.getFullYear();
+
+    for (let index = 0; index < scannedFoods.length; index++) {
+      let food = scannedFoods[index];
+      let amount = foodAmount[index];
+
+      if (amount == null || String(amount).length == 0) {
+        amount = 0;
+      }
+
+      let calories = food.calories * (amount / 100);
+      let protein = food.protein * (amount / 100);
+      let carbs = food.carbs * (amount / 100);
+      let fats = food.fats * (amount / 100);
+
+      statement =
+        "INSERT INTO meals (day, month, year, calories, protein, carbs, fats, date) VALUES(" +
+        day +
+        ", " +
+        month +
+        ", " +
+        year +
+        ", " +
+        validateMacro(calories) +
+        ", " +
+        validateMacro(protein) +
+        ", " +
+        validateMacro(carbs) +
+        ", " +
+        validateMacro(fats) +
+        ", '" +
+        date +
+        "')";
+
+      db.sql(statement, () => {});
+    }
+    props.navigation.pop();
   };
 
   const getBarCodeScannerPermissions = async () => {
@@ -102,7 +152,6 @@ function AddFoodPage(props) {
               .then((response) => response.json())
               .then((response) => {
                 let data;
-                let tempScannedFood = [...scannedFoods];
 
                 if (response.status == 0) {
                   data = {
@@ -135,11 +184,9 @@ function AddFoodPage(props) {
                       : null,
                   };
                 }
-
-                tempScannedFood.push(data);
-                setScannedFoods(data);
                 setData(data);
                 setScanned(true);
+                handleScannedFoods(data);
               });
           } catch (error) {
             console.error(error);
@@ -166,6 +213,30 @@ function AddFoodPage(props) {
     }
   };
 
+  const handleScannedFoods = (data) => {
+    let tempScannedFoods = [...scannedFoods];
+    tempScannedFoods.push(null);
+
+    tempScannedFoods[currentFoodIndex] = data;
+    let tempFoodAmount = new Array(tempScannedFoods.length).fill(null);
+    setScannedFoods(tempScannedFoods);
+    setFoodAmount(tempFoodAmount);
+  };
+
+  const RenderFoodAmountSelection = () => {
+    return scannedFoods.map((food, index) => {
+      return (
+        <FoodAmountSelector
+          key={index}
+          food={food}
+          index={index}
+          foodAmount={foodAmount}
+          setFoodAmount={setFoodAmount}
+        />
+      );
+    });
+  };
+
   if (hasPermission === null) {
     return (
       <View>
@@ -178,6 +249,27 @@ function AddFoodPage(props) {
     return (
       <View>
         <Text>No access to camera</Text>
+      </View>
+    );
+  }
+
+  if (finishedScanning) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.colors.background,
+        }}
+      >
+        <AppBar navigation={props.navigation} back title="Add meal" />
+        <Text>How much did you eat?</Text>
+        <ScrollView>{RenderFoodAmountSelection()}</ScrollView>
+        <Button
+          title="Done"
+          onPress={() => {
+            onSubmitQRInput();
+          }}
+        />
       </View>
     );
   }
@@ -239,8 +331,20 @@ function AddFoodPage(props) {
                     setShouldReScan(true);
                   }}
                 />
-                <Button title="Scan another" />
-                <Button title="Done" />
+                <Button
+                  title="Scan another"
+                  onPress={() => {
+                    setScanned(false);
+                    setShouldReScan(true);
+                    setCurrentFoodIndex(currentFoodIndex + 1);
+                  }}
+                />
+                <Button
+                  title="Done"
+                  onPress={() => {
+                    setFinishedScanning(true);
+                  }}
+                />
               </View>
             </View>
           ) : (
@@ -300,7 +404,7 @@ function AddFoodPage(props) {
               onChangeText={setfats}
             />
           </View>
-          <Button title="Submit" onPress={onSubmit} />
+          <Button title="Submit" onPress={onSubmitManualInput} />
         </Pressable>
       )}
     </View>
