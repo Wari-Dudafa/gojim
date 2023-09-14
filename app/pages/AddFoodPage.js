@@ -240,7 +240,16 @@ function AddFoodPage(props) {
   if (hasPermission === null) {
     return (
       <View>
-        <Text>Requesting for camera permission</Text>
+        <Text
+          style={{
+            color: theme.colors.onBackground,
+            alignSelf: "center",
+            textAlign: "center",
+            padding: 50,
+          }}
+        >
+          Requesting for camera permission
+        </Text>
       </View>
     );
   }
@@ -248,7 +257,16 @@ function AddFoodPage(props) {
   if (hasPermission === false) {
     return (
       <View>
-        <Text>No access to camera</Text>
+        <Text
+          style={{
+            color: theme.colors.onBackground,
+            alignSelf: "center",
+            textAlign: "center",
+            padding: 50,
+          }}
+        >
+          No access to camera
+        </Text>
       </View>
     );
   }
@@ -262,7 +280,17 @@ function AddFoodPage(props) {
         }}
       >
         <AppBar navigation={props.navigation} back title="Add meal" />
-        <Text>How much did you eat?</Text>
+        <Text
+          style={{
+            color: theme.colors.onBackground,
+            alignSelf: "center",
+            textAlign: "center",
+            padding: 10,
+            fontSize: 20,
+          }}
+        >
+          How much did you eat?
+        </Text>
         <ScrollView>{RenderFoodAmountSelection()}</ScrollView>
         <Button
           title="Done"
@@ -270,6 +298,7 @@ function AddFoodPage(props) {
             onSubmitQRInput();
           }}
         />
+        <View style={{ height: 50 }} />
       </View>
     );
   }

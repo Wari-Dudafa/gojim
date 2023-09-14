@@ -301,7 +301,7 @@ function SwipeableCards(props) {
         <Text
           style={{
             fontSize: 20,
-            color: theme.colors.onBackground,
+            color: theme.colors.outline,
             transform: [{ translateY: 10 }],
           }}
         >
