@@ -7,10 +7,7 @@ function LastWeightRepSession(props) {
 
   return (
     <View
-      style={[
-        styles.container,
-        { borderBottomColor: theme.colors.outline },
-      ]}
+      style={[styles.container, { borderBottomColor: theme.colors.outline }]}
     >
       <Text style={styles.text}>{props.reps}</Text>
       <Text style={styles.text}>
