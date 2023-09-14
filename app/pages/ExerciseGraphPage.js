@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList } from "react-native";
+import { View, StyleSheet, FlatList, Pressable } from "react-native";
 import { useTheme } from "react-native-paper";
 import { LineChart } from "react-native-gifted-charts";
 import { Slider } from "@react-native-assets/slider";
 import { SegmentedButtons } from "react-native-paper";
+import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 
 import AppBar from "../components/AppBar";
 import Database from "../classes/DatabaseClass";
@@ -91,16 +92,23 @@ function ExerciseGraphPage(props) {
         <FlatList
           data={exercises}
           renderItem={({ item, index }) => (
-            <ExerciseWithButton
-              exercise={item}
-              buttonIcon="chart-line"
-              key={index}
-              index={index}
-              lastIndex={exercises.length - 1}
-              onPress={() => {
+            <Pressable
+              onPressIn={() => {
                 getExerciseGraphData(item);
+                impactAsync(ImpactFeedbackStyle.Medium);
               }}
-            />
+            >
+              <ExerciseWithButton
+                exercise={item}
+                buttonIcon="chart-line"
+                key={index}
+                index={index}
+                lastIndex={exercises.length - 1}
+                onPress={() => {
+                  getExerciseGraphData(item);
+                }}
+              />
+            </Pressable>
           )}
         />
       );

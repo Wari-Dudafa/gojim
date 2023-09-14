@@ -59,17 +59,26 @@ function WeightRepSelector(props) {
   };
 
   const tooManyReps = () => {
-    if (repsDone > props.exercise.reps && tooManyRepsChecker) {
+    if (
+      repsDone > props.exercise.reps &&
+      tooManyRepsChecker &&
+      repsDone.length > 0
+    ) {
       // You’ve done a lot of reps, try increasing the weight
       Alert.alert("You’ve done a lot of reps, try increasing the weight");
       setTooManyRepsChecker(false);
     }
   };
+
   const tooLittleReps = () => {
-    if (repsDone < props.exercise.reps * 0.6 && tooManyRepsChecker) {
+    if (
+      repsDone < props.exercise.reps * 0.6 &&
+      tooLittleRepsChecker &&
+      weight.length > 0
+    ) {
       // You’ve not done a lot of reps, try decreasing the weight
       Alert.alert("You’ve not done a lot of reps, try decreasing the weight");
-      setTooManyRepsChecker(false);
+      setTooLittleRepsChecker(false);
     }
   };
 

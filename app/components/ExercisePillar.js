@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { View, Text, Image, StyleSheet, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  FlatList,
+  Pressable,
+  Keyboard,
+} from "react-native";
 import { useTheme } from "react-native-paper";
 
 import WeightRepSelector from "./WeightRepSelector";
@@ -93,7 +101,7 @@ function ExercisePillar(props) {
 
   return (
     <>
-      <View
+      <Pressable
         style={[
           styles.greenPillars,
           {
@@ -101,6 +109,9 @@ function ExercisePillar(props) {
             borderColor: theme.colors.outline,
           },
         ]}
+        onPress={() => {
+          Keyboard.dismiss();
+        }}
       >
         <Text style={[styles.headerText, { color: theme.colors.onPrimary }]}>
           Last time
@@ -119,7 +130,7 @@ function ExercisePillar(props) {
           defaultSource={require("../../assets/shading-1.png")}
         />
         <LastWeightRepSessionRenderer />
-      </View>
+      </Pressable>
 
       <View
         style={[
