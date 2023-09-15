@@ -68,7 +68,6 @@ function DaysPage(props) {
       } else {
         for (let index = 0; index < sessions.length; index++) {
           let session = new Date(sessions[index].date);
-          console.log(String(session));
 
           if (index == 0) {
             lastSession = new Date("04/09/2004");

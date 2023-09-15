@@ -64,7 +64,8 @@ function ScalePage(props) {
     let statement = "SELECT date FROM user_weight ORDER BY ROWID DESC LIMIT 1;";
 
     db.sql(statement, (resultSet) => {
-      let lastLogTime = resultSet.rows._array[0].date;
+      let result = resultSet.rows._array[0];
+      let lastLogTime = result ? result.date : null;
 
       if (lastLogTime == null) {
         setShowActionButton(true);
