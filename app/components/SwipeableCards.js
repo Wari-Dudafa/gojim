@@ -21,6 +21,7 @@ function SwipeableCards(props) {
   const screenWidth = Dimensions.get("window").width;
   const pressed = useSharedValue(false);
   const [activeCard, setActiveCard] = useState(0);
+  const [swipeable, setSwipeable] = useState(true);
 
   const [mainDay, setMainDay] = useState(props.days[activeCard]);
   const [leftDay, setLeftDay] = useState(props.days[activeCard]);
@@ -46,7 +47,16 @@ function SwipeableCards(props) {
 
   useEffect(() => {
     calculateDays();
+    determineSwipeable();
   }, [activeCard, props.days]);
+
+  const determineSwipeable = () => {
+    if (props.days.length == 1) {
+      setSwipeable(false);
+    } else {
+      setSwipeable(true);
+    }
+  };
 
   const calculateDays = () => {
     let { lastIndex } = props;
@@ -91,7 +101,7 @@ function SwipeableCards(props) {
       if (
         event.translationX * event.translationX >
           swipeThreshold * swipeThreshold &&
-        props.swipeable
+        swipeable
       ) {
         if (event.translationX > 0) {
           // Right logic
@@ -244,7 +254,36 @@ function SwipeableCards(props) {
   }
 
   RenderCards = () => {
-    if (props.swipeable == false) {
+    if (swipeable) {
+      return (
+        <>
+          <Card
+            style={leftCard}
+            day={leftDay}
+            textColor={interpolateColor(
+              xPosition.value,
+              [0, swipeThreshold],
+              [theme.colors.onSecondary, theme.colors.onPrimary]
+            )}
+          />
+          <Card
+            style={rightCard}
+            day={rightDay}
+            textColor={interpolateColor(
+              xPosition.value,
+              [-swipeThreshold, 0],
+              [theme.colors.onPrimary, theme.colors.onTertiary]
+            )}
+          />
+          <Card
+            widgets
+            style={mainCard}
+            day={mainDay}
+            textColor={theme.colors.onPrimary}
+          />
+        </>
+      );
+    } else {
       return (
         <Card
           widgets
@@ -254,34 +293,6 @@ function SwipeableCards(props) {
         />
       );
     }
-    return (
-      <>
-        <Card
-          style={leftCard}
-          day={leftDay}
-          textColor={interpolateColor(
-            xPosition.value,
-            [0, swipeThreshold],
-            [theme.colors.onSecondary, theme.colors.onPrimary]
-          )}
-        />
-        <Card
-          style={rightCard}
-          day={rightDay}
-          textColor={interpolateColor(
-            xPosition.value,
-            [-swipeThreshold, 0],
-            [theme.colors.onPrimary, theme.colors.onTertiary]
-          )}
-        />
-        <Card
-          widgets
-          style={mainCard}
-          day={mainDay}
-          textColor={theme.colors.onPrimary}
-        />
-      </>
-    );
   };
 
   if (props.lastIndex == -1) {

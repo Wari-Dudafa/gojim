@@ -7,11 +7,9 @@ import SwipeableCards from "./SwipeableCards.js";
 function SwipingContainer(props) {
   const deviceHeight = Dimensions.get("window").height;
   const [scale, setScale] = useState(1);
-  const [swipeable, setSwipeable] = useState(true);
 
   useEffect(() => {
     calculateScale();
-    determineSwipeable();
   }, [props.days]);
 
   const calculateScale = () => {
@@ -24,14 +22,6 @@ function SwipingContainer(props) {
     }
   };
 
-  const determineSwipeable = () => {
-    if (props.daysLength == 1) {
-      setSwipeable(false);
-    } else {
-      setSwipeable(true);
-    }
-  };
-
   return (
     <GestureHandlerRootView
       style={[styles.container, { transform: [{ scale: scale }] }]}
@@ -39,7 +29,6 @@ function SwipingContainer(props) {
       <SwipeableCards
         lastIndex={props.days.length - 1}
         days={props.days}
-        swipeable={swipeable}
         navigation={props.navigation}
       />
     </GestureHandlerRootView>
