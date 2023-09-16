@@ -1,29 +1,20 @@
-import { SafeAreaView } from "react-native";
-import { useTheme } from "react-native-paper";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { enableScreens } from "react-native-screens";
 
-import Button from "../components/Button";
+import WelcomePage from "../pages/setup/WelcomePage";
 
-function SetupStack(props) {
-  const theme = useTheme();
-
+function AppStack(props) {
+  const Stack = createNativeStackNavigator();
+  enableScreens();
+  
   return (
-    <SafeAreaView
-      onLayout={props.onLayout}
-      style={{
-        flex: 1,
-        backgroundColor: theme.colors.primary,
-      }}
+    <Stack.Navigator
+      initialRouteName={"WelcomePage"}
+      screenOptions={{ headerShown: false }}
     >
-      <Button
-        title="Complete setup"
-        onPress={async () => {
-          await AsyncStorage.setItem("firstTimeOpening", "true");
-          props.navigation.navigate("TabBarStack");
-        }}
-      />
-    </SafeAreaView>
+      <Stack.Screen name="WelcomePage" component={WelcomePage} />
+    </Stack.Navigator>
   );
 }
 
-export default SetupStack;
+export default AppStack;

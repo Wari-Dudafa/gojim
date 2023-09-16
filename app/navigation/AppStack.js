@@ -17,6 +17,7 @@ import AddFoodPage from "../pages/AddFoodPage";
 function AppStack(props) {
   const Stack = createNativeStackNavigator();
   enableScreens();
+
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
