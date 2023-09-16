@@ -119,6 +119,7 @@ function ScalePage(props) {
       >
         <LineChart
           areaChart
+          scrollEventThrottle={16}
           data={lineData}
           height={500}
           spacing={zoomMultiplier}

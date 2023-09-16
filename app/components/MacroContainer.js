@@ -79,7 +79,7 @@ function MacroContainer(props) {
     );
 
     return {
-      transform: [{ translateY: y }],
+      transform: [{ translateY: y - screenHeight / 40 }],
     };
   });
 
@@ -128,9 +128,17 @@ function MacroContainer(props) {
               }}
             />
 
-            <Macro type="Protein (g)" data={proteinData} />
-            <Macro type="Carobydrates (g)" data={carbsData} />
-            <Macro type="Fats (g)" data={fatsData} />
+            <Macro
+              title="Protein (g)"
+              databaseAlias="protein"
+              data={proteinData}
+            />
+            <Macro
+              title="Carbohydrates (g)"
+              databaseAlias="carbs"
+              data={carbsData}
+            />
+            <Macro title="Fats (g)" databaseAlias="fats" data={fatsData} />
           </View>
         </Animated.View>
       </GestureDetector>

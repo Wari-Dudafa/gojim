@@ -38,7 +38,7 @@ function Macro(props) {
           padding: 10,
         }}
       >
-        <Text style={{ color: theme.colors.onPrimary }}>{props.type}</Text>
+        <Text style={{ color: theme.colors.onPrimary }}>{props.title}</Text>
         <Text style={{ color: theme.colors.onSecondary }}>{percentage}</Text>
       </View>
 

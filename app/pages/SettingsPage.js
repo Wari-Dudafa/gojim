@@ -65,6 +65,7 @@ function SettingsPage(props) {
             try {
               await AsyncStorage.removeItem(keyToDelete);
               Alert.alert("Confirmation", "Data deleted successfully");
+              setFirstTimeOpening();
             } catch (error) {
               console.error("Error deleting key", error);
             }
@@ -116,7 +117,7 @@ function SettingsPage(props) {
         />
         <Button title="Back to setup" onPress={setFirstTimeOpening} />
         <Button title="Delete all data" onPress={deleteData} />
-        
+
         <Text style={[styles.creditText, { color: theme.colors.onBackground }]}>
           created by Waripamo-owei Dudafa
         </Text>

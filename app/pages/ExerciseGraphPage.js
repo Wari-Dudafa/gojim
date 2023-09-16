@@ -235,6 +235,7 @@ function ExerciseGraphPage(props) {
       >
         <LineChart
           areaChart
+          scrollEventThrottle={16}
           data={lineData}
           height={300}
           spacing={zoomMultiplier}

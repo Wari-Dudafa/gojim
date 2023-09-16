@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "gojim",
+    "name": "Gojim",
     "slug": "gojim",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -31,7 +31,7 @@
       [
         "expo-barcode-scanner",
         {
-          "cameraPermission": "Allow GoJim to access camera."
+          "cameraPermission": "Allow Gojim to access camera."
         }
       ]
     ]
