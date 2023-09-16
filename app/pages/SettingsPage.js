@@ -65,7 +65,7 @@ function SettingsPage(props) {
             try {
               await AsyncStorage.removeItem(keyToDelete);
               Alert.alert("Confirmation", "Data deleted successfully");
-              setFirstTimeOpening();
+              setFirstTimeOpening(false);
             } catch (error) {
               console.error("Error deleting key", error);
             }
@@ -76,15 +76,41 @@ function SettingsPage(props) {
     );
   };
 
-  const setFirstTimeOpening = async () => {
+  const setFirstTimeOpening = async (shouldAskConfirmation) => {
     let keyToDelete = "firstTimeOpening";
 
-    try {
-      await AsyncStorage.removeItem(keyToDelete);
-      props.navigation.navigate("SetupStack");
-    } catch (error) {
-      Alert.alert("An error occured going back, please try again later");
-      console.error(error);
+    if (shouldAskConfirmation) {
+      Alert.alert(
+        "Confirmation",
+        "Are you sure you want to go back to setup?",
+        [
+          { text: "No", style: "cancel" },
+          {
+            text: "Yes",
+            style: "destructive",
+            onPress: async () => {
+              try {
+                await AsyncStorage.removeItem(keyToDelete);
+                props.navigation.navigate("SetupStack");
+              } catch (error) {
+                Alert.alert(
+                  "An error occured going back, please try again later"
+                );
+                console.error(error);
+              }
+            },
+          },
+        ],
+        { cancelable: false }
+      );
+    } else {
+      try {
+        await AsyncStorage.removeItem(keyToDelete);
+        props.navigation.navigate("SetupStack");
+      } catch (error) {
+        Alert.alert("An error occured going back, please try again later");
+        console.error(error);
+      }
     }
   };
 
@@ -115,7 +141,10 @@ function SettingsPage(props) {
           onPress={() => db.dropTable("")}
           visible={false}
         />
-        <Button title="Back to setup" onPress={setFirstTimeOpening} />
+        <Button
+          title="Back to setup"
+          onPress={() => setFirstTimeOpening(true)}
+        />
         <Button title="Delete all data" onPress={deleteData} />
 
         <Text style={[styles.creditText, { color: theme.colors.onBackground }]}>
