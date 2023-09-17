@@ -14,6 +14,7 @@ import {
 import { useTheme } from "react-native-paper";
 import { BarCodeScanner } from "expo-barcode-scanner";
 import NetInfo from "@react-native-community/netinfo";
+import { A } from "@expo/html-elements";
 
 import AppBar from "../components/AppBar";
 import Database from "../classes/DatabaseClass";
@@ -338,15 +339,24 @@ function AddFoodPage(props) {
               <Text style={styles.infoText}>carbs Per 100g: {data.carbs}</Text>
               <Text style={styles.infoText}>fats Per 100g: {data.fats}</Text>
 
-              <Image
-                style={[
-                  styles.productImage,
-                  { width: screenWidth * 0.8, height: screenWidth * 0.9 },
-                ]}
-                source={{
-                  uri: data.image,
-                }}
-              />
+              {data.image ? (
+                <Image
+                  style={[
+                    styles.productImage,
+                    { width: screenWidth * 0.8, height: screenWidth * 0.9 },
+                  ]}
+                  source={{ uri: data.image }}
+                />
+              ) : (
+                <Image
+                  style={[
+                    styles.productImage,
+                    { width: screenWidth * 0.8, height: screenWidth * 0.9 },
+                  ]}
+                  source={require("../../assets/no-food-image-found.png")}
+                />
+              )}
+
               <View
                 style={{
                   flexDirection: "row",
@@ -382,8 +392,20 @@ function AddFoodPage(props) {
               style={{
                 width: screenWidth,
                 height: screenHeight,
+                flexDirection: "row",
+                justifyContent: "flex-end",
               }}
-            />
+            >
+              <A
+                style={{
+                  color: theme.colors.onBackground,
+                  padding: 10,
+                }}
+                href="https://openfoodfacts.org"
+              >
+                Powered by Open Food Facts
+              </A>
+            </BarCodeScanner>
           )}
         </View>
       ) : (
