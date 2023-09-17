@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useTheme } from "react-native-paper";
+import * as Application from "expo-application";
 
 import Database from "../classes/DatabaseClass";
 import Button from "../components/Button";
@@ -148,7 +149,8 @@ function SettingsPage(props) {
         <Button title="Delete all data" onPress={deleteData} />
 
         <Text style={[styles.creditText, { color: theme.colors.onBackground }]}>
-          created by Waripamo-owei Dudafa
+          {Application.applicationName} version{" "}
+          {Application.nativeApplicationVersion} created by Waripamo-owei Dudafa
         </Text>
       </ScrollView>
     </View>
