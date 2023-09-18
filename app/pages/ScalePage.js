@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { View, StyleSheet , Dimensions} from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { useTheme } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
 import { LineChart } from "react-native-gifted-charts";
@@ -122,12 +122,12 @@ function ScalePage(props) {
           areaChart
           scrollEventThrottle={16}
           data={lineData}
-          height={screenHeight * 0.6}
+          height={screenHeight * 0.5925}
           spacing={zoomMultiplier}
           color1={theme.colors.primary}
           startFillColor1={theme.colors.primary}
           endFillColor1={theme.colors.primary}
-          startOpacity={0.8}
+          startOpacity={0.3}
           endOpacity={0}
           initialSpacing={20}
           endSpacing={900}

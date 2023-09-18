@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, FlatList, Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Pressable,
+  Dimensions,
+} from "react-native";
 import { useTheme } from "react-native-paper";
 import { LineChart } from "react-native-gifted-charts";
 import { Slider } from "@react-native-assets/slider";
@@ -13,6 +19,7 @@ import ExerciseWithButton from "../components/ExerciseWithButton";
 function ExerciseGraphPage(props) {
   const db = new Database();
   const day = props.route.params.day;
+  const screenHeight = Dimensions.get("window").height;
   const [zoomMultiplier, setZoomMultiplier] = useState(100);
   const [selectedGraph, setSelectedGraph] = useState("activity");
   const [showExercises, setShowExercises] = useState(false);
@@ -237,12 +244,12 @@ function ExerciseGraphPage(props) {
           areaChart
           scrollEventThrottle={16}
           data={lineData}
-          height={300}
+          height={screenHeight * 0.36}
           spacing={zoomMultiplier}
           color1={theme.colors.primary}
           startFillColor1={theme.colors.primary}
           endFillColor1={theme.colors.primary}
-          startOpacity={0.8}
+          startOpacity={0.3}
           endOpacity={0}
           initialSpacing={20}
           endSpacing={900}
