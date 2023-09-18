@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet , Dimensions} from "react-native";
 import { useTheme } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
 import { LineChart } from "react-native-gifted-charts";
@@ -14,6 +14,7 @@ function ScalePage(props) {
   const theme = useTheme();
   const db = new Database();
   const [zoomMultiplier, setZoomMultiplier] = useState(100);
+  const screenHeight = Dimensions.get("window").height;
   const [showActionButton, setShowActionButton] = useState(false);
   const [targetTime, setTargetTime] = useState("__$$__");
   const [lineData, setLineData] = useState([
@@ -121,7 +122,7 @@ function ScalePage(props) {
           areaChart
           scrollEventThrottle={16}
           data={lineData}
-          height={500}
+          height={screenHeight * 0.6}
           spacing={zoomMultiplier}
           color1={theme.colors.primary}
           startFillColor1={theme.colors.primary}
