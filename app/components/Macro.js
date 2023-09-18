@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Text, View, Image, StyleSheet } from "react-native";
 import { useTheme } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function Macro(props) {
   const theme = useTheme();
@@ -8,13 +9,28 @@ function Macro(props) {
   const [maximum, setMaximum] = useState(0);
 
   useEffect(() => {
-    setMaximum(100);
-    if (props.data >= maximum) {
-      setPercentage("100%");
-    } else {
-      setPercentage((props.data / maximum) * 100 + "%");
-    }
+    getMaximum();
   }, [props.data]);
+
+  const getMaximum = async () => {
+    try {
+      const value = await AsyncStorage.getItem(props.databaseAlias);
+      if (value) {
+        if (value != null) {
+          if (props.data >= parseInt(value)) {
+            setPercentage("100%");
+          } else {
+            setPercentage(parseInt((props.data / parseInt(value)) * 100) + "%");
+          }
+
+          setMaximum(parseInt(value));
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      setMaximum(100);
+    }
+  };
 
   return (
     <View

@@ -10,9 +10,10 @@ import Animated, {
 import Button from "../../components/Button";
 import TypeWriter from "../../components/TypeWriter";
 
-function BulkingOrCuttingPage(props) {
+function ExerciseFrequncyPage(props) {
   const theme = useTheme();
-  const message = "What are your weight plans?";
+  const userData = props.route.params.userData;
+  const message = "How active are you?";
   const fadingValue = useSharedValue(0);
 
   useEffect(() => {
@@ -56,56 +57,50 @@ function BulkingOrCuttingPage(props) {
 
       <Animated.View style={fadeIn}>
         <Button
-          title="Heavy cut"
+          title="Sedentary: little to no exercise with a desk job"
           onPress={() => {
-            props.navigation.navigate("SetCurrentBodySpecsPage", {
-              value: 1,
+            userData.activity = 1.2;
+            props.navigation.navigate("SetMacrosPage", {
+              userData: userData,
             });
           }}
         />
         <Button
-          title="Light cut"
+          title="Lightly active: light exercise 1 to 3 times per week "
           onPress={() => {
-            props.navigation.navigate("SetCurrentBodySpecsPage", {
-              value: 2,
+            userData.activity = 1.375;
+            props.navigation.navigate("SetMacrosPage", {
+              userData: userData,
             });
           }}
         />
         <Button
-          title="Maintain"
+          title="Moderately active: moderate exercise 3 to 5 times per week"
           onPress={() => {
-            props.navigation.navigate("SetCurrentBodySpecsPage", {
-              value: 3,
+            userData.activity = 1.55;
+            props.navigation.navigate("SetMacrosPage", {
+              userData: userData,
             });
           }}
         />
         <Button
-          title="Light bulk"
+          title="Very active: hard exercise 6 to 7 times per week"
           onPress={() => {
-            props.navigation.navigate("SetCurrentBodySpecsPage", {
-              value: 4,
+            userData.activity = 1.725;
+            props.navigation.navigate("SetMacrosPage", {
+              userData: userData,
             });
           }}
         />
         <Button
-          title="Heavy bulk"
+          title="Extremely active: hard daily exercise and a physical job"
           onPress={() => {
-            props.navigation.navigate("SetCurrentBodySpecsPage", {
-              value: 5,
+            userData.activity = 1.9;
+            props.navigation.navigate("SetMacrosPage", {
+              userData: userData,
             });
           }}
         />
-
-        <Text
-          style={{
-            paddingLeft: 20,
-            paddingRight: 20,
-            textAlign: "center",
-            color: theme.colors.onPrimary,
-          }}
-        >
-          Dont worry, this can be changed later in settings{" "}
-        </Text>
 
         <Button
           title="Back"
@@ -118,4 +113,4 @@ function BulkingOrCuttingPage(props) {
   );
 }
 
-export default BulkingOrCuttingPage;
+export default ExerciseFrequncyPage;

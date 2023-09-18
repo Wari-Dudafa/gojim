@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { View, Dimensions, Text, StyleSheet } from "react-native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { useTheme } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 function CalorieCounter(props) {
   const theme = useTheme();
@@ -10,9 +11,23 @@ function CalorieCounter(props) {
   const [maximum, setMaximum] = useState(0);
 
   useEffect(() => {
-    setMaximum(4000);
     setCaloriesConsumed(props.data);
+    getMaximum();
   }, [props.data]);
+
+  const getMaximum = async () => {
+    try {
+      const value = await AsyncStorage.getItem("calories");
+      if (value) {
+        if (value != null) {
+          setMaximum(parseInt(value));
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      setMaximum(3500);
+    }
+  };
 
   return (
     <View

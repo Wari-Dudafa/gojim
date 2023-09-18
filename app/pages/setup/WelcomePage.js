@@ -43,7 +43,7 @@ function WelcomePage(props) {
       <TypeWriter
         text={message}
         interval={200}
-        delay={140}
+        delay={300}
         textStyle={{
           fontSize: 40,
           fontWeight: "bold",

@@ -106,14 +106,19 @@ function SetCurrentBodySpecsPage(props) {
         >
           <Picker.Item label="Male" value={1} />
           <Picker.Item label="Female" value={2} />
-          <Picker.Item label="Rather not say" value={3} />
+          <Picker.Item label="Rather not say" value={2} />
         </Picker>
 
         <Button
           title="Continue"
           onPress={() => {
             if (height.length > 0 && weight.length > 0 && age.length > 0) {
-              props.navigation.navigate("SetMacrosPage", {
+              if (parseInt(age) < 18) {
+                Alert.alert(
+                  "As you are not an adult, the results may be innacurate"
+                );
+              }
+              props.navigation.navigate("ExerciseFrequncyPage", {
                 userData: {
                   bulkingOrCuttingValue: bulkingOrCuttingValue,
                   height: height,

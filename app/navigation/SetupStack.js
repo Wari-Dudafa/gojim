@@ -4,6 +4,7 @@ import { enableScreens } from "react-native-screens";
 import WelcomePage from "../pages/setup/WelcomePage";
 import BulkingOrCuttingPage from "../pages/setup/BulkingOrCuttingPage";
 import SetCurrentBodySpecsPage from "../pages/setup/SetCurrentBodySpecsPage";
+import ExerciseFrequncyPage from "../pages/setup/ExerciseFrequncyPage";
 import SetMacrosPage from "../pages/setup/SetMacrosPage";
 
 function AppStack(props) {
@@ -23,6 +24,10 @@ function AppStack(props) {
       <Stack.Screen
         name="SetCurrentBodySpecsPage"
         component={SetCurrentBodySpecsPage}
+      />
+      <Stack.Screen
+        name="ExerciseFrequncyPage"
+        component={ExerciseFrequncyPage}
       />
       <Stack.Screen name="SetMacrosPage" component={SetMacrosPage} />
     </Stack.Navigator>

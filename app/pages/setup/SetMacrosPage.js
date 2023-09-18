@@ -36,11 +36,95 @@ function SetMacrosPage(props) {
   }, []);
 
   const calculateMacros = () => {
-    // Calculate users macros
+    let maintainanceCalories;
+    let calorieIntake;
+    let poundsConversionMultiplier = 2.20462;
+    let bulkingOrCuttingValue = parseInt(userData.bulkingOrCuttingValue);
+    let bulkingOrCuttingValues = [
+      null,
+      {
+        calorieAddition: -800,
+        proteinMultiper: 0.8,
+        fatsMultiplier: 0.25,
+        carbMultiplier: 2.5,
+      }, // Heavy cut
+      {
+        calorieAddition: -500,
+        proteinMultiper: 0.8,
+        fatsMultiplier: 0.3,
+        carbMultiplier: 3,
+      }, // Light cut
+      {
+        calorieAddition: 0,
+        proteinMultiper: 0.7,
+        fatsMultiplier: 0.4,
+        carbMultiplier: 4,
+      }, // Maintain
+      {
+        calorieAddition: 500,
+        proteinMultiper: 0.9,
+        fatsMultiplier: 0.4,
+        carbMultiplier: 5,
+      }, // Light bulk
+      {
+        calorieAddition: 800,
+        proteinMultiper: 1.1,
+        fatsMultiplier: 0.5,
+        carbMultiplier: 7,
+      }, // Heavy bulk
+    ];
+    // For Men, it's 66.5 + (13.75 × weight in kg) + (5.003 × height in cm) - (6.75 × age)
+    // For women, it's 655.1 + (9.563 × weight in kg) + (1.850 × height in cm) - (4.676 × age)
+    // Source: https://www.omnicalculator.com/health/bmr-harris-benedict-equation
+
+    if (userData.gender == 1 || userData.gender == undefined) {
+      // Male
+      maintainanceCalories =
+        66.5 +
+        parseFloat(userData.weight) * 13.75 +
+        5.003 * parseFloat(userData.height) -
+        6.75 * parseFloat(userData.age);
+    } else {
+      // Female
+      maintainanceCalories =
+        655.1 +
+        parseFloat(userData.weight) * 9.563 +
+        1.85 * parseFloat(userData.height) -
+        4.676 * parseFloat(userData.age);
+    }
+    maintainanceCalories = maintainanceCalories * parseFloat(userData.activity);
+    calorieIntake =
+      maintainanceCalories +
+      bulkingOrCuttingValues[bulkingOrCuttingValue].calorieAddition;
+
+    setCalories(parseInt(calorieIntake));
+
+    let proteinIntake =
+      parseFloat(userData.weight) *
+      poundsConversionMultiplier *
+      bulkingOrCuttingValues[bulkingOrCuttingValue].proteinMultiper;
+    setProtein(parseInt(proteinIntake));
+
+    let carbsIntake =
+      parseFloat(userData.weight) *
+      poundsConversionMultiplier *
+      bulkingOrCuttingValues[bulkingOrCuttingValue].carbMultiplier;
+    setCarbs(parseInt(carbsIntake));
+
+    let fatsIntake =
+      parseFloat(userData.weight) *
+      poundsConversionMultiplier *
+      bulkingOrCuttingValues[bulkingOrCuttingValue].fatsMultiplier;
+    setfats(parseInt(fatsIntake));
   };
 
-  const saveData = () => {
+  const saveData = async () => {
     // Save the data calculated here
+    await AsyncStorage.setItem("firstTimeOpening", "true");
+    await AsyncStorage.setItem("calories", String(calories));
+    await AsyncStorage.setItem("protein", String(protein));
+    await AsyncStorage.setItem("carbs", String(carbs));
+    await AsyncStorage.setItem("fats", String(fats));
   };
 
   const fadeInStart = () => {
@@ -78,7 +162,7 @@ function SetMacrosPage(props) {
         <TypeWriter
           text={message}
           interval={150}
-          delay={1000}
+          delay={1500}
           textStyle={{
             fontSize: 40,
             fontWeight: "bold",
@@ -172,12 +256,24 @@ function SetMacrosPage(props) {
           <Button
             title="Accept and complete setup"
             onPress={async () => {
-              await AsyncStorage.setItem("firstTimeOpening", "true");
               props.navigation.navigate("TabBarStack");
               saveData();
             }}
           />
         )}
+
+        <Text
+          style={{
+            paddingLeft: 20,
+            paddingRight: 20,
+            textAlign: "center",
+            color: theme.colors.onPrimary,
+          }}
+        >
+          Disclaimer: These are only approximations, these values may not be
+          entirely accurate, please feel free to edit and change these as you
+          wish
+        </Text>
 
         <Button
           title="Back"
