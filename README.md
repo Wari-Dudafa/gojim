@@ -8,7 +8,7 @@ Gojim is a comprehensive fitness app designed to help you track your workouts an
 
 - **Workout Tracking**: Track your workouts and monitor your progress over time. Log your exercises, sets, and reps, and keep track of the weight and duration of each exercise.
 
-- **Calorie Counter**: Keep a record of your daily calorie intake and set targets to ensure you're on the right track to achieve your fitness goals. Gojim provides a database of common food items with their nutritional information to make calorie tracking effortless.
+- **Calorie Counter**: Keep a record of your daily calorie intake and set targets to ensure you're on the right track to achieve your fitness goals. Gojim provides a database of common food items with their nutritional information to make calorie tracking effortless powered by [Open Food Facts](https://openfoodfacts.org).
 
 - **Progress Insights**: Gojim generates detailed reports and graphs to visualize your progress. Analyze your performance over time, identify trends, and make informed decisions about your fitness routine.
 
@@ -20,7 +20,7 @@ Coming soon...
 
 - React Native: A JavaScript library for building user interfaces.
 - Expo: React native framework for testing and distrubition
-- SQLite: Storing data
+- SQLite and AsyncStorage: Storing all user genetrated data
 
 ## Contributing
 

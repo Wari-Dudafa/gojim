@@ -18,10 +18,11 @@ function CalorieCounter(props) {
   const getMaximum = async () => {
     try {
       const value = await AsyncStorage.getItem("calories");
-      if (value) {
-        if (value != null) {
-          setMaximum(parseInt(value));
-        }
+
+      if (value === null) {
+        setMaximum(3500);
+      } else {
+        setMaximum(parseInt(value));
       }
     } catch (error) {
       console.error(error);

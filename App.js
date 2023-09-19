@@ -46,7 +46,7 @@ export default function App() {
     } finally {
       // Tell the application to render
       setAppIsReady(true);
-      hideAsync(); // This causes a momentart flash of white as the app mounts
+      hideAsync(); // This causes a momentary flash of white as the app mounts
     }
   };
 

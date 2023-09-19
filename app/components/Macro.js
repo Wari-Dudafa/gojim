@@ -15,16 +15,17 @@ function Macro(props) {
   const getMaximum = async () => {
     try {
       const value = await AsyncStorage.getItem(props.databaseAlias);
-      if (value) {
-        if (value != null) {
-          if (props.data >= parseInt(value)) {
-            setPercentage("100%");
-          } else {
-            setPercentage(parseInt((props.data / parseInt(value)) * 100) + "%");
-          }
 
-          setMaximum(parseInt(value));
-        }
+      if (value === null) {
+        setMaximum(100);
+      } else {
+        setMaximum(parseInt(value));
+      }
+
+      if (props.data >= parseInt(value)) {
+        setPercentage("100%");
+      } else {
+        setPercentage(parseInt((props.data / parseInt(value)) * 100) + "%");
       }
     } catch (error) {
       console.error(error);
