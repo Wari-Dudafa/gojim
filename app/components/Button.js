@@ -1,30 +1,33 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, Pressable } from "react-native";
 import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import { useTheme } from "react-native-paper";
-import {
-  GestureHandlerRootView,
-  GestureDetector,
-  Gesture,
-} from "react-native-gesture-handler";
-import { runOnJS } from "react-native-reanimated";
+import Animated, { withSpring, useSharedValue } from "react-native-reanimated";
 
 function Button(props) {
   const theme = useTheme();
-
-  const vibrate = () => {
-    runOnJS(impactAsync)(ImpactFeedbackStyle.Medium);
+  const opacity = useSharedValue(1);
+  const scale = useSharedValue(1);
+  const springConfig = {
+    mass: 0.5,
+    damping: 50,
   };
 
-  const pan = Gesture.Tap().onBegin(() => {
-    runOnJS(vibrate)();
-  });
+  const toggleOpacity = (touching) => {
+    if (touching) {
+      opacity.value = withSpring(0.4, springConfig);
+      scale.value = withSpring(1.15, springConfig);
+    } else {
+      opacity.value = withSpring(1, springConfig);
+      scale.value = withSpring(1, springConfig);
+    }
+  };
 
-  if (props.visible == false) {
+  if (props.invisible) {
     return null;
   }
 
   return (
-    <TouchableOpacity
+    <Pressable
       style={
         props.style
           ? props.style
@@ -37,31 +40,38 @@ function Button(props) {
               alignItems: "center",
             }
       }
+      onPressIn={() => {
+        impactAsync(ImpactFeedbackStyle.Light);
+        toggleOpacity(true);
+      }}
       onPress={() => {
+        impactAsync(ImpactFeedbackStyle.Medium);
+        toggleOpacity(false);
         if (props.onPress) {
           props.onPress();
         }
       }}
+      onPressOut={() => {
+        toggleOpacity(false);
+      }}
     >
-      <GestureHandlerRootView>
-        <GestureDetector gesture={pan} style={{ flex: 1 }}>
-          <View>
-            {props.title ? (
-              <Text
-                style={
-                  props.titleStyle
-                    ? props.titleStyle
-                    : { textAlign: "center", color: theme.colors.onSecondary }
-                }
-              >
-                {props.title}
-              </Text>
-            ) : null}
-            {props.children}
-          </View>
-        </GestureDetector>
-      </GestureHandlerRootView>
-    </TouchableOpacity>
+      <Animated.View
+        style={{ opacity: opacity, transform: [{ scale: scale }] }}
+      >
+        {props.title ? (
+          <Text
+            style={
+              props.titleStyle
+                ? props.titleStyle
+                : { textAlign: "center", color: theme.colors.onSecondary }
+            }
+          >
+            {props.title}
+          </Text>
+        ) : null}
+        {props.children}
+      </Animated.View>
+    </Pressable>
   );
 }
 
