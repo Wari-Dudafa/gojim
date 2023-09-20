@@ -6,30 +6,27 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 function Macro(props) {
   const theme = useTheme();
   const [percentage, setPercentage] = useState("0%");
-  const [maximum, setMaximum] = useState(0);
 
   useEffect(() => {
-    getMaximum();
+    getPercentage();
   }, [props.data]);
 
-  const getMaximum = async () => {
+  const getPercentage = async () => {
     try {
-      const value = await AsyncStorage.getItem(props.databaseAlias);
+      let value = await AsyncStorage.getItem(props.databaseAlias);
 
-      if (value === null) {
-        setMaximum(100);
+      if (value == null) {
+        setPercentage("0%");
       } else {
-        setMaximum(parseInt(value));
-      }
-
-      if (props.data >= parseInt(value)) {
-        setPercentage("100%");
-      } else {
-        setPercentage(parseInt((props.data / parseInt(value)) * 100) + "%");
+        if (props.data >= parseInt(value)) {
+          setPercentage("100%");
+        } else {
+          setPercentage(parseInt((props.data / parseInt(value)) * 100) + "%");
+        }
       }
     } catch (error) {
       console.error(error);
-      setMaximum(100);
+      setPercentage("100%");
     }
   };
 

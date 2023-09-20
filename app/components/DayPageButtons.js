@@ -72,6 +72,7 @@ function DayPageButtons(props) {
           },
         ]}
         onPress={() => {
+          props.onPress();
           props.navigation.navigate("EditDayPage", { day: props.day });
         }}
       >

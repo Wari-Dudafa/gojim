@@ -49,10 +49,10 @@ function ExerciseWithButton(props) {
                   props.navigation.navigate(props.navigationDestination, {
                     exercise: props.exercise,
                   });
-                  // So the logo switch doesnt happen instantly
+                  // So the play button does not vanish instantly
                   setTimeout(() => {
                     setUnPressed(false);
-                  }, 1000);
+                  }, 500);
                 }
                 if (props.onPress) {
                   props.onPress();

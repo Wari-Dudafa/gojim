@@ -121,10 +121,34 @@ function SetMacrosPage(props) {
   const saveData = async () => {
     // Save the data calculated here
     await AsyncStorage.setItem("firstTimeOpening", "true");
-    await AsyncStorage.setItem("calories", String(calories));
-    await AsyncStorage.setItem("protein", String(protein));
-    await AsyncStorage.setItem("carbs", String(carbs));
-    await AsyncStorage.setItem("fats", String(fats));
+
+    if (calories < 10) {
+      let calories = "10";
+      await AsyncStorage.setItem("calories", calories);
+    } else {
+      await AsyncStorage.setItem("calories", String(calories));
+    }
+
+    if (protein < 10) {
+      let protein = "10";
+      await AsyncStorage.setItem("protein", protein);
+    } else {
+      await AsyncStorage.setItem("protein", String(protein));
+    }
+
+    if (carbs < 10) {
+      let carbs = "10";
+      await AsyncStorage.setItem("carbs", carbs);
+    } else {
+      await AsyncStorage.setItem("carbs", String(carbs));
+    }
+
+    if (fats < 10) {
+      let fats = "10";
+      await AsyncStorage.setItem("fats", fats);
+    } else {
+      await AsyncStorage.setItem("fats", String(fats));
+    }
   };
 
   const fadeInStart = () => {

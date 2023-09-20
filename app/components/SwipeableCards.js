@@ -308,7 +308,15 @@ function SwipeableCards(props) {
     <GestureDetector gesture={pan}>
       <View style={styles.container}>
         <RenderCards />
-        <DayPageButtons navigation={props.navigation} day={mainDay} />
+        <DayPageButtons
+          navigation={props.navigation}
+          day={mainDay}
+          onPress={() => {
+            if (activeCard == props.lastIndex) {
+              setSelectedCard(1);
+            }
+          }}
+        />
         <Text
           style={{
             fontSize: 20,
