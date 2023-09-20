@@ -11,18 +11,29 @@
       "resizeMode": "contain",
       "backgroundColor": "#93c244"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
+      "buildNumber": "3",
       "supportsTablet": false,
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true
-      }
+      },
+      "infoPlist": {
+        "NSCameraUsageDescription": "Allow Gojim to access camera.",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+      },
+      "bundleIdentifier": "com.waripamooweidudafa.gojim"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#93c244"
-      }
+      },
+      "permissions": [
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,6 +45,17 @@
           "cameraPermission": "Allow Gojim to access camera."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e5660326-5313-423d-a394-0dd489ad072d"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/e5660326-5313-423d-a394-0dd489ad072d"
+    }
   }
 }
