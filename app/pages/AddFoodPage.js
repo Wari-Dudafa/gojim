@@ -238,9 +238,15 @@ function AddFoodPage(props) {
     });
   };
 
-  if (hasPermission === null) {
+  if (hasPermission === null && scanning) {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.colors.background,
+          justifyContent: "center",
+        }}
+      >
         <Text
           style={{
             color: theme.colors.onBackground,
@@ -255,9 +261,16 @@ function AddFoodPage(props) {
     );
   }
 
-  if (hasPermission === false) {
+  if (hasPermission === false && scanning) {
     return (
-      <View>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: theme.colors.background,
+          justifyContent: "center",
+        }}
+      >
+        <AppBar navigation={props.navigation} back title="Add meal" />
         <Text
           style={{
             color: theme.colors.onBackground,
