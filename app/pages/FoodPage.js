@@ -47,7 +47,6 @@ function FoodPage(props) {
       <AppBar title="Food" settings navigation={props.navigation} />
 
       <CornerActionButton
-        icon="plus"
         onPress={() => {
           // Add new food entry
           props.navigation.navigate("AddFoodPage");

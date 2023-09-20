@@ -119,7 +119,6 @@ function DaysPage(props) {
         navigation={props.navigation}
       />
       <CornerActionButton
-        icon="plus"
         onPress={() => {
           // Make new day
           props.navigation.navigate("AddDaysPage");

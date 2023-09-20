@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   View,
@@ -19,10 +19,6 @@ function SettingsPage(props) {
   const theme = useTheme();
   const db = new Database();
   const [hapticSetting, setHapticSetting] = useState(true);
-
-  useEffect(() => {
-    getData();
-  }, []);
 
   const storeData = async () => {
     const newHapticSetting = !hapticSetting;
@@ -135,13 +131,9 @@ function SettingsPage(props) {
         <Button
           title="Initialise database"
           onPress={() => db.init()}
-          visible={false}
+          invisible
         />
-        <Button
-          title="Drop table"
-          onPress={() => db.dropTable("")}
-          visible={false}
-        />
+        <Button title="Drop table" onPress={() => db.dropTable("")} invisible />
         <Button
           title="Back to setup"
           onPress={() => setFirstTimeOpening(true)}

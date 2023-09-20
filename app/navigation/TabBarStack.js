@@ -22,7 +22,7 @@ function TabBarStack() {
       activeColor={theme.colors.primary}
       inactiveColor={theme.colors.outline}
       barStyle={{
-        backgroundColor: theme.colors.elevation.level3,
+        backgroundColor: theme.colors.elevation.level2,
       }}
     >
       <Tab.Screen

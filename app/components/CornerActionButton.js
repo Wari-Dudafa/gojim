@@ -19,7 +19,7 @@ function CornerActionButton(props) {
       }}
     >
       <MaterialCommunityIcons
-        name={props.icon}
+        name={props.icon ? props.icon : "plus"}
         size={55}
         color={theme.colors.onSecondary}
       />

@@ -98,7 +98,6 @@ function ScalePage(props) {
 
       {showActionButton ? (
         <CornerActionButton
-          icon="plus"
           onPress={() => {
             // Add new weight entry
             props.navigation.navigate("WeightEntryPage");
