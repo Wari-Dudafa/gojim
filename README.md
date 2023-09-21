@@ -20,6 +20,7 @@ Gojim is a comprehensive fitness app designed to help you track your workouts an
   <img style="margin-left: 10px; margin-right: 10px"  src="./screenshots/ScalePage1.png" alt="ScalePage" width="200">
   <img style="margin-left: 10px" src="./screenshots/WeightLog1.png" alt="WeightLog" width="200">
 </div>
+
 ## Technologies Used
 
 - React Native: A JavaScript library for building user interfaces.
