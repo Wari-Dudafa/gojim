@@ -158,10 +158,10 @@ function AddFoodPage(props) {
                   data = {
                     name: "No name found",
                     image: null,
-                    calories: null,
-                    protein: null,
-                    carbs: null,
-                    fats: null,
+                    calories: 0,
+                    protein: 0,
+                    carbs: 0,
+                    fats: 0,
                   };
                 } else {
                   data = {
@@ -173,16 +173,16 @@ function AddFoodPage(props) {
                       : null,
                     calories: response.product.nutriments["energy-kcal_100g"]
                       ? response.product.nutriments["energy-kcal_100g"]
-                      : null,
+                      : 0,
                     protein: response.product.nutriments.proteins_100g
                       ? response.product.nutriments.proteins_100g
-                      : null,
+                      : 0,
                     carbs: response.product.nutriments.carbohydrates_100g
                       ? response.product.nutriments.carbohydrates_100g
-                      : null,
+                      : 0,
                     fats: response.product.nutriments.fat_100g
                       ? response.product.nutriments.fat_100g
-                      : null,
+                      : 0,
                   };
                 }
                 setData(data);
@@ -197,10 +197,10 @@ function AddFoodPage(props) {
           let data = {
             name: "No name found",
             image: null,
-            calories: null,
-            protein: null,
-            carbs: null,
-            fats: null,
+            calories: 0,
+            protein: 0,
+            carbs: 0,
+            fats: 0,
           };
           setData(data);
           setScanning(false);
@@ -272,6 +272,12 @@ function AddFoodPage(props) {
         }}
       >
         <AppBar navigation={props.navigation} back title="Add meal" />
+        <CornerActionButton
+          icon={"keyboard"}
+          onPress={() => {
+            setScanning(false);
+          }}
+        />
         <View style={{ flex: 1, justifyContent: "center" }}>
           <Text
             style={{

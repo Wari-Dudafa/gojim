@@ -119,70 +119,70 @@ function SetCurrentBodySpecsPage(props) {
             color: theme.colors.onPrimary,
           }}
         />
-      </Pressable>
 
-      <Animated.View style={fadeIn}>
-        <TextInput
-          style={textInputStyle}
-          placeholder="Current height (cm)"
-          value={height}
-          onChangeText={setHeight}
-          keyboardType="numeric"
-        />
-        <TextInput
-          style={textInputStyle}
-          placeholder="Current body weight (kg)"
-          value={weight}
-          onChangeText={setWeight}
-          keyboardType="numeric"
-        />
-        <TextInput
-          style={textInputStyle}
-          placeholder="Current age (years)"
-          value={age}
-          onChangeText={setAge}
-          keyboardType="numeric"
-        />
-        <Picker
-          selectedValue={gender}
-          onValueChange={(itemValue) => setGender(itemValue)}
-        >
-          <Picker.Item label="Male" value={1} />
-          <Picker.Item label="Female" value={2} />
-          <Picker.Item label="Rather not say" value={2} />
-        </Picker>
+        <Animated.View style={fadeIn}>
+          <TextInput
+            style={textInputStyle}
+            placeholder="Current height (cm)"
+            value={height}
+            onChangeText={setHeight}
+            keyboardType="numeric"
+          />
+          <TextInput
+            style={textInputStyle}
+            placeholder="Current body weight (kg)"
+            value={weight}
+            onChangeText={setWeight}
+            keyboardType="numeric"
+          />
+          <TextInput
+            style={textInputStyle}
+            placeholder="Current age (years)"
+            value={age}
+            onChangeText={setAge}
+            keyboardType="numeric"
+          />
+          <Picker
+            selectedValue={gender}
+            onValueChange={(itemValue) => setGender(itemValue)}
+          >
+            <Picker.Item label="Male" value={1} />
+            <Picker.Item label="Female" value={2} />
+            <Picker.Item label="Rather not say" value={2} />
+          </Picker>
 
-        <Button
-          title="Continue"
-          onPress={() => {
-            if (height.length > 0 && weight.length > 0 && age.length > 0) {
-              if (parseInt(age) < 18) {
-                Alert.alert(
-                  "As you are not an adult, the results may be innacurate"
-                );
+          <Button
+            title="Continue"
+            onPress={() => {
+              if (height.length > 0 && weight.length > 0 && age.length > 0) {
+                if (parseInt(age) < 18) {
+                  Alert.alert(
+                    "As you are not an adult, the results may be innacurate"
+                  );
+                }
+                props.navigation.navigate("ExerciseFrequncyPage", {
+                  userData: {
+                    bulkingOrCuttingValue: bulkingOrCuttingValue,
+                    height: height,
+                    weight: weight,
+                    age: age,
+                    gender: gender,
+                  },
+                });
+              } else {
+                Alert.alert("Please fill in the form");
               }
-              props.navigation.navigate("ExerciseFrequncyPage", {
-                userData: {
-                  bulkingOrCuttingValue: bulkingOrCuttingValue,
-                  height: height,
-                  weight: weight,
-                  age: age,
-                  gender: gender,
-                },
-              });
-            } else {
-              Alert.alert("Please fill in the form");
-            }
-          }}
-        />
+            }}
+          />
 
-        <Button
-          title="Back"
-          onPress={() => {
-            props.navigation.pop();
-          }}
-        />
-      </Animated.View>
+          <Button
+            title="Back"
+            onPress={() => {
+              props.navigation.pop();
+            }}
+          />
+        </Animated.View>
+      </Pressable>
     </SafeAreaView>
   );
 }
