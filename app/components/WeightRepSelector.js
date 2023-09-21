@@ -92,7 +92,7 @@ function WeightRepSelector(props) {
           ]}
         >
           <TextInput
-            style={styles.inputNumber}
+            style={[styles.inputNumber, { color: theme.colors.onPrimary }]}
             placeholder="reps"
             keyboardType="numeric"
             maxLength={repCharacterLimit}
@@ -101,7 +101,7 @@ function WeightRepSelector(props) {
             onEndEditing={borderBottomColor}
           />
           <TextInput
-            style={styles.inputNumber}
+            style={[styles.inputNumber, { color: theme.colors.onPrimary }]}
             placeholder="weight"
             keyboardType="numeric"
             maxLength={weightCharacterLimit}
@@ -118,7 +118,7 @@ function WeightRepSelector(props) {
           ]}
         >
           <TextInput
-            style={styles.inputNumber}
+            style={[styles.inputNumber, { color: theme.colors.onPrimary }]}
             placeholder="reps"
             keyboardType="numeric"
             maxLength={repCharacterLimit}
@@ -127,7 +127,7 @@ function WeightRepSelector(props) {
             onEndEditing={borderBottomColor}
           />
           <TextInput
-            style={styles.inputNumber}
+            style={[styles.inputNumber, { color: theme.colors.onPrimary }]}
             placeholder="weight"
             keyboardType="numeric"
             maxLength={weightCharacterLimit}

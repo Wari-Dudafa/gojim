@@ -15,14 +15,14 @@
       "**/*"
     ],
     "ios": {
-      "buildNumber": "3",
+      "buildNumber": "4",
       "supportsTablet": false,
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true
       },
       "infoPlist": {
-        "NSCameraUsageDescription": "Allow Gojim to access camera.",
-        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
+        "NSCameraUsageDescription": "Allow Gojim to access camera",
+        "NSMicrophoneUsageDescription": "Allow Gojim to access your microphone"
       },
       "bundleIdentifier": "com.waripamooweidudafa.gojim"
     },
@@ -42,7 +42,7 @@
       [
         "expo-barcode-scanner",
         {
-          "cameraPermission": "Allow Gojim to access camera."
+          "cameraPermission": "Allow Gojim to access camera"
         }
       ]
     ],

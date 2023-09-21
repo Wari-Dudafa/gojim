@@ -9,8 +9,10 @@ function LastWeightRepSession(props) {
     <View
       style={[styles.container, { borderBottomColor: theme.colors.outline }]}
     >
-      <Text style={styles.text}>{props.reps}</Text>
-      <Text style={styles.text}>
+      <Text style={[styles.text, { color: theme.colors.onPrimary }]}>
+        {props.reps}
+      </Text>
+      <Text style={[styles.text, , { color: theme.colors.onPrimary }]}>
         {props.weight} {weightUnit}
       </Text>
     </View>

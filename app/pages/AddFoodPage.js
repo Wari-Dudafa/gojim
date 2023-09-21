@@ -244,20 +244,21 @@ function AddFoodPage(props) {
         style={{
           flex: 1,
           backgroundColor: theme.colors.background,
-          justifyContent: "center",
         }}
       >
         <AppBar navigation={props.navigation} back title="Add meal" />
-        <Text
-          style={{
-            color: theme.colors.onBackground,
-            alignSelf: "center",
-            textAlign: "center",
-            padding: 50,
-          }}
-        >
-          Requesting for camera permission
-        </Text>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <Text
+            style={{
+              color: theme.colors.onBackground,
+              alignSelf: "center",
+              textAlign: "center",
+              padding: 50,
+            }}
+          >
+            Requesting for camera permission
+          </Text>
+        </View>
       </View>
     );
   }
@@ -268,20 +269,21 @@ function AddFoodPage(props) {
         style={{
           flex: 1,
           backgroundColor: theme.colors.background,
-          justifyContent: "center",
         }}
       >
         <AppBar navigation={props.navigation} back title="Add meal" />
-        <Text
-          style={{
-            color: theme.colors.onBackground,
-            alignSelf: "center",
-            textAlign: "center",
-            padding: 50,
-          }}
-        >
-          No access to camera
-        </Text>
+        <View style={{ flex: 1, justifyContent: "center" }}>
+          <Text
+            style={{
+              color: theme.colors.onBackground,
+              alignSelf: "center",
+              textAlign: "center",
+              padding: 50,
+            }}
+          >
+            No access to camera
+          </Text>
+        </View>
       </View>
     );
   }
