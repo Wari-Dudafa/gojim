@@ -405,11 +405,19 @@ function AddFoodPage(props) {
               onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
               style={{
                 width: screenWidth,
-                height: screenHeight,
-                flexDirection: "row",
-                justifyContent: "flex-end",
+                height: screenHeight * 0.9,
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
+              <Image
+                style={{
+                  width: screenWidth * 0.8,
+                  height: screenWidth * 0.8,
+                  tintColor: theme.colors.tertiary,
+                }}
+                source={require("../../assets/scanning-image.png")}
+              />
               <A
                 style={{
                   color: theme.colors.onBackground,
