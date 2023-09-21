@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, StyleSheet, Image, Text } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import { useTheme } from "react-native-paper";
 import Animated, {
   withTiming,
@@ -42,9 +42,14 @@ function Card(props) {
         defaultSource={require("../../assets/shading-1.png")}
       />
 
-      <Text style={[styles.name, { color: props.textColor }]}>
+      <Animated.Text
+        style={[
+          styles.name,
+          props.textColor ? props.textColor : { color: theme.colors.onPrimary },
+        ]}
+      >
         {props.day ? props.day.name : null}
-      </Text>
+      </Animated.Text>
       <View
         style={[styles.underline, { backgroundColor: theme.colors.outline }]}
       />

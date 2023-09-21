@@ -179,15 +179,20 @@ function SwipeableCards(props) {
   });
 
   const leftCard = useAnimatedStyle(() => {
-    let x;
-    let r;
-    let s;
-    let o;
-
-    x = interpolate(xPosition.value, [0, swipeThreshold], [0, 50], "clamp");
-    r = interpolate(xPosition.value, [0, swipeThreshold], [0, 20], "clamp");
-    s = interpolate(xPosition.value, [0, swipeThreshold], [0, 0.1], "clamp");
-    o = interpolate(xPosition.value, [-swipeThreshold / 2, 0], [0, 1], "clamp");
+    let x = interpolate(xPosition.value, [0, swipeThreshold], [0, 50], "clamp");
+    let r = interpolate(xPosition.value, [0, swipeThreshold], [0, 20], "clamp");
+    let s = interpolate(
+      xPosition.value,
+      [0, swipeThreshold],
+      [0, 0.1],
+      "clamp"
+    );
+    let o = interpolate(
+      xPosition.value,
+      [-swipeThreshold / 2, 0],
+      [0, 1],
+      "clamp"
+    );
 
     return {
       transform: [
@@ -205,22 +210,37 @@ function SwipeableCards(props) {
   });
 
   const rightCard = useAnimatedStyle(() => {
-    let x;
-    let r;
-    let s;
-    let o;
     let z;
+    let x = interpolate(
+      xPosition.value,
+      [-swipeThreshold, 0],
+      [50, 0],
+      "clamp"
+    );
+    let r = interpolate(
+      xPosition.value,
+      [-swipeThreshold, 0],
+      [20, 0],
+      "clamp"
+    );
+    let s = interpolate(
+      xPosition.value,
+      [-swipeThreshold, 0],
+      [0.1, 0],
+      "clamp"
+    );
+    let o = interpolate(
+      xPosition.value,
+      [0, swipeThreshold / 2],
+      [1, 0],
+      "clamp"
+    );
 
     if (direction.value > 0) {
       z = 0;
     } else {
       z = -1;
     }
-
-    x = interpolate(xPosition.value, [-swipeThreshold, 0], [50, 0], "clamp");
-    r = interpolate(xPosition.value, [-swipeThreshold, 0], [20, 0], "clamp");
-    s = interpolate(xPosition.value, [-swipeThreshold, 0], [0.1, 0], "clamp");
-    o = interpolate(xPosition.value, [0, swipeThreshold / 2], [1, 0], "clamp");
 
     return {
       transform: [
@@ -235,6 +255,30 @@ function SwipeableCards(props) {
       ),
       opacity: o,
       zIndex: z,
+    };
+  });
+
+  const rightCardText = useAnimatedStyle(() => {
+    let c = interpolateColor(
+      xPosition.value,
+      [-swipeThreshold, 0],
+      [theme.colors.onPrimary, theme.colors.onTertiary]
+    );
+
+    return {
+      color: c,
+    };
+  });
+
+  const leftCardText = useAnimatedStyle(() => {
+    let c = interpolateColor(
+      xPosition.value,
+      [0, swipeThreshold],
+      [theme.colors.onSecondary, theme.colors.onPrimary]
+    );
+
+    return {
+      color: c,
     };
   });
 
@@ -257,30 +301,9 @@ function SwipeableCards(props) {
     if (swipeable) {
       return (
         <>
-          <Card
-            style={leftCard}
-            day={leftDay}
-            textColor={interpolateColor(
-              xPosition.value,
-              [0, swipeThreshold],
-              [theme.colors.onSecondary, theme.colors.onPrimary]
-            )}
-          />
-          <Card
-            style={rightCard}
-            day={rightDay}
-            textColor={interpolateColor(
-              xPosition.value,
-              [-swipeThreshold, 0],
-              [theme.colors.onPrimary, theme.colors.onTertiary]
-            )}
-          />
-          <Card
-            widgets
-            style={mainCard}
-            day={mainDay}
-            textColor={theme.colors.onPrimary}
-          />
+          <Card style={leftCard} day={leftDay} textColor={leftCardText} />
+          <Card style={rightCard} day={rightDay} textColor={rightCardText} />
+          <Card widgets style={mainCard} day={mainDay} />
         </>
       );
     } else {
