@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   SafeAreaView,
   TextInput,
+  Dimensions,
   Alert,
   View,
   Pressable,
@@ -13,6 +14,7 @@ import Animated, {
   withTiming,
   useSharedValue,
   useAnimatedStyle,
+  withRepeat,
 } from "react-native-reanimated";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -22,6 +24,8 @@ import TypeWriter from "../../components/TypeWriter";
 function SetMacrosPage(props) {
   const theme = useTheme();
   const userData = props.route.params.userData;
+  const screenWidth = Dimensions.get("window").width;
+  const screenHeight = Dimensions.get("window").height;
   const [editing, setEditing] = useState(false);
   const [calories, setCalories] = useState("4000");
   const [protein, setProtein] = useState("200");
@@ -29,48 +33,56 @@ function SetMacrosPage(props) {
   const [fats, setfats] = useState("90");
   const message = "We calculated these for you, based on the info you gave";
   const fadingValue = useSharedValue(0);
+  const widthValue = useSharedValue(screenWidth * 1.1);
+  const heightValue = useSharedValue(screenHeight * 1.1);
+  const imageOpacity = useSharedValue(0);
 
   useEffect(() => {
     fadeInStart();
     calculateMacros();
+    movementAnimation();
   }, []);
 
   const calculateMacros = () => {
     let maintainanceCalories;
-    let calorieIntake;
     let poundsConversionMultiplier = 2.20462;
     let bulkingOrCuttingValue = parseInt(userData.bulkingOrCuttingValue);
+
+    let proteinCalsPerGram = 4;
+    let carbsCalsPerGram = 4;
+    let fatsCalsPerGram = 9;
+
+    let minimumCalories = 1200;
+    let minimumProtein = 40;
+    let minimumFats = 20;
+    let minimumCarbs = 100;
+
     let bulkingOrCuttingValues = [
       null,
       {
         calorieAddition: -800,
         proteinMultiper: 0.8,
         fatsMultiplier: 0.25,
-        carbMultiplier: 2.5,
       }, // Heavy cut
       {
         calorieAddition: -500,
         proteinMultiper: 0.8,
         fatsMultiplier: 0.3,
-        carbMultiplier: 3,
       }, // Light cut
       {
         calorieAddition: 0,
         proteinMultiper: 0.7,
         fatsMultiplier: 0.4,
-        carbMultiplier: 4,
       }, // Maintain
       {
         calorieAddition: 500,
         proteinMultiper: 0.9,
         fatsMultiplier: 0.4,
-        carbMultiplier: 5,
       }, // Light bulk
       {
         calorieAddition: 800,
         proteinMultiper: 1.1,
         fatsMultiplier: 0.5,
-        carbMultiplier: 7,
       }, // Heavy bulk
     ];
     // For Men, it's 66.5 + (13.75 × weight in kg) + (5.003 × height in cm) - (6.75 × age)
@@ -93,69 +105,90 @@ function SetMacrosPage(props) {
         4.676 * parseFloat(userData.age);
     }
     maintainanceCalories = maintainanceCalories * parseFloat(userData.activity);
-    calorieIntake =
+
+    let calorieIntake =
       maintainanceCalories +
       bulkingOrCuttingValues[bulkingOrCuttingValue].calorieAddition;
-
-    setCalories(parseInt(calorieIntake));
 
     let proteinIntake =
       parseFloat(userData.weight) *
       poundsConversionMultiplier *
       bulkingOrCuttingValues[bulkingOrCuttingValue].proteinMultiper;
-    setProtein(parseInt(proteinIntake));
-
-    let carbsIntake =
-      parseFloat(userData.weight) *
-      poundsConversionMultiplier *
-      bulkingOrCuttingValues[bulkingOrCuttingValue].carbMultiplier;
-    setCarbs(parseInt(carbsIntake));
 
     let fatsIntake =
       parseFloat(userData.weight) *
       poundsConversionMultiplier *
       bulkingOrCuttingValues[bulkingOrCuttingValue].fatsMultiplier;
-    setfats(parseInt(fatsIntake));
+
+    let carbsIntake =
+      (calorieIntake -
+        (proteinIntake * proteinCalsPerGram + fatsIntake * fatsCalsPerGram)) /
+      carbsCalsPerGram;
+
+    if (calorieIntake < minimumCalories) {
+      setCalories(minimumCalories);
+    } else {
+      setCalories(parseInt(calorieIntake));
+    }
+
+    if (proteinIntake < minimumProtein) {
+      setProtein(minimumProtein);
+    } else {
+      setProtein(parseInt(proteinIntake));
+    }
+
+    if (fatsIntake < minimumFats) {
+      setfats(minimumFats);
+    } else {
+      setfats(parseInt(fatsIntake));
+    }
+
+    if (carbsIntake < minimumCarbs) {
+      setCarbs(minimumCarbs);
+    } else {
+      setCarbs(parseInt(carbsIntake));
+    }
   };
 
   const saveData = async () => {
     // Save the data calculated here
     await AsyncStorage.setItem("firstTimeOpening", "true");
 
-    if (calories < 10) {
-      let calories = "10";
-      await AsyncStorage.setItem("calories", calories);
-    } else {
-      await AsyncStorage.setItem("calories", String(calories));
-    }
+    await AsyncStorage.setItem("calories", String(calories));
 
-    if (protein < 10) {
-      let protein = "10";
-      await AsyncStorage.setItem("protein", protein);
-    } else {
-      await AsyncStorage.setItem("protein", String(protein));
-    }
+    await AsyncStorage.setItem("protein", String(protein));
 
-    if (carbs < 10) {
-      let carbs = "10";
-      await AsyncStorage.setItem("carbs", carbs);
-    } else {
-      await AsyncStorage.setItem("carbs", String(carbs));
-    }
+    await AsyncStorage.setItem("carbs", String(carbs));
 
-    if (fats < 10) {
-      let fats = "10";
-      await AsyncStorage.setItem("fats", fats);
-    } else {
-      await AsyncStorage.setItem("fats", String(fats));
-    }
+    await AsyncStorage.setItem("fats", String(fats));
   };
 
   const fadeInStart = () => {
-    let timeout = 3000;
+    let timeout = 2000;
     setTimeout(() => {
       fadingValue.value = withTiming(1, { duration: timeout / 2 });
     }, timeout);
+  };
+
+  const movementAnimation = () => {
+    let duration = 10000;
+
+    imageOpacity.value = withTiming(0.05, { duration: 2000 });
+
+    widthValue.value = withRepeat(
+      withTiming(3.5 * screenWidth, {
+        duration: duration,
+      }),
+      0,
+      true
+    );
+    heightValue.value = withRepeat(
+      withTiming(2 * screenHeight, {
+        duration: duration,
+      }),
+      0,
+      true
+    );
   };
 
   const fadeIn = useAnimatedStyle(() => {
@@ -178,6 +211,20 @@ function SetMacrosPage(props) {
         backgroundColor: theme.colors.primary,
       }}
     >
+      <Animated.Image
+        style={{
+          position: "absolute",
+          width: widthValue,
+          height: heightValue,
+          resizeMode: "stretch",
+          opacity: imageOpacity,
+          zIndex: -1,
+        }}
+        source={require("../../../assets/shading-1.png")}
+        defaultSource={require("../../../assets/shading-1.png")}
+        blurRadius={5}
+      />
+
       <Pressable
         onPress={() => {
           Keyboard.dismiss();

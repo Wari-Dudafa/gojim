@@ -26,10 +26,17 @@ Coming soon...
 
 Contributions to Gojim are always welcome! If you have any ideas, improvements, or bug fixes, please submit an issue or pull request. For major changes, it's recommended to open an issue first to discuss your proposed changes.
 
+## Download
+
+The app will be available to download on ios shortly, the android build is currently in the works.
+
+ios: [download link](https://github.com/Wari-Dudafa/gojim)
+android: [download link](https://github.com/Wari-Dudafa/gojim)
+
 ## Contact
 
 For any questions or inquiries, please reach out:
 
 Email: waripamooweidudafa@gmail.com
 Youtube: [WariDev](https://www.youtube.com/@waridev)
-LinkedIn: [Wari Dudafa](https://www.linkedin.com/in/waripamo-owei-dudafa-832130241/)
+LinkedIn: [Waripamo-owei Dudafa](https://www.linkedin.com/in/waripamo-owei-dudafa-832130241/)
