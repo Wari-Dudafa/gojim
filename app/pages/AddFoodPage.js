@@ -247,6 +247,7 @@ function AddFoodPage(props) {
           justifyContent: "center",
         }}
       >
+        <AppBar navigation={props.navigation} back title="Add meal" />
         <Text
           style={{
             color: theme.colors.onBackground,
