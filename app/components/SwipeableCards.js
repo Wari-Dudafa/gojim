@@ -283,7 +283,7 @@ function SwipeableCards(props) {
   });
 
   function setSelectedCard(direction) {
-    let haltDuration = 150;
+    let haltDuration = 180;
     setTimeout(() => {
       let { lastIndex } = props;
 
@@ -307,14 +307,7 @@ function SwipeableCards(props) {
         </>
       );
     } else {
-      return (
-        <Card
-          widgets
-          style={mainCard}
-          day={mainDay}
-          textColor={theme.colors.onPrimary}
-        />
-      );
+      return <Card widgets style={mainCard} day={mainDay} />;
     }
   };
 
