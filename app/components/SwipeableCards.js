@@ -26,6 +26,7 @@ function SwipeableCards(props) {
   const [mainDay, setMainDay] = useState(props.days[activeCard]);
   const [leftDay, setLeftDay] = useState(props.days[activeCard]);
   const [rightDay, setRightDay] = useState(props.days[activeCard]);
+  const [otherDay, setOtherDay] = useState(props.days[activeCard]);
 
   const swipeThreshold = screenWidth * 0.35;
 
@@ -96,45 +97,38 @@ function SwipeableCards(props) {
       xPosition.value = event.translationX;
       primaryHorizontalOffset.value = event.translationX;
       primaryRotationOffset.value = event.translationX / 10;
+      runOnJS(determineOtherCard)();
     })
     .onFinalize((event) => {
+      const reachedSwipeThreshold = (direction) => {
+        runOnJS(setSelectedCard)(-direction);
+        pressed.value = false;
+        primaryHorizontalOffset.value = withTiming(
+          screenWidth * direction * 1.5
+        );
+        primaryRotationOffset.value = withTiming(
+          primaryRotationOffset.value + 30 * direction
+        );
+        primaryOpacity.value = withTiming(0, null, () => {
+          primaryHorizontalOffset.value = 0;
+          primaryRotationOffset.value = 0;
+          primaryOpacity.value = 1;
+          xPosition.value = withSpring(0, springConfig);
+        });
+        secondaryScale.value = withSpring(0.8, springConfig);
+      };
+
       if (
-        event.translationX * event.translationX >
-          swipeThreshold * swipeThreshold &&
+        (event.translationX > swipeThreshold ||
+          event.translationX < -swipeThreshold) &&
         swipeable
       ) {
         if (event.translationX > 0) {
           // Right logic
-          runOnJS(setSelectedCard)(-1);
-          pressed.value = false;
-          primaryHorizontalOffset.value = withTiming(screenWidth * 1.5);
-          primaryRotationOffset.value = withTiming(
-            primaryRotationOffset.value + 30
-          );
-          primaryOpacity.value = withTiming(0, null, () => {
-            primaryHorizontalOffset.value = 0;
-            primaryRotationOffset.value = 0;
-            primaryOpacity.value = 1;
-            xPosition.value = withSpring(0, springConfig);
-          });
-
-          secondaryScale.value = withSpring(0.8, springConfig);
+          reachedSwipeThreshold(1);
         } else {
           // Left logic
-          runOnJS(setSelectedCard)(1);
-          pressed.value = false;
-          primaryHorizontalOffset.value = withSpring(-screenWidth);
-          primaryRotationOffset.value = withSpring(
-            primaryRotationOffset.value - 30
-          );
-          primaryOpacity.value = withTiming(0, null, () => {
-            primaryHorizontalOffset.value = 0;
-            primaryRotationOffset.value = 0;
-            primaryOpacity.value = 1;
-            xPosition.value = withSpring(0, springConfig);
-          });
-
-          secondaryScale.value = withSpring(0.8, springConfig);
+          reachedSwipeThreshold(-1);
         }
       } else {
         // Bring back to middle
@@ -258,6 +252,37 @@ function SwipeableCards(props) {
     };
   });
 
+  const otherCard = useAnimatedStyle(() => {
+    let o = 0;
+    let s1 = interpolate(
+      xPosition.value,
+      [-swipeThreshold, 0],
+      [0.1, 0],
+      "clamp"
+    );
+    let s2 = interpolate(
+      xPosition.value,
+      [0, swipeThreshold],
+      [0, 0.1],
+      "clamp"
+    );
+
+    if (
+      xPosition.value >= swipeThreshold ||
+      xPosition.value <= -swipeThreshold
+    ) {
+      o = 1;
+    } else {
+      o = 0;
+    }
+
+    return {
+      opacity: o,
+      backgroundColor: theme.colors.primary,
+      transform: [{ scale: secondaryScale.value + s1 + s2 }],
+    };
+  });
+
   const rightCardText = useAnimatedStyle(() => {
     let c = interpolateColor(
       xPosition.value,
@@ -283,18 +308,43 @@ function SwipeableCards(props) {
   });
 
   function setSelectedCard(direction) {
-    let haltDuration = 180;
-    setTimeout(() => {
-      let { lastIndex } = props;
+    if (activeCard + direction < 0) {
+      setActiveCard(props.lastIndex);
+    } else if (activeCard + direction > props.lastIndex) {
+      setActiveCard(0);
+    } else {
+      setActiveCard(activeCard + direction);
+    }
+  }
 
-      if (activeCard + direction < 0) {
-        runOnJS(setActiveCard)(lastIndex);
-      } else if (activeCard + direction > lastIndex) {
-        runOnJS(setActiveCard)(0);
-      } else {
-        runOnJS(setActiveCard)(activeCard + direction);
+  function determineOtherCard() {
+    let halfSwipeThreshold = swipeThreshold * 0.5;
+
+    if (pressed.value) {
+      if (
+        xPosition.value >= halfSwipeThreshold ||
+        xPosition.value <= -halfSwipeThreshold
+      ) {
+        if (direction.value > 0 && xPosition.value >= halfSwipeThreshold) {
+          // Left card
+          if (otherDay === leftDay) {
+            // Do nothing
+          } else {
+            setOtherDay(leftDay);
+          }
+        } else if (
+          direction.value < 0 &&
+          xPosition.value <= -halfSwipeThreshold
+        ) {
+          // Right card
+          if (otherDay === rightDay) {
+            // Do nothing
+          } else {
+            setOtherDay(rightDay);
+          }
+        }
       }
-    }, haltDuration);
+    }
   }
 
   RenderCards = () => {
@@ -303,6 +353,7 @@ function SwipeableCards(props) {
         <>
           <Card style={leftCard} day={leftDay} textColor={leftCardText} />
           <Card style={rightCard} day={rightDay} textColor={rightCardText} />
+          <Card style={otherCard} day={otherDay} />
           <Card widgets style={mainCard} day={mainDay} />
         </>
       );
