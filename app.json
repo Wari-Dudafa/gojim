@@ -15,7 +15,7 @@
       "**/*"
     ],
     "ios": {
-      "buildNumber": "4",
+      "buildNumber": "5",
       "supportsTablet": false,
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true
