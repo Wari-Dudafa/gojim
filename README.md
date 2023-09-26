@@ -6,11 +6,9 @@ Gojim is a comprehensive fitness app designed to help you track your workouts an
 
 ## Features
 
-- **Workout Tracking**: Gojim empowers you to take control of your fitness journey with its comprehensive workout tracking feature. Effortlessly log each exercise, sets, and reps, and record the weight and duration of your workouts. It's the ultimate tool to monitor your progress over time, helping you stay accountable and motivated.
+- **Workout Tracking**: Gojim empowers you to take control of your fitness journey with its comprehensive workout tracking feature. Effortlessly log each exercise, sets, and reps, and record the weight and duration of your workouts. It's the ultimate tool to monitor your progress over time, helping you stay accountable and motivated. Gojim goes beyond tracking by providing you with valuable insights into your fitness journey by generating intuitive graphs that visualize your progress.
 
-- **Calorie Counter**: Achieving your fitness goals requires more than just exercise; it's also about nutrition. With Gojim's integrated Calorie Counter, you can easily monitor your daily calorie intake and set targets aligned with your fitness objectives. Our extensive database, powered by [Open Food Facts](https://openfoodfacts.org), simplifies calorie tracking by providing nutritional information for a wide range of common food items. Say goodbye to guesswork and hello to precision in your diet planning.
-
-- **Progress Insights**: Gojim goes beyond tracking by providing you with valuable insights into your fitness journey. Our app generates detailed reports and intuitive graphs that visualize your progress. Dive into your performance history, and gain the knowledge you need to make informed decisions about your fitness routine. With Gojim, you're not just working out; you're working smart. Elevate your fitness game and achieve your goals with confidence.
+- **Calorie Counter**: Achieving your fitness goals requires more than just exercise; it's also about nutrition. With Gojim's integrated calorie counter, you can easily monitor your daily calorie intake. Our extensive database, powered by [Open Food Facts](https://openfoodfacts.org), simplifies calorie tracking by providing nutritional information for a wide range of common food items. Say goodbye to guesswork and hello to precision in your diet planning.
 
 ## Screenshots
 
