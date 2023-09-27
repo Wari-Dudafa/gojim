@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { View, Dimensions } from "react-native";
 import { useTheme } from "react-native-paper";
 import Animated, {
@@ -14,7 +15,7 @@ import {
 
 import Macro from "./Macro";
 import CalorieCounter from "./CalorieCounter";
-import { useEffect, useState } from "react";
+import Button from "./Button";
 
 function MacroContainer(props) {
   const theme = useTheme();
@@ -139,6 +140,13 @@ function MacroContainer(props) {
               data={carbsData}
             />
             <Macro title="Fats (g)" databaseAlias="fats" data={fatsData} />
+            <Button
+              title="Add meal"
+              onPress={() => {
+                // Add new food entry
+                props.navigation.navigate("AddFoodPage");
+              }}
+            />
           </View>
         </Animated.View>
       </GestureDetector>
