@@ -4,9 +4,9 @@ import { useTheme } from "react-native-paper";
 import { useFocusEffect } from "@react-navigation/native";
 
 import AppBar from "../components/AppBar";
-import CornerActionButton from "../components/CornerActionButton";
 import MacroContainer from "../components/MacroContainer";
 import Database from "../classes/DatabaseClass";
+import Button from "../components/Button";
 
 function FoodPage(props) {
   const theme = useTheme();
@@ -46,14 +46,15 @@ function FoodPage(props) {
     >
       <AppBar title="Food" settings navigation={props.navigation} />
 
-      <CornerActionButton
+      <MacroContainer data={data} />
+
+      <Button
+        title="Add meal"
         onPress={() => {
           // Add new food entry
           props.navigation.navigate("AddFoodPage");
         }}
       />
-
-      <MacroContainer data={data} />
     </View>
   );
 }

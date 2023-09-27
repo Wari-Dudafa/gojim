@@ -5,6 +5,7 @@ import Button from "./Button";
 
 function CornerActionButton(props) {
   const theme = useTheme();
+
   return (
     <Button
       onPress={props.onPress}
