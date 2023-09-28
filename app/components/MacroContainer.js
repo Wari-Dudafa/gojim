@@ -25,9 +25,11 @@ function MacroContainer(props) {
   const [fatsData, setFatsData] = useState();
   const screenWidth = Dimensions.get("window").width;
   const screenHeight = Dimensions.get("window").height;
+  const [screenHeightDivision, setScreenHeightDivision] = useState(10);
 
   useEffect(() => {
     parseData();
+    calculateScale();
   }, [props.data]);
 
   const parseData = () => {
@@ -51,6 +53,23 @@ function MacroContainer(props) {
     setProteinData(protein);
     setcCarbsData(carbs);
     setFatsData(fats);
+  };
+
+  const calculateScale = () => {
+    console.log(screenHeight);
+    if (screenHeight > 750) {
+      if (screenHeight > 900) {
+        setScreenHeightDivision(90);
+      } else {
+        setScreenHeightDivision(40);
+      }
+    } else {
+      if (screenHeight < 700) {
+        setScreenHeightDivision(7);
+      } else {
+        setScreenHeightDivision(10);
+      }
+    }
   };
 
   const yPosition = useSharedValue(0);
@@ -80,7 +99,7 @@ function MacroContainer(props) {
     );
 
     return {
-      transform: [{ translateY: y - screenHeight / 40 }],
+      transform: [{ translateY: y - screenHeight / screenHeightDivision }],
     };
   });
 
