@@ -56,7 +56,6 @@ function MacroContainer(props) {
   };
 
   const calculateScale = () => {
-    console.log(screenHeight);
     if (screenHeight > 750) {
       if (screenHeight > 900) {
         setScreenHeightDivision(90);
