@@ -45,7 +45,7 @@ function FoodPage(props) {
     >
       <AppBar title="Food" settings navigation={props.navigation} />
 
-      <MacroContainer data={data} />
+      <MacroContainer data={data} navigation={props.navigation} />
     </View>
   );
 }
