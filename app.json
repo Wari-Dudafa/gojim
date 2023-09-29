@@ -15,13 +15,13 @@
       "**/*"
     ],
     "ios": {
-      "buildNumber": "8",
+      "buildNumber": "10",
       "supportsTablet": false,
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true
       },
       "infoPlist": {
-        "NSCameraUsageDescription": "Allow Gojim to access camera",
+        "NSCameraUsageDescription": "Gojim uses your camera for it's barcode scanning capabilities, enable to be able to scan a food barcode and have its nutritional value downloaded",
         "NSMicrophoneUsageDescription": "Allow Gojim to access your microphone"
       },
       "bundleIdentifier": "com.waripamooweidudafa.gojim"
@@ -42,7 +42,7 @@
       [
         "expo-barcode-scanner",
         {
-          "cameraPermission": "Allow Gojim to access camera"
+          "cameraPermission": "Gojim uses your camera for it's barcode scanning capabilities, enable to be able to scan a food barcode and have its nutritional value downloaded"
         }
       ]
     ],

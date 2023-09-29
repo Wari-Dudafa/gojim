@@ -107,7 +107,7 @@ function ScalePage(props) {
         <CountDown
           targetTime={targetTime}
           prefixText={"Next weight log in: "}
-          timerRanOut={setShowActionButton} // use state funtion, set it to true
+          timerRanOut={setShowActionButton} // Use state funtion, set it to true
         />
       )}
 

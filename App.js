@@ -52,10 +52,10 @@ export default function App() {
 
   const determineColorScheme = () => {
     if (colorScheme === "dark") {
-      // render dark mode
+      // Render dark mode
       setTheme(DarkTheme);
     } else {
-      // render light mode
+      // Render light mode
       setTheme(LightTheme);
     }
   };
