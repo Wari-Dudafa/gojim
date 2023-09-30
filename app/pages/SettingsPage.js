@@ -133,10 +133,28 @@ function SettingsPage(props) {
           onPress={() => db.init()}
           invisible
         />
-        <Button title="Drop table" onPress={() => db.dropTable("")} invisible />
         <Button
           title="Back to setup"
           onPress={() => setFirstTimeOpening(true)}
+        />
+        <Button
+          title="Delete days data"
+          onPress={() => {
+            db.dropTable("days");
+            db.dropTable("weight_per_set");
+            db.dropTable("reps_per_set");
+            db.dropTable("sets");
+            db.dropTable("session");
+            db.dropTable("exercises");
+          }}
+        />
+        <Button
+          title="Delete food data"
+          onPress={() => db.dropTable("meals")}
+        />
+        <Button
+          title="Delete scale data"
+          onPress={() => db.dropTable("user_weight")}
         />
         <Button title="Delete all data" onPress={deleteData} />
 
