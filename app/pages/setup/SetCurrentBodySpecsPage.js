@@ -148,7 +148,7 @@ function SetCurrentBodySpecsPage(props) {
           >
             <Picker.Item label="Male" value={1} />
             <Picker.Item label="Female" value={2} />
-            <Picker.Item label="Rather not say" value={2} />
+            <Picker.Item label="Rather not say" value={3} />
           </Picker>
 
           <Button

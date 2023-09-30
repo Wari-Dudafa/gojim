@@ -89,7 +89,11 @@ function SetMacrosPage(props) {
     // For women, it's 655.1 + (9.563 × weight in kg) + (1.850 × height in cm) - (4.676 × age)
     // Source: https://www.omnicalculator.com/health/bmr-harris-benedict-equation
 
-    if (userData.gender == 1 || userData.gender == undefined) {
+    if (
+      userData.gender == 1 ||
+      userData.gender == 3 ||
+      userData.gender == undefined
+    ) {
       // Male
       maintainanceCalories =
         66.5 +

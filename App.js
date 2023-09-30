@@ -72,13 +72,13 @@ export default function App() {
     );
   }
 
-  // if (firstTimeOpening) {
-  //   return (
-  //     <PaperProvider theme={theme}>
-  //       <AppStack initialRouteName="SetupStack" />
-  //     </PaperProvider>
-  //   );
-  // }
+  if (firstTimeOpening) {
+    return (
+      <PaperProvider theme={theme}>
+        <AppStack initialRouteName="SetupStack" />
+      </PaperProvider>
+    );
+  }
 
   return (
     <PaperProvider theme={theme}>

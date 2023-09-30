@@ -85,29 +85,15 @@ function SettingsPage(props) {
           {
             text: "Yes",
             style: "destructive",
-            onPress: async () => {
-              try {
-                await AsyncStorage.removeItem(keyToDelete);
-                props.navigation.navigate("SetupStack");
-              } catch (error) {
-                Alert.alert(
-                  "An error occured going back, please try again later"
-                );
-                console.error(error);
-              }
+            onPress: () => {
+              props.navigation.navigate("SetupStack");
             },
           },
         ],
         { cancelable: false }
       );
     } else {
-      try {
-        await AsyncStorage.removeItem(keyToDelete);
-        props.navigation.navigate("SetupStack");
-      } catch (error) {
-        Alert.alert("An error occured going back, please try again later");
-        console.error(error);
-      }
+      props.navigation.navigate("SetupStack");
     }
   };
 
