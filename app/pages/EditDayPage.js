@@ -1,11 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  TextInput,
-  Alert,
-  SafeAreaView,
-} from "react-native";
+import { View, StyleSheet, TextInput, Alert, SafeAreaView } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "react-native-paper";
 
@@ -88,6 +82,10 @@ function EditDayPage(props) {
           day.id +
           ")";
         db.sql(statement, () => {});
+      } else {
+        // Update old exercise
+        statement = `UPDATE exercises SET name = '${exercise.name}', reps = ${exercise.reps}, sets = ${exercise.sets} WHERE id = ${exercise.id}`;
+        db.sql(statement, () => {});
       }
     }
   };
@@ -131,6 +129,7 @@ function EditDayPage(props) {
       />
 
       <NewExerciseSelector
+        edit
         delete
         exercises={exercises}
         setExercises={setExercises}
