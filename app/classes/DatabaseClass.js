@@ -16,6 +16,16 @@ export default class Database {
         ],
       },
       {
+        name: "timed_exercises",
+        rows: [
+          { rowName: "name", rowType: "TEXT" },
+          { rowName: "reps", rowType: "INTEGER" },
+          { rowName: "sets", rowType: "INTEGER" },
+          { rowName: "day_id", rowType: "INTEGER" },
+          { rowName: "time_in_seconds", rowType: "INTEGER" },
+        ],
+      },
+      {
         name: "session",
         rows: [
           { rowName: "date", rowType: "TEXT" },
@@ -135,6 +145,7 @@ export default class Database {
           Alert.alert(
             "An error occured with the database, please try again later"
           );
+          this.init();
           console.error(error);
         }
       );

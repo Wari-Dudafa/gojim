@@ -91,7 +91,7 @@ function SetMacrosPage(props) {
 
     if (
       userData.gender == 1 ||
-      userData.gender == 3 ||
+      userData.gender == 3 || // Rather not say will be assumed as male
       userData.gender == undefined
     ) {
       // Male
