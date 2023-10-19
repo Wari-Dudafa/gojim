@@ -60,9 +60,8 @@ function WeightRepSelector(props) {
 
   const tooManyReps = () => {
     if (
-      repsDone > props.exercise.reps &&
-      tooManyRepsChecker &&
-      repsDone.length > 0
+      parseFloat(repsDone) > props.exercise.reps * 1.4 &&
+      tooManyRepsChecker
     ) {
       // You’ve done a lot of reps, try increasing the weight
       Alert.alert("You’ve done a lot of reps, try increasing the weight");
@@ -72,8 +71,9 @@ function WeightRepSelector(props) {
 
   const tooLittleReps = () => {
     if (
-      repsDone < props.exercise.reps * 0.6 &&
+      parseFloat(repsDone) < props.exercise.reps * 0.6 &&
       tooLittleRepsChecker &&
+      repsDone.length > 0 &&
       weight.length > 0
     ) {
       // You’ve not done a lot of reps, try decreasing the weight
