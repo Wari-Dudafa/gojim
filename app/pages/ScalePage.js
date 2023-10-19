@@ -80,8 +80,12 @@ function ScalePage(props) {
           nextLogTime.getFullYear() == currentDate.getFullYear()
         ) {
           // Last log was today
+          let hours = 20;
+
           setShowActionButton(false);
-          nextLogTime.setDate(nextLogTime.getDate() + 1);
+          nextLogTime.setDate(
+            nextLogTime.setTime(nextLogTime.getTime() + hours * 60 * 60 * 1000)
+          );
           setTargetTime(nextLogTime.toString());
         } else {
           setShowActionButton(true);

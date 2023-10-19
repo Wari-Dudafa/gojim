@@ -6,6 +6,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 function Macro(props) {
   const theme = useTheme();
   const [percentage, setPercentage] = useState("0%");
+  const [targetMacro, setTargetMacro] = useState("0");
 
   useEffect(() => {
     getPercentage();
@@ -23,6 +24,8 @@ function Macro(props) {
         } else {
           setPercentage(parseInt((props.data / parseInt(value)) * 100) + "%");
         }
+
+        setTargetMacro(value)
       }
     } catch (error) {
       console.error(error);
@@ -52,6 +55,7 @@ function Macro(props) {
           padding: 10,
         }}
       >
+        <Text style={{ color: theme.colors.onPrimary }}>{props.data}g/{targetMacro}g</Text>
         <Text style={{ color: theme.colors.onPrimary }}>{props.title}</Text>
         <Text style={{ color: theme.colors.onSecondary }}>{percentage}</Text>
       </View>

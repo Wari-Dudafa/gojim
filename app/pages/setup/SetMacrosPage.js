@@ -61,22 +61,22 @@ function SetMacrosPage(props) {
       null,
       {
         calorieAddition: -800,
-        proteinMultiper: 0.8,
+        proteinMultiper: 0.9,
         fatsMultiplier: 0.25,
       }, // Heavy cut
       {
         calorieAddition: -500,
-        proteinMultiper: 0.8,
+        proteinMultiper: 0.85,
         fatsMultiplier: 0.3,
       }, // Light cut
       {
         calorieAddition: 0,
-        proteinMultiper: 0.7,
+        proteinMultiper: 0.8,
         fatsMultiplier: 0.4,
       }, // Maintain
       {
         calorieAddition: 500,
-        proteinMultiper: 0.9,
+        proteinMultiper: 0.95,
         fatsMultiplier: 0.4,
       }, // Light bulk
       {
