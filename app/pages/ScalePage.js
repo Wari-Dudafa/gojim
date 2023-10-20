@@ -108,10 +108,13 @@ function ScalePage(props) {
           }}
         />
       ) : (
-        <CountDown
-          targetTime={targetTime}
-          prefixText={"Next weight log in: "}
-          timerRanOut={setShowActionButton} // Use state funtion, set it to true
+        // <CountDown targetTime={targetTime} prefixText={"Next weight log in: "} timerRanOut={setShowActionButton} // Use state funtion, set it to true
+        // />
+        <CornerActionButton
+          onPress={() => {
+            // Add new weight entry
+            props.navigation.navigate("WeightEntryPage");
+          }}
         />
       )}
 
