@@ -31,7 +31,7 @@ Contributions to Gojim are always welcome! If you have any ideas, improvements, 
 
 ## Download
 
-The app will be available to download on ios shortly, the android build is currently in the works.
+The app is available to download on ios, the android build is currently in the works.
 
 ios: [download link](https://apps.apple.com/app/id6467132061)
 android: [download link](https://github.com/Wari-Dudafa/gojim)
