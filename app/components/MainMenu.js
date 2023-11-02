@@ -6,10 +6,13 @@ import Animated, {
 } from "react-native-reanimated";
 
 import Button from "./Button";
+import colours from "../utils/colours";
 
 function MainMenu(props) {
+  const menuItemsYOffset = 30;
   const screenWidth = Dimensions.get("window").width;
   const screenHeight = Dimensions.get("window").height;
+  const blackViewHeight = useSharedValue(0);
   const menuIsOpen = useSharedValue(false);
   const yOffset = useSharedValue(screenHeight * 0.6);
   const opacity = useSharedValue(0);
@@ -21,17 +24,17 @@ function MainMenu(props) {
   const toggleMenu = () => {
     if (menuIsOpen.value) {
       // Close menu
-      console.log("Menu closing");
       yOffset.value = withSpring(screenHeight * 0.6, springConfig);
-      opacity.value = withTiming(0);
-      menuIsOpen.value = false;
+      opacity.value = withTiming(0, null, () => {
+        blackViewHeight.value = 0;
+      });
     } else {
       // Open menu
-      console.log("Menu opening");
-      yOffset.value = withSpring(screenHeight * 0.2, springConfig);
+      blackViewHeight.value = screenHeight * 5;
+      yOffset.value = withSpring(screenHeight * 0.15, springConfig);
       opacity.value = withTiming(0.5);
-      menuIsOpen.value = true;
     }
+    menuIsOpen.value = !menuIsOpen.value;
   };
 
   return (
@@ -47,8 +50,8 @@ function MainMenu(props) {
         style={{
           position: "absolute",
           backgroundColor: "black",
-          width: screenWidth * 6,
-          height: screenHeight * 6,
+          width: screenWidth * 5,
+          height: blackViewHeight,
           opacity: opacity,
         }}
       >
@@ -61,12 +64,13 @@ function MainMenu(props) {
               toggleMenu();
             }
           }}
-        />
+        ></Pressable>
       </Animated.View>
+
       <Animated.View
         style={{
           position: "absolute",
-          backgroundColor: "blue",
+          backgroundColor: colours.secondary,
           width: screenWidth,
           height: screenHeight * 0.8,
           borderRadius: 30,
@@ -81,15 +85,55 @@ function MainMenu(props) {
             justifyContent: "space-between",
           }}
         >
-          {props.children}
+          <Button
+            icon="plus"
+            style={{
+              height: 80,
+              width: 80,
+              borderRadius: 30,
+              backgroundColor: colours.primary,
+              transform: [{ translateY: menuItemsYOffset }],
+            }}
+          />
+
+          <Button
+            icon="chart-line"
+            style={{
+              height: 80,
+              width: 80,
+              borderRadius: 30,
+              backgroundColor: colours.primary,
+            }}
+          />
+
+          <Button
+            icon="bowl-mix"
+            style={{
+              height: 80,
+              width: 80,
+              borderRadius: 30,
+              backgroundColor: colours.primary,
+              transform: [{ translateY: menuItemsYOffset }],
+            }}
+          />
         </View>
       </Animated.View>
       <Button
+        icon="weight-gram"
+        iconColor={colours.primary}
+        iconSize={70}
         style={{
-          backgroundColor: "red",
-          width: 80,
-          height: 80,
-          borderRadius: 30,
+          backgroundColor: colours.background,
+          borderColor: colours.text,
+          borderWidth: 5,
+          width: 90,
+          height: 120,
+          borderRadius: 999,
+          shadowColor: "white",
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.5,
+          shadowRadius: 5,
+          elevation: 3,
         }}
         onPress={() => {
           toggleMenu();
