@@ -7,9 +7,9 @@ import Animated, {
 
 import Button from "./Button";
 import colours from "../utils/colours";
+import MainMenuButtons from "./MainMenuButtons";
 
 function MainMenu(props) {
-  const menuItemsYOffset = 30;
   const screenWidth = Dimensions.get("window").width;
   const screenHeight = Dimensions.get("window").height;
   const blackViewHeight = useSharedValue(0);
@@ -85,36 +85,10 @@ function MainMenu(props) {
             justifyContent: "space-between",
           }}
         >
-          <Button
-            icon="plus"
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 30,
-              backgroundColor: colours.primary,
-              transform: [{ translateY: menuItemsYOffset }],
-            }}
-          />
-
-          <Button
-            icon="chart-line"
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 30,
-              backgroundColor: colours.primary,
-            }}
-          />
-
-          <Button
-            icon="bowl-mix"
-            style={{
-              height: 80,
-              width: 80,
-              borderRadius: 30,
-              backgroundColor: colours.primary,
-              transform: [{ translateY: menuItemsYOffset }],
-            }}
+          <MainMenuButtons
+            pageNavigation={props.pageNavigation}
+            currentPage={props.currentPage}
+            pages={props.pages}
           />
         </View>
       </Animated.View>
