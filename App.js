@@ -13,6 +13,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState("homePage");
+  const [currentWorkout, setCurrentWorkout] = useState(null);
   const [fontsLoaded, fontError] = useFonts({
     quicksand: require("./assets/fonts/quicksand/Quicksand-Regular.ttf"),
     "quicksand-bold": require("./assets/fonts/quicksand/Quicksand-Bold.ttf"),
@@ -21,21 +22,30 @@ export default function App() {
   });
 
   const pages = {
-    homePage: { name: "homePage", icon: "home", component: <HomePage /> },
+    homePage: {
+      name: "homePage",
+      icon: "home",
+      component: (
+        <HomePage
+          currentWorkout={currentWorkout}
+          setCurrentWorkout={setCurrentWorkout}
+        />
+      ),
+    },
     addDayPage: {
       name: "addDayPage",
       icon: "plus",
-      component: <PlaceholderPage header="addDayPage" />,
+      component: <PlaceholderPage header="New Workout" />,
     },
     graphPage: {
       name: "graphPage",
       icon: "chart-line",
-      component: <PlaceholderPage header="graphPage" />,
+      component: <PlaceholderPage header="Graphs" />,
     },
     foodPage: {
       name: "foodPage",
       icon: "bowl-mix",
-      component: <PlaceholderPage header="foodPage" />,
+      component: <PlaceholderPage header="Food Tracking" />,
     },
   };
 
@@ -68,7 +78,10 @@ export default function App() {
           alignItems: "center",
         }}
       >
-        <StartWorkout />
+        <StartWorkout
+          currentWorkout={currentWorkout}
+          setCurrentWorkout={setCurrentWorkout}
+        />
         <MainMenu
           pageNavigation={pageNavigation}
           currentPage={currentPage}

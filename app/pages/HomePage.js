@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Alert } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import Animated, {
   withSpring,
   useSharedValue,
   runOnJS,
-  useAnimatedStyle,
-  interpolate,
 } from "react-native-reanimated";
 
 import colours from "../utils/colours";
@@ -53,9 +51,9 @@ function HomePage(props) {
           padding: 10,
         }}
       >
-        Your workouts
+        Your Workouts
       </Text>
-      <View style={{ flex: 10, padding: 5 }}>
+      <View style={{ flex: 15, padding: 5 }}>
         <View
           style={{
             flexDirection: "row",
@@ -75,10 +73,8 @@ function HomePage(props) {
           >
             <Button
               icon={shoudLoopWorkouts ? "lock-open" : "lock"}
-              iconColor={
-                shoudLoopWorkouts ? colours.primary : colours.background
-              }
-              iconSize={shoudLoopWorkouts ? 50 : 45}
+              iconColor={colours.primary}
+              iconSize={shoudLoopWorkouts ? 50 : 40}
               onPress={() => {
                 setShoudLoopWorkouts(!shoudLoopWorkouts);
               }}
@@ -155,6 +151,17 @@ function HomePage(props) {
           }}
         >
           <Button
+            onPress={() => {
+              if (props.currentWorkout) {
+                if (props.currentWorkout.id != workouts[currentWorkout].id) {
+                  Alert.alert(
+                    "Please end your current workout before starting another one"
+                  );
+                }
+              } else {
+                props.setCurrentWorkout(workouts[currentWorkout]);
+              }
+            }}
             style={{
               backgroundColor: colours.secondary,
               borderRadius: 10,
@@ -170,12 +177,16 @@ function HomePage(props) {
                 color: colours.text,
               }}
             >
-              Start empty workout
+              {props.currentWorkout
+                ? props.currentWorkout.id == workouts[currentWorkout].id
+                  ? "Doing selected workout"
+                  : "Start selected workout"
+                : "Start selected workout"}
             </Text>
           </Button>
         </View>
       </View>
-      <View style={{ flex: 50, padding: 5 }}>
+      <View style={{ flex: 80, padding: 5 }}>
         <View
           style={{
             flexDirection: "row",

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Dimensions } from "react-native";
+import { View, Text, Dimensions, Alert } from "react-native";
 import {
   GestureHandlerRootView,
   GestureDetector,
@@ -96,15 +96,37 @@ function StartWorkout(props) {
                 color: colours.text,
               }}
             >
-              No workout selected
+              {props.currentWorkout
+                ? props.currentWorkout.name
+                : "No workout selected"}
             </Text>
           </GestureDetector>
         </GestureHandlerRootView>
-        <Button
-          icon={"stop-circle-outline"}
-          iconSize={atTheTop ? 65 : 50}
-          iconColor={colours.primary}
-        />
+        {props.currentWorkout ? (
+          <Button
+            icon={"stop-circle-outline"}
+            iconSize={atTheTop ? 65 : 50}
+            iconColor={colours.primary}
+            onPress={() => {
+              Alert.alert(
+                "Confirmation",
+                "Are you finished with your workout?",
+                [
+                  { text: "No", style: "cancel" },
+                  {
+                    text: "Yes",
+                    style: "destructive",
+                    onPress: () => {
+                      props.setCurrentWorkout(null);
+                    },
+                  },
+                ],
+                { cancelable: false }
+              );
+            }}
+          />
+        ) : null}
+
         <Button
           icon={
             atTheTop
@@ -119,6 +141,12 @@ function StartWorkout(props) {
           style={{ paddingLeft: 5 }}
         />
       </View>
+
+      {props.currentWorkout ? (
+        <Text style={{ color: colours.text, paddingHorizontal: 40 }}>
+          Working out...
+        </Text>
+      ) : null}
     </Animated.View>
   );
 }
