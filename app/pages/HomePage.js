@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { View, Text } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
-import { runOnJS } from "react-native-reanimated";
+import Animated, {
+  withSpring,
+  useSharedValue,
+  runOnJS,
+  useAnimatedStyle,
+  interpolate,
+} from "react-native-reanimated";
 
 import colours from "../utils/colours";
 import Button from "../components/Button";
@@ -11,12 +17,16 @@ function HomePage(props) {
   const [shoudLoopWorkouts, setShoudLoopWorkouts] = useState(true);
   const [currentWorkout, setCurrentWorkout] = useState(0);
   const workouts = Workout.getAllWorkouts();
+  const workoutsProgressBar = useSharedValue("0%");
+  const springConfig = {
+    mass: 0.5,
+    damping: 50,
+  };
 
   const exercisesInWorkout = () => {
+    let allNames = "";
     let workout = workouts[currentWorkout];
     let exercisesInWorkout = workout.getExercises();
-
-    let allNames = "";
 
     for (let index = 0; index < exercisesInWorkout.length; index++) {
       let exercise = exercisesInWorkout[index];
@@ -84,28 +94,28 @@ function HomePage(props) {
               flex: 3,
               alignItems: "center",
               justifyContent: "center",
+              overflow: "hidden",
             }}
           >
             <Carousel
               loop
-              width={265}
-              height={60}
+              width={270}
               autoPlay={shoudLoopWorkouts}
               data={workouts}
               scrollAnimationDuration={1000}
               autoPlayInterval={5000}
               onSnapToItem={(index) => {
                 runOnJS(setCurrentWorkout)(index);
+                workoutsProgressBar.value = withSpring(
+                  parseInt((index / workouts.length) * 100) + "%",
+                  springConfig
+                );
               }}
               renderItem={({ item }) => (
                 <View
                   style={{
                     flex: 1,
                     justifyContent: "center",
-                    borderColor: colours.accent,
-                    borderLeftWidth: 5,
-                    borderRightWidth: 5,
-                    borderRadius: 5,
                     marginHorizontal: 5,
                   }}
                 >
@@ -113,14 +123,24 @@ function HomePage(props) {
                     style={{
                       fontFamily: "quicksand",
                       textAlign: "center",
-                      fontSize: 30,
-                      color: colours.text,
+                      fontSize: 35,
+                      color: colours.accent,
                     }}
                   >
                     {item.name}
                   </Text>
                 </View>
               )}
+            />
+            <Animated.View
+              style={{
+                backgroundColor: colours.accent,
+                position: "absolute",
+                bottom: "0%",
+                left: "0%",
+                height: 2,
+                width: workoutsProgressBar,
+              }}
             />
           </View>
         </View>

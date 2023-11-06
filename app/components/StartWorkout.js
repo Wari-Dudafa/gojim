@@ -16,10 +16,10 @@ import Button from "./Button";
 
 function StartWorkout(props) {
   const screenHeight = Dimensions.get("window").height;
-  const yPosition = useSharedValue(0);
-  const [atTheTop, setAtTheTop] = useState(false);
   const top = -screenHeight * 0.85;
+  const [atTheTop, setAtTheTop] = useState(false);
   const zIndex = useSharedValue(0);
+  const yPosition = useSharedValue(0);
   const springConfig = {
     mass: 0.5,
     damping: 50,
