@@ -43,7 +43,7 @@ function MainMenu(props) {
         position: "absolute",
         justifyContent: "center",
         alignItems: "center",
-        bottom: "5%",
+        bottom: "100%",
       }}
     >
       <Animated.View
@@ -89,6 +89,7 @@ function MainMenu(props) {
             pageNavigation={props.pageNavigation}
             currentPage={props.currentPage}
             pages={props.pages}
+            toggleMenu={toggleMenu}
           />
         </View>
       </Animated.View>
@@ -105,9 +106,8 @@ function MainMenu(props) {
           borderRadius: 999,
           shadowColor: "white",
           shadowOffset: { width: 0, height: 0 },
-          shadowOpacity: 0.5,
+          shadowOpacity: 0.2,
           shadowRadius: 5,
-          elevation: 3,
         }}
         onPress={() => {
           toggleMenu();

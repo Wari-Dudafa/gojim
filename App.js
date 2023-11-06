@@ -5,8 +5,9 @@ import * as SplashScreen from "expo-splash-screen";
 
 import MainMenu from "./app/components/MainMenu";
 import colours from "./app/utils/colours";
+import StartWorkout from "./app/components/StartWorkout";
 import HomePage from "./app/pages/HomePage";
-import FoodPage from "./app/pages/FoodPage";
+import PlaceholderPage from "./app/pages/PlaceholderPage";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -18,24 +19,30 @@ export default function App() {
     "quicksand-light": require("./assets/fonts/quicksand/Quicksand-Light.ttf"),
     "quicksand-medium": require("./assets/fonts/quicksand/Quicksand-Medium.ttf"),
   });
+
   const pages = {
-    homePage: { component: <HomePage />, icon: "home", name: "homePage" },
-    addPage: {
-      name: "addPage",
+    homePage: { name: "homePage", icon: "home", component: <HomePage /> },
+    addDayPage: {
+      name: "addDayPage",
       icon: "plus",
-      component: <FoodPage text="addPage" />,
+      component: <PlaceholderPage header="addDayPage" />,
     },
     graphPage: {
       name: "graphPage",
       icon: "chart-line",
-      component: <FoodPage text="graphPage" />,
+      component: <PlaceholderPage header="graphPage" />,
     },
     foodPage: {
       name: "foodPage",
       icon: "bowl-mix",
-      component: <FoodPage text="foodPage" />,
+      component: <PlaceholderPage header="foodPage" />,
     },
   };
+
+  const pageNavigation = (pageName) => {
+    setCurrentPage(pageName);
+  };
+
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
       await SplashScreen.hideAsync();
@@ -46,10 +53,6 @@ export default function App() {
     return null;
   }
 
-  const pageNavigation = (pageName) => {
-    setCurrentPage(pageName);
-  };
-
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: colours.background }}
@@ -57,7 +60,7 @@ export default function App() {
     >
       <StatusBar />
 
-      <View style={{ flex: 10 }}>{pages[currentPage].component}</View>
+      <View style={{ flex: 12 }}>{pages[currentPage].component}</View>
 
       <View
         style={{
@@ -65,6 +68,7 @@ export default function App() {
           alignItems: "center",
         }}
       >
+        <StartWorkout />
         <MainMenu
           pageNavigation={pageNavigation}
           currentPage={currentPage}

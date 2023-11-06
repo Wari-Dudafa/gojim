@@ -12,22 +12,13 @@ function MainMenuButtons(props) {
   return (
     <>
       {filteredPageKeys.map((item, index) => {
-        if (index == 0 || index == 2) {
-          return (
-            <MainMenuButton
-              offset
-              key={index}
-              page={props.pages[item]}
-              pageNavigation={pageNavigation}
-            />
-          );
-        }
-
         return (
           <MainMenuButton
+            offset={index == 0 || index == 2}
             key={index}
             page={props.pages[item]}
             pageNavigation={pageNavigation}
+            toggleMenu={props.toggleMenu}
           />
         );
       })}

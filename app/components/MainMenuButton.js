@@ -2,7 +2,7 @@ import Button from "./Button";
 import colours from "../utils/colours";
 
 function MainMenuButton(props) {
-  let yOffset = 30;
+  let yOffset = 35;
 
   return (
     <Button
@@ -16,6 +16,7 @@ function MainMenuButton(props) {
       }}
       onPress={() => {
         props.pageNavigation(props.page.name);
+        props.toggleMenu();
       }}
     />
   );

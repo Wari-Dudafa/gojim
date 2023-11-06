@@ -12,6 +12,27 @@ function HomePage(props) {
   const [currentWorkout, setCurrentWorkout] = useState(0);
   const workouts = Workout.getAllWorkouts();
 
+  const exercisesInWorkout = () => {
+    let workout = workouts[currentWorkout];
+    let exercisesInWorkout = workout.getExercises();
+
+    let allNames = "";
+
+    for (let index = 0; index < exercisesInWorkout.length; index++) {
+      let exercise = exercisesInWorkout[index];
+
+      allNames = allNames + exercise.name;
+
+      if (index != exercisesInWorkout.length - 1) {
+        allNames = allNames + ", ";
+      } else {
+        allNames = allNames + ".";
+      }
+    }
+
+    return allNames;
+  };
+
   return (
     <>
       <Text
@@ -22,9 +43,9 @@ function HomePage(props) {
           padding: 10,
         }}
       >
-        Your workouts:
+        Your workouts
       </Text>
-      <View style={{ height: 100, padding: 5 }}>
+      <View style={{ flex: 10, padding: 5 }}>
         <View
           style={{
             flexDirection: "row",
@@ -47,7 +68,7 @@ function HomePage(props) {
               iconColor={
                 shoudLoopWorkouts ? colours.primary : colours.background
               }
-              iconSize={shoudLoopWorkouts ? 45 : 40}
+              iconSize={shoudLoopWorkouts ? 50 : 45}
               onPress={() => {
                 setShoudLoopWorkouts(!shoudLoopWorkouts);
               }}
@@ -75,8 +96,6 @@ function HomePage(props) {
               autoPlayInterval={5000}
               onSnapToItem={(index) => {
                 runOnJS(setCurrentWorkout)(index);
-                console.log("Current index: " + index);
-                console.log(workouts[index]);
               }}
               renderItem={({ item }) => (
                 <View
@@ -106,7 +125,37 @@ function HomePage(props) {
           </View>
         </View>
       </View>
-      <View style={{ height: 550, padding: 5 }}>
+      <View style={{ flex: 10, padding: 5 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            flex: 1,
+            padding: 5,
+            paddingHorizontal: 10,
+          }}
+        >
+          <Button
+            style={{
+              backgroundColor: colours.secondary,
+              borderRadius: 10,
+              flex: 1,
+              marginRight: 2.5,
+            }}
+          >
+            <Text
+              style={{
+                fontFamily: "quicksand",
+                textAlign: "center",
+                fontSize: 30,
+                color: colours.text,
+              }}
+            >
+              Start empty workout
+            </Text>
+          </Button>
+        </View>
+      </View>
+      <View style={{ flex: 50, padding: 5 }}>
         <View
           style={{
             flexDirection: "row",
@@ -139,7 +188,19 @@ function HomePage(props) {
                 flex: 1,
                 marginBottom: 2.5,
               }}
-            ></View>
+            >
+              <Text
+                style={{
+                  padding: 10,
+                  fontFamily: "quicksand",
+                  textAlign: "center",
+                  fontSize: 20,
+                  color: colours.text,
+                }}
+              >
+                {exercisesInWorkout()}
+              </Text>
+            </View>
             <View
               style={{
                 backgroundColor: colours.secondary,
@@ -151,6 +212,7 @@ function HomePage(props) {
           </View>
         </View>
       </View>
+      <View style={{ flex: 1, padding: 5 }} />
     </>
   );
 }
