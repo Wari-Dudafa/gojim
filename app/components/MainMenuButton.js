@@ -11,6 +11,7 @@ function MainMenuButton(props) {
         height: 80,
         width: 80,
         borderRadius: 30,
+        margin: -5,
         backgroundColor: colours.primary,
         transform: [{ translateY: props.offset ? yOffset : 0 }],
       }}

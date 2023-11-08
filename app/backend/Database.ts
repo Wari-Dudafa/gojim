@@ -1,5 +1,4 @@
 import * as sqlite from "expo-sqlite";
-import { Alert } from "react-native";
 
 type table = {
   name: string;
@@ -36,32 +35,24 @@ export default class Database {
     },
   ];
 
-  static runSQL(
-    statement: string,
-    args: (null | string | number)[],
-    callback: null | Function
-  ): void {
-    this.db.transaction((tx) => {
-      tx.executeSql(
-        statement,
-        args,
-        (_txObj, resultSet) => {
-          if (callback) {
-            callback(resultSet);
+  static runSQL(statement: string): Promise<sqlite.SQLResultSet> {
+    return new Promise((resolve, reject) => {
+      this.db.transaction((tx) => {
+        tx.executeSql(
+          statement,
+          null,
+          (_txObj, resultSet) => {
+            resolve(resultSet);
+          },
+          (_txObj, error) => {
+            console.error("SQL error: ", error);
+            reject(error);
+            // Returning true would typically roll back the transaction
+            // Returning false would proceed with the transaction as if the error did not occur
+            return false;
           }
-        },
-        (_txObj, error): boolean => {
-          this.init();
-          console.error(error);
-          Alert.alert(
-            "Error",
-            "An error occured with the database, please try again later"
-          );
-          // Returning true would typically roll back the transaction
-          // Returning false would proceed with the transaction as if the error did not occur
-          return true;
-        }
-      );
+        );
+      });
     });
   }
 
@@ -94,7 +85,7 @@ export default class Database {
 
       statement = statement + rowName + " " + rowType + final;
     }
-    this.runSQL(statement, null, null);
+    this.runSQL(statement);
   }
 
   static deleteAllData(): void {
@@ -106,6 +97,6 @@ export default class Database {
 
   static deleteTable(table: table): void {
     let statement: string = "DROP TABLE IF EXISTS " + table.name;
-    this.runSQL(statement, null, null);
+    this.runSQL(statement);
   }
 }

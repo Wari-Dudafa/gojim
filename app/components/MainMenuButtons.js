@@ -14,7 +14,7 @@ function MainMenuButtons(props) {
       {filteredPageKeys.map((item, index) => {
         return (
           <MainMenuButton
-            offset={index == 0 || index == 2}
+            offset={index == 0 || index == filteredPageKeys.length - 1}
             key={index}
             page={props.pages[item]}
             pageNavigation={pageNavigation}

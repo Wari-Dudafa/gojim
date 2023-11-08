@@ -1,42 +1,60 @@
 import Exercise from "./Exercise";
 import Database from "./Database";
+import { SQLResultSet } from "expo-sqlite";
 
 export default class Workout {
   id: number;
   name: string;
   exercises: Exercise[];
 
-  constructor(id: number, name: string) {
-    this.id = id;
-    this.name = name;
-
-    if (id) {
+  constructor(config: number | string) {
+    if (typeof config == "number") {
       // This is not a new workout, get the data for the already exisiting workout
+      this.id = config;
+      let statement = `SELECT * FROM workouts WHERE id = ${config}`;
+      Database.runSQL(statement).then((resultSet: SQLResultSet) => {
+        if (resultSet.rows.length > 0) {
+          this.name = resultSet.rows._array[0].name;
+        }
+      });
     } else {
       // This is a new workout, make a new workout
+      this.name = config;
+      let statement = `INSERT INTO workouts (name) VALUES('${config}')`;
+      Database.runSQL(statement).then((resultSet: SQLResultSet) => {
+        this.id = resultSet.insertId;
+      });
     }
-    this.exercises = [
-      new Exercise(null, this.name),
-      new Exercise(null, "Squats"),
-      new Exercise(null, "Bench Press"),
-      new Exercise(null, "Deadlifts"),
-      new Exercise(null, "Pullups"),
-      new Exercise(null, "Pushups"),
-      new Exercise(null, this.name),
-    ];
   }
 
-  static getAllWorkouts(): Workout[] {
-    return [
-      new Workout(null, "Chest day"),
-      new Workout(null, "Leg day"),
-      new Workout(null, "Cardio"),
-      new Workout(null, "Back day"),
-      new Workout(null, "Arm day"),
-    ];
+  static getAllWorkouts(): Promise<Workout[]> {
+    let statement = "SELECT id FROM workouts";
+
+    return Database.runSQL(statement).then((resultSet: SQLResultSet) => {
+      let results = resultSet.rows._array;
+      let returnArray: Workout[] = [];
+
+      if (resultSet.rows.length == 0) return returnArray;
+      for (let index = 0; index < results.length; index++) {
+        let workout = results[index];
+        returnArray.push(new Workout(workout.id));
+      }
+
+      return returnArray;
+    });
   }
 
   getExercises(): Exercise[] {
+    this.exercises = [
+      new Exercise({ name: this.name, timed: false }),
+      new Exercise({ name: "Squats", timed: false }),
+      new Exercise({ name: "Bench Press", timed: false }),
+      new Exercise({ name: this.name, timed: false }),
+      new Exercise({ name: "Deadlifts", timed: false }),
+      new Exercise({ name: "Pullups", timed: false }),
+      new Exercise({ name: "Pushups", timed: false }),
+      new Exercise({ name: this.name, timed: false }),
+    ];
     return this.exercises;
   }
 

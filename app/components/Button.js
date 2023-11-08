@@ -1,7 +1,9 @@
-import { Pressable } from "react-native";
+import { Pressable, Text } from "react-native";
 import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Animated, { withSpring, useSharedValue } from "react-native-reanimated";
+
+import colours from "../utils/colours";
 
 function Button(props) {
   const opacity = useSharedValue(1);
@@ -68,6 +70,10 @@ function Button(props) {
           />
         ) : null}
         {props.children}
+
+        {props.text ? (
+          <Text style={{ color: colours.text }}>{props.text}</Text>
+        ) : null}
       </Animated.View>
     </Pressable>
   );

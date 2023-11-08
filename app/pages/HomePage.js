@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View, Text, Alert } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 import Animated, {
@@ -14,7 +14,36 @@ import Workout from "../backend/Workout";
 function HomePage(props) {
   const [shoudLoopWorkouts, setShoudLoopWorkouts] = useState(true);
   const [currentWorkout, setCurrentWorkout] = useState(0);
-  const workouts = Workout.getAllWorkouts();
+  const [workouts, setWorkouts] = useState([]);
+  const startWorkoutMesssages = [
+    "Start selected workout",
+    "Doing selected workout",
+    "Start workout instead",
+  ];
+  const [startWorkoutMesssage, setStartWorkoutMessage] = useState(
+    startWorkoutMesssages[0]
+  );
+
+  useEffect(() => {
+    Workout.getAllWorkouts().then((workouts) => {
+      setTimeout(() => {
+        setWorkouts(workouts);
+      }, 100);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (props.currentWorkout && workouts[currentWorkout]) {
+      if (props.currentWorkout.id == workouts[currentWorkout].id) {
+        setStartWorkoutMessage(startWorkoutMesssages[1]);
+      } else {
+        setStartWorkoutMessage(startWorkoutMesssages[2]);
+      }
+    } else {
+      setStartWorkoutMessage(startWorkoutMesssages[0]);
+    }
+  }, [currentWorkout]);
+
   const workoutsProgressBar = useSharedValue("0%");
   const springConfig = {
     mass: 0.5,
@@ -23,6 +52,7 @@ function HomePage(props) {
 
   const exercisesInWorkout = () => {
     let allNames = "";
+    if (workouts.length == 0) return allNames;
     let workout = workouts[currentWorkout];
     let exercisesInWorkout = workout.getExercises();
 
@@ -177,11 +207,7 @@ function HomePage(props) {
                 color: colours.text,
               }}
             >
-              {props.currentWorkout
-                ? props.currentWorkout.id == workouts[currentWorkout].id
-                  ? "Doing selected workout"
-                  : "Start workout instead"
-                : "Start selected workout"}
+              {startWorkoutMesssage}
             </Text>
           </Button>
         </View>

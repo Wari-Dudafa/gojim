@@ -8,6 +8,7 @@ import MainMenu from "./app/components/MainMenu";
 import colours from "./app/utils/colours";
 import StartWorkout from "./app/components/StartWorkout";
 import HomePage from "./app/pages/HomePage";
+import NewWorkout from "./app/pages/NewWorkout";
 import PlaceholderPage from "./app/pages/PlaceholderPage";
 
 SplashScreen.preventAutoHideAsync();
@@ -33,10 +34,10 @@ export default function App() {
         />
       ),
     },
-    addDayPage: {
-      name: "addDayPage",
+    NewWorkout: {
+      name: "NewWorkout",
       icon: "plus",
-      component: <PlaceholderPage header="New Workout" />,
+      component: <NewWorkout header="New Workout" />,
     },
     graphPage: {
       name: "graphPage",
