@@ -9,7 +9,7 @@ import Animated, {
 
 import colours from "../utils/colours";
 import Button from "../components/Button";
-import Workout from "../classes/Workout";
+import Workout from "../backend/Workout";
 
 function HomePage(props) {
   const [shoudLoopWorkouts, setShoudLoopWorkouts] = useState(true);
@@ -180,7 +180,7 @@ function HomePage(props) {
               {props.currentWorkout
                 ? props.currentWorkout.id == workouts[currentWorkout].id
                   ? "Doing selected workout"
-                  : "Start selected workout"
+                  : "Start workout instead"
                 : "Start selected workout"}
             </Text>
           </Button>

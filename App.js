@@ -3,6 +3,7 @@ import { View, StatusBar, SafeAreaView } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+import Database from "./app/backend/Database";
 import MainMenu from "./app/components/MainMenu";
 import colours from "./app/utils/colours";
 import StartWorkout from "./app/components/StartWorkout";
@@ -55,6 +56,7 @@ export default function App() {
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
+      Database.init();
       await SplashScreen.hideAsync();
     }
   }, [fontsLoaded, fontError]);
