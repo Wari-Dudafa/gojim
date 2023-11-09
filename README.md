@@ -1,3 +1,4 @@
+Currently developing Gojim v2.0 [github repo]([https://apps.apple.com/app/id6467132061](https://github.com/Wari-Dudafa/gojim/tree/gojim-2))
 # Gojim Fitness App
 
 <img src="./assets/icon.png" alt="Gojim Logo"  width="350">
