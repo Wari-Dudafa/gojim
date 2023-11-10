@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, Dimensions, Alert } from "react-native";
+import { View, Text, Dimensions, Alert, ScrollView } from "react-native";
 import {
   GestureHandlerRootView,
   GestureDetector,
@@ -13,6 +13,7 @@ import Animated, {
 
 import colours from "../utils/colours";
 import Button from "./Button";
+import StartExercise from "./StartExercise";
 
 function StartWorkout(props) {
   const screenHeight = Dimensions.get("window").height;
@@ -93,7 +94,7 @@ function StartWorkout(props) {
                 padding: 10,
                 fontFamily: atTheTop ? "quicksand-bold" : "quicksand",
                 fontSize: atTheTop ? 40 : 25,
-                color: colours.text,
+                color: atTheTop ? colours.primary : colours.text,
               }}
             >
               {props.currentWorkout
@@ -104,8 +105,8 @@ function StartWorkout(props) {
         </GestureHandlerRootView>
         {props.currentWorkout ? (
           <Button
-            icon={"stop-circle-outline"}
-            iconSize={atTheTop ? 65 : 50}
+            icon={"stop"}
+            iconSize={atTheTop ? 55 : 50}
             iconColor={colours.primary}
             onPress={() => {
               Alert.alert(
@@ -128,11 +129,7 @@ function StartWorkout(props) {
         ) : null}
 
         <Button
-          icon={
-            atTheTop
-              ? "chevron-down-circle-outline"
-              : "chevron-up-circle-outline"
-          }
+          icon={atTheTop ? "chevron-down" : "chevron-up"}
           iconSize={atTheTop ? 65 : 50}
           iconColor={colours.primary}
           onPress={() => {
@@ -141,12 +138,20 @@ function StartWorkout(props) {
           style={{ paddingLeft: 5 }}
         />
       </View>
-
-      {props.currentWorkout ? (
-        <Text style={{ color: colours.text, paddingHorizontal: 40 }}>
-          Working out...
-        </Text>
-      ) : null}
+      <ScrollView
+        contentContainerStyle={{
+          justifyContent: "center",
+          alignContent: "center",
+        }}
+      >
+        {props.currentWorkout
+          ? props.currentWorkout
+              .getExercises()
+              .map((item, index) => (
+                <StartExercise key={index} exercise={item} />
+              ))
+          : null}
+      </ScrollView>
     </Animated.View>
   );
 }

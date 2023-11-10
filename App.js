@@ -17,10 +17,10 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState("homePage");
   const [currentWorkout, setCurrentWorkout] = useState(null);
   const [fontsLoaded, fontError] = useFonts({
-    quicksand: require("./assets/fonts/quicksand/Quicksand-Regular.ttf"),
-    "quicksand-bold": require("./assets/fonts/quicksand/Quicksand-Bold.ttf"),
     "quicksand-light": require("./assets/fonts/quicksand/Quicksand-Light.ttf"),
+    quicksand: require("./assets/fonts/quicksand/Quicksand-Regular.ttf"),
     "quicksand-medium": require("./assets/fonts/quicksand/Quicksand-Medium.ttf"),
+    "quicksand-bold": require("./assets/fonts/quicksand/Quicksand-Bold.ttf"),
   });
 
   const pages = {

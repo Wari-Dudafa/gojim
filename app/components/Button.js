@@ -66,13 +66,21 @@ function Button(props) {
             style={{ alignSelf: "center" }}
             name={props.icon}
             size={props.iconSize ? props.iconSize : 50}
-            color={props.iconColor}
+            color={props.iconColor ? props.iconColor : colours.background}
           />
         ) : null}
         {props.children}
 
         {props.text ? (
-          <Text style={{ color: colours.text }}>{props.text}</Text>
+          <Text
+            style={[
+              ,
+              props.textStyle,
+              { color: colours.text},
+            ]}
+          >
+            {props.text}
+          </Text>
         ) : null}
       </Animated.View>
     </Pressable>

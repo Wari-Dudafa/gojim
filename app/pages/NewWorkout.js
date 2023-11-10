@@ -7,6 +7,7 @@ import Workout from "../backend/Workout";
 
 function NewWorkout(props) {
   const [name, setName] = useState("");
+  
   return (
     <View>
       <Text
