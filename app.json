@@ -9,11 +9,11 @@
     "splash": {
       "image": "./assets/transparent.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#101313"
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "1",
+      "buildNumber": "2",
       "supportsTablet": false,
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true
@@ -27,7 +27,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#101313"
       },
       "permissions": ["android.permission.CAMERA"]
     },

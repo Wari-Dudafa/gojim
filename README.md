@@ -1,3 +1,7 @@
+# Gojim
+
+<img src="./assets/icon.png" alt="Gojim Logo"  width="350">
+
 ## Contact
 
 For any questions or inquiries, please reach out:
