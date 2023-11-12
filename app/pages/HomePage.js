@@ -9,25 +9,22 @@ import Animated, {
 } from "react-native-reanimated";
 
 import colours from "../utils/Colours";
-import Button from "../components/Button";
 import Workout from "../backend/Workout";
+import Button from "../components/Button";
+import springConfig from "../utils/SpringConfig";
 
 function HomePage(props) {
-  const screenWidth = Dimensions.get("window").width;
-  const [shoudLoopWorkouts, setShoudLoopWorkouts] = useState(true);
-  const [currentWorkout, setCurrentWorkout] = useState(0);
+  const autoPlayInterval = 6500;
   const [workouts, setWorkouts] = useState([]);
   const startWorkoutMesssages = ["Start", "🏋🏾🏃🏾"];
+  const workoutsProgressBar = useSharedValue("0%");
+  const screenWidth = Dimensions.get("window").width;
+  const [currentWorkout, setCurrentWorkout] = useState(0);
+  const autoPlayIntervalProgressBar = useSharedValue("0%");
+  const [shoudLoopWorkouts, setShoudLoopWorkouts] = useState(true);
   const [startWorkoutMesssage, setStartWorkoutMessage] = useState(
     startWorkoutMesssages[0]
   );
-  const autoPlayInterval = 6500;
-  const workoutsProgressBar = useSharedValue("0%");
-  const autoPlayIntervalProgressBar = useSharedValue("0%");
-  const springConfig = {
-    mass: 0.5,
-    damping: 50,
-  };
 
   useEffect(() => {
     Workout.getAllWorkouts().then((workouts) => {
@@ -42,16 +39,20 @@ function HomePage(props) {
   }, []);
 
   useEffect(() => {
-    if (props.currentWorkout && workouts[currentWorkout]) {
-      if (props.currentWorkout.id == workouts[currentWorkout].id) {
-        setStartWorkoutMessage(startWorkoutMesssages[1]);
-      } else {
-        setStartWorkoutMessage(startWorkoutMesssages[0]);
-      }
+    updateStartWorkoutMessage(currentWorkout);
+  }, [props.currentWorkout]);
+
+  const updateStartWorkoutMessage = (index) => {
+    if (
+      props.currentWorkout &&
+      workouts[index] &&
+      props.currentWorkout.id == workouts[index].id
+    ) {
+      setStartWorkoutMessage(startWorkoutMesssages[1]);
     } else {
       setStartWorkoutMessage(startWorkoutMesssages[0]);
     }
-  }, [props.currentWorkout]);
+  };
 
   const exercisesInWorkout = () => {
     let allNames = "";
@@ -118,6 +119,7 @@ function HomePage(props) {
               autoPlayInterval={autoPlayInterval}
               onSnapToItem={(index) => {
                 runOnJS(setCurrentWorkout)(index);
+                runOnJS(updateStartWorkoutMessage)(index);
                 let forwardRatio = 0.8; // What fraction of the total time taken is the line coming forward
                 let percentage = parseInt((index / workouts.length) * 100);
 

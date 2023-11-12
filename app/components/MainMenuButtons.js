@@ -5,6 +5,7 @@ function MainMenuButtons(props) {
   const filteredPageKeys = pageKeys.filter(
     (item) => item !== props.currentPage
   );
+  
   const pageNavigation = (pageName) => {
     props.pageNavigation(pageName);
   };

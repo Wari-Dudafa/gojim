@@ -25,9 +25,8 @@ export default class Workout {
         Database.runSQL(statement).then((resultSet: SQLResultSet) => {
           if (resultSet.rows.length > 0) {
             for (let index = 0; index < resultSet.rows._array.length; index++) {
-              this.exercises.push(
-                new Exercise(resultSet.rows._array[index].id)
-              );
+              let result = resultSet.rows._array[index];
+              this.exercises.push(new Exercise(result.id));
             }
           }
         });

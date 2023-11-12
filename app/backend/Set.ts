@@ -2,9 +2,9 @@ import Database from "./Database";
 
 export default class Set {
   id: number;
-  weight: number;
-  reps: number;
   time: number;
+  reps: number;
+  weight: number;
 
   constructor(weight: number, reps: number, time: number) {
     this.weight = weight;

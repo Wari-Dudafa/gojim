@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, TextInput, Text, ScrollView } from "react-native";
+import { View, TextInput, Text, ScrollView, Alert } from "react-native";
 
 import Button from "../components/Button";
 import colours from "../utils/Colours";
@@ -9,29 +9,33 @@ import exerciseNames from "../utils/ExerciseNames";
 function NewWorkout(props) {
   const [name, setName] = useState("");
   const [exercises, setExercises] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
   const [exerciseName, setExerciseName] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const [noSearchResults, setNoSearchResults] = useState(false);
 
   const saveWorkout = () => {
     if (name.length == 0) {
       Alert.alert("Please type a workout name");
     } else {
-      let newWorkout = new Workout(name);
+      if (exercises.length == 0) {
+        Alert.alert("Please add an exercise");
+      } else {
+        let newWorkout = new Workout(name);
 
-      for (let index = 0; index < exercises.length; index++) {
-        let exercise = exercises[index];
+        for (let index = 0; index < exercises.length; index++) {
+          let exercise = exercises[index];
+          newWorkout.addExercise(exercise.name, false);
+        }
 
-        newWorkout.addExercise(exercise.name, false);
+        setName("");
+        setExercises([]);
+        setExerciseName("");
+        setSearchResults([]);
+        Alert.alert("New workout created");
       }
-
-      setName("");
-      setSearchResults([]);
-      setExerciseName("");
-      setExercises([]);
-      Alert.alert("New workout created!");
     }
   };
+
   const handleExerciseNameChange = (text) => {
     let filteredExerciseNames = exerciseNames.filter((item) =>
       item.includes(text)

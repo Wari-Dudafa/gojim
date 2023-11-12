@@ -20,28 +20,28 @@ function StartExercise(props) {
         }}
       >
         <Button
-          textStyle={{ fontFamily: "quicksand-medium", fontSize: 20 }}
           text={props.exercise.name}
+          textStyle={{ fontFamily: "quicksand-medium", fontSize: 20 }}
           onPress={() => {
             setIsCollapsed(!isCollapsed);
           }}
-        ></Button>
+        />
         <Button
+          iconColor={colours.text}
+          icon={isCollapsed ? "chevron-left" : "chevron-down"}
           onPress={() => {
             setIsCollapsed(!isCollapsed);
           }}
-          icon={isCollapsed ? "chevron-left" : "chevron-down"}
-          iconColor={colours.text}
         />
       </View>
       <Collapsible
+        renderChildrenCollapsed
         collapsed={isCollapsed}
         style={{
           padding: 10,
           backgroundColor: colours.secondary,
           width: "100%",
         }}
-        renderChildrenCollapsed
       >
         <View>
           <Text

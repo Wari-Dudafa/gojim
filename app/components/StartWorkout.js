@@ -11,20 +11,17 @@ import Animated, {
   runOnJS,
 } from "react-native-reanimated";
 
-import colours from "../utils/Colours";
 import Button from "./Button";
+import colours from "../utils/Colours";
 import StartExercise from "./StartExercise";
+import springConfig from "../utils/SpringConfig";
 
 function StartWorkout(props) {
-  const screenHeight = Dimensions.get("window").height;
-  const top = -screenHeight * 0.85;
-  const [atTheTop, setAtTheTop] = useState(false);
   const zIndex = useSharedValue(0);
   const yPosition = useSharedValue(0);
-  const springConfig = {
-    mass: 0.5,
-    damping: 50,
-  };
+  const [atTheTop, setAtTheTop] = useState(false);
+  const screenHeight = Dimensions.get("window").height;
+  const top = -screenHeight * 0.85;
 
   const toggleMenu = () => {
     if (atTheTop) {

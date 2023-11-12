@@ -10,18 +10,15 @@ import Animated, {
 import Button from "./Button";
 import colours from "../utils/Colours";
 import MainMenuButtons from "./MainMenuButtons";
+import springConfig from "../utils/SpringConfig";
 
 function MainMenu(props) {
-  const screenWidth = Dimensions.get("window").width;
-  const screenHeight = Dimensions.get("window").height;
-  const [menuIsOpen, setMenuIsOpen] = useState(false);
-  const blackViewHeight = useSharedValue(0);
-  const yOffset = useSharedValue(screenHeight * 0.6);
   const opacity = useSharedValue(0);
-  const springConfig = {
-    mass: 0.5,
-    damping: 50,
-  };
+  const blackViewHeight = useSharedValue(0);
+  const screenWidth = Dimensions.get("window").width;
+  const [menuIsOpen, setMenuIsOpen] = useState(false);
+  const screenHeight = Dimensions.get("window").height;
+  const yOffset = useSharedValue(screenHeight * 0.6);
 
   const toggleMenu = () => {
     if (menuIsOpen) {
@@ -104,14 +101,14 @@ function MainMenu(props) {
       <Button
         icon="weight-gram"
         iconColor={colours.primary}
-        iconSize={70}
+        iconSize={75}
         style={{
           backgroundColor: colours.background,
           borderColor: colours.text,
-          borderWidth: 5,
+          borderWidth: 4,
           width: 90,
-          height: 120,
-          borderRadius: 999,
+          height: 90 * 1.35,
+          borderRadius: 35,
           shadowColor: "white",
           shadowOffset: { width: 0, height: 0 },
           shadowOpacity: 0.2,

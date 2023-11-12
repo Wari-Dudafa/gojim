@@ -38,8 +38,9 @@ export default class Database {
             resolve(resultSet);
           },
           (_txObj, error) => {
-            console.error("SQL error: ", error);
+            this.init();
             reject(error);
+            console.error("SQL error: ", error);
             // Returning true would typically roll back the transaction
             // Returning false would proceed with the transaction as if the error did not occur
             return false;

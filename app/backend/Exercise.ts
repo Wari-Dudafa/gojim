@@ -10,12 +10,12 @@ type config = {
 
 export default class Exercise {
   id: number;
-  name: string;
   sets: Set[];
+  name: string;
   timed: boolean;
-  superSets: Exercise[];
   dropSets: Set[];
   workoutId: number;
+  superSets: Exercise[];
 
   constructor(config: number | config) {
     if (typeof config == "number") {
@@ -25,9 +25,11 @@ export default class Exercise {
       let statement = `SELECT * FROM exercises WHERE id = ${config}`;
       Database.runSQL(statement).then((resultSet: SQLResultSet) => {
         if (resultSet.rows.length > 0) {
-          this.name = resultSet.rows._array[0].name;
-          this.workoutId = resultSet.rows._array[0].workout_id;
-          this.timed = Boolean(resultSet.rows._array[0].timed);
+          let result = resultSet.rows._array;
+
+          this.name = result[0].name;
+          this.workoutId = result[0].workout_id;
+          this.timed = Boolean(result[0].timed);
         }
         // Grab set and other data...
       });

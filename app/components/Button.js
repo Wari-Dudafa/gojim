@@ -4,24 +4,21 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Animated, { withSpring, useSharedValue } from "react-native-reanimated";
 
 import colours from "../utils/Colours";
+import springConfig from "../utils/SpringConfig";
 
 function Button(props) {
-  const opacity = useSharedValue(1);
-  const scale = useSharedValue(1);
   const animateScaleTo = 1.1;
   const animateOpacityTo = 0.5;
-  const springConfig = {
-    mass: 0.5,
-    damping: 50,
-  };
+  const scale = useSharedValue(1);
+  const opacity = useSharedValue(1);
 
   const toggleOpacity = (touching) => {
     if (touching) {
-      opacity.value = withSpring(animateOpacityTo, springConfig);
       scale.value = withSpring(animateScaleTo, springConfig);
+      opacity.value = withSpring(animateOpacityTo, springConfig);
     } else {
-      opacity.value = withSpring(1, springConfig);
       scale.value = withSpring(1, springConfig);
+      opacity.value = withSpring(1, springConfig);
     }
   };
 
@@ -50,6 +47,9 @@ function Button(props) {
       }}
       onPressOut={() => {
         toggleOpacity(false);
+        if (props.onPressOut) {
+          props.onPressOut();
+        }
       }}
     >
       <Animated.View
