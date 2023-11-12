@@ -13,7 +13,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "1",
+      "buildNumber": "2",
       "supportsTablet": false,
       "entitlements": {
         "com.apple.developer.networking.wifi-info": true
@@ -22,7 +22,8 @@
         "NSCameraUsageDescription": "Gojim uses your camera for it's barcode scanning capabilities, enable to be able to scan a food barcode and have its nutritional value downloaded",
         "NSMicrophoneUsageDescription": "Allow Gojim to access your microphone"
       },
-      "bundleIdentifier": "com.waripamooweidudafa.gojim"
+      "bundleIdentifier": "com.waripamooweidudafa.gojim",
+      "appStoreUrl": "https://apps.apple.com/us/app/gojim/id6467132061"
     },
     "android": {
       "adaptiveIcon": {
