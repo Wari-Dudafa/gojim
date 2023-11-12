@@ -3,7 +3,7 @@ import { impactAsync, ImpactFeedbackStyle } from "expo-haptics";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import Animated, { withSpring, useSharedValue } from "react-native-reanimated";
 
-import colours from "../utils/colours";
+import colours from "../utils/Colours";
 
 function Button(props) {
   const opacity = useSharedValue(1);
@@ -28,11 +28,11 @@ function Button(props) {
   return (
     <Pressable
       style={[
-        props.style,
         {
           justifyContent: "center",
           alignItems: "center",
         },
+        props.style,
       ]}
       onPressIn={() => {
         impactAsync(ImpactFeedbackStyle.Light);
@@ -72,13 +72,7 @@ function Button(props) {
         {props.children}
 
         {props.text ? (
-          <Text
-            style={[
-              ,
-              props.textStyle,
-              { color: colours.text},
-            ]}
-          >
+          <Text style={[{ color: colours.text }, props.textStyle]}>
             {props.text}
           </Text>
         ) : null}

@@ -11,7 +11,7 @@ import Animated, {
   runOnJS,
 } from "react-native-reanimated";
 
-import colours from "../utils/colours";
+import colours from "../utils/Colours";
 import Button from "./Button";
 import StartExercise from "./StartExercise";
 

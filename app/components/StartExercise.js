@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Text, View } from "react-native";
 import Collapsible from "react-native-collapsible";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import Button from "./Button";
-import colours from "../utils/colours";
+import colours from "../utils/Colours";
 
 function StartExercise(props) {
   const [isCollapsed, setIsCollapsed] = useState(true);
@@ -39,13 +38,19 @@ function StartExercise(props) {
         collapsed={isCollapsed}
         style={{
           padding: 10,
-          backgroundColor: "red",
+          backgroundColor: colours.secondary,
           width: "100%",
         }}
         renderChildrenCollapsed
       >
         <View>
-          <Text>{props.exercise.name}</Text>
+          <Text
+            style={{
+              color: colours.text,
+            }}
+          >
+            {props.exercise.name}
+          </Text>
         </View>
       </Collapsible>
     </>

@@ -22,15 +22,8 @@ export default class Database {
       name: "exercises",
       rows: [
         { name: "name", type: "TEXT" },
-        { name: "reps", type: "INTEGER" },
-        { name: "sets", type: "INTEGER" },
-      ],
-    },
-    {
-      name: "exercises_in_workout",
-      rows: [
+        { name: "timed", type: "INTEGER" },
         { name: "workout_id", type: "INTEGER" },
-        { name: "exercise_id", type: "INTEGER" },
       ],
     },
   ];
@@ -58,7 +51,6 @@ export default class Database {
 
   static init(): void {
     // Loop over tables and add them to the database if the dont already exist
-
     for (let index = 0; index < this.tables.length; index++) {
       let table = this.tables[index];
       this.makeTable(table);
@@ -66,16 +58,13 @@ export default class Database {
   }
 
   static makeTable(table: table): void {
-    let statement =
-      "CREATE TABLE IF NOT EXISTS " +
-      table.name +
-      " (id INTEGER PRIMARY KEY AUTOINCREMENT, ";
+    let statement = `CREATE TABLE IF NOT EXISTS ${table.name} (id INTEGER PRIMARY KEY AUTOINCREMENT, `;
 
     for (let index = 0; index < table.rows.length; index++) {
+      let final: string;
       let row: row = table.rows[index];
       let rowName: string = row.name;
       let rowType: string = row.type;
-      let final: string;
 
       if (index == table.rows.length - 1) {
         final = ")";
@@ -83,8 +72,9 @@ export default class Database {
         final = ", ";
       }
 
-      statement = statement + rowName + " " + rowType + final;
+      statement = `${statement}${rowName} ${rowType}${final}`;
     }
+
     this.runSQL(statement);
   }
 
@@ -96,7 +86,7 @@ export default class Database {
   }
 
   static deleteTable(table: table): void {
-    let statement: string = "DROP TABLE IF EXISTS " + table.name;
+    let statement: string = `DROP TABLE IF EXISTS ${table.name}`;
     this.runSQL(statement);
   }
 }

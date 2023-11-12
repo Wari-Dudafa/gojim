@@ -5,7 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 
 import Database from "./app/backend/Database";
 import MainMenu from "./app/components/MainMenu";
-import colours from "./app/utils/colours";
+import colours from "./app/utils/Colours";
 import StartWorkout from "./app/components/StartWorkout";
 import HomePage from "./app/pages/HomePage";
 import NewWorkout from "./app/pages/NewWorkout";
@@ -17,8 +17,8 @@ export default function App() {
   const [currentPage, setCurrentPage] = useState("homePage");
   const [currentWorkout, setCurrentWorkout] = useState(null);
   const [fontsLoaded, fontError] = useFonts({
-    "quicksand-light": require("./assets/fonts/quicksand/Quicksand-Light.ttf"),
     quicksand: require("./assets/fonts/quicksand/Quicksand-Regular.ttf"),
+    "quicksand-light": require("./assets/fonts/quicksand/Quicksand-Light.ttf"),
     "quicksand-medium": require("./assets/fonts/quicksand/Quicksand-Medium.ttf"),
     "quicksand-bold": require("./assets/fonts/quicksand/Quicksand-Bold.ttf"),
   });

@@ -8,7 +8,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import Button from "./Button";
-import colours from "../utils/colours";
+import colours from "../utils/Colours";
 import MainMenuButtons from "./MainMenuButtons";
 
 function MainMenu(props) {

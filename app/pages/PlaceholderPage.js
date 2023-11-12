@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-import colours from "../utils/colours";
+import colours from "../utils/Colours";
 
 function PlaceholderPage(props) {
   return (

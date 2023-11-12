@@ -1,5 +1,5 @@
 import Button from "./Button";
-import colours from "../utils/colours";
+import colours from "../utils/Colours";
 
 function MainMenuButton(props) {
   let yOffset = 35;

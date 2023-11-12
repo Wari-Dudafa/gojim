@@ -8,7 +8,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import colours from "../utils/colours";
+import colours from "../utils/Colours";
 import Button from "../components/Button";
 import Workout from "../backend/Workout";
 
@@ -35,6 +35,7 @@ function HomePage(props) {
         setWorkouts(workouts);
       }, 100);
     });
+
     autoPlayIntervalProgressBar.value = withTiming("100%", {
       duration: autoPlayInterval * 1.05,
     });
@@ -54,9 +55,12 @@ function HomePage(props) {
 
   const exercisesInWorkout = () => {
     let allNames = "";
+
     if (workouts.length == 0) return allNames;
     let workout = workouts[currentWorkout];
     let exercisesInWorkout = workout.getExercises();
+
+    if (!exercisesInWorkout) return allNames;
 
     for (let index = 0; index < exercisesInWorkout.length; index++) {
       let exercise = exercisesInWorkout[index];
@@ -64,9 +68,9 @@ function HomePage(props) {
       allNames = allNames + exercise.name;
 
       if (index != exercisesInWorkout.length - 1) {
-        allNames = allNames + ", ";
+        allNames = `${allNames}, `;
       } else {
-        allNames = allNames + ".";
+        allNames = `${allNames}.`;
       }
     }
 
@@ -209,14 +213,18 @@ function HomePage(props) {
           />
           <Button
             onPress={() => {
-              if (props.currentWorkout) {
-                if (props.currentWorkout.id != workouts[currentWorkout].id) {
-                  Alert.alert(
-                    "Please end your current workout before starting another one"
-                  );
-                }
+              if (workouts.length == 0) {
+                Alert.alert("You need to make a workout first");
               } else {
-                props.setCurrentWorkout(workouts[currentWorkout]);
+                if (props.currentWorkout) {
+                  if (props.currentWorkout.id != workouts[currentWorkout].id) {
+                    Alert.alert(
+                      "Please end your current workout before starting another one"
+                    );
+                  }
+                } else {
+                  props.setCurrentWorkout(workouts[currentWorkout]);
+                }
               }
             }}
             style={{
