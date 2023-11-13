@@ -191,16 +191,18 @@ function HomePage(props) {
         </View>
       </View>
 
-      <StartBar
-        workouts={workouts}
-        workoutIndex={workoutIndex}
-        setWorkoutIndex={setWorkoutIndex}
-        currentWorkout={props.currentWorkout}
-        shoudLoopWorkouts={shoudLoopWorkouts}
-        setShoudLoopWorkouts={setShoudLoopWorkouts}
-        setCurrentWorkout={props.setCurrentWorkout}
-        startWorkoutMesssage={startWorkoutMesssage}
-      />
+      <View style={{ flex: 10, padding: 5 }}>
+        <StartBar
+          workouts={workouts}
+          workoutIndex={workoutIndex}
+          setWorkoutIndex={setWorkoutIndex}
+          currentWorkout={props.currentWorkout}
+          shoudLoopWorkouts={shoudLoopWorkouts}
+          setShoudLoopWorkouts={setShoudLoopWorkouts}
+          setCurrentWorkout={props.setCurrentWorkout}
+          startWorkoutMesssage={startWorkoutMesssage}
+        />
+      </View>
 
       <View style={{ flex: 80, padding: 5 }}>
         <View

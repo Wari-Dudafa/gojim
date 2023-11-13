@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 import Collapsible from "react-native-collapsible";
 
 import Button from "../Button";
+import SetContainer from "./SetContainer";
 import colours from "../../utils/Colours";
 
 function StartExercise(props) {
@@ -43,15 +44,7 @@ function StartExercise(props) {
           width: "100%",
         }}
       >
-        <View>
-          <Text
-            style={{
-              color: colours.text,
-            }}
-          >
-            {props.exercise.name}
-          </Text>
-        </View>
+        <SetContainer exercise={props.exercise} />
       </Collapsible>
     </>
   );
