@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { View, TextInput, Text, ScrollView, Alert } from "react-native";
+import { View, Text, Alert } from "react-native";
 
-import Button from "../components/Button";
 import colours from "../utils/Colours";
 import Workout from "../backend/Workout";
 import exerciseNames from "../utils/ExerciseNames";
+import WorkoutName from "../components/new-workout/WorkoutName";
+import ExerciseList from "../components/new-workout/ExerciseList";
 
 function NewWorkout(props) {
   const [name, setName] = useState("");
@@ -73,175 +74,20 @@ function NewWorkout(props) {
           padding: 10,
         }}
       >
-        {props.header}
+        New Workout
       </Text>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <TextInput
-          placeholder="Workout name"
-          value={name}
-          onChangeText={setName}
-          style={{ padding: 10, fontSize: 30, color: colours.text }}
-        />
+      <WorkoutName saveWorkout={saveWorkout} name={name} setName={setName} />
 
-        <Button
-          icon={"content-save"}
-          iconColor={colours.primary}
-          style={{ paddingHorizontal: 10 }}
-          onPress={() => {
-            saveWorkout(0);
-          }}
-        />
-      </View>
-
-      <View
-        style={{
-          marginTop: 10,
-          backgroundColor: colours.secondary,
-        }}
-      >
-        <View
-          style={{
-            shadowColor: "black",
-            shadowOpacity: 1,
-            shadowRadius: 10,
-            backgroundColor: colours.secondary,
-            shadowOffset: { width: 0, height: -1 },
-            zIndex: 1,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            <TextInput
-              placeholder="Exercise name"
-              value={exerciseName}
-              onChangeText={(text) => handleExerciseNameChange(text)}
-              style={{
-                padding: 10,
-                fontSize: 30,
-                color: colours.text,
-                flex: 3,
-              }}
-            />
-            {noSearchResults ? (
-              <Button
-                icon={"plus"}
-                style={{ paddingHorizontal: 10, flex: 1 }}
-                iconColor={colours.primary}
-                onPress={() => {
-                  addToExercices(exerciseName);
-                }}
-              />
-            ) : null}
-          </View>
-        </View>
-        <ScrollView>
-          {searchResults.map((item, index) => {
-            return (
-              <View
-                key={index}
-                style={{
-                  width: "100%",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  backgroundColor: colours.secondary,
-                  borderColor: colours.accent,
-                  position: "relative",
-                  padding: 5,
-                }}
-              >
-                <Text
-                  style={{
-                    flex: 3,
-                    padding: 10,
-                    fontSize: 25,
-                    color: colours.text,
-                  }}
-                >
-                  {item}
-                </Text>
-                <Button
-                  icon={"plus"}
-                  style={{ paddingHorizontal: 10, flex: 1 }}
-                  iconColor={colours.primary}
-                  onPress={() => {
-                    addToExercices(item);
-                  }}
-                />
-                <View
-                  style={{
-                    height: 2,
-                    left: "4%",
-                    bottom: "0%",
-                    width: "90%",
-                    borderRadius: 10,
-                    position: "absolute",
-                    backgroundColor: colours.accent,
-                  }}
-                />
-              </View>
-            );
-          })}
-          {exerciseName.length >= 2 && searchResults.length > 0 ? (
-            <View style={{ height: 500, width: "100%" }} />
-          ) : null}
-        </ScrollView>
-
-        <ScrollView>
-          {exercises.map((item, index) => {
-            return (
-              <View
-                key={index}
-                style={{
-                  width: "100%",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  backgroundColor: colours.secondary,
-                  borderColor: colours.accent,
-                  position: "relative",
-                  padding: 5,
-                }}
-              >
-                <Text
-                  style={{
-                    flex: 3,
-                    padding: 10,
-                    fontSize: 25,
-                    color: colours.text,
-                  }}
-                >
-                  {item.name}
-                </Text>
-                <Button
-                  icon={"delete"}
-                  style={{ paddingHorizontal: 10, flex: 1 }}
-                  iconColor={colours.primary}
-                  onPress={() => {
-                    deleteExercise(index);
-                  }}
-                />
-                <View
-                  style={{
-                    height: 2,
-                    left: "4%",
-                    bottom: "0%",
-                    width: "90%",
-                    borderRadius: 10,
-                    position: "absolute",
-                    backgroundColor: colours.accent,
-                  }}
-                />
-              </View>
-            );
-          })}
-          <View style={{ height: 100, width: "100%" }} />
-        </ScrollView>
-      </View>
+      <ExerciseList
+        exercises={exercises}
+        exerciseName={exerciseName}
+        searchResults={searchResults}
+        addToExercices={addToExercices}
+        deleteExercise={deleteExercise}
+        noSearchResults={noSearchResults}
+        handleExerciseNameChange={handleExerciseNameChange}
+      />
     </View>
   );
 }

@@ -1,11 +1,11 @@
-import MainMenuButton from "./MainMenuButton";
+import MenuButton from "./MenuButton";
 
-function MainMenuButtons(props) {
+function MenuButtons(props) {
   const pageKeys = Object.keys(props.pages);
   const filteredPageKeys = pageKeys.filter(
     (item) => item !== props.currentPage
   );
-  
+
   const pageNavigation = (pageName) => {
     props.pageNavigation(pageName);
   };
@@ -14,7 +14,7 @@ function MainMenuButtons(props) {
     <>
       {filteredPageKeys.map((item, index) => {
         return (
-          <MainMenuButton
+          <MenuButton
             offset={index == 0 || index == filteredPageKeys.length - 1}
             key={index}
             page={props.pages[item]}
@@ -27,4 +27,4 @@ function MainMenuButtons(props) {
   );
 }
 
-export default MainMenuButtons;
+export default MenuButtons;

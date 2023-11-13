@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Text, View } from "react-native";
 import Collapsible from "react-native-collapsible";
 
-import Button from "./Button";
-import colours from "../utils/Colours";
+import Button from "../Button";
+import colours from "../../utils/Colours";
 
 function StartExercise(props) {
   const [isCollapsed, setIsCollapsed] = useState(true);

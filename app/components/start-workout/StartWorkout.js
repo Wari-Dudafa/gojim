@@ -11,10 +11,10 @@ import Animated, {
   runOnJS,
 } from "react-native-reanimated";
 
-import Button from "./Button";
-import colours from "../utils/Colours";
+import Button from "../Button";
+import colours from "../../utils/Colours";
 import StartExercise from "./StartExercise";
-import springConfig from "../utils/SpringConfig";
+import springConfig from "../../utils/SpringConfig";
 
 function StartWorkout(props) {
   const zIndex = useSharedValue(0);

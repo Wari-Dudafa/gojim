@@ -1,7 +1,7 @@
-import Button from "./Button";
-import colours from "../utils/Colours";
+import Button from "../Button";
+import colours from "../../utils/Colours";
 
-function MainMenuButton(props) {
+function MenuButton(props) {
   const yOffset = 35;
   const iconSize = 55;
   const smallerIcons = ["plus"];
@@ -35,4 +35,4 @@ function MainMenuButton(props) {
   );
 }
 
-export default MainMenuButton;
+export default MenuButton;

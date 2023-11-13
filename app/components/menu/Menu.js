@@ -7,12 +7,12 @@ import Animated, {
   runOnJS,
 } from "react-native-reanimated";
 
-import Button from "./Button";
-import colours from "../utils/Colours";
-import MainMenuButtons from "./MainMenuButtons";
-import springConfig from "../utils/SpringConfig";
+import Button from "../Button";
+import colours from "../../utils/Colours";
+import MenuButtons from "./MenuButtons";
+import springConfig from "../../utils/SpringConfig";
 
-function MainMenu(props) {
+function Menu(props) {
   const opacity = useSharedValue(0);
   const blackViewHeight = useSharedValue(0);
   const screenWidth = Dimensions.get("window").width;
@@ -88,7 +88,7 @@ function MainMenu(props) {
                 justifyContent: "space-between",
               }}
             >
-              <MainMenuButtons
+              <MenuButtons
                 pageNavigation={props.pageNavigation}
                 currentPage={props.currentPage}
                 pages={props.pages}
@@ -122,4 +122,4 @@ function MainMenu(props) {
   );
 }
 
-export default MainMenu;
+export default Menu;

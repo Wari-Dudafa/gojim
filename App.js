@@ -4,9 +4,9 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 import Database from "./app/backend/Database";
-import MainMenu from "./app/components/MainMenu";
+import Menu from "./app/components/menu/Menu";
 import colours from "./app/utils/Colours";
-import StartWorkout from "./app/components/StartWorkout";
+import StartWorkout from "./app/components/start-workout/StartWorkout";
 import HomePage from "./app/pages/HomePage";
 import NewWorkout from "./app/pages/NewWorkout";
 import PlaceholderPage from "./app/pages/PlaceholderPage";
@@ -37,7 +37,7 @@ export default function App() {
     NewWorkout: {
       name: "NewWorkout",
       icon: "plus",
-      component: <NewWorkout header="New Workout" />,
+      component: <NewWorkout />,
     },
     graphPage: {
       name: "graphPage",
@@ -85,7 +85,7 @@ export default function App() {
           currentWorkout={currentWorkout}
           setCurrentWorkout={setCurrentWorkout}
         />
-        <MainMenu
+        <Menu
           pageNavigation={pageNavigation}
           currentPage={currentPage}
           pages={pages}

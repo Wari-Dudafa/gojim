@@ -10,7 +10,7 @@ import Animated, {
 
 import colours from "../utils/Colours";
 import Workout from "../backend/Workout";
-import Button from "../components/Button";
+import StartBar from "../components/home/StartBar";
 import springConfig from "../utils/SpringConfig";
 
 function HomePage(props) {
@@ -19,7 +19,7 @@ function HomePage(props) {
   const startWorkoutMesssages = ["Start", "🏋🏾🏃🏾"];
   const workoutsProgressBar = useSharedValue("0%");
   const screenWidth = Dimensions.get("window").width;
-  const [currentWorkout, setCurrentWorkout] = useState(0);
+  const [workoutIndex, setWorkoutIndex] = useState(0);
   const autoPlayIntervalProgressBar = useSharedValue("0%");
   const [shoudLoopWorkouts, setShoudLoopWorkouts] = useState(true);
   const [startWorkoutMesssage, setStartWorkoutMessage] = useState(
@@ -39,7 +39,7 @@ function HomePage(props) {
   }, []);
 
   useEffect(() => {
-    updateStartWorkoutMessage(currentWorkout);
+    updateStartWorkoutMessage(workoutIndex);
   }, [props.currentWorkout]);
 
   const updateStartWorkoutMessage = (index) => {
@@ -58,7 +58,7 @@ function HomePage(props) {
     let allNames = "";
 
     if (workouts.length == 0) return allNames;
-    let workout = workouts[currentWorkout];
+    let workout = workouts[workoutIndex];
     let exercisesInWorkout = workout.getExercises();
 
     if (!exercisesInWorkout) return allNames;
@@ -90,6 +90,7 @@ function HomePage(props) {
       >
         Your Workouts
       </Text>
+
       <View style={{ flex: 15, padding: 5 }}>
         <View
           style={{
@@ -118,10 +119,10 @@ function HomePage(props) {
               scrollAnimationDuration={1000}
               autoPlayInterval={autoPlayInterval}
               onSnapToItem={(index) => {
-                runOnJS(setCurrentWorkout)(index);
+                runOnJS(setWorkoutIndex)(index);
                 runOnJS(updateStartWorkoutMessage)(index);
-                let forwardRatio = 0.8; // What fraction of the total time taken is the line coming forward
                 let percentage = parseInt((index / workouts.length) * 100);
+                let forwardRatio = 0.8; // What fraction of the total time taken is the line coming forward
 
                 workoutsProgressBar.value = withSpring(
                   percentage + "%",
@@ -189,78 +190,18 @@ function HomePage(props) {
           </View>
         </View>
       </View>
-      <View style={{ flex: 10, padding: 5 }}>
-        <View
-          style={{
-            flexDirection: "row",
-            flex: 1,
-            padding: 5,
-            paddingHorizontal: 10,
-          }}
-        >
-          <Button
-            style={{
-              backgroundColor: colours.secondary,
-              borderTopLeftRadius: 10,
-              borderBottomLeftRadius: 10,
-              flex: 1,
-              marginRight: 2.5,
-            }}
-            icon={shoudLoopWorkouts ? "lock-open" : "lock"}
-            iconColor={colours.primary}
-            iconSize={40}
-            onPress={() => {
-              setShoudLoopWorkouts(!shoudLoopWorkouts);
-            }}
-          />
-          <Button
-            onPress={() => {
-              if (workouts.length == 0) {
-                Alert.alert("You need to make a workout first");
-              } else {
-                if (props.currentWorkout) {
-                  if (props.currentWorkout.id != workouts[currentWorkout].id) {
-                    Alert.alert(
-                      "Please end your current workout before starting another one"
-                    );
-                  }
-                } else {
-                  props.setCurrentWorkout(workouts[currentWorkout]);
-                }
-              }
-            }}
-            style={{
-              flex: 2,
-              marginHorizontal: 2.5,
-              backgroundColor: colours.secondary,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 30,
-                textAlign: "center",
-                color: colours.text,
-                fontFamily: "quicksand",
-              }}
-            >
-              {startWorkoutMesssage}
-            </Text>
-          </Button>
 
-          <Button
-            iconSize={40}
-            icon={"pencil"}
-            style={{
-              flex: 1,
-              marginLeft: 2.5,
-              borderTopRightRadius: 10,
-              borderBottomRightRadius: 10,
-              backgroundColor: colours.secondary,
-            }}
-            iconColor={colours.primary}
-          />
-        </View>
-      </View>
+      <StartBar
+        workouts={workouts}
+        workoutIndex={workoutIndex}
+        setWorkoutIndex={setWorkoutIndex}
+        currentWorkout={props.currentWorkout}
+        shoudLoopWorkouts={shoudLoopWorkouts}
+        setShoudLoopWorkouts={setShoudLoopWorkouts}
+        setCurrentWorkout={props.setCurrentWorkout}
+        startWorkoutMesssage={startWorkoutMesssage}
+      />
+
       <View style={{ flex: 80, padding: 5 }}>
         <View
           style={{
@@ -318,6 +259,7 @@ function HomePage(props) {
           </View>
         </View>
       </View>
+
       <View style={{ flex: 1, padding: 5 }} />
     </>
   );
