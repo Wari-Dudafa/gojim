@@ -94,18 +94,18 @@ function HomePage(props) {
       <View style={{ flex: 15, padding: 5 }}>
         <View
           style={{
-            flexDirection: "row",
             flex: 1,
             padding: 5,
+            flexDirection: "row",
             paddingHorizontal: 10,
           }}
         >
           <View
             style={{
+              flex: 3,
               marginLeft: 2.5,
               backgroundColor: colours.secondary,
               borderRadius: 10,
-              flex: 3,
               alignItems: "center",
               justifyContent: "center",
               overflow: "hidden",

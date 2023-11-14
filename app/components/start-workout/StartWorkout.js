@@ -19,35 +19,30 @@ import springConfig from "../../utils/SpringConfig";
 function StartWorkout(props) {
   const zIndex = useSharedValue(0);
   const yPosition = useSharedValue(0);
+  const notWorkingOutMessage = "Not working out";
   const [atTheTop, setAtTheTop] = useState(false);
   const screenHeight = Dimensions.get("window").height;
   const top = -screenHeight * 0.85;
-
-  const toggleMenu = () => {
-    if (atTheTop) {
-      yPosition.value = withSpring(0, springConfig, () => {
-        zIndex.value = 0;
-      });
-    } else {
-      yPosition.value = withSpring(top, springConfig);
-      zIndex.value = 10;
-    }
-    runOnJS(setAtTheTop)(!atTheTop);
-  };
+  const swipeThreshold = screenHeight * 0.1;
 
   const pan = Gesture.Pan()
     .onBegin(() => {
       zIndex.value = 10;
     })
     .onChange((event) => {
-      if (!atTheTop) {
+      if (atTheTop) {
+        // Top is already negative
+        yPosition.value = top + event.translationY;
+      } else {
         yPosition.value = event.translationY;
       }
     })
     .onFinalize((event) => {
-      let arg = -event.translationY > screenHeight * 0.1;
-      runOnJS(setAtTheTop)(arg);
-      if (arg) {
+      let atTheBottom = -event.translationY > swipeThreshold;
+      runOnJS(setAtTheTop)(atTheBottom);
+
+      if (atTheBottom) {
+        // Bring it to the top
         yPosition.value = withSpring(top, springConfig);
       } else {
         yPosition.value = withSpring(0, springConfig, () => {
@@ -59,16 +54,16 @@ function StartWorkout(props) {
   return (
     <Animated.View
       style={{
-        backgroundColor: colours.background,
+        zIndex: zIndex,
         width: "100%",
-        height: screenHeight * 1.5,
         position: "absolute",
-        transform: [{ translateY: yPosition }],
         shadowColor: "black",
         shadowOffset: { width: 0, height: -1 },
         shadowOpacity: 0.9,
         shadowRadius: 10,
-        zIndex: zIndex,
+        height: screenHeight * 1.5,
+        transform: [{ translateY: yPosition }],
+        backgroundColor: colours.background,
       }}
     >
       <View
@@ -86,18 +81,37 @@ function StartWorkout(props) {
           }}
         >
           <GestureDetector gesture={pan}>
-            <Text
-              style={{
-                padding: 10,
-                fontFamily: atTheTop ? "quicksand-bold" : "quicksand",
-                fontSize: atTheTop ? 40 : 25,
-                color: atTheTop ? colours.primary : colours.text,
-              }}
-            >
-              {props.currentWorkout
-                ? props.currentWorkout.name
-                : "No workout selected"}
-            </Text>
+            <View>
+              <View
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <View
+                  style={{
+                    width: 50,
+                    height: 7,
+                    borderRadius: 50,
+                    marginVertical: 5,
+                    backgroundColor: colours.primary,
+                  }}
+                />
+              </View>
+              <Text
+                style={{
+                  padding: 10,
+                  fontSize: atTheTop ? 40 : 25,
+                  color: atTheTop ? colours.primary : colours.text,
+                  fontFamily: atTheTop ? "quicksand-bold" : "quicksand",
+                }}
+              >
+                {props.currentWorkout
+                  ? props.currentWorkout.name
+                  : notWorkingOutMessage}
+              </Text>
+            </View>
           </GestureDetector>
         </GestureHandlerRootView>
         {props.currentWorkout ? (
@@ -124,16 +138,6 @@ function StartWorkout(props) {
             }}
           />
         ) : null}
-
-        <Button
-          icon={atTheTop ? "chevron-down" : "chevron-up"}
-          iconSize={atTheTop ? 65 : 50}
-          iconColor={colours.primary}
-          onPress={() => {
-            toggleMenu();
-          }}
-          style={{ paddingLeft: 5 }}
-        />
       </View>
       <ScrollView
         contentContainerStyle={{

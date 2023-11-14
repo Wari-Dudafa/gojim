@@ -32,6 +32,7 @@ function NewWorkout(props) {
         setExercises([]);
         setExerciseName("");
         setSearchResults([]);
+        setNoSearchResults(false);
         Alert.alert("New workout created");
       }
     }
@@ -47,7 +48,9 @@ function NewWorkout(props) {
     } else {
       setSearchResults([]);
     }
-    setNoSearchResults(filteredExerciseNames.length == 0);
+    setNoSearchResults(
+      filteredExerciseNames.length == 0 && exerciseName.length >= 2
+    );
   };
 
   const addToExercices = (name) => {
@@ -68,16 +71,21 @@ function NewWorkout(props) {
     <View>
       <Text
         style={{
-          fontFamily: "quicksand-bold",
-          color: colours.text,
-          fontSize: 40,
           padding: 10,
+          fontSize: 40,
+          color: colours.text,
+          fontFamily: "quicksand-bold",
         }}
       >
         New Workout
       </Text>
 
-      <WorkoutName saveWorkout={saveWorkout} name={name} setName={setName} />
+      <WorkoutName
+        saveWorkout={saveWorkout}
+        name={name}
+        setName={setName}
+        exercises={exercises}
+      />
 
       <ExerciseList
         exercises={exercises}

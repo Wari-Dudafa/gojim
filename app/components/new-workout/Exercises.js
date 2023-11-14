@@ -1,22 +1,28 @@
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, Text, Dimensions } from "react-native";
 
 import Button from "../Button";
+import colours from "../../utils/Colours";
 
 function Exercises(props) {
+  const screenHeight = Dimensions.get("window").height;
+
   return (
-    <ScrollView>
+    <ScrollView
+      style={{
+        maxHeight: screenHeight * 0.6,
+      }}
+    >
       {props.exercises.map((item, index) => {
         return (
           <View
             key={index}
             style={{
+              padding: 5,
               width: "100%",
               flexDirection: "row",
-              justifyContent: "space-between",
-              backgroundColor: colours.secondary,
-              borderColor: colours.accent,
               position: "relative",
-              padding: 5,
+              borderColor: colours.accent,
+              justifyContent: "space-between",
             }}
           >
             <Text
@@ -49,7 +55,7 @@ function Exercises(props) {
           </View>
         );
       })}
-      <View style={{ height: 100, width: "100%" }} />
+      <View style={{ height: 50 }} /> 
     </ScrollView>
   );
 }

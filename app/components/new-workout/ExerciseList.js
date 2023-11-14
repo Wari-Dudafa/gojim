@@ -10,24 +10,26 @@ function ExerciseList(props) {
     <View
       style={{
         marginTop: 10,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
         backgroundColor: colours.secondary,
       }}
     >
       <View
         style={{
+          zIndex: 1,
           shadowColor: "black",
           shadowOpacity: 1,
           shadowRadius: 10,
           backgroundColor: colours.secondary,
           shadowOffset: { width: 0, height: -1 },
-          zIndex: 1,
         }}
       >
         <View
           style={{
+            width: "100%",
             flexDirection: "row",
             justifyContent: "space-between",
-            width: "100%",
           }}
         >
           <TextInput
@@ -35,10 +37,10 @@ function ExerciseList(props) {
             value={props.exerciseName}
             onChangeText={(text) => props.handleExerciseNameChange(text)}
             style={{
+              flex: 3,
               padding: 10,
               fontSize: 30,
               color: colours.text,
-              flex: 3,
             }}
           />
           {props.noSearchResults ? (
