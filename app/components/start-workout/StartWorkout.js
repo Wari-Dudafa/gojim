@@ -38,16 +38,20 @@ function StartWorkout(props) {
       }
     })
     .onFinalize((event) => {
+      let tapThreshold = 5;
       let atTheBottom = -event.translationY > swipeThreshold;
-      runOnJS(setAtTheTop)(atTheBottom);
 
-      if (atTheBottom) {
-        // Bring it to the top
-        yPosition.value = withSpring(top, springConfig);
-      } else {
-        yPosition.value = withSpring(0, springConfig, () => {
-          zIndex.value = 0;
-        });
+      // Make translation positive
+      if (event.translationY * event.translationY > tapThreshold) {
+        runOnJS(setAtTheTop)(atTheBottom);
+        if (atTheBottom) {
+          // Bring it to the top
+          yPosition.value = withSpring(top, springConfig);
+        } else {
+          yPosition.value = withSpring(0, springConfig, () => {
+            zIndex.value = 0;
+          });
+        }
       }
     });
 
@@ -84,7 +88,6 @@ function StartWorkout(props) {
             <View>
               <View
                 style={{
-                  width: "100%",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
@@ -99,45 +102,49 @@ function StartWorkout(props) {
                   }}
                 />
               </View>
-              <Text
-                style={{
-                  padding: 10,
-                  fontSize: atTheTop ? 40 : 25,
-                  color: atTheTop ? colours.primary : colours.text,
-                  fontFamily: atTheTop ? "quicksand-bold" : "quicksand",
-                }}
-              >
-                {props.currentWorkout
-                  ? props.currentWorkout.name
-                  : notWorkingOutMessage}
-              </Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text
+                  style={{
+                    flex: 4,
+                    padding: 10,
+                    fontSize: atTheTop ? 40 : 25,
+                    color: atTheTop ? colours.primary : colours.text,
+                    fontFamily: atTheTop ? "quicksand-bold" : "quicksand",
+                  }}
+                >
+                  {props.currentWorkout
+                    ? props.currentWorkout.name
+                    : notWorkingOutMessage}
+                </Text>
+                {props.currentWorkout ? (
+                  <Button
+                    icon={"stop"}
+                    iconColor={colours.primary}
+                    iconSize={atTheTop ? 60 : 55}
+                    style={{ flex: 1 }}
+                    onPress={() => {
+                      Alert.alert(
+                        "Confirmation",
+                        "Are you finished with your workout?",
+                        [
+                          { text: "No", style: "cancel" },
+                          {
+                            text: "Yes",
+                            style: "destructive",
+                            onPress: () => {
+                              props.setCurrentWorkout(null);
+                            },
+                          },
+                        ],
+                        { cancelable: false }
+                      );
+                    }}
+                  />
+                ) : null}
+              </View>
             </View>
           </GestureDetector>
         </GestureHandlerRootView>
-        {props.currentWorkout ? (
-          <Button
-            icon={"stop"}
-            iconSize={atTheTop ? 55 : 50}
-            iconColor={colours.primary}
-            onPress={() => {
-              Alert.alert(
-                "Confirmation",
-                "Are you finished with your workout?",
-                [
-                  { text: "No", style: "cancel" },
-                  {
-                    text: "Yes",
-                    style: "destructive",
-                    onPress: () => {
-                      props.setCurrentWorkout(null);
-                    },
-                  },
-                ],
-                { cancelable: false }
-              );
-            }}
-          />
-        ) : null}
       </View>
       <ScrollView
         contentContainerStyle={{
