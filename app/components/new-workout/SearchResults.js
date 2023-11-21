@@ -33,6 +33,7 @@ function SearchResults(props) {
                 padding: 10,
                 fontSize: 25,
                 color: colours.text,
+                fontFamily: "quicksand-medium",
               }}
             >
               {item}
@@ -61,7 +62,7 @@ function SearchResults(props) {
         // Render a buffer
         <View
           style={{
-            height: 50,
+            height: 100,
           }}
         />
       ) : null}

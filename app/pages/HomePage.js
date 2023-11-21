@@ -241,10 +241,10 @@ function HomePage(props) {
               <Text
                 style={{
                   padding: 10,
-                  fontFamily: "quicksand",
-                  textAlign: "center",
                   fontSize: 20,
+                  textAlign: "center",
                   color: colours.text,
+                  fontFamily: "quicksand",
                 }}
               >
                 {exercisesInWorkout()}

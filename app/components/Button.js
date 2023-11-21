@@ -72,7 +72,12 @@ function Button(props) {
         {props.children}
 
         {props.text ? (
-          <Text style={[{ color: colours.text }, props.textStyle]}>
+          <Text
+            style={[
+              { color: colours.text, fontFamily: "quicksand-medium" },
+              props.textStyle,
+            ]}
+          >
             {props.text}
           </Text>
         ) : null}

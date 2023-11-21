@@ -50,4 +50,10 @@ export default class Exercise {
       Database.runSQL(statement);
     }
   }
+
+  // I dont know what to call this function yet, but the idea is:
+  // It gets data from your last workout so you can compare to this one
+  async getLastSet(): Promise<Set[]> {
+    return [new Set(1, 1, null)];
+  }
 }

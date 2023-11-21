@@ -31,6 +31,7 @@ function Exercises(props) {
                 padding: 10,
                 fontSize: 25,
                 color: colours.text,
+                fontFamily: "quicksand-medium",
               }}
             >
               {item.name}
@@ -55,7 +56,7 @@ function Exercises(props) {
           </View>
         );
       })}
-      <View style={{ height: 50 }} /> 
+      <View style={{ height: 100 }} />
     </ScrollView>
   );
 }

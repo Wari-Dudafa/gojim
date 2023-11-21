@@ -41,6 +41,7 @@ function ExerciseList(props) {
               padding: 10,
               fontSize: 30,
               color: colours.text,
+              fontFamily: "quicksand-medium",
             }}
           />
           {props.noSearchResults ? (

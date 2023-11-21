@@ -10,7 +10,12 @@ function WorkoutName(props) {
         placeholder="Workout name"
         value={props.name}
         onChangeText={props.setName}
-        style={{ padding: 10, fontSize: 30, color: colours.text }}
+        style={{
+          padding: 10,
+          fontSize: 30,
+          color: colours.text,
+          fontFamily: "quicksand-medium",
+        }}
       />
       {props.name.length > 0 && props.exercises.length > 0 ? (
         <Button

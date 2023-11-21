@@ -12,17 +12,31 @@ function StartExercise(props) {
   return (
     <>
       <View
-        style={{
-          padding: 10,
-          width: "100%",
-          flex: 1,
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
+        style={[
+          {
+            padding: 10,
+            width: "100%",
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            borderColor: colours.accent,
+            borderBottomWidth: 1,
+          },
+          isCollapsed
+            ? null
+            : {
+                zIndex: 1,
+                shadowColor: "black",
+                shadowOpacity: 0.2,
+                shadowRadius: 7,
+                backgroundColor: colours.background,
+                shadowOffset: { width: 0, height: 15 },
+              },
+        ]}
       >
         <Button
           text={props.exercise.name}
-          textStyle={{ fontFamily: "quicksand-medium", fontSize: 20 }}
+          textStyle={{ fontFamily: "quicksand-medium", fontSize: 22 }}
           onPress={() => {
             setIsCollapsed(!isCollapsed);
           }}
@@ -36,12 +50,13 @@ function StartExercise(props) {
         />
       </View>
       <Collapsible
-        renderChildrenCollapsed
         collapsed={isCollapsed}
         style={{
           padding: 10,
-          backgroundColor: colours.secondary,
           width: "100%",
+          borderBottomLeftRadius: 10,
+          borderBottomRightRadius: 10,
+          backgroundColor: colours.secondary,
         }}
       >
         <SetContainer exercise={props.exercise} />
