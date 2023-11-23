@@ -15,27 +15,29 @@ function NewWorkout(props) {
   const [noSearchResults, setNoSearchResults] = useState(false);
 
   const saveWorkout = () => {
-    if (name.length == 0) {
+    if (name.length < 1) {
       Alert.alert("Please type a workout name");
-    } else {
-      if (exercises.length == 0) {
-        Alert.alert("Please add an exercise");
-      } else {
-        let newWorkout = new Workout(name);
-
-        for (let index = 0; index < exercises.length; index++) {
-          let exercise = exercises[index];
-          newWorkout.addExercise(exercise.name, false);
-        }
-
-        setName("");
-        setExercises([]);
-        setExerciseName("");
-        setSearchResults([]);
-        setNoSearchResults(false);
-        Alert.alert("New workout created");
-      }
+      return;
     }
+
+    if (exercises.length < 1) {
+      Alert.alert("Please add an exercise");
+      return;
+    }
+
+    let newWorkout = new Workout(name);
+
+    for (let index = 0; index < exercises.length; index++) {
+      let exercise = exercises[index];
+      newWorkout.addExercise(exercise.name, false);
+    }
+
+    setName("");
+    setExercises([]);
+    setExerciseName("");
+    setSearchResults([]);
+    setNoSearchResults(false);
+    Alert.alert("New workout created");
   };
 
   const handleExerciseNameChange = (text) => {

@@ -13,19 +13,23 @@ export default class Workout {
       // This is not a new workout, get the data for the already exisiting workout
       this.id = config;
 
-      let statement = `SELECT * FROM workouts WHERE id = ${config}`;
+      let statement: string = `SELECT * FROM workouts WHERE id = ${config}`;
       Database.runSQL(statement).then((resultSet: SQLResultSet) => {
         if (resultSet.rows.length > 0) {
           this.name = resultSet.rows._array[0].name;
         }
 
-        let statement = `SELECT * FROM exercises WHERE workout_id = ${this.id}`;
+        let statement: string = `SELECT * FROM exercises WHERE workout_id = ${this.id}`;
 
         // Set the exercises
         Database.runSQL(statement).then((resultSet: SQLResultSet) => {
           if (resultSet.rows.length > 0) {
-            for (let index = 0; index < resultSet.rows._array.length; index++) {
-              let result = resultSet.rows._array[index];
+            for (
+              let index: number = 0;
+              index < resultSet.rows._array.length;
+              index++
+            ) {
+              let result: any = resultSet.rows._array[index];
               this.exercises.push(new Exercise(result.id));
             }
           }
@@ -35,7 +39,7 @@ export default class Workout {
       // This is a new workout, make a new workout
       this.name = config;
 
-      let statement = `INSERT INTO workouts (name) VALUES('${config}')`;
+      let statement: string = `INSERT INTO workouts (name) VALUES('${config}')`;
       Database.runSQL(statement).then((resultSet: SQLResultSet) => {
         this.id = resultSet.insertId;
       });
@@ -43,13 +47,14 @@ export default class Workout {
   }
 
   static async getAllWorkouts(): Promise<Workout[]> {
-    let statement = "SELECT id FROM workouts";
-
-    const resultSet = await Database.runSQL(statement);
-    let results = resultSet.rows._array;
     let returnArray: Workout[] = [];
+    let statement: string = "SELECT id FROM workouts";
+    let resultSet: SQLResultSet = await Database.runSQL(statement);
+    let results: any[] = resultSet.rows._array;
+
     if (resultSet.rows.length == 0) return returnArray;
-    for (let index = 0; index < results.length; index++) {
+
+    for (let index: number = 0; index < results.length; index++) {
       let workout = results[index];
       returnArray.push(new Workout(workout.id));
     }
@@ -69,7 +74,25 @@ export default class Workout {
         timed: timed,
         workoutId: this.id,
       });
-    }, 150);
+    }, 200);
     return exercise;
+  }
+
+  rename(newName: string): void {
+    // Rename this workout
+    let statement: string = `SELECT workouts SET name = ${newName} WHERE id = ${this.id}`;
+    Database.runSQL(statement);
+  }
+
+  delete(): void {
+    // Delete the exercises
+    for (let index: number = 0; index < this.exercises.length; index++) {
+      let exercise: Exercise = this.exercises[index];
+      exercise.delete();
+    }
+
+    // Delete this workout
+    let statement: string = `DELETE FROM workouts WHERE id = ${this.id}`;
+    Database.runSQL(statement);
   }
 }

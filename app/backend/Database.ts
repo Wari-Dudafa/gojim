@@ -51,16 +51,16 @@ export default class Database {
 
   static init(): void {
     // Loop over tables and add them to the database if the dont already exist
-    for (let index = 0; index < this.tables.length; index++) {
+    for (let index: number = 0; index < this.tables.length; index++) {
       let table = this.tables[index];
       this.makeTable(table);
     }
   }
 
   static makeTable(table: table): void {
-    let statement = `CREATE TABLE IF NOT EXISTS ${table.name} (id INTEGER PRIMARY KEY AUTOINCREMENT, `;
+    let statement: string = `CREATE TABLE IF NOT EXISTS ${table.name} (id INTEGER PRIMARY KEY AUTOINCREMENT, `;
 
-    for (let index = 0; index < table.rows.length; index++) {
+    for (let index: number = 0; index < table.rows.length; index++) {
       let final: string;
       let row: row = table.rows[index];
       let rowName: string = row.name;
@@ -79,8 +79,8 @@ export default class Database {
   }
 
   static deleteAllData(): void {
-    for (let index = 0; index < this.tables.length; index++) {
-      let table = this.tables[index];
+    for (let index: number = 0; index < this.tables.length; index++) {
+      let table: table = this.tables[index];
       this.deleteTable(table);
     }
   }

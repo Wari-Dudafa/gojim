@@ -22,10 +22,10 @@ export default class Exercise {
       // This is not a new exercise, get the data for the already exisiting exercise
       this.id = config;
 
-      let statement = `SELECT * FROM exercises WHERE id = ${config}`;
+      let statement: string = `SELECT * FROM exercises WHERE id = ${config}`;
       Database.runSQL(statement).then((resultSet: SQLResultSet) => {
         if (resultSet.rows.length > 0) {
-          let result = resultSet.rows._array;
+          let result: any[] = resultSet.rows._array;
 
           this.name = result[0].name;
           this.workoutId = result[0].workout_id;
@@ -35,20 +35,32 @@ export default class Exercise {
       });
     } else {
       // This is a new exercise, make a new exercise with this number name
-      let bool: number;
+      let timedAsANumber: number;
       this.name = config.name;
       this.timed = config.timed;
       this.workoutId = config.workoutId;
 
       if (config.timed) {
-        bool = 1;
+        timedAsANumber = 1;
       } else {
-        bool = 0;
+        timedAsANumber = 0;
       }
 
-      let statement = `INSERT INTO exercises (name, timed, workout_id) VALUES('${config.name}', ${bool}, ${config.workoutId})`;
+      let statement: string = `INSERT INTO exercises (name, timed, workout_id) VALUES('${config.name}', ${timedAsANumber}, ${config.workoutId})`;
       Database.runSQL(statement);
     }
+  }
+
+  rename(newName: string): void {
+    // Rename this exercise
+    let statement: string = `SELECT exercises SET name = ${newName} WHERE id = ${this.id}`;
+    Database.runSQL(statement);
+  }
+
+  delete(): void {
+    // Delete this exercise
+    let statement: string = `DELETE FROM exercises WHERE id = ${this.id}`;
+    Database.runSQL(statement);
   }
 
   // I dont know what to call this function yet, but the idea is:
