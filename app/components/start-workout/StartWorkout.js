@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { View, Text, Dimensions, Alert, ScrollView } from "react-native";
 import {
-  GestureHandlerRootView,
-  GestureDetector,
   Gesture,
+  GestureDetector,
+  GestureHandlerRootView,
 } from "react-native-gesture-handler";
 import Animated, {
+  runOnJS,
   withSpring,
   useSharedValue,
-  runOnJS,
 } from "react-native-reanimated";
 
 import Button from "../Button";
@@ -58,24 +58,24 @@ function StartWorkout(props) {
   return (
     <Animated.View
       style={{
-        zIndex: zIndex,
         width: "100%",
+        zIndex: zIndex,
+        shadowRadius: 10,
+        shadowOpacity: 0.9,
         position: "absolute",
         shadowColor: "black",
-        shadowOffset: { width: 0, height: -1 },
-        shadowOpacity: 0.9,
-        shadowRadius: 10,
         height: screenHeight * 1.5,
-        transform: [{ translateY: yPosition }],
         backgroundColor: colours.background,
+        transform: [{ translateY: yPosition }],
+        shadowOffset: { width: 0, height: -1 },
       }}
     >
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignContent: "center",
           padding: 5,
+          flexDirection: "row",
+          alignContent: "center",
+          justifyContent: "space-between",
         }}
       >
         <GestureHandlerRootView
@@ -132,7 +132,15 @@ function StartWorkout(props) {
                             text: "Yes",
                             style: "destructive",
                             onPress: () => {
+                              setAtTheTop(false);
                               props.setCurrentWorkout(null);
+                              yPosition.value = withSpring(
+                                0,
+                                springConfig,
+                                () => {
+                                  zIndex.value = 0;
+                                }
+                              );
                             },
                           },
                         ],
