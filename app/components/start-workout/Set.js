@@ -5,8 +5,9 @@ import Animated, {
   runOnJS,
 } from "react-native-reanimated";
 
-import colours from "../../utils/Colours";
+import Input from "./Input";
 import Button from "../Button";
+import colours from "../../utils/Colours";
 import springConfig from "../../utils/SpringConfig";
 
 function Set(props) {
@@ -46,42 +47,10 @@ function Set(props) {
               justifyContent: "space-between",
             }}
           >
-            <Text
-              style={{
-                color: "black",
-                fontFamily: "quicksand",
-                fontSize: 20,
-              }}
-            >
-              {props.setNumber}
-            </Text>
-            <Text
-              style={{
-                color: "black",
-                fontFamily: "quicksand",
-                fontSize: 20,
-              }}
-            >
-              {weight}kg
-            </Text>
-            <Text
-              style={{
-                color: "black",
-                fontFamily: "quicksand",
-                fontSize: 20,
-              }}
-            >
-              {reps} reps
-            </Text>
-            <Text
-              style={{
-                color: "black",
-                fontFamily: "quicksand",
-                fontSize: 20,
-              }}
-            >
-              {weight * reps}J
-            </Text>
+            <Input number={props.setNumber} />
+            <Input number={weight} afterText={"kg"} edit />
+            <Input number={reps} afterText={" reps"} edit />
+            <Input number={reps * weight} afterText={"J"} />
           </View>
         </View>
         <View
@@ -98,42 +67,10 @@ function Set(props) {
               justifyContent: "space-between",
             }}
           >
-            <Text
-              style={{
-                color: colours.text,
-                fontFamily: "quicksand",
-                fontSize: 20,
-              }}
-            >
-              {props.setNumber}
-            </Text>
-            <Text
-              style={{
-                color: colours.text,
-                fontFamily: "quicksand",
-                fontSize: 20,
-              }}
-            >
-              {lastWeight}kg
-            </Text>
-            <Text
-              style={{
-                color: colours.text,
-                fontFamily: "quicksand",
-                fontSize: 20,
-              }}
-            >
-              {lastReps} reps
-            </Text>
-            <Text
-              style={{
-                color: colours.text,
-                fontFamily: "quicksand",
-                fontSize: 20,
-              }}
-            >
-              {lastWeight * lastReps}J
-            </Text>
+            <Input number={props.setNumber} />
+            <Input number={lastWeight} afterText={"kg"} />
+            <Input number={lastReps} afterText={" reps"} />
+            <Input number={lastReps * lastWeight} afterText={"J"} />
           </View>
         </View>
 
@@ -147,7 +84,7 @@ function Set(props) {
             bottom: "-35%",
             borderRadius: 50,
             position: "absolute",
-            backgroundColor: "darkorange",
+            backgroundColor: "coral",
           }}
           onPress={() => {
             opacity.value = withSpring(
